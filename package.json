@@ -1,0 +1,285 @@
+{
+    "name": "mvon",
+    "displayName": "MV# Developer Extension",
+    "description": "MV# Developer Extension",
+    "version": "1.84.0",
+    "publisher": "ongroup",
+    "icon": "images/mvsharp_logo128.ico",
+    "preview": false,
+    "keywords": [
+        "MVON#",
+        "Pick",
+        "BASIC",
+        "MultiValue",
+        "MVsharp",
+        "MV#"
+    ],
+    "engines": {
+        "vscode": "^1.23.0"
+    },
+    "categories": [
+        "Programming Languages",
+        "Linters"
+    ],
+    "homepage": "http://www.ongroup.com",
+    "files": [
+        "C:/Program files (x86)/ONGroup/MVON#/MVON#.d.ts"
+    ],
+    "contributes": {
+        "languages": [
+            {
+                "id": "mvon",
+                "aliases": [
+                    "MVON# Basic",
+                    "mvon"
+                ],
+                "extensions": [
+                    ".bas",
+                    ".",
+                    ""
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "when": "resourceLangId == mvon",
+                    "command": "extension.compileProgram"
+                },
+                {
+                    "when": "resourceLangId == mvon",
+                    "command": "extension.compileDebug"
+                },
+                {
+                    "when": "resourceLangId == mvon",
+                    "command": "extension.catalogProgram"
+                },
+                {
+                    "when": "resourceLangId == MvonFS",
+                    "command": "extension.catalogProgram"
+                }
+            ]
+        },
+        "commands": [
+            {
+                "command": "extension.compileProgram",
+                "title": "Compile Basic Program"
+            },
+            {
+                "command": "extension.compileDebug",
+                "title": "Compile Basic Program with Debug"
+            },
+            {
+                "command": "extension.catalogProgram",
+                "title": "Catalog Basic Program"
+            },
+            {
+                "command": "extension.initialseMVON",
+                "title": "Connect To MVON#"
+            },
+            {
+                "command": "extension.initialiseGateway",
+                "title": "Connect To MVON# Gateway"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "mvon",
+                "scopeName": "source.mvon",
+                "path": "./client/syntaxes/mvon.tmLanguage.json"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "MVON configuration",
+            "properties": {
+                "mvon.gatewayDebug": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "When set to true the MvonGateway will write a log 'gateway.log' to C:\\Temp."
+                },
+                "mvon.margin": {
+                    "scope": "resource",
+                    "type": "number",
+                    "default": 5,
+                    "description": "The number of characters to use as a mergin when formatting."
+                },
+                "mvon.customWords": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "()",
+                    "description": "List of custom words to highlight in a specific color. e.g. (HELLO|WORLD)"
+                },
+                "mvon.customWordColor": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "yellow",
+                    "description": "The color to use when highlighting the custom words."
+                },
+                "mvon.customWordPath": {
+                    "scope": "resource",
+                    "type": "string",
+                    "description": "Path to a file that contains key value pairs for custom words"
+                },
+                "mvon.indent": {
+                    "scope": "resource",
+                    "type": "number",
+                    "default": 3,
+                    "description": "The number of characters to use when indenting code blocks."
+                },
+                "mvon.maxNumberOfProblems": {
+                    "scope": "resource",
+                    "type": "number",
+                    "default": 100,
+                    "description": "Controls the maximum number of problems produced by the server."
+                },
+                "mvon.useCamelCase": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Use Camelcase for Intellisense keywords."
+                },
+                "mvon.ignoreGotoScope": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "The linter will not highlight goto that jump into the middle of loops."
+                },
+                "mvon.remoteCompiling": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Set to true to connect to remote machine and compile programs."
+                },
+                "mvon.remoteHost": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "",
+                    "description": "The host name of the MVON# server."
+                },
+                "mvon.UserName": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "",
+                    "description": "The user name to use to login to the MVON# server."
+                },
+                "mvon.Password": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "",
+                    "description": "The password to use to login to the MVON# server."
+                },
+                "mvon.Account": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "",
+                    "description": "The Account Name to LOGTO on the MVON# Server."
+                },
+                "mvon.AccountPassword": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "",
+                    "description": "The password to use to use for D3/mvBase Logto."
+                },
+                "mvon.remoteDebug": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": "false",
+                    "description": "Set to true when connecting to a Remote MVON# Host."
+                },
+                "mvon.useGateway": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": "false",
+                    "description": "Set to true to connect to the MVON# Gateway."
+                },
+                "mvon.gatewayHost": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "localhost",
+                    "description": "Host Name or IP Address of machine running the gateway."
+                },
+                "mvon.gatewayPort": {
+                    "scope": "resource",
+                    "type": "number",
+                    "default": "9004",
+                    "description": "Port number to use on the MVON# Gateway."
+                },
+                "mvon.formattingEnabled": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Set to false to disable code formatting."
+                },
+                "mvon.additionalFiles": {
+                    "scope": "resource",
+                    "type": "array",
+                    "default": [],
+                    "description": "Additional Files that must be including in the file list."
+                },
+                "mvon.gatewayType": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "",
+                    "description": "The type of host the gateway is connecting to. QM, D3, Universe, Unidata,jBASE or mvBase."
+                },
+                "mvon.homePath": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "c:\\u2\\ud81",
+                    "description": "The home path for Unidata on server. This is only required for Unidata."
+                },
+                "mvon.encoding": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "iso8859-1",
+                    "description": "The encoding to be used on the program."
+                },
+                "mvon.trace.server": {
+                    "scope": "window",
+                    "type": "string",
+                    "enum": [
+                        "off",
+                        "messages",
+                        "verbose"
+                    ],
+                    "default": "off",
+                    "description": "Traces the communication between VSCode and the language server."
+                }
+            }
+        }
+    },
+    "activationEvents": [
+        "*",
+        "onCommand:extension.compileProgram",
+        "onCommand:extension.catalogProgram",
+        "onCommand:extension.compileDebug",
+        "onLanguage:mvon"
+    ],
+    "main": "./client/out/src/extension",
+    "scripts": {
+        "postinstall": "cd server && npm install && cd ../client && npm install && cd ..",
+        "compile": "tsc -p client/tsconfig.json && cd server && npm run installServer && cd .. && tsc -p server/tsconfig.json",
+        "compile:client": "tsc -p client/tsconfig.json",
+        "watch:client": "tsc -w -p client/tsconfig.json",
+        "compile:server": "cd server && npm run installServer && cd .. && tsc -p server/tsconfig.json",
+        "watch:server": "cd server && npm run installServer && cd .. && tsc -w -p server/tsconfig.json"
+    },
+    "devDependencies": {
+        "@types/mocha": "^2.2.48",
+        "@types/node": "^6.14.2",
+        "typescript": "^2.9.2"
+    },
+    "dependencies": {
+        "@types/socket.io": "^1.4.40",
+        "enum-values": "^1.2.1",
+        "fs": "0.0.1-security",
+        "iconv-lite": "^0.4.24",
+        "npm": "^6.5.0",
+        "socket-io": "^1.0.0",
+        "socket-promise": "^1.0.1",
+        "socket.io": "^2.2.0"
+    }
+}
