@@ -1,6 +1,6 @@
 # MVBasic README
 
-This [Visual Studio Code](https://code.visualstudio.com/) extension is used for syntax highlighting, IntelliSense and program formating for PickBasic code development. We hope this project to sparks a sense of community involvement and action within the MultiValue and Pick Database space and if that is exciting to you, we'd love to have you help out! Please see our [Contribution Guidelines](www.blah.com) and [Code of Conduct](https://github.com/mvextensions/.github/blob/master/CODE_OF_CONDUCT.md) for more information.
+This [Visual Studio Code](https://code.visualstudio.com/) extension is used for syntax highlighting, IntelliSense and program formating for PickBasic code development. We hope this project to sparks a sense of community involvement and action within the MultiValue and Pick Database space and if that is exciting to you, we'd love to have you help out! Please see our [Contribution Guidelines](https://github.com/mvextensions/.github/blob/master/CONTRIBUTING.md) and [Code of Conduct](https://github.com/mvextensions/.github/blob/master/CODE_OF_CONDUCT.md) for more information.
 
 ## Installation
 
