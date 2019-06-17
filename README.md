@@ -26,6 +26,12 @@ This extension includes the following features:
 * Find all References of a word in current program
 * Shows outline of internal subroutines, include files and subroutine calls
 
+## Feedback
+
+* Join the conversation on [Stack Overflow](https://stackoverflow.com/tags/mvextensions)
+* [Report a bug or request a new feature](https://github.com/mvextensions/.github/blob/master/CONTRIBUTING.md)
+* [Weigh in on existing issues](https://github.com/mvextensions/mvbasic/issues)
+
 ## Credit
 
 This extension would not be possible without the hard work by Grant Hart, Perry Stauffer and the rest of the team at [OnGroup][on_group].
