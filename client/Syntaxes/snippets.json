@@ -1,0 +1,63 @@
+{
+	"FOR Loop": {
+		"prefix": "FOR",
+		"body": [
+            "FOR $1 = $2 To $3",
+            "$4",
+            "NEXT $1",
+            "$5"
+		],
+		"description": "Standard FOR Loop"
+    },
+    "CASE Statement": {
+		"prefix": "BEGIN",
+		"body": [
+            "BEGIN CASE",
+            "\tCASE $1",
+            "\t\t$2",
+            "END CASE",
+            "$3"
+		],
+        "description": "Standard CASE Block"
+    },
+    "READ Statement": {
+		"prefix": "READ",
+		"body": [
+            "READ $1 FROM $2 , $3 THEN",
+            "\t$4",
+            "END ELSE",
+            "$5",
+            "END"
+		],
+        "description": "Standard CASE Block"
+    },
+    "SUBROUTINE Skeleton": {
+		"prefix": "SUB",
+		"body": [
+            "SUBROUTINE $1($2)",
+            "*-----",
+            "* Description : $3",
+            "* Author      : $4",
+            "* Date        : $5",
+            "*-----",
+            "     \\$INCLUDE Common",
+            "*-----",
+            "     Gosub Initialise",
+            "*-----",
+            "      $6",
+            "*-----",
+            "ExitProgram:",
+            "*-----",
+            "     Return",
+            "     End",
+            "*-----",
+            "Initialise:",
+            "*-----",
+            "",
+            "     Return"            
+		],
+        "description": "Standard Subroutine Skeleton"
+    }
+
+    
+}

@@ -153,3 +153,10 @@ Added mvon.customWordPath, file contains key value pair seperated by : for custo
 ### 1.84.0
 Last update crashed the extension. Applied fixes  
 
+### 1.85.0  
+Major features added and architecture changes
+Added Hover Intellisense  
+Intellisense now configurable from a file in Syntaxes/MvLanguage.json
+Snippets added in Syntaxes/snippets.json  
+FileSystemProvider now only REST based. PLease read guide  
+

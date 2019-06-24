@@ -287,7 +287,8 @@ export class NetFile {
         this.NetFileLockStrategy = 1;
         this.NetFileReleaseStrategy = 0;
         this.NetFileBlockingStrategy = 0;
-        this.Record = new DynamicArray();   
+        this.Record = new DynamicArray();  
+        this.FileIsOpen = false; 
     }
     public async Write(){
         let data = this.Record.StringValue().replace(String.fromCharCode(13),'').split(String.fromCharCode(10)).join(String.fromCharCode(254));

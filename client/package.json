@@ -23,7 +23,8 @@
 		"vscode": "^1.23.0"
 	},
 	"categories": [
-		"Programming Languages"
+		"Programming Languages",
+		"Snippets"
 	],
 	"activationEvents": [
 		"*",
@@ -31,12 +32,17 @@
 		"onCommand:extension.compileProgram",
 		"onCommand:extension.catalogProgram",
 		"onCommand:extension.CompileDebug",
-		"onFileSystem:MvonFS",
-		"onFileSystem:GatewayFS",
-		"onCommand:extension.initialseMVON"
+		"onFileSystem:RestFS",
+		"onCommand:extension.initialiseRestFS"
 	],
 	"main": "./out/src/extension",
 	"contributes": {
+		"snippets": [
+			{
+				"language": "mvon",
+				"path": "./Syntaxes/snippets.json"
+			}
+		],
 		"languages": [
 			{
 				"id": "mvon",
@@ -74,6 +80,10 @@
 				"title": "Compile Basic Program"
 			},
 			{
+				"command": "extension.initialiseRestFS",
+				"title": "Connect to MVON# REST FS"
+			},
+			{
 				"command": "extension.compileDebug",
 				"title": "Compile Basic Program with Debug"
 			},
@@ -81,14 +91,10 @@
 				"command": "extension.catalogProgram",
 				"title": "Catalog Basic Program"
 			},
-			{
-				"command": "extension.initialseMVON",
-				"title": "Connect To MVON#"
-			},
-			{
-				"command": "extension.initialiseGateway",
-				"title": "Connect To MVON# Gateway"
-			}
+            {
+                "command": "extension.mvonAdmin",
+                "title": "MVON# Administrator"
+            }
 		],
 		"grammars": [
 			{
@@ -102,10 +108,10 @@
 			"title": "MVON configuration",
 			"properties": {
 				"mvon.gatewayDebug": {
-                    "scope": "resource",
-                    "type": "boolean",
-                    "default": false,
-                    "description": "When set to true the MvonGateway will write a log 'gateway.log' to C:\\Temp."
+					"scope": "resource",
+					"type": "boolean",
+					"default": false,
+					"description": "When set to true the MvonGateway will write a log 'gateway.log' to C:\\Temp."
 				},
 				"mvon.margin": {
 					"scope": "resource",
@@ -116,13 +122,13 @@
 				"mvon.customWords": {
 					"scope": "resource",
 					"type": "string",
-					"default":"()",
+					"default": "()",
 					"description": "List of custom words to highlight in a specific color. e.g. (HELLO|WORLD)"
 				},
 				"mvon.customWordColor": {
 					"scope": "resource",
 					"type": "string",
-					"default":"yellow",
+					"default": "yellow",
 					"description": "The color to use when highlighting the custom words."
 				},
 				"mvon.customWordPath": {
@@ -154,23 +160,17 @@
 					"default": true,
 					"description": "Set to false to disable code formatting."
 				},
-				"mvon.remoteCompiling": {
-					"scope": "resource",
-					"type": "boolean",
-					"default": false,
-					"description": "Set to true to connect to remote machine and compile programs."
-				},
-				"mvon.remoteHost": {
+				"mvon.RemoteHost": {
 					"scope": "resource",
 					"type": "string",
 					"default": "",
-					"description": "The host name of the MVON# server."
+					"description": "The host name of the server."
 				},
 				"mvon.UserName": {
 					"scope": "resource",
 					"type": "string",
 					"default": "",
-					"description": "The user name to use to login to the MVON# server."
+					"description": "The user name to use to login to the server."
 				},
 				"mvon.encoding": {
 					"scope": "resource",
@@ -196,7 +196,7 @@
 					"default": "",
 					"description": "The password to use to use for D3/mvBase Logto."
 				},
-				"mvon.homePath": {
+				"mvon.HomePath": {
 					"scope": "resource",
 					"type": "string",
 					"default": "c:\\u2\\ud81",
@@ -206,37 +206,43 @@
 					"scope": "resource",
 					"type": "string",
 					"default": "",
-					"description": "The Account Name to LOGTO on the MVON# Server."
+					"description": "The Account Name or path on the Server."
 				},
-				"mvon.remoteDebug": {
+				"mvon.AccountPath": {
+					"scope": "resource",
+					"type": "string",
+					"default": "",
+					"description": "The path the Unidata Account. This is only used for Unidata."
+				},
+				"mvon.RemoteDebug": {
 					"scope": "resource",
 					"type": "boolean",
 					"default": "false",
 					"description": "Set to true when connecting to a Remote MVON# Host."
-				},
-				"mvon.gatewayHost": {
-					"scope": "resource",
-					"type": "string",
-					"default": "localhost",
-					"description": "Host Name or IP Address of machine running the gateway."
-				},
-				"mvon.gatewayPort": {
-					"scope": "resource",
-					"type": "number",
-					"default": "9004",
-					"description": "Port number to use on the MVON# Gateway."
-				},
+				},				
 				"mvon.additionalFiles": {
 					"scope": "resource",
 					"type": "array",
 					"default": [],
 					"description": "Additional Files that must be including in the file list."
 				},
-				"mvon.gatewayType": {
+				"mvon.GatewayType": {
 					"scope": "resource",
 					"type": "string",
 					"default": "",
 					"description": "The type of host the gateway is connecting to. QM, D3, Universe, Unidata,jBASE or mvBase."
+				},
+				"mvon.UseGateway": {
+					"scope": "resource",
+					"type": "boolean",
+					"default": false,
+					"description": "Connect to the MV Gateway."
+				},
+				"mvon.RestPath": {
+					"scope": "resource",
+					"type": "string",
+					"default": "http://localhost/mvonrest",
+					"description": "The URL when connecting via the REST FileSystem"
 				},
 				"mvon.trace.server": {
 					"scope": "window",
@@ -260,6 +266,7 @@
 		"postinstall": "node ./node_modules/vscode/bin/install"
 	},
 	"dependencies": {
+		"sync-request": "^6.1.0",
 		"vscode": "^1.1.14",
 		"vscode-languageclient": "^4.1.3"
 	}

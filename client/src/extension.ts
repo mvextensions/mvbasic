@@ -7,28 +7,25 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 
-import NetObjects = require("./NetObjects")
-const MvonFS = require('./MvonFS.js');
-const GatewayFS = require("./GatewayFS.js")
-import MvonGateway = require("./MvonGateway")
+const request = require("sync-request");
+import { RestFS } from "./RestFS"
 
 import { workspace, ExtensionContext } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient';
-import  fs = require('fs')
+import fs = require('fs')
 
 
-var terminal: any;
-var MvonSession: any;
-var UsingGateway: boolean;
+
+
+var UsingRest: Boolean = false;
 
 
 export function activate(context: ExtensionContext) {
 
 	// initialise Remote MVON# FileSystem
-	const MVONFS = new MvonFS.MvonFS();
-	const GATEWAYFS = new GatewayFS.GatewayFS();
-	context.subscriptions.push(vscode.workspace.registerFileSystemProvider('MvonFS', MVONFS, { isCaseSensitive: true }));
-	context.subscriptions.push(vscode.workspace.registerFileSystemProvider('GatewayFS', GATEWAYFS, { isCaseSensitive: true }));
+
+	const RESTFS = new RestFS();
+	context.subscriptions.push(vscode.workspace.registerFileSystemProvider('RestFS', RESTFS, { isCaseSensitive: true }));
 
 
 	// The server is implemented in node
@@ -46,7 +43,7 @@ export function activate(context: ExtensionContext) {
 	// Options to control the language client
 	let clientOptions: LanguageClientOptions = {
 		// Register the server for mvon and remote mvon documents
-		documentSelector: [{ scheme: 'file', language: 'mvon' }, { scheme: 'MvonFS', language: 'mvon' }, { scheme: 'GatewayFS', language: 'mvon' }],
+		documentSelector: [{ scheme: 'file', language: 'mvon' }, { scheme: 'RestFS', language: 'mvon' }],
 		synchronize: {
 			// Synchronize the setting section 'languageServerExample' to the server
 			configurationSection: 'mvon',
@@ -55,40 +52,39 @@ export function activate(context: ExtensionContext) {
 		}
 	}
 
-
-	let RemoteCompile: boolean = vscode.workspace.getConfiguration("mvon").get("remoteCompiling");
-	let RemoteHost: string = vscode.workspace.getConfiguration("mvon").get("remoteHost");
+	let RemoteHost: string = vscode.workspace.getConfiguration("mvon").get("RemoteHost");
 	let UserName: string = vscode.workspace.getConfiguration("mvon").get("UserName");
 	let Password: string = vscode.workspace.getConfiguration("mvon").get("Password");
 	let Account: string = vscode.workspace.getConfiguration("mvon").get("Account")
+	let AccountPath: string = vscode.workspace.getConfiguration("mvon").get("AccountPath")
 	let AccountPassword: string = vscode.workspace.getConfiguration("mvon").get("AccountPassword")
-	let GatewayHost: string = vscode.workspace.getConfiguration("mvon").get("gatewayHost");
-	let GatewayPort: number = vscode.workspace.getConfiguration("mvon").get("gatewayPort");
-	let GatewayType: string = vscode.workspace.getConfiguration("mvon").get("gatewayType");
-	let HomePath: string = vscode.workspace.getConfiguration("mvon").get("homePath");
-	let codePage: string = vscode.workspace.getConfiguration("mvon").get("encoding");
+	let GatewayType: string = vscode.workspace.getConfiguration("mvon").get("GatewayType");
+	let UseGateway: string = vscode.workspace.getConfiguration("mvon").get("UseGateway");
+	//let HomePath: string = vscode.workspace.getConfiguration("mvon").get("homePath");
+	//let codePage: string = vscode.workspace.getConfiguration("mvon").get("encoding");
 	let margin: number = vscode.workspace.getConfiguration("mvon").get("margin");
 	let indent: number = vscode.workspace.getConfiguration("mvon").get("indent");
 	let formattingEnabled: boolean = vscode.workspace.getConfiguration("mvon").get("formattingEnabled");
 	let additionalFiles: any = vscode.workspace.getConfiguration("mvon").get("additionalFiles");
-	let gatewayDebug: any = vscode.workspace.getConfiguration("mvon").get("gatewayDebug");
+	//let gatewayDebug: any = vscode.workspace.getConfiguration("mvon").get("gatewayDebug");
 	let customWordColor: any = vscode.workspace.getConfiguration("mvon").get("customWordColor");
 	let customWordlist: string = vscode.workspace.getConfiguration("mvon").get("customWords");
 	let customWordPath: any = vscode.workspace.getConfiguration("mvon").get("customWordPath");
+	let RestPath: any = vscode.workspace.getConfiguration("mvon").get("RestPath");
+
 	let timeout: NodeJS.Timer | null = null;
 	var customWordDict = new Map();
 
 	if (customWordPath != "") {
 		var contents = fs.readFileSync(customWordPath, 'utf8')
 		customWordlist = "(";
-		var lines = contents.replace('\r','').split('\n');
-		for (let i = 0;i < lines.length;i++)
-		{
+		var lines = contents.replace('\r', '').split('\n');
+		for (let i = 0; i < lines.length; i++) {
 			let parts = lines[i].split(':')
-			customWordDict.set(parts[0].replace("\"","").replace("\"",""),parts[1].replace("\"","").replace("\"",""))
-			customWordlist += parts[0].replace('"','').replace("\"","") + "|";
+			customWordDict.set(parts[0].replace("\"", "").replace("\"", ""), parts[1].replace("\"", "").replace("\"", ""))
+			customWordlist += parts[0].replace('"', '').replace("\"", "") + "|";
 		}
-		customWordlist = customWordlist.substr(0,customWordlist.length-1)+")";
+		customWordlist = customWordlist.substr(0, customWordlist.length - 1) + ")";
 
 	}
 
@@ -96,99 +92,107 @@ export function activate(context: ExtensionContext) {
 
 	// Create the language client and start the client.
 	let disposable = new LanguageClient('mvon', 'MVON# Server', serverOptions, clientOptions).start();
-	let initialiseGateway = vscode.commands.registerCommand('extension.initialiseGateway', async () => {
+
+
+
+
+	let initialiseRestFS = vscode.commands.registerCommand('extension.initialiseRestFS', async () => {
 		// Check we have credentials and server details
-		if (GatewayHost === "") {
-			vscode.window.showInformationMessage('Please configure GatewayHost,GatewayPort,RemoteHost,UserName,Password and Account in Preferences!');
+		let rPath = await vscode.window.showInputBox({ prompt: "Enter or select the REST path ", value: RestPath });
+		if (rPath != undefined) {
+			RestPath = rPath;
+			vscode.workspace.getConfiguration("mvon").update("RestPath", RestPath, false);
+		}
+		if (RestPath === "") {
+			vscode.window.showInformationMessage('Please configure the RESTFul Path in the workspace settings');
 			return;
 		}
-		
+		RESTFS.RestPath = RestPath;
+		RESTFS.RestAccount = Account;
+		if (UseGateway) {
 
-
-
+			// send credentials if we are using the gateway
+			let login = {
+				"ServerIP": RemoteHost,
+				"ServerType": GatewayType,
+				"UserId": UserName,
+				"Password": Password,
+				"AccountName": Account,
+				"AccountPath": AccountPath,
+				"AccountPassword": AccountPassword
+			}
+			var log = request('POST', RestPath + "/login", { json: login });
+			if (log.statusCode != 200) {
+				vscode.window.showInformationMessage('Unable to connect to the REST server. Please check your settings');
+				return;
+			}
+		}
 		// Display a message box to the user
-		vscode.window.showInformationMessage('Connecting to Gateway' + GatewayHost);
-		if (MvonSession === undefined) {
-			vscode.window.showInformationMessage("Connecting to MVON# Gateway");
-			let gateway = new MvonGateway.GatewayController(GatewayHost, GatewayPort);
-			gateway.codePage = "iso8859-1"
-			if (codePage != undefined) {
-				gateway.codePage = codePage;
-			}
-			await gateway.OpenConnection(GatewayType, RemoteHost, UserName, Password, Account, AccountPassword, HomePath, gatewayDebug)
-			if (gateway.HostConnected === false) {
-				vscode.window.showErrorMessage('Error connecting to the Gateway on ' + GatewayHost);
-				return;
-			}
-			if (gateway.Connected === false) {
-				vscode.window.showErrorMessage('Error connecting to the Server on ' + RemoteHost);
-				return;
-			}
-			MvonSession = gateway;
-		}
-		await MvonSession.GetFileList();
-		let fileList = MvonSession.Response.split(String.fromCharCode(1));
-		fileList.forEach(function (element: string) {
-			GATEWAYFS.createDirectory(vscode.Uri.parse('GatewayFS:/' + element + "/"));
-		});
-		if (additionalFiles != "") {
-
-			additionalFiles.forEach(function (element: string) {
-				GATEWAYFS.createDirectory(vscode.Uri.parse('GatewayFS:/' + element + "/"));
-			})
-		}
-		GATEWAYFS.setGateway(MvonSession);
-		UsingGateway = true;
-		vscode.window.showInformationMessage("Connected to Gateway");
-	});
-
-	let initialiseFS = vscode.commands.registerCommand('extension.initialseMVON', async () => {
-		// Check we have credentials and server details
-		if (RemoteHost === "") {
-			vscode.window.showInformationMessage('Please configure RemoteHost,UserName,Password and Account in Preferences!');
+		vscode.window.showInformationMessage('Using REST Path to ' + RestPath);
+		// get a list of files from the server
+		var files = request('GET', RestPath + "/dir/" + Account + "/");
+		if (files.statusCode != 200) {
+			vscode.window.showInformationMessage('Unable to retrieve file list. Please check your settings');
 			return;
 		}
+		var dirList = JSON.parse(files.body);
+		for (let i = 0; i < dirList.Directories.length; i++) {
+			if (dirList.Directories[i].Name.endsWith(".Lib")) {
 
-
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Connecting to ' + RemoteHost);
-		if (MvonSession === undefined) {
-			vscode.window.showInformationMessage("Connecting to MVON# Server");
-			let session = new NetObjects.NetSession(RemoteHost, UserName, Password, Account);
-			await session.Open();
-			MvonSession = session;
-		}
-		MVONFS.setNetObjects(MvonSession);
-		let cmd = MvonSession.CreateCommand();
-		cmd.Command = "SELECT VOC WITH F1 LIKE F... AND F4 LIKE Directory...";
-		await cmd.Execute();
-		let sel = MvonSession.CreateSelectList(0);
-		while (true) {
-			await sel.Next();
-			let id = sel.Response;
-			if (!id.endsWith(".Lib") && id != "") {
-				MVONFS.createDirectory(vscode.Uri.parse('MvonFS:/' + id + '/'));
 			}
-			if (sel.LastRecordRead === true) {
-				break;
+			else {
+				RESTFS.createDirectory(vscode.Uri.parse('RestFS:/' + dirList.Directories[i].Name + '/'));
 			}
-
 		}
-		if (additionalFiles != "") {
-
-			additionalFiles.forEach(function (element: string) {
-				MVONFS.createDirectory(vscode.Uri.parse('MvonFS:/' + element + "/"));
-			})
+		// add any addional files specified in the config
+		for (let i = 0; i < additionalFiles.length; i++) {
+			RESTFS.createDirectory(vscode.Uri.parse('RestFS:/' + additionalFiles[i] + '/'));
 		}
-
-
+		UsingRest = true;
 		vscode.window.showInformationMessage("Connected");
 	});
 
+	let mvonAdmin = vscode.commands.registerCommand('extension.mvonAdmin', async () => {
+
+		// Create and show a new webview
+		const panel = vscode.window.createWebviewPanel(
+			'MVON# Administration', // Identifies the type of the webview. Used internally
+			'MVON# Administrator', // Title of the panel displayed to the user
+			vscode.ViewColumn.One, // Editor column to show the new webview panel in.
+			{
+				enableScripts: true,
+				retainContextWhenHidden: true,
+				enableCommandUris: true,
+
+				// And restric the webview to only loading content from our extension's `media` directory.
+
+				localResourceRoots: [
+
+					vscode.Uri.file(path.join(__dirname, '/../../administrator/')).with({ scheme: 'vscode-resource' })
+				]
+			} // Webview options. More on these later.
+
+		);
+		var filePath = __dirname;
+		filePath = filePath + "/../../administrator/index.html";
+		var admin = fs.readFileSync(filePath, "utf8");
+		// set the RestPath for all calls
+		if (!RestPath.startsWith("http://localhost/mvonrest")) {
+			while (admin.indexOf("http://localhost/mvonrest") > -1) {
+				admin = admin.replace("http://localhost/mvonrest", RestPath)
+			}
+		}
+		panel.webview.html = admin;
+
+	});
+
+
 	// Push the disposable to the context's subscriptions so that the 
 	// client can be deactivated on extension deactivation
+	context.subscriptions.push(mvonAdmin);
 	context.subscriptions.push(disposable);
-	context.subscriptions.push(initialiseFS);
+	context.subscriptions.push(initialiseRestFS);
+
 
 	let compile = vscode.commands.registerCommand('extension.compileProgram', async () => {
 		let filePath = vscode.window.activeTextEditor.document.fileName
@@ -200,62 +204,21 @@ export function activate(context: ExtensionContext) {
 		let fileName = parts[parts.length - 1]
 		let programFile = parts[parts.length - 2]
 
-		if (UsingGateway) {
-			await MvonSession.Execute("BASIC " + programFile + " " + fileName)
-			let response = MvonSession.Response.split(String.fromCharCode(253))
-			let message = ""
-			for (let i = 0; i < response.length; i++) {
-				message += response[i] + "  \r\n"
-			}
-			vscode.window.showInformationMessage(message);
-			return;
-		}
+		if (UsingRest) {
+			var compile = request('GET', RestPath + "/compile/" + Account + "/" + programFile + "/" + fileName+"/")
 
-		if (RemoteCompile === true) {
-
-			if (MvonSession === undefined) {
-				vscode.window.showInformationMessage("Connecting to MVON# Server");
-				let session = new NetObjects.NetSession(RemoteHost, UserName, Password, Account);
-				await session.Open()
-				MvonSession = session
-			}
-
-			let cmd = MvonSession.CreateCommand();
-			cmd.Command = "BASIC " + programFile + " " + fileName
-			await cmd.Execute()
-			let response = cmd.Response.split(String.fromCharCode(253))
-			let message = ""
-			for (let i = 0; i < response.length; i++) {
-				message += response[i] + "\r\n"
-			}
-			let error = message.indexOf("[Line");
-			// extract the line the error occured on
-			// TODO , other flavours
-			if (error > -1) {
-				let lineNo = "";
-				error += 6
-				while (error < message.length) {
-					if (message[error] === "]") { break; }
-					lineNo += message[error];
-					error++;
-				}
-				const editor = vscode.window.activeTextEditor;
-				const position = editor.selection.active;
-				var newPosition = position.with(Number(lineNo) - 1, 0);
-				var newSelection = new vscode.Selection(newPosition, newPosition);
-				editor.selection = newSelection;
-				vscode.window.showErrorMessage(message);
-
+			var response = JSON.parse(compile.body);
+			if (response.Errors.length === 0) {
+				vscode.window.showInformationMessage(response.Result);
 			}
 			else {
-				vscode.window.showInformationMessage(message);
+				vscode.window.showInformationMessage(response.Result);
+				for (let i = 0; i < response.Errors.length; i++) {
+					let errorMsg = "Line    : " + response.Errors[i].LineNo + "  \nError  : " + response.Errors[i].ErrorMessage + "  \nSource : " + response.Errors[i].Source
+					vscode.window.showErrorMessage(response.Result, errorMsg.split("\n")[0], errorMsg.split("\n")[1], errorMsg.split("\n")[2]);
+				}
 			}
-		} else {
-			vscode.window.showInformationMessage('Compiling Program!');
-			if (terminal == null) {
-				terminal = vscode.window.createTerminal("MVON#")
-			}
-			terminal.sendText("BASIC " + programFile + " " + fileName, true)
+			return;
 		}
 	});
 
@@ -268,42 +231,11 @@ export function activate(context: ExtensionContext) {
 		let parts = filePath.split('\\')
 		let fileName = parts[parts.length - 1]
 		let programFile = parts[parts.length - 2]
-
-		if (UsingGateway) {
-			await MvonSession.Execute("CATALOG " + programFile + " " + fileName)
-			let response = MvonSession.Response.split(String.fromCharCode(253))
-			let message = ""
-			for (let i = 0; i < response.length; i++) {
-				message += response[i] + "  \r\n"
-			}
-			vscode.window.showInformationMessage(message);
+		if (UsingRest) {
+			var catalog = request('GET', RestPath + "/catalog/" + Account + "/" + programFile + "/" + fileName+"/")
+			var msg = JSON.parse(catalog.body);
+			vscode.window.showInformationMessage(msg);
 			return;
-		}
-
-		if (RemoteCompile === true) {
-
-			if (MvonSession === undefined) {
-				vscode.window.showInformationMessage("Connecting to MVON# Server");
-				let session = new NetObjects.NetSession(RemoteHost, UserName, Password, Account);
-				await session.Open()
-				MvonSession = session
-			}
-
-			let cmd = MvonSession.CreateCommand();
-			cmd.Command = "CATALOG " + programFile + " " + fileName
-			await cmd.Execute()
-			let response = cmd.Response.split(String.fromCharCode(253))
-			let message = ""
-			for (let i = 0; i < response.length; i++) {
-				message += response[i] + "\r\n"
-			}
-			vscode.window.showInformationMessage(message);
-		} else {
-			vscode.window.showInformationMessage('Cataloging Program!');
-			if (terminal == null) {
-				terminal = vscode.window.createTerminal("MVON#")
-			}
-			terminal.sendText("CATALOG " + programFile + " " + fileName, true)
 		}
 	});
 
@@ -316,52 +248,21 @@ export function activate(context: ExtensionContext) {
 		let parts = filePath.split('\\')
 		let fileName = parts[parts.length - 1]
 		let programFile = parts[parts.length - 2]
+		if (UsingRest) {
+			var compile = request('GET', RestPath + "/compile/" + Account + "/" + programFile + "/" + fileName + "/dg/")
 
-		if (RemoteCompile === true) {
-
-			if (MvonSession === undefined) {
-				vscode.window.showInformationMessage("Connecting to MVON# Server");
-				let session = new NetObjects.NetSession(RemoteHost, UserName, Password, Account);
-				await session.Open()
-				MvonSession = session
-			}
-
-			let cmd = MvonSession.CreateCommand();
-			cmd.Command = "BASIC " + programFile + " " + fileName + " (D"
-			await cmd.Execute()
-			let response = cmd.Response.split(String.fromCharCode(253))
-			let message = ""
-			for (let i = 0; i < response.length; i++) {
-				message += response[i] + "\r\n"
-			}
-			let error = message.indexOf("[Line");
-			// extract the line the error occured on
-			// TODO , other flavours
-			if (error > -1) {
-				let lineNo = "";
-				error += 6
-				while (error < message.length) {
-					if (message[error] === "]") { break; }
-					lineNo += message[error];
-					error++;
-				}
-				const editor = vscode.window.activeTextEditor;
-				const position = editor.selection.active;
-				var newPosition = position.with(Number(lineNo) - 1, 0);
-				var newSelection = new vscode.Selection(newPosition, newPosition);
-				editor.selection = newSelection;
-				vscode.window.showErrorMessage(message);
-
+			var response = JSON.parse(compile.body);
+			if (response.Errors.length === 0) {
+				vscode.window.showInformationMessage(response.Result);
 			}
 			else {
-				vscode.window.showInformationMessage(message);
+				vscode.window.showInformationMessage(response.Result);
+				for (let i = 0; i < response.Errors.length; i++) {
+					let errorMsg = "Line    : " + response.Errors[i].LineNo + "  \nError  : " + response.Errors[i].ErrorMessage + "  \nSource : " + response.Errors[i].Source
+					vscode.window.showErrorMessage(response.Result, errorMsg.split("\n")[0], errorMsg.split("\n")[1], errorMsg.split("\n")[2]);
+				}
 			}
-		} else {
-			vscode.window.showInformationMessage('Compiling Program with Debug');
-			if (terminal == null) {
-				terminal = vscode.window.createTerminal("MVON#")
-			}
-			terminal.sendText("BASIC " + programFile + " " + fileName + " (D", true)
+			return;
 		}
 
 	});
@@ -369,7 +270,6 @@ export function activate(context: ExtensionContext) {
 	context.subscriptions.push(catalog);
 	context.subscriptions.push(compile);
 	context.subscriptions.push(compileDebug);
-	context.subscriptions.push(initialiseGateway);
 
 	vscode.languages.registerDocumentFormattingEditProvider('mvon', {
 		provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
@@ -382,7 +282,7 @@ export function activate(context: ExtensionContext) {
 			let rBlockEndCase = new RegExp("(^end case)", "i")
 			let rBlockEndTransaction = new RegExp("(^end transaction|^end work)", "i")
 			let rBlockAlways = new RegExp("^(for|loop)", "i")
-			let rBlockContinue = new RegExp("(then$|else$|case$|on error$)", "i")
+			let rBlockContinue = new RegExp("(then$|else$|case$|on error$|locked$)", "i")
 			let rBlockEnd = new RegExp("^(end|repeat|next\\s.+)$", "i")
 			let rElseEnd = new RegExp("^(end else\\s.+)", "i")
 			let rLabel = new RegExp("(^[0-9]+\\s)|(^[0-9]+:\\s)|(^[\\w]+:)");
@@ -415,7 +315,9 @@ export function activate(context: ExtensionContext) {
 				lComment.lastIndex = 0;
 				if (lComment.test(line.trim()) === true) {
 					let comment = trailingComment.exec(line.trim());
-					line = line.trim().replace(comment[0], "");
+					if (comment != null) {
+						line = line.trim().replace(comment[0], "");
+					}
 				}
 				// check opening and closing block for types
 				// check block statements
@@ -548,7 +450,7 @@ export function activate(context: ExtensionContext) {
 			const startPos = activeEditor.document.positionAt(match.index);
 			const endPos = activeEditor.document.positionAt(match.index + match[0].length);
 			var hover = customWordDict.get(match[0]);
-			const decoration = { range: new vscode.Range(startPos, endPos), hoverMessage:  hover };
+			const decoration = { range: new vscode.Range(startPos, endPos), hoverMessage: hover };
 			customWords.push(decoration)
 		}
 		activeEditor.setDecorations(customDecoration, customWords);
