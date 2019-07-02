@@ -581,7 +581,7 @@ function validateTextDocument(textDocument: TextDocument): void {
 								end: { line: label.LineNumber, character: label.LabelName.length }
 							}
 						},
-						message: 'Label no referenced in the program'
+						message: 'Label not referenced in the program; consider removing if unnecessary.'
 					}
 				];
 			}
