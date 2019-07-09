@@ -52,10 +52,10 @@ This extension would not be possible without the hard work by Grant Hart, Perry 
 [maint_andy_takacs]: https://github.com/orgs/mvextensions/people/andytakacs
 [maint_charles_barouch]: https://github.com/orgs/mvextensions/people/CharlesBarouch
 [maint_dick_thiot]: https://github.com/orgs/mvextensions/people/dthiot
-[maint_grant_hart]: http://www.ongroup.com
+[maint_grant_hart]: https://github.com/orgs/mvextensions/people/GrantHart
 [maint_mike_wright]: https://github.com/orgs/mvextensions/people/itsxallwater
 [maint_patrick_payne]: https://github.com/orgs/mvextensions/people/patrickp
-[maint_perry_stauffer]: http://www.ongroup.com
+[maint_perry_stauffer]: https://github.com/orgs/mvextensions/people/PerryStauffer
 [maint_pete_schellenbach]: https://github.com/orgs/mvextensions/people/pschellenbach
 [on_group]: http://www.ongroup.com
 [vs_code]: https://code.visualstudio.com/
