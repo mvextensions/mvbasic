@@ -47,6 +47,12 @@ This extension would not be possible without the hard work by Grant Hart, Perry 
 * [@PerryStauffer][maint_perry_stauffer]
 * [@pschellenbach][maint_pete_schellenbach]
 
+## Contributors
+
+* [@andrewcole50](https://github.com/andrewcole50)
+* [@JeffTeter](https://github.com/JeffTeter)
+* [@mikes-zum](https://github.com/mikes-zum)
+
 [code_of_conduct]: https://github.com/mvextensions/.github/blob/master/CODE_OF_CONDUCT.md
 [contribution_guidelines]: https://github.com/mvextensions/.github/blob/master/CONTRIBUTING.md
 [maint_andy_takacs]: https://github.com/orgs/mvextensions/people/andytakacs
