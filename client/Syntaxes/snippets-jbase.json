@@ -9,7 +9,7 @@
   "ABS": {
     "prefix": "ABS",
     "body": [
-      "$math_expression"
+      "ABS($math_expression)"
     ],
     "description": "This function returns the mathematical absolute of the mathematical expression in the argument."
   },
