@@ -12,7 +12,7 @@ import {
 
 
 import fs = require('fs');
-//var intelliList = require("../../client/Syntaxes/MvLanguage.json");
+import * as path from 'path';
 
 // Create a connection for the server. The connection uses Node's IPC as a transport
 let connection: IConnection = createConnection(new IPCMessageReader(process), new IPCMessageWriter(process));
@@ -30,7 +30,7 @@ let useCamelcase = true
 let ignoreGotoScope = false;
 
 
-let shouldSendDiagnosticRelatedInformation: boolean = false;
+let shouldSendDiagnosticRelatedInformation: boolean | undefined = false;
 
 // After the server has started the client sends an initialize request. The server receives
 // in the passed params the rootPath of the workspace plus the client capabilities.
@@ -190,7 +190,9 @@ function validateTextDocument(textDocument: TextDocument): void {
 		// remove trailing comments
 		if (tComment.test(line.trim()) === true) {
 			let comment = tComment.exec(line.trim());
-			line = line.trim().replace(comment[0], "");
+			if (comment !== null) {
+				line = line.trim().replace(comment[0], "");
+			}
 
 		}
 		// remove comments after label
@@ -242,7 +244,13 @@ function validateTextDocument(textDocument: TextDocument): void {
 		}
 		// 10  10:  start: labels
 		if (rLabel.test(line.trim()) === true) {
-			let label = rLabel.exec(line.trim())[0].trim().replace(":", "");
+			let label = "";
+			if (line !== null) {
+				let labels = rLabel.exec(line.trim());
+				if (labels !== null) {
+					label = labels[0].trim().replace(":", "");
+				}
+			}
 			LabelList.push(new Label(label, i, Level, false))
 		}
 		RowLevel[i] = Level
@@ -451,20 +459,26 @@ function validateTextDocument(textDocument: TextDocument): void {
 		// remove trailing comments
 		if (tComment.test(line.trim()) == true) {
 			let comment = tComment.exec(line.trim());
-			line = line.trim().replace(comment[0], "");
+			if (comment !== null) {
+				line = line.trim().replace(comment[0], "");
+			}
 
 		}
 		lComment.lastIndex = 0;
 		if (lComment.test(line.trim()) === true) {
 			let comment = trailingComment.exec(line.trim());
-			line = line.trim().replace(comment[0], "");
+			if (comment !== null) {
+				line = line.trim().replace(comment[0], "");
+			}
 		}
 		// remove any quoted string
 		qStrings.lastIndex = 0;
 		while (qStrings.test(line) == true) {
 			qStrings.lastIndex = 0;
 			let str = qStrings.exec(line);
-			line = line.replace(str[0], "");
+			if (str !== null) {
+				line = line.replace(str[0], "");
+			}
 			qStrings.lastIndex = 0;
 		}
 
@@ -638,7 +652,8 @@ connection.onCompletion((_textDocumentPosition: TextDocumentPositionParams): Com
 	// load new instellisense
 	if (Intellisense === undefined || Intellisense.length == 0) {
 		var filePath = __dirname;	
-		filePath = filePath+"/../Syntaxes/MvLanguage.json";
+		filePath = filePath + path.join('../','../','../','Syntaxes', 'MvLanguage.json');
+		filePath = path.normalize(filePath);
 		var intellisense = fs.readFileSync(filePath,"utf8");
 		var intelliList = JSON.parse(intellisense);	
 		var keywords = intelliList.Language.Keywords;
@@ -847,7 +862,13 @@ connection.onDefinition((params => {
 	for (var i = 0; i < lines.length; i++) {
 		line = lines[i]
 		if (rLabel.test(line.trim()) == true) {
-			let label = rLabel.exec(line.trim())[0].replace(":", "");
+			let label = "";
+			if (line !== null) {
+				let labels = rLabel.exec(line.trim());
+				if (labels !== null) {
+					label = labels[0].trim().replace(":", "");
+				}
+			}
 			if (label == definition) {
 				return Location.create(x, {
 					start: { line: i, character: 0 },
@@ -868,7 +889,7 @@ connection.onDefinition((params => {
 	});
 }));
 connection.onHover((params: TextDocumentPositionParams): Hover | undefined => {
-	if (Intellisense === undefined) { return null;}
+	if (Intellisense === undefined) { return undefined;}
 	let xpos = params.position.character
 	let ypos = params.position.line
 	let lines = currentDocument.split(/\r?\n/g);
@@ -889,8 +910,16 @@ connection.onHover((params: TextDocumentPositionParams): Hover | undefined => {
 	let definition = line.substring(start, xpos)
 	for (let i = 0; i < Intellisense.length; i++) {
 		if (Intellisense[i].label == definition || Intellisense[i].label.toUpperCase() == definition.toUpperCase()) {
-			let detail = Intellisense[i].detail.replace("\r", "").split('\n')
-			let documentation = Intellisense[i].documentation.toString().replace("\r", "").split('\n');
+			let currentDetail = Intellisense[i].detail;
+			let detail: String[] = [];
+			if (currentDetail !== undefined) {
+				detail = currentDetail.replace("\r", "").split('\n');
+			}
+			let currentDocumentation = Intellisense[i].documentation;
+			let documentation: String[] = [];
+			if (currentDocumentation !== undefined) {
+				documentation = currentDocumentation.toString().replace("\r", "").split('\n');
+			}
 			let doc: MarkedString[] = [];
 			for (let i = 0; i < detail.length; i++) {
 				doc.push('```\r\n');
