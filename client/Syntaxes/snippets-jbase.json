@@ -1,0 +1,3360 @@
+{
+  "ALPHA": {
+    "prefix": "ALPHA",
+    "body": [
+      "ALPHA($value)"
+    ],
+    "description": "This function will check that an expression consists entirely of alphabetic characters.\nReturns TRUE or FALSE"
+  },
+  "ABS": {
+    "prefix": "ABS",
+    "body": [
+      "ABS($math_expression)"
+    ],
+    "description": "This function returns the mathematical absolute of the mathematical expression in the argument."
+  },
+  "ASSIGNED": {
+    "prefix": "ASSIGNED",
+    "body": [
+      "ASSIGNED($variable)"
+    ],
+    "description": "The function returns a Boolean TRUE or FALSE result depending on whether or not a variable has an assigned value."
+  },
+  "BREAK": {
+    "prefix": "BREAK",
+    "body": [
+      "BREAK"
+    ],
+    "description": "The statement allows for the configuration of the BREAK statement."
+  },
+  "CALL": {
+    "prefix": "CALL",
+    "body": [
+      "CALL $subroutine_name($arguments)"
+    ],
+    "description": "The statement transfers program execution to an external SUBROUTINE.\nThe @ variant of this statement assumes that subroutine.name is a variable that contains the name of the subroutine to call."
+  },
+  "CALLdotNET": {
+    "prefix": "CALLdotNET",
+    "body": [
+      "CALLdotNET $NameSpaceAndClassName, $methodName, $param SETTING $ret"
+    ],
+    "description": "This command allows BASIC to call any .NET assembly and is useful when using third party applications."
+  },
+  "CALLdotNET On Error": {
+    "prefix": "CALLdotNET",
+    "body": [
+      "CALLdotNET $NameSpaceAndClassName, $methodName, $param SETTING $ret ON ERROR $errStatment"
+    ],
+    "description": "This command allows BASIC to call any .NET assembly and is useful when using third party applications."
+  },
+  "CALLJ": {
+    "prefix": "CALLJ",
+    "body": [
+      "CALLJ $packageAndClassName, $methodName, $param SETTING $ret"
+    ],
+    "description": "The CALLJ command allows BASIC to call a Java method. CALLJ is useful when using third party applications offering a Java API (for example, publish and subscribe, messaging, etc.). "
+  },
+  "CALLJ On Error": {
+    "prefix": "CALLJ",
+    "body": [
+      "CALLJ $packageAndClassName, $methodName, $param SETTING $ret ON ERROR $errStatement"
+    ],
+    "description": "The CALLJ command allows BASIC to call a Java method. CALLJ is useful when using third party applications offering a Java API (for example, publish and subscribe, messaging, etc.). "
+  },
+  "CALLONEXIT": {
+    "prefix": "CALLONEXIT",
+    "body": [
+      "CALLONEXIT($subroutine_name)"
+    ],
+    "description": "The CALLONEXIT function call allows you to specify the name of a SUBROUTINE to call when the program terminates."
+  },
+  "CASE Statement": {
+    "prefix": "BEGIN",
+    "body": [
+      "BEGIN CASE",
+      "\tCASE $1",
+      "\t\t$2",
+      "END CASE"
+    ],
+    "description": "The CASE statement allows the programmer to execute a particular sequence of instructions based upon the results of a series of test expressions."
+  },
+  "CATS": {
+    "prefix": "CATS",
+    "body": [
+      "CATS($DynArr1, $DynArr2)"
+    ],
+    "description": "The CATS function concatenates the corresponding elements in two dynamic arrays. "
+  },
+  "CHAIN": {
+    "prefix": "CHAIN",
+    "body": [
+      "CHAIN $expression"
+    ],
+    "description": "he CHAIN statement exits the current program and transfers process control to the program defined by the expression. Process control will never return to the originating program."
+  },
+  "CHANGE": {
+    "prefix": "CHANGE",
+    "body": [
+      "CHANGE $search TO $replace IN $variable"
+    ],
+    "description": "The CHANGE statement operates on a variable and replaces all occurrences of one string with another."
+  },
+  "CHANGETIMESTAMP": {
+    "prefix": "CHANGETIMESTAMP",
+    "body": [
+      "CHANGETIMESTAMP($Timestamp, $Array)"
+    ],
+    "description": "The CHANGETIMESTAMP function can be used to adjust existing timestamp to return a new timestamp value."
+  },
+  "CHAR": {
+    "prefix": "CHAR",
+    "body": [
+      "CHAR($expression)"
+    ],
+    "description": "The CHAR function returns the ASCII character of its argument."
+  },
+  "CHARS": {
+    "prefix": "CHARS",
+    "body": [
+      "CHARS($DynArr)"
+    ],
+    "description": "The CHARS function accepts a dynamic array of numeric expressions as an argument and returns a dynamic array of corresponding ASCII characters."
+  },
+  "CHDIR": {
+    "prefix": "CHDIR",
+    "body": [
+      "CHDIR($path)"
+    ],
+    "description": "The CHDIR function allows the current working directory, as seen by the process environment, to be changed."
+  },
+  "CLEAR": {
+    "prefix": "CLEAR",
+    "body": [
+      "CLEAR"
+    ],
+    "description": "The CLEAR statement will initialize all the variables to numeric 0. This can be used at any time in the execution of a program."
+  },
+  "CLEARCOMMON": {
+    "prefix": "CLEARCOMMON",
+    "body": [
+      "CLEARCOMMON"
+    ],
+    "description": "The statement initializes all unnamed common variables to a value of zero."
+  },
+  "COMPARE Left Justify": {
+    "prefix": "COMPARE",
+    "body": [
+      "COMPARE ($string1, $string2)"
+    ],
+    "description": "The COMPARE function compares two strings and returns a value indicating whether or not they are equal. "
+  },
+  "COMPARE Right Justify": {
+    "prefix": "COMPARE",
+    "body": [
+      "COMPARE ($string1, $string2, \"R\" )"
+    ],
+    "description": "The COMPARE function compares two strings and returns a value indicating whether or not they are equal. "
+  },
+  "CLEARDATA": {
+    "prefix": "CLEARDATA",
+    "body": [
+      "CLEARDATA"
+    ],
+    "description": "The statement clears data stacked by the DATA statement. "
+  },
+  "CLEARFILE": {
+    "prefix": "CLEARFILE",
+    "body": [
+      "CLEARFILE $variable"
+    ],
+    "description": "The CLEARFILE statement is used to clear all the data from a file previously opened with the OPEN statement."
+  },
+  "CLEARFILE All": {
+    "prefix": "CLEARFILE",
+    "body": [
+      "CLEARFILE $variable SETTING $setvar ON ERROR $statements"
+    ],
+    "description": "The CLEARFILE statement is used to clear all the data from a file previously opened with the OPEN statement."
+  },
+  "CLEARINPUT": {
+    "prefix": "CLEARINPUT",
+    "body": [
+      "CLEARINPUT"
+    ],
+    "description": "The command clears the terminal type-ahead buffer to allow the next INPUT statement to force a response from the user."
+  },
+  "CLEARSELECT": {
+    "prefix": "CLEARSELECT",
+    "body": [
+      "CLEARSELECT $ListName"
+    ],
+    "description": "The CLEARSELECT statement is to clear active select lists."
+  },
+  "CLOSE": {
+    "prefix": "CLOSE",
+    "body": [
+      "CLOSE $variable"
+    ],
+    "description": "The CLOSE statement is used to close an opened file, which is no longer required."
+  },
+  "CONVERT": {
+    "prefix": "CONVERT",
+    "body": [
+      "CONVERT $search TO $replace IN $expression"
+    ],
+    "description": "The CONVERT statement converts one or more characters in a string to their corresponding replacement characters."
+  },
+  "CONVERT Function": {
+    "prefix": "CONVERT",
+    "body": [
+      "CONVERT($expression, $search, $replace)"
+    ],
+    "description": "The CONVERT function is the function form of the CONVERT statement. It performs exactly the same function but may also operate on an expression rather than being restricted to variables."
+  },
+  "COS": {
+    "prefix": "COS",
+    "body": [
+      "COS($expression)"
+    ],
+    "description": "The function calculates the cosine of any angle using floating point arithmetic, then rounds to the PRECISION implied by the jBASE BASIC program, which makes it very accurate."
+  },
+  "COUNT": {
+    "prefix": "COUNT",
+    "body": [
+      "COUNT($expression, $delimiter)"
+    ],
+    "description": "The COUNT function returns the number of times that one string occurs in another."
+  },
+  "COUNTS": {
+    "prefix": "COUNTS",
+    "body": [
+      "COUNTS($dynamic_array, $substring)"
+    ],
+    "description": "This function is useful to count the number of times a substring is repeated in each element of a dynamic array. The result is a new dynamic array whose elements are the counts corresponding to the elements in the dynamic array."
+  },
+  "CRT": {
+    "prefix": "CRT",
+    "body": [
+      "CRT $expression"
+    ],
+    "description": "This statement sends data directly to the terminal, even if a PRINTER ON statement is currently active. "
+  },
+  "CRT @": {
+    "prefix": "CRT",
+    "body": [
+      "CRT @($col, $row):$expression"
+    ],
+    "description": "This statement sends data directly to the terminal, even if a PRINTER ON statement is currently active. "
+  },
+  "DISPLAY": {
+    "prefix": "DISPLAY",
+    "body": [
+      "DISPLAY $expression"
+    ],
+    "description": "This statement sends data directly to the terminal, even if a PRINTER ON statement is currently active. "
+  },
+  "BYTELEN": {
+    "prefix": "BYTELEN",
+    "body": [
+      "BYTELEN($expression)"
+    ],
+    "description": "The BYTELEN function returns the length of the expression as the number of bytes rather than the number of characters."
+  },
+  "DATE": {
+    "prefix": "DATE",
+    "body": [
+      "DATE()"
+    ],
+    "description": "The DATE function returns the date in internal system form. This date is expressed as the number of days since December 31, 1967."
+  },
+  "DCOUNT": {
+    "prefix": "DCOUNT",
+    "body": [
+      "DCOUNT($expression, $delimiter)"
+    ],
+    "description": "This function counts the number of field elements in a string that are separated by a specified delimiter."
+  },
+  "DEBUG": {
+    "prefix": "DEBUG",
+    "body": [
+      "DEBUG"
+    ],
+    "description": "The DEBUG statement causes the executing program to enter the jBASE BASIC debugger. "
+  },
+  "BREAK ON": {
+    "prefix": "BREAK",
+    "body": [
+      "BREAK ON"
+    ],
+    "description": "This is used to turn the break key on in an application."
+  },
+  "BREAK OFF": {
+    "prefix": "BREAK",
+    "body": [
+      "BREAK OFF"
+    ],
+    "description": "This is used to turn the break key off in an application."
+  },
+  "COL1": {
+    "prefix": "COL1",
+    "body": [
+      "COL1()"
+    ],
+    "description": "These functions can be used in conjunction with the FIELD function to determine the character positions 1 position before the location of the last field."
+  },
+  "COL2": {
+    "prefix": "COL2",
+    "body": [
+      "COL2()"
+    ],
+    "description": "These functions can be used in conjunction with the FIELD function to determine the character positions 1 position after the location of the last field."
+  },
+  "CREATE Then": {
+    "prefix": "CREATE",
+    "body": [
+      "CREATE $file_variable THEN",
+      "\t$statements",
+      "END"
+    ],
+    "description": "This statement is intended to create files. It can be useful after an OPENSEQ statement to create a record in a directory file. CREATE creates the record or file if the OPENSEQ statement fails."
+  },
+  "CREATE Else": {
+    "prefix": "CREATE",
+    "body": [
+      "CREATE $file_variable ELSE",
+      "\t$statements",
+      "END"
+    ],
+    "description": "This statement is intended to create files. It can be useful after an OPENSEQ statement to create a record in a directory file. CREATE creates the record or file if the OPENSEQ statement fails."
+  },
+  "CREATE Then/Else": {
+    "prefix": "CREATE",
+    "body": [
+      "CREATE $file_variable THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "This statement is intended to create files. It can be useful after an OPENSEQ statement to create a record in a directory file. CREATE creates the record or file if the OPENSEQ statement fails."
+  },
+  "DATA": {
+    "prefix": "DATA",
+    "body": [
+      "DATA $expression"
+    ],
+    "description": "The DATA statement stacks the series of expressions on a terminal input FIFO stack. Terminal input statements will then treat this data as if entered at the keyboard."
+  },
+  "DECRYPT": {
+    "prefix": "DECRYPT",
+    "body": [
+      "DECRYPT($string, $key, $method)"
+    ],
+    "description": "This function decrypts strings.\nMETHODS:\n\nJBASE_CRYPT_GENERAL General-purpose encryption scheme\nJBASE_CRYPT_AES algorithm (AES256) \nJBASE_CRYPT_AES_BASE64 algorithm (AES256, BASE64 encoded)\nJBASE_CRYPT_ROT13 Simple ROT13 algorithm. (Key not used)\nJBASE_CRYPT_XOR11 XOR MOD11 algorithm. Uses the first character of a key as a seed value.\nJBASE_CRYPT_RC2 RC2 algorithm\nJBASE_CRYPT_DES DES algorithm\nJBASE_CRYPT_3DES Three Key, Triple DES algorithm\nJBASE_CRYPT_BLOWFISH Blowfish algorithm\nJBASE_CRYPT_BASE64 (See below)\n\tBASE64 is not really an encryption method, but more of an encoding. The reason for this is that the output of an encryption often results in a binary string. It allows binary data to be represented as a character string. BASE64 operation is not required but is performed in addition to the primary algorithm. e.g. JBASE_CRYPT_RC2_BASE64\n\tENCRYPT with this method is the same as a DECRYPT with method JBASE_CRYPT_RC2 followed by DECRYPT with method JBASE_CRYPT_BASE64.\n\tDECRYPT with this method is the same as a DECRYPT with method JBASE_CRYPT_BASE64 followed by DECRYPT with method JBASE_CRYPT_RC2.\nJBASE_CRYPT_RC2_BASE64 RC2 algorithm\nJBASE_CRYPT_DES_BASE64 DES algorithm\nJBASE_CRYPT_3DES_BASE64 Triple DES algorithm\nJBASE_CRYPT_BLOWFISH _BASE64 Blowfish algorithm."
+  },
+  "DEFC": {
+    "prefix": "DEFC",
+    "body": [
+      "DEFC $FuncType $FuncName ($ArgTypes)"
+    ],
+    "description": "Use the DEFC statement to declare an external C function to the jBASE BASIC compiler, define its arguments, and return types."
+  },
+  "DEFCE": {
+    "prefix": "DEFCE",
+    "body": [
+      "DEFCE $FuncType $FuncName ($ArgTypes)"
+    ],
+    "description": "The DEFCE statement should be used, rather than the DEFC statement, for calling External C programs, which are pure ‘C’ code and do not use the jBASE library macros and functions."
+  },
+  "DEFFUN": {
+    "prefix": "DEFFUN",
+    "body": [
+      "DEFFUN $FuncName($args)"
+    ],
+    "description": "This statement is used to declare an external jBASE BASIC function to the jBASE BASIC compiler and optionally define its arguments. The statement is used in the program that calls the function."
+  },
+  "ENCRYPT": {
+    "prefix": "ENCRYPT",
+    "body": [
+      "ENCRYPT($string, $key, $method)"
+    ],
+    "description": "This function encrypts strings.\nMETHODS:\n\nJBASE_CRYPT_GENERAL General-purpose encryption scheme\nJBASE_CRYPT_AES algorithm (AES256)\nJBASE_CRYPT_AES_BASE64 algorithm (AES256, BASE64 encoded)\nJBASE_CRYPT_ROT13 Simple ROT13 algorithm. (Key not used)\nJBASE_CRYPT_XOR11 XOR MOD11 algorithm. Uses the first character of a key as a seed value.\nJBASE_CRYPT_RC2 RC2 algorithm\nJBASE_CRYPT_DES DES algorithm\nJBASE_CRYPT_3DES Three Key, Triple DES algorithm\nJBASE_CRYPT_BLOWFISH Blowfish algorithm\nJBASE_CRYPT_BASE64 (See below)\n\tBASE64  is not really an encryption method, but more of an encoding. The reason  for this is that the output of an encryption often results in a binary  string. It allows binary data to be represented as a character string.  BASE64 operation is not required but is performed in addition to the  primary algorithm. e.g. JBASE_CRYPT_RC2_BASE64\n\tENCRYPT with this method is the same as a DECRYPT with method JBASE_CRYPT_RC2  followed by DECRYPT with method JBASE_CRYPT_BASE64.\n\tDECRYPT  with this method is the same as a DECRYPT with method  JBASE_CRYPT_BASE64 followed by DECRYPT with method JBASE_CRYPT_RC2.\nJBASE_CRYPT_RC2_BASE64 RC2 algorithm\nJBASE_CRYPT_DES_BASE64 DES algorithm\nJBASE_CRYPT_3DES_BASE64 Triple DES algorithm\nJBASE_CRYPT_BLOWFISH _BASE64 Blowfish algorithm."
+  },
+  "DEL": {
+    "prefix": "DEL",
+    "body": [
+      "DEL $variable"
+    ],
+    "description": "The DEL statement is used to remove a specified element of a dynamic array."
+  },
+  "DEL Attribute": {
+    "prefix": "DEL",
+    "body": [
+      "DEL $variable<$attr>"
+    ],
+    "description": "The DEL statement is used to remove a specified element of a dynamic array."
+  },
+  "DEL Value": {
+    "prefix": "DEL",
+    "body": [
+      "DEL $variable<$attr, $value>"
+    ],
+    "description": "The DEL statement is used to remove a specified element of a dynamic array."
+  },
+  "DEL SubValue": {
+    "prefix": "DEL",
+    "body": [
+      "DEL $variable<$attr, $value, $subValue>"
+    ],
+    "description": "The DEL statement is used to remove a specified element of a dynamic array."
+  },
+  "DELETELIST": {
+    "prefix": "DELETELIST",
+    "body": [
+      "DELETELIST $expression"
+    ],
+    "description": "The DELETELIST statement will delete the previously stored list named by expression."
+  },
+  "DELETESEQ Then": {
+    "prefix": "DELETESEQ",
+    "body": [
+      "DELETESEQ $expression THEN",
+      "\t$statements",
+      "END"
+    ],
+    "description": "The DELETESEQ statement deletes a sequential file."
+  },
+  "DELETESEQ Else": {
+    "prefix": "DELETESEQ",
+    "body": [
+      "DELETESEQ $expression ELSE",
+      "\t$statements",
+      "END"
+    ],
+    "description": "The DELETESEQ statement deletes a sequential file."
+  },
+  "DELETESEQ Then/Else": {
+    "prefix": "DELETESEQ",
+    "body": [
+      "DELETESEQ $expression THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The DELETESEQ statement deletes a sequential file."
+  },
+  "DELETESEQ All": {
+    "prefix": "DELETESEQ",
+    "body": [
+      "DELETESEQ Expression SETTING $setvar ON ERROR $error_statements LOCKED $lock_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The DELETESEQ statement deletes a sequential file."
+  },
+  "DIV": {
+    "prefix": "DIV",
+    "body": [
+      "DIV($dividend, $divisor)"
+    ],
+    "description": "The DIV function is used to calculate the value of the quotient after division of the dividend by the divisor."
+  },
+  "DIVS": {
+    "prefix": "DIVS",
+    "body": [
+      "DIVS($array1, $array2)"
+    ],
+    "description": "The DIVS function is used to create a dynamic array containing the result of the element-by-element division of two dynamic arrays."
+  },
+  "DOWNCASE": {
+    "prefix": "DOWNCASE",
+    "body": [
+      "DOWNCASE($expression)"
+    ],
+    "description": "DOWNCASE converts all uppercase characters in an expression to lowercase characters."
+  },
+  "LOWCASE": {
+    "prefix": "LOWCASE",
+    "body": [
+      "LOWCASE($expression)"
+    ],
+    "description": "LOWCASE converts all uppercase characters in an expression to lowercase characters."
+  },
+  "UPCASE": {
+    "prefix": "UPCASE",
+    "body": [
+      "UPCASE($expression)"
+    ],
+    "description": "UPCASE converts all lowercase characters in an expression to uppercase characters."
+  },
+  "DROUND": {
+    "prefix": "DROUND",
+    "body": [
+      "DROUND($value)"
+    ],
+    "description": "The DROUND function performs double-precision rounding on a value. Double-precision rounding uses two words to store a number, accommodating a larger number than in single-precision rounding, which stores each number in a single word."
+  },
+  "DROUND Precision": {
+    "prefix": "DROUND",
+    "body": [
+      "DROUND($value, $precision)"
+    ],
+    "description": "The DROUND function performs double-precision rounding on a value. Double-precision rounding uses two words to store a number, accommodating a larger number than in single-precision rounding, which stores each number in a single word."
+  },
+  "DTX": {
+    "prefix": "DTX",
+    "body": [
+      "DTX($expression)"
+    ],
+    "description": "The DTX function will return the hexadecimal representation of a numeric expression."
+  },
+  "ECHO": {
+    "prefix": "ECHO",
+    "body": [
+      "ECHO $expression"
+    ],
+    "description": "The ECHO statement will turn on or off the echoing of characters typed at the keyboard."
+  },
+  "EQS": {
+    "prefix": "EQS",
+    "body": [
+      "EQS($array1, $array2)"
+    ],
+    "description": "The function is used to test if elements of one dynamic array are equal to the elements of another dynamic array."
+  },
+  "EQUATE": {
+    "prefix": "EQUATE",
+    "body": [
+      "EQUATE $symbol TO $expression"
+    ],
+    "description": "EQUATE is used to declare a symbol equivalent to a literal, variable or simple expression."
+  },
+  "EXP": {
+    "prefix": "EXP",
+    "body": [
+      "EXP($expression)"
+    ],
+    "description": "The EXP function returns the mathematical constant to the specified power."
+  },
+  "EXECUTE": {
+    "prefix": "EXECUTE",
+    "body": [
+      "EXECUTE $expression"
+    ],
+    "description": "The EXECUTE or PERFORM statement allows the currently executing program to pause and execute another program. This may be any program, including another jBASE BASIC program or a jBASE command."
+  },
+  "EXECUTE All": {
+    "prefix": "EXECUTE",
+    "body": [
+      "EXECUTE $expression CAPTURING $output RETURNING $errors PASSLIST $listname RTNLIST $variable PASSDATA $variable RTNDATA $variable"
+    ],
+    "description": "The EXECUTE or PERFORM statement allows the currently executing program to pause and execute another program. This may be any program, including another jBASE BASIC program or a jBASE command."
+  },
+  "PERFORM": {
+    "prefix": "PERFORM",
+    "body": [
+      "PERFORM $expression"
+    ],
+    "description": "The EXECUTE or PERFORM statement allows the currently executing program to pause and execute another program. This may be any program, including another jBASE BASIC program or a jBASE command."
+  },
+  "PERFORM All": {
+    "prefix": "PERFORM",
+    "body": [
+      "PERFORM $expression CAPTURING $output RETURNING $errors PASSLIST $listname RTNLIST $variable PASSDATA $variable RTNDATA $variable"
+    ],
+    "description": "The EXECUTE or PERFORM statement allows the currently executing program to pause and execute another program. This may be any program, including another jBASE BASIC program or a jBASE command."
+  },
+  "EXIT": {
+    "prefix": "EXIT",
+    "body": [
+      "EXIT($1)"
+    ],
+    "description": "The EXIT statement halts the execution of a program and returns a numeric exit code to the parent process."
+  },
+  "EXTRACT": {
+    "prefix": "EXTRACT",
+    "body": [
+      "EXTRACT($DynArr, $attr)"
+    ],
+    "description": "The EXTRACT function is an alternative method of accessing values in a dynamic array other than using the <n,n,n> syntax. "
+  },
+  "EXTRACT Value": {
+    "prefix": "EXTRACT",
+    "body": [
+      "EXTRACT($DynArr, $attr, $value)"
+    ],
+    "description": "The EXTRACT function is an alternative method of accessing values in a dynamic array other than using the <n,n,n> syntax. "
+  },
+  "EXTRACT SubValue": {
+    "prefix": "EXTRACT",
+    "body": [
+      "EXTRACT($DynArr, $attr, $value, $subvalue)"
+    ],
+    "description": "The EXTRACT function is an alternative method of accessing values in a dynamic array other than using the <n,n,n> syntax. "
+  },
+  "FADD": {
+    "prefix": "FADD",
+    "body": [
+      "FADD($expression1, $expression2)"
+    ],
+    "description": "This function performs floating point addition of two numeric values. "
+  },
+  "FDIV": {
+    "prefix": "FDIV",
+    "body": [
+      "FDIV($expression1, $expression2)"
+    ],
+    "description": "This function performs floating point division on two numeric values."
+  },
+  "FIELD": {
+    "prefix": "FIELD",
+    "body": [
+      "FIELD($string, $delimiter, $occurrence)"
+    ],
+    "description": "This function returns a multi-character delimited field from within a string."
+  },
+  "FIELD Extract Count": {
+    "prefix": "FIELD",
+    "body": [
+      "FIELD($string, $delimiter, $occurrence, $extractCount)"
+    ],
+    "description": "This function returns a multi-character delimited field from within a string."
+  },
+  "FILELOCK": {
+    "prefix": "FILELOCK",
+    "body": [
+      "FILELOCK filevar LOCKED $lock_statements ON ERROR $error_statements"
+    ],
+    "description": "The FILELOCK statement is used to acquire a lock on an entire file. This prevents other users from updating the file until the program releases it."
+  },
+  "FILEINFO": {
+    "prefix": "FILEINFO",
+    "body": [
+      "FILEINFO($file_variable, $key)"
+    ],
+    "description": "Use the FILEINFO function to return information about the specified file variable."
+  },
+  "FILEUNLOCK": {
+    "prefix": "FILEUNLOCK",
+    "body": [
+      "FILEUNLOCK $file_variable ON ERROR $statements"
+    ],
+    "description": "This statement is used to release a file lock set by the FILELOCK statement."
+  },
+  "FIND": {
+    "prefix": "FIND",
+    "body": [
+      "FIND $expression1 IN $Var1 SETTING $Var2 THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The FIND statement allows the location of a specified string within a dynamic array."
+  },
+  "FINDSTR": {
+    "prefix": "FINDSTR",
+    "body": [
+      "FIND $expression1 IN $Var1 SETTING $Var2 THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The FINDSTR statement locates a string as a substring of a dynamic array element. It is similar in operation to the FIND statement."
+  },
+  "FORMLIST": {
+    "prefix": "FORMLIST",
+    "body": [
+      "FORMLIST $variable1 TO $variable2"
+    ],
+    "description": "The FORMLIST statement creates an active select list from a dynamic array."
+  },
+  "FLUSH": {
+    "prefix": "FLUSH",
+    "body": [
+      "FLUSH $file_variable THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Writes all the buffers for a sequential I/O file immediately. Normally, sequential I/O uses buffering for input/output operations, and writes are not immediately flushed."
+  },
+  "DIR": {
+    "prefix": "DIR",
+    "body": [
+      "DIR($filename)"
+    ],
+    "description": "The DIR() function is used to return information about a file."
+  },
+  "COLLECTDATA": {
+    "prefix": "COLLECTDATA",
+    "body": [
+      "COLLECTDATA $variable"
+    ],
+    "description": "The COLLECTDATA statement is used to retrieve data passed from the PASSDATA clause of an EXECUTE statement."
+  },
+  "COMMON": {
+    "prefix": "COMMON",
+    "body": [
+      "COMMON$1"
+    ],
+    "description": "The COMMON statement declares a list of variables and matrices that can be shared among various programs. There can be many common areas including a default, unnamed common area. The statement takes the general form:"
+  },
+  "DELETE": {
+    "prefix": "DELETE",
+    "body": [
+      "DELETE $variable,$expression"
+    ],
+    "description": "This statement is used to delete a record from a jBASE file."
+  },
+  "DELETE All": {
+    "prefix": "DELETE",
+    "body": [
+      "DELETE $variable,$expression SETTING $setvar ON ERROR $statements"
+    ],
+    "description": "This statement is used to delete a record from a jBASE file."
+  },
+  "GROUP": {
+    "prefix": "GROUP",
+    "body": [
+      "GROUP($subject, $delimiter, $first_field, $num_to_extract)"
+    ],
+    "description": "The GROUP function is equivalent to the FIELD function."
+  },
+  "DELETEU": {
+    "prefix": "DELETEU",
+    "body": [
+      "DELETEU $variable,$expression"
+    ],
+    "description": "The DELETEU statement is used to delete a record without releasing the update record lock set by a previous READU statement."
+  },
+  "DELETEU All": {
+    "prefix": "DELETEU",
+    "body": [
+      "DELETEU $variable,$expression SETTING $setvar ON ERROR $statements"
+    ],
+    "description": "The DELETEU statement is used to delete a record without releasing the update record lock set by a previous READU statement."
+  },
+  "DIM": {
+    "prefix": "DIM",
+    "body": [
+      "DIM $variable($numbers)"
+    ],
+    "description": "The DIM statement is used to declare arrays to the compiler before referencing."
+  },
+  "DYNTOXML": {
+    "prefix": "DYNTOXML",
+    "body": [
+      "DYNTOXML($array, $xsl, $result)"
+    ],
+    "description": "This function converts an array to an xml representation of the array. An optional transform may be included as a second argument."
+  },
+  "EBCDIC": {
+    "prefix": "EBCDIC",
+    "body": [
+      "EBCDIC($expression)"
+    ],
+    "description": "This function converts all the characters in an expression from the ASCII character set to the EBCDIC character set."
+  },
+  "ENTER": {
+    "prefix": "ENTER",
+    "body": [
+      "ENTER $name"
+    ],
+    "description": "The ENTER statement unconditionally passes control to another executable program. "
+  },
+  "FMT": {
+    "prefix": "FMT",
+    "body": [
+      "FMT($var, $code)"
+    ],
+    "description": "This function is useful for formatting data for output, according to a defined mask."
+  },
+  "FSUB": {
+    "prefix": "FSUB",
+    "body": [
+      "FSUB($expression1, $expression2)"
+    ],
+    "description": "The FSUB function performs floating-point subtraction on two numeric values."
+  },
+  "GES": {
+    "prefix": "GES",
+    "body": [
+      "GES($array1, $array2)"
+    ],
+    "description": "The function is used to test if elements of one dynamic array are greater than or equal to corresponding elements of another dynamic array."
+  },
+  "GET": {
+    "prefix": "GET",
+    "body": [
+      "GET $Var,$length SETTING $Count FROM $Device UNTIL $TermChars RETURNING $TermChar WAITING $Timeout THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The GET statement reads a block of data directly from a device."
+  },
+  "GETCWD": {
+    "prefix": "GETCWD",
+    "body": [
+      "GETCWD($Var)"
+    ],
+    "description": "This function returns the current working directory of the program, which is normally the directory in which execution of the program occurred but possibly changed using the CHDIR function."
+  },
+  "GETENV": {
+    "prefix": "GETENV",
+    "body": [
+      "GETENV($expression, $variable)"
+    ],
+    "description": "All processes have an environment associated with them that contains a number of variables indicating the state of various parameters. The GETENV function allows a program to determine the value of any of the environment variables associated with it."
+  },
+  "GETLIST": {
+    "prefix": "GETLIST",
+    "body": [
+      "GETLIST $listname TO $variable1 SETTING $variable2 THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "GETLIST allows the program to retrieve a previously stored list (perhaps created with the SAVE-LIST command), into a variable."
+  },
+  "GETUSERGROUP": {
+    "prefix": "GETUSERGROUP",
+    "body": [
+      "GETUSERGROUP($uid)"
+    ],
+    "description": "For UNIX, the jBC function GETUSERGROUP returns the group number for the user ID specified by @uid."
+  },
+  "GETX": {
+    "prefix": "GETX",
+    "body": [
+      "GETX $Var,$length SETTING $Count FROM $Device UNTIL $TermChars RETURNING $TermChar WAITING $Timeout THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The GETX  statement reads a block of data (in ASCII hexadecimal format) directly from a device. This can take the general form:"
+  },
+  "GOSUB": {
+    "prefix": "GOSUB",
+    "body": [
+      "GOSUB $label"
+    ],
+    "description": "The GOSUB statement causes execution of a local subroutine, after which execution will continue with the next line of code."
+  },
+  "HEADING": {
+    "prefix": "HEADING",
+    "body": [
+      "HEADING $expression"
+    ],
+    "description": "HEADING halts all subsequent output to the terminal at the end of each page. The statement evaluates and displays an expression at the top of each page. Current output sent to the terminal, is paused until entry of a carriage return at the terminal - unless the N option is specified."
+  },
+  "HEADINGE": {
+    "prefix": "HEADINGE",
+    "body": [
+      "HEADINGE $expression"
+    ],
+    "description": "HEADING halts all subsequent output to the terminal at the end of each page. The statement evaluates and displays an expression at the top of each page. Current output sent to the terminal, is paused until entry of a carriage return at the terminal - unless the N option is specified. The HEADINGE statement is the same as the HEADING statement, which causes a page eject with the HEADING statement."
+  },
+  "HEADINGN": {
+    "prefix": "HEADINGN",
+    "body": [
+      "HEADINGN $expression"
+    ],
+    "description": "HEADING halts all subsequent output to the terminal at the end of each page. The statement evaluates and displays an expression at the top of each page. Current output sent to the terminal, is paused until entry of a carriage return at the terminal - unless the N option is specified. The HEADINGN statement is the same as the HEADING statement, and suppresses the page eject."
+  },
+  "HUSH": {
+    "prefix": "HUSH",
+    "body": [
+      "HUSH $expression"
+    ],
+    "description": "The HUSH statement controls character echo of input and output in programs and procs. HUSH also affects output to a COMO file."
+  },
+  "INDEX": {
+    "prefix": "INDEX",
+    "body": [
+      "INDEX($subject, $search, $occurrence)"
+    ],
+    "description": "The INDEX function will return the position of a character or characters within another string."
+  },
+  "ICONV": {
+    "prefix": "ICONV",
+    "body": [
+      "ICONV($subject, $convcode)"
+    ],
+    "description": "The ICONV() function converts data in external form such as dates to their internal form."
+  },
+  "ICONVS": {
+    "prefix": "ICONVS",
+    "body": [
+      "ICONVS($DynArr, $conversion)"
+    ],
+    "description": "This function converts each element of a dynamic array to a specified internal storage format."
+  },
+  "IF Then": {
+    "prefix": "IF",
+    "body": [
+      "IF $1 THEN",
+      "\t$2",
+      "END"
+    ],
+    "description": "IF / THEN"
+  },
+  "IF Then/Else": {
+    "prefix": "IF",
+    "body": [
+      "IF $1 THEN",
+      "\t$2",
+      "END ELSE",
+      "\t$3",
+      "END"
+    ],
+    "description": "IF / ELSE"
+  },
+  "IFS": {
+    "prefix": "IFS",
+    "body": [
+      "IFS($dynamic_array, $true_array, $false_array)"
+    ],
+    "description": "The function returns a dynamic array whose elements are chosen individually from one of two dynamic arrays based on the contents of a third dynamic array."
+  },
+  "INPUTCLEAR": {
+    "prefix": "INPUTCLEAR",
+    "body": [
+      "INPUTCLEAR"
+    ],
+    "description": "The INPUTCLEAR statement clears the type-ahead buffer. It is useful in situations where the user may have pressed the carriage return key several times prior to reaching an INPUT that requires attention."
+  },
+  "INPUTNULL": {
+    "prefix": "INPUTNULL",
+    "body": [
+      "INPUTNULL $expression"
+    ],
+    "description": "The INPUTNULL statement allows the definition of a character that will allow a null input to be seen by the INPUT@ statement."
+  },
+  "INS": {
+    "prefix": "INS",
+    "body": [
+      "INS $expression BEFORE $Var<$attr, $value, $subvalue>"
+    ],
+    "description": "The INS statement allows the insertion of elements into a dynamic array."
+  },
+  "INSERT": {
+    "prefix": "INSERT",
+    "body": [
+      "INSERT($DynArr, $attr, $value, $subvalue; $expression)"
+    ],
+    "description": "INSERT is the function form of the INS statement, with preference given to the use of INS."
+  },
+  "INT": {
+    "prefix": "INT",
+    "body": [
+      "INT($expression)"
+    ],
+    "description": "The INT() function returns the floor of a numeric value."
+  },
+  "ISALPHA": {
+    "prefix": "ISALPHA",
+    "body": [
+      "ISALPHA($expression)"
+    ],
+    "description": "The function will check that the expression consists of entirely alphabetic characters."
+  },
+  "ISALNUM": {
+    "prefix": "ISALNUM",
+    "body": [
+      "ISALNUM($expression)"
+    ],
+    "description": "The function will check that the expression consists of entirely alphanumeric characters."
+  },
+  "ISCNTRL": {
+    "prefix": "ISCNTRL",
+    "body": [
+      "ISCNTRL($expression)"
+    ],
+    "description": "The ISCNTRL() function will check that the expression consists entirely of control characters."
+  },
+  "ISDIGIT": {
+    "prefix": "ISDIGIT",
+    "body": [
+      "ISDIGIT($expression)"
+    ],
+    "description": "The ISDIGIT function will check that the expression consists of entirely numeric characters."
+  },
+  "ISLOWER": {
+    "prefix": "ISLOWER",
+    "body": [
+      "ISLOWER($expression)"
+    ],
+    "description": "The ISLOWER function will check that the expression consists of entirely lower case characters. The function takes the general form: "
+  },
+  "ISPRINT": {
+    "prefix": "ISPRINT",
+    "body": [
+      "ISPRINT($expression)"
+    ],
+    "description": "The ISPRINT function will check that the expression consists of entirely printable characters. This takes the general form: "
+  },
+  "ISSPACE": {
+    "prefix": "ISSPACE",
+    "body": [
+      "ISSPACE($expression)"
+    ],
+    "description": "The ISSPACE() function will check that the expression consists of entirely space type characters. The function takes the general form: "
+  },
+  "ISUPPER": {
+    "prefix": "ISUPPER",
+    "body": [
+      "ISUPPER($expression)"
+    ],
+    "description": "The ISUPPER() function will check that the expression consists of entirely upper case characters. The function takes the general form:"
+  },
+  "INPUT": {
+    "prefix": "INPUT",
+    "body": [
+      "INPUT $var"
+    ],
+    "description": "The INPUT statement allows the program to collect data from the current input device, which will normally be the terminal keyboard but may be stacked input from the same or separate program. The function takes the general form: "
+  },
+  "INPUT @": {
+    "prefix": "INPUT",
+    "body": [
+      "INPUT @($col, $row): $var"
+    ],
+    "description": "The INPUT statement allows the program to collect data from the current input device, which will normally be the terminal keyboard but may be stacked input from the same or separate program. The function takes the general form: "
+  },
+  "INPUT FOR": {
+    "prefix": "INPUT",
+    "body": [
+      "INPUT $var FOR $deciseconds THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The INPUT statement allows the program to collect data from the current input device, which will normally be the terminal keyboard but may be stacked input from the same or separate program. The function takes the general form: "
+  },
+  "INPUT With": {
+    "prefix": "INPUT",
+    "body": [
+      "INPUT $var WITH $delim"
+    ],
+    "description": "The INPUT statement allows the program to collect data from the current input device, which will normally be the terminal keyboard but may be stacked input from the same or separate program. The function takes the general form: "
+  },
+  "IN": {
+    "prefix": "IN",
+    "body": [
+      "IN $var"
+    ],
+    "description": "The IN statement allows the program to receive raw data from the input device, which is normally the terminal keyboard, one character at a time."
+  },
+  "IN For": {
+    "prefix": "IN",
+    "body": [
+      "IN $var FOR $deciseconds THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The IN statement allows the program to receive raw data from the input device, which is normally the terminal keyboard, one character at a time."
+  },
+  "IOCTL": {
+    "prefix": "IOCTL",
+    "body": [
+      "IOCTL($filevar, $command, $parameter)"
+    ],
+    "description": "This is an intrinsic function of the jBASE BASIC language, that behaves in a similar manner to the C function ioctl(). Its purpose is to allow commands to be sent to the database driver for a particular file, and then to receive a reply from the database driver."
+  },
+  "ITYPE": {
+    "prefix": "ITYPE",
+    "body": [
+      "ITYPE($itype)"
+    ],
+    "description": "The ITYPE function returns the value resulting from the evaluation of an I-type expression in a jBASE file dictionary."
+  },
+  "JBASETHREADCreate": {
+    "prefix": "JBASETHREADCreate",
+    "body": [
+      "JBASETHREADCreate($ProgramName, $Arguments, $User, $Handle)"
+    ],
+    "description": "Use the JBASETHREADCreate command to start a new thread."
+  },
+  "JBASETHREADStatus": {
+    "prefix": "JBASETHREADStatus",
+    "body": [
+      "JBASETHREADStatus($ThreadList)"
+    ],
+    "description": "The JBASETHREADStatus command shows the status of all running threads. "
+  },
+  "JQLCOMPILE": {
+    "prefix": "JQLCOMPILE",
+    "body": [
+      "JQLCOMPILE($Statement, $Command, $Options, $Messages)"
+    ],
+    "description": "JQLCOMPILE compiles a jQL statement."
+  },
+  "JQLEXECUTE": {
+    "prefix": "JQLEXECUTE",
+    "body": [
+      "JQLEXECUTE($Statement, $SelectVar)"
+    ],
+    "description": "JQLEXECUTE starts executing a compiled jQL statement."
+  },
+  "JQLFETCH": {
+    "prefix": "JQLFETCH",
+    "body": [
+      "JQLFETCH ($Statement, $ControlVar, $DataVar)"
+    ],
+    "description": "JQLFETCH fetches the next result in a compiled jQL statement."
+  },
+  "JQLGETPROPERTY": {
+    "prefix": "JQLGETPROPERTY",
+    "body": [
+      "JQLGETPROPERTY($PropertyValue, $Statement, $Column, $PropertyName)"
+    ],
+    "description": "Gets the property of a compiled jQL statement."
+  },
+  "JQLPUTPROPERTY": {
+    "prefix": "JQLPUTPROPERTY",
+    "body": [
+      "JQLPUTPROPERTY($PropertyValue, $Statement, $Column, $PropertyName)"
+    ],
+    "description": "JQLPUTPROPERTY sets a property in a compiled jQL statement."
+  },
+  "KEYIN": {
+    "prefix": "KEYIN",
+    "body": [
+      "KEYIN"
+    ],
+    "description": "Use the KEYIN function to read a single character from the input buffer and return it. The function takes the general form: "
+  },
+  "LATIN1": {
+    "prefix": "LATIN1",
+    "body": [
+      "LATIN1($expression)"
+    ],
+    "description": "This function converts a UTF-8 byte sequence into the binary or latin1 equivalent."
+  },
+  "LEFT": {
+    "prefix": "LEFT",
+    "body": [
+      "LEFT($expression, $length)"
+    ],
+    "description": "The LEFT() function extracts a sub-string of a specified length from the beginning of a string."
+  },
+  "LEN": {
+    "prefix": "LEN",
+    "body": [
+      "LEN($expression)"
+    ],
+    "description": "The LEN function returns the character length of the supplied expression."
+  },
+  "LENS": {
+    "prefix": "LENS",
+    "body": [
+      "LENS($dynamic_array)"
+    ],
+    "description": "This function returns a dynamic array of the number of bytes in each element of the dynamic.array."
+  },
+  "LENDP": {
+    "prefix": "LENDP",
+    "body": [
+      "LENDP($expression)"
+    ],
+    "description": "The LENDP function returns the display length of an expression."
+  },
+  "LES": {
+    "prefix": "LES",
+    "body": [
+      "LES($array1, $array2)"
+    ],
+    "description": "The LES() function is used to determine whether elements of one dynamic array are less than or equal to the elements of another dynamic array."
+  },
+  "LN": {
+    "prefix": "LN",
+    "body": [
+      "LN($expression)"
+    ],
+    "description": "The LN() function returns the value of the natural logarithm of the supplied value. The function takes the general form: "
+  },
+  "LOCALDATE": {
+    "prefix": "LOCALDATE",
+    "body": [
+      "LOCALDATE($Timestamp, $TimeZone)"
+    ],
+    "description": "This function returns an internal date using the specified Timestamp and TimeZone combination."
+  },
+  "LOCALTIME": {
+    "prefix": "LOCALTIME",
+    "body": [
+      "LOCALTIME($Timestamp, $TimeZone)"
+    ],
+    "description": "Returns an internal time using the specified Timestamp and TimeZone combination."
+  },
+  "LOCATE": {
+    "prefix": "LOCATE",
+    "body": [
+      "LOCATE $search IN $subject SETTING $returnVar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The LOCATE statement finds the position of an element within a specified dimension of a dynamic array."
+  },
+  "LOCATE Order By": {
+    "prefix": "LOCATE",
+    "body": [
+      "LOCATE $search IN $subject BY $orderBy SETTING $returnVar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The LOCATE statement finds the position of an element within a specified dimension of a dynamic array."
+  },
+  "LOCATE Function": {
+    "prefix": "LOCATE",
+    "body": [
+      "LOCATE($search, subject, $attr, $value; $returnVar) THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The LOCATE statement finds the position of an element within a specified dimension of a dynamic array."
+  },
+  "LOCATE Function Order By": {
+    "prefix": "LOCATE",
+    "body": [
+      "LOCATE($search, subject, $attr, $value; $returnVar; $orderBy) THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The LOCATE statement finds the position of an element within a specified dimension of a dynamic array."
+  },
+  "LOCK": {
+    "prefix": "LOCK",
+    "body": [
+      "LOCK $expression THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The LOCK statement will attempt to set an execution lock thus preventing any other program that respects that lock to wait until this program has released it."
+  },
+  "LOOP While": {
+    "prefix": "LOOP",
+    "body": [
+      "LOOP",
+      "\t$statement1",
+      "WHILE $expression DO",
+      "\t$statement2",
+      "REPEAT"
+    ],
+    "description": "The LOOP construct allows the programmer to specify loops with multiple exit conditions. The construct takes the general form: "
+  },
+  "LOOP Until": {
+    "prefix": "LOOP",
+    "body": [
+      "LOOP",
+      "\t$statement1",
+      "UNTIL $expression DO",
+      "\t$statement2",
+      "REPEAT"
+    ],
+    "description": "The LOOP construct allows the programmer to specify loops with multiple exit conditions. The construct takes the general form: "
+  },
+  "WHILE LOOP (Modern)": {
+    "prefix": "LOOP",
+    "body": [
+      "LOOP WHILE $expression DO",
+      "\t$statement2",
+      "REPEAT"
+    ],
+    "description": "The LOOP construct allows the programmer to specify loops with multiple exit conditions. The construct takes the general form: "
+  },
+  "UNTIL LOOP (Modern)": {
+    "prefix": "LOOP",
+    "body": [
+      "LOOP UNTIL $expression DO",
+      "\t$statement2",
+      "REPEAT"
+    ],
+    "description": "The LOOP construct allows the programmer to specify loops with multiple exit conditions. The construct takes the general form: "
+  },
+  "LOWER": {
+    "prefix": "LOWER",
+    "body": [
+      "LOWER($expression)"
+    ],
+    "description": "The LOWER() function lowers system delimiters in a string to the next lowest delimiter."
+  },
+  "MAKETIMESTAMP": {
+    "prefix": "MAKETIMESTAMP",
+    "body": [
+      "MAKETIMESTAMP($InternalDate, $InternalTime, $TimeZone)"
+    ],
+    "description": "The function generates a timestamp using a combination of internal date, time and timezone. This takes the general form: "
+  },
+  "MAT": {
+    "prefix": "MAT",
+    "body": [
+      "MAT $array = $expression"
+    ],
+    "description": "The MAT command is used to either assign every element in a specified array to a single value or to assign the entire contents of one array to another."
+  },
+  "MATBUILD": {
+    "prefix": "MATBUILD",
+    "body": [
+      "MATBUILD $variable FROM $array, $expression1, $expression2"
+    ],
+    "description": "The MATBUILD statement creates a dynamic array out of a dimensioned array."
+  },
+  "MATBUILD Using": {
+    "prefix": "MATBUILD",
+    "body": [
+      "MATBUILD $variable FROM $array, $expression1, $expression2 USING $delimiter"
+    ],
+    "description": "The MATBUILD statement creates a dynamic array out of a dimensioned array."
+  },
+  "MATCHES": {
+    "prefix": "MATCHES",
+    "body": [
+      "$expression1 MATCHES $expression2"
+    ],
+    "description": "The MATCH or MATCHES function applies pattern matching to an expression."
+  },
+  "MATCHFIELD": {
+    "prefix": "MATCHFIELD",
+    "body": [
+      "MATCHFIELD($string, $pattern, $field)"
+    ],
+    "description": "The function checks a string against a match pattern, as does the MATCH operator, and returns the portion of string that matches the specified field in pattern. "
+  },
+  "MATPARSE": {
+    "prefix": "MATPARSE",
+    "body": [
+      "MATPARSE $array, $expression1, $expression2 FROM $variable1 SETTING $variable2"
+    ],
+    "description": "The MATPARSE statement is used to assign the elements of a matrix from the elements of a dynamic array."
+  },
+  "MATPARSE Using": {
+    "prefix": "MATPARSE",
+    "body": [
+      "MATPARSE $array, $expression1, $expression2 FROM $variable1 USING $expression3 SETTING $variable2"
+    ],
+    "description": "The MATPARSE statement is used to assign the elements of a matrix from the elements of a dynamic array."
+  },
+  "MATREAD": {
+    "prefix": "MATREAD",
+    "body": [
+      "MATREAD $array FROM $expression THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The MATREAD statement allows a record stored in a jBASE file to be read and mapped directly into a dimensioned array."
+  },
+  "MATREAD Setting": {
+    "prefix": "MATREAD",
+    "body": [
+      "MATREAD $array FROM $expression SETTING $setvar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The MATREAD statement allows a record stored in a jBASE file to be read and mapped directly into a dimensioned array."
+  },
+  "MATREAD On Error": {
+    "prefix": "MATREAD",
+    "body": [
+      "MATREAD $array FROM $expression ON ERROR $statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The MATREAD statement allows a record stored in a jBASE file to be read and mapped directly into a dimensioned array."
+  },
+  "MATREAD Locked": {
+    "prefix": "MATREAD",
+    "body": [
+      "MATREAD $array FROM $expression LOCKED $statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The MATREAD statement allows a record stored in a jBASE file to be read and mapped directly into a dimensioned array."
+  },
+  "MATREAD All": {
+    "prefix": "MATREAD",
+    "body": [
+      "MATREAD $array FROM $expression SETTING $setvar  ON ERROR $statements LOCKED $statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The MATREAD statement allows a record stored in a jBASE file to be read and mapped directly into a dimensioned array."
+  },
+  "MATREADU": {
+    "prefix": "MATREADU",
+    "body": [
+      "MATREADU $array FROM $expression THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "This statement allows a record stored in a jBASE file to be read and mapped directly into a dimensioned array. The record will also be locked for update by the program."
+  },
+  "MATREADU All": {
+    "prefix": "MATREADU",
+    "body": [
+      "MATREADU $array FROM $expression SETTING $setvar  ON ERROR $statements LOCKED $statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "This statement allows a record stored in a jBASE file to be read and mapped directly into a dimensioned array. The record will also be locked for update by the program."
+  },
+  "MATWRITE": {
+    "prefix": "MATWRITE",
+    "body": [
+      "MATWRITE $array ON $expression"
+    ],
+    "description": "The MATWRITE statement transfers the entire contents of a dimensioned array to a specified record on disc."
+  },
+  "MATWRITE All": {
+    "prefix": "MATWRITE",
+    "body": [
+      "MATWRITE $array ON $expression SETTING $setvar ON ERROR $statements"
+    ],
+    "description": "The MATWRITE statement transfers the entire contents of a dimensioned array to a specified record on disc."
+  },
+  "MATWRITEU": {
+    "prefix": "MATWRITEU",
+    "body": [
+      "MATWRITEU $array ON $expression"
+    ],
+    "description": "The MATWRITEU statement transfers the entire contents of a dimensioned array to a specified record on file, in the same manner as the MATWRITE statement. An existing record lock will be preserved."
+  },
+  "MATWRITEU All": {
+    "prefix": "MATWRITEU",
+    "body": [
+      "MATWRITEU $array ON $expression SETTING $setvar ON ERROR $statements"
+    ],
+    "description": "The MATWRITEU statement transfers the entire contents of a dimensioned array to a specified record on file, in the same manner as the MATWRITE statement. An existing record lock will be preserved."
+  },
+  "MAXIMUM": {
+    "prefix": "MAXIMUM",
+    "body": [
+      "MAXIMUM($DynArr)"
+    ],
+    "description": "The function returns the element of a dynamic array with the highest numerical value."
+  },
+  "MINIMUM": {
+    "prefix": "MINIMUM",
+    "body": [
+      "MINIMUM($DynArr)"
+    ],
+    "description": "This function returns the element of a dynamic array with the lowest numerical value."
+  },
+  "MOD": {
+    "prefix": "MOD",
+    "body": [
+      "MOD($expression1, $expression2)"
+    ],
+    "description": "The MOD or REM function returns the arithmetic modulo of two numeric expressions."
+  },
+  "REM": {
+    "prefix": "REM",
+    "body": [
+      "REM($expression1, $expression2)"
+    ],
+    "description": "The MOD or REM function returns the arithmetic modulo of two numeric expressions."
+  },
+  "MODS": {
+    "prefix": "MODS",
+    "body": [
+      "MODS($array1, $array2)"
+    ],
+    "description": "The MODS function creates a dynamic array of the remainder after the integer division of corresponding elements of two dynamic arrays."
+  },
+  "MSLEEP": {
+    "prefix": "MSLEEP",
+    "body": [
+      "MSLEEP($milliseconds)"
+    ],
+    "description": "Allows the program to pause execution for a specified number of milliseconds."
+  },
+  "MULS": {
+    "prefix": "MULS",
+    "body": [
+      "MULS($array1, $array2)"
+    ],
+    "description": "The function creates a dynamic array of the element-by-element multiplication of two dynamic arrays."
+  },
+  "NEGS": {
+    "prefix": "NEGS",
+    "body": [
+      "NEGS($DynArr)"
+    ],
+    "description": "This function returns the negative values of all the elements in a dynamic array."
+  },
+  "NES": {
+    "prefix": "NES",
+    "body": [
+      "NES($array1, $array2)"
+    ],
+    "description": "The function is used to determine whether elements of one dynamic array are equal to the elements of another dynamic array."
+  },
+  "NOBUF": {
+    "prefix": "NOBUF",
+    "body": [
+      "NOBUF $file_variable THEN ",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "jBASE can buffer for sequential input and output operations. The NOBUF statement turns off this behavior and causes all writes to the file to be performed immediately. The NOBUF statement should be used in conjunction with a successful OPENSEQ statement and before any input or output is performed on the record."
+  },
+  "NOT": {
+    "prefix": "NOT",
+    "body": [
+      "NOT($expression)"
+    ],
+    "description": "The NOT function is used to invert the Boolean value of an expression. It is useful for explicitly testing for a false condition."
+  },
+  "NOTS": {
+    "prefix": "NOTS",
+    "body": [
+      "NOTS($DynArr)"
+    ],
+    "description": "The function returns a dynamic array of the logical complements of each element of dynamic.array."
+  },
+  "NULL": {
+    "prefix": "NULL",
+    "body": [
+      "NULL"
+    ],
+    "description": "The NULL statement performs no function but can be useful in clarifying syntax and where the language requires a statement but the programmer does not wish to perform any actions."
+  },
+  "NUM": {
+    "prefix": "NUM",
+    "body": [
+      "NUM($expression)"
+    ],
+    "description": "The NUM function is used to test arguments for numeric values."
+  },
+  "NUMS": {
+    "prefix": "NUMS",
+    "body": [
+      "NUMS($DynArr)"
+    ],
+    "description": "The NUMS function is used to determine whether the elements of a dynamic array are numeric or nonnumeric strings. The function takes the general form:"
+  },
+  "CONTINUE": {
+    "prefix": "CONTINUE",
+    "body": [
+      "CONTINUE"
+    ],
+    "description": "The CONTINUE statement is the complimentary statement to the BREAK statement, without arguments. If used within a loop, program execution will skip the remaining code after the ‘continue’ statement in the current iteration and proceed directly on to the next iteration."
+  },
+  "OCONV": {
+    "prefix": "OCONV",
+    "body": [
+      "OCONV($subject, $conversion)"
+    ],
+    "description": "Use the OCONV statement to convert internal representations of data to their external form."
+  },
+  "JBASECOREDUMP": {
+    "prefix": "JBASECOREDUMP",
+    "body": [
+      "JBASECOREDUMP($expression1, $expression2)"
+    ],
+    "description": "This is used as a diagnostic tool for applications, and allows a snapshot of the application to be dumped to an external file for later analysis."
+  },
+  "OCONVS": {
+    "prefix": "OCONVS",
+    "body": [
+      "OCONVS($DynArr, $conversion)"
+    ],
+    "description": "The OCONVS function converts the elements of a dynamic.array to a specified format for external output. "
+  },
+  "OPEN": {
+    "prefix": "OPEN",
+    "body": [
+      "OPEN $filename TO $variable ELSE $else_statements"
+    ],
+    "description": "The OPEN statement opens a file or device to a descriptor variable."
+  },
+  "OPEN Setting": {
+    "prefix": "OPEN",
+    "body": [
+      "OPEN $filename TO $variable SETTING $setvar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The OPEN statement opens a file or device to a descriptor variable."
+  },
+  "OPEN Then/Else": {
+    "prefix": "OPEN",
+    "body": [
+      "OPEN $filename TO $variable THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The OPEN statement opens a file or device to a descriptor variable."
+  },
+  "OSBWRITE": {
+    "prefix": "OSBWRITE",
+    "body": [
+      "OSBWRITE $expression TO $filevar"
+    ],
+    "description": "The OSBWRITE command writes an expression to a sequential file starting at a specified byte location. The command takes the general form:"
+  },
+  "OSBWRITE At": {
+    "prefix": "OSBWRITE",
+    "body": [
+      "OSBWRITE $expression TO $filevar AT $byte_expr"
+    ],
+    "description": "The OSBWRITE command writes an expression to a sequential file starting at a specified byte location. The command takes the general form:"
+  },
+  "OSBWRITE Nodelay": {
+    "prefix": "OSBWRITE",
+    "body": [
+      "OSBWRITE $expression TO $filevar NODELAY"
+    ],
+    "description": "The OSBWRITE command writes an expression to a sequential file starting at a specified byte location. The command takes the general form:"
+  },
+  "OSBWRITE ON ERROR": {
+    "prefix": "OSBWRITE",
+    "body": [
+      "OSBWRITE $expression TO $filevar ON ERROR $statements"
+    ],
+    "description": "The OSBWRITE command writes an expression to a sequential file starting at a specified byte location. The command takes the general form:"
+  },
+  "OSBWRITE All": {
+    "prefix": "OSBWRITE",
+    "body": [
+      "OSBWRITE $expression TO $filevar AT byte_expr NODELAY ON ERROR $statements"
+    ],
+    "description": "The OSBWRITE command writes an expression to a sequential file starting at a specified byte location. The command takes the general form:"
+  },
+  "OPENDEV": {
+    "prefix": "OPENDEV",
+    "body": [
+      "OPENDEV $Device TO $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Opens a device (or file) for sequential writing and/or reading."
+  },
+  "OPENDEV Locked": {
+    "prefix": "OPENDEV",
+    "body": [
+      "OPENDEV $Device TO $filevar LOCKED $lock_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Opens a device (or file) for sequential writing and/or reading."
+  },
+  "OPENINDEX": {
+    "prefix": "OPENINDEX",
+    "body": [
+      "OPENINDEX $filename,$indexname TO $indexvar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The OPENINDEX statement is used to open a particular index definition for a particular file. This index file variable can later be used with the SELECT statement."
+  },
+  "OPENINDEX Setting": {
+    "prefix": "OPENINDEX",
+    "body": [
+      "OPENINDEX $filename,$indexname TO $indexvar SETTING $setvar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The OPENINDEX statement is used to open a particular index definition for a particular file. This index file variable can later be used with the SELECT statement."
+  },
+  "OPENPATH": {
+    "prefix": "OPENPATH",
+    "body": [
+      "OPENPATH $expression1 TO $variable THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The OPENPATH statement opens a file (given an absolute or relative path) to a descriptor variable within jBASE BASIC. "
+  },
+  "OPENPATH Setting": {
+    "prefix": "OPENPATH",
+    "body": [
+      "OPENPATH $expression1 TO $variable SETTING $setvar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The OPENPATH statement opens a file (given an absolute or relative path) to a descriptor variable within jBASE BASIC. "
+  },
+  "OPENSEQ Path": {
+    "prefix": "OPENSEQ",
+    "body": [
+      "OPENSEQ $Path $READONLY TO $FileVar LOCKED $statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Opens a file for sequential writing and/or reading."
+  },
+  "OPENSEQ File": {
+    "prefix": "OPENSEQ",
+    "body": [
+      "OPENSEQ $Path,$File $READONLY TO $FileVar LOCKED $statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Opens a file for sequential writing and/or reading."
+  },
+  "OPENSER": {
+    "prefix": "OPENSER",
+    "body": [
+      "OPENSER $Path,$DevInfo TO $FileVar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The OPENSER statement is used to handle Serial IO. Serial IO to the COM ports on NT and to device files, achieves this on UNIX by  using the sequential file statements. In addition, certain control operations can be performed using the IOCTL function. The OPENSER function takes the general form:"
+  },
+  "ORS": {
+    "prefix": "ORS",
+    "body": [
+      "ORS($array1, $array2)"
+    ],
+    "description": "The ORS function is used to create a dynamic array of the logical OR of corresponding elements of two dynamic arrays."
+  },
+  "OSBREAD": {
+    "prefix": "OSBREAD",
+    "body": [
+      "OSBREAD $var FROM $filevar LENGTH $length_expr"
+    ],
+    "description": "The OSBREAD command reads data from a file starting at a specified byte location for a certain length of bytes, and assigns the data to a variable."
+  },
+  "OSBREAD At": {
+    "prefix": "OSBREAD",
+    "body": [
+      "OSBREAD $var FROM $filevar AT $byte_expr LENGTH $length_expr"
+    ],
+    "description": "The OSBREAD command reads data from a file starting at a specified byte location for a certain length of bytes, and assigns the data to a variable."
+  },
+  "OSBREAD ON ERROR": {
+    "prefix": "OSBREAD",
+    "body": [
+      "OSBREAD $var FROM $filevar LENGTH $length_expr ON ERROR $statements"
+    ],
+    "description": "The OSBREAD command reads data from a file starting at a specified byte location for a certain length of bytes, and assigns the data to a variable."
+  },
+  "OSBREAD All": {
+    "prefix": "OSBREAD",
+    "body": [
+      "OSBREAD $var FROM $filevar AT $byte_expr LENGTH $length_expr ON ERROR $statements"
+    ],
+    "description": "The OSBREAD command reads data from a file starting at a specified byte location for a certain length of bytes, and assigns the data to a variable."
+  },
+  "OSCLOSE": {
+    "prefix": "OSCLOSE",
+    "body": [
+      "OSCLOSE $filevar"
+    ],
+    "description": "The OSCLOSE command closes a sequential file that was previously opened with the OSOPEN or OPENSEQ command. the command takes the general form:"
+  },
+  "OSCLOSE ON ERROR": {
+    "prefix": "OSCLOSE",
+    "body": [
+      "OSCLOSE $filevar ON ERROR $statements"
+    ],
+    "description": "The OSCLOSE command closes a sequential file that was previously opened with the OSOPEN or OPENSEQ command. the command takes the general form:"
+  },
+  "OSDELETE": {
+    "prefix": "OSDELETE",
+    "body": [
+      "OSDELETE $filename"
+    ],
+    "description": "The OSDELETE command deletes a NT or UNIX file."
+  },
+  "OSDELETE ON ERROR": {
+    "prefix": "OSDELETE",
+    "body": [
+      "OSDELETE $filename ON ERROR $statements"
+    ],
+    "description": "The OSDELETE command deletes a NT or UNIX file."
+  },
+  "OSOPEN": {
+    "prefix": "OSOPEN",
+    "body": [
+      "OSOPEN $filename TO $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The OSOPEN command opens a sequential file that does not use CHAR(10) as the line delimiter. The command takes the general form: "
+  },
+  "OSOPEN ON ERROR": {
+    "prefix": "OSOPEN",
+    "body": [
+      "OSOPEN $filename TO $filevar ON ERROR $statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The OSOPEN command opens a sequential file that does not use CHAR(10) as the line delimiter. The command takes the general form: "
+  },
+  "OSREAD": {
+    "prefix": "OSREAD",
+    "body": [
+      "OSREAD $Variable FROM $expression THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Reads an OS file."
+  },
+  "OSREAD ON ERROR": {
+    "prefix": "OSREAD",
+    "body": [
+      "OSREAD $Variable FROM $expression ON ERROR $Statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Reads an OS file."
+  },
+  "OUT": {
+    "prefix": "OUT",
+    "body": [
+      "OUT $expression"
+    ],
+    "description": "The OUT statement is used to send raw characters to the current output device (normally the terminal). The statement takes the general form: "
+  },
+  "PAGE": {
+    "prefix": "PAGE",
+    "body": [
+      "PAGE $expression"
+    ],
+    "description": "Prints any FOOTING statement, throws a PAGE and prints any heading statement on the current output device."
+  },
+  "PAUSE": {
+    "prefix": "PAUSE",
+    "body": [
+      "PAUSE $expression"
+    ],
+    "description": "The PAUSE statement allows processing to be suspended until an external event triggered by a WAKE statement from another process or a timeout occurs. This takes the general form: "
+  },
+  "PRECISION": {
+    "prefix": "PRECISION",
+    "body": [
+      "PRECISION $integer"
+    ],
+    "description": "The PRECISION statement informs jBASE as to the number of digits of precision it uses after the decimal point in numbers."
+  },
+  "PRINT": {
+    "prefix": "PRINT",
+    "body": [
+      "PRINT $expression"
+    ],
+    "description": "The PRINT statement sends data directly to the current output device, which will be either the terminal or the printer."
+  },
+  "PRINTER": {
+    "prefix": "PRINTER",
+    "body": [
+      "PRINTER $ON_OFF_CLOSE"
+    ],
+    "description": "Use the PRINTER statement to control the destination of output from the PRINT statement."
+  },
+  "PRINTERR": {
+    "prefix": "PRINTERR",
+    "body": [
+      "PRINTERR $expression"
+    ],
+    "description": "This function is used to print standard jBASE error messages."
+  },
+  "PROCREAD": {
+    "prefix": "PROCREAD",
+    "body": [
+      "PROCREAD $variable THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "PROCREAD is used to retrieve data passed to programs from a jCL program."
+  },
+  "PROCWRITE": {
+    "prefix": "PROCWRITE",
+    "body": [
+      "PROCWRITE $expression"
+    ],
+    "description": "PROCWRITE is used to pass data back to the primary input buffer of a calling jCL program."
+  },
+  "READBLK": {
+    "prefix": "READBLK",
+    "body": [
+      "READBLK $variable FROM $filevariable, $blocksize THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The READBLK statement is used to read a block of data, of a specified length from a file opened for sequential processing and assigns it to a variable.\nThe READBLK statement reads a block of data beginning at the current position in the file and continuing for blocksize bytes and assigns it to variable. The current position is reset to just beyond the last readable byte."
+  },
+  "PROGRAM": {
+    "prefix": "PROGRAM",
+    "body": [
+      "PROGRAM $progname"
+    ],
+    "description": "PROGRAM performs no function other than to document the source code. It takes the form:"
+  },
+  "PROMPT": {
+    "prefix": "PROMPT",
+    "body": [
+      "PROMPT $expression"
+    ],
+    "description": "Used to change the PROMPT character used by terminal input commands."
+  },
+  "PUTENV": {
+    "prefix": "PUTENV",
+    "body": [
+      "PUTENV($expression)"
+    ],
+    "description": "PUTENV() function is used to set environment variables for the current process."
+  },
+  "PWR": {
+    "prefix": "PWR",
+    "body": [
+      "PWR($expression1, $expression2)"
+    ],
+    "description": "The PWR function raises a number to the n'th power."
+  },
+  "QUOTE": {
+    "prefix": "QUOTE",
+    "body": [
+      "QUOTE($expression)"
+    ],
+    "description": "Will put double quotation marks at the beginning and end of a string. They generally take the form: "
+  },
+  "DQUOTE": {
+    "prefix": "DQUOTE",
+    "body": [
+      "DQUOTE($expression)"
+    ],
+    "description": "Will put double quotation marks at the beginning and end of a string. They generally take the form: "
+  },
+  "SQUOTE": {
+    "prefix": "SQUOTE",
+    "body": [
+      "SQUOTE($expression)"
+    ],
+    "description": "Will put single quotation marks at the beginning and end of a string. They generally take the form: "
+  },
+  "READ": {
+    "prefix": "READ",
+    "body": [
+      "READ $var FROM $filevar,$recordkey THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The READ statement allows a program to read a record from a previously opened file into a variable."
+  },
+  "READ All": {
+    "prefix": "READ",
+    "body": [
+      "READ $var FROM $filevar,$recordkey SETTING $setvar ON ERROR $statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The READ statement allows a program to read a record from a previously opened file into a variable."
+  },
+  "READL": {
+    "prefix": "READL",
+    "body": [
+      "READL $var FROM $filevar,$recordkey THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The READL statement allows a process to read a record from a previously opened file into a variable and takes a read-only shared lock on the record. It respects all records locked with theREADU statement but allows other processes using READL to share the same lock."
+  },
+  "READL All": {
+    "prefix": "READL",
+    "body": [
+      "READL $var FROM $filevar,$recordkey SETTING $setvar ON ERROR $statement LOCKED $lock_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The READL statement allows a process to read a record from a previously opened file into a variable and takes a read-only shared lock on the record. It respects all records locked with theREADU statement but allows other processes using READL to share the same lock."
+  },
+  "READLIST": {
+    "prefix": "READLIST",
+    "body": [
+      "READLIST $variable1 FROM $expression THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "READLIST allows the program to retrieve a previously stored list, into a variable."
+  },
+  "READLIST Setting": {
+    "prefix": "READLIST",
+    "body": [
+      "READLIST $variable1 FROM $expression SETTING $variable2 THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "READLIST allows the program to retrieve a previously stored list, into a variable."
+  },
+  "READNEXT": {
+    "prefix": "READNEXT",
+    "body": [
+      "READNEXT $variable FROM $list"
+    ],
+    "description": "READNEXT retrieves the next element in a list variable."
+  },
+  "READNEXT All": {
+    "prefix": "READNEXT",
+    "body": [
+      "READNEXT $variable1, $variable2 FROM $list SETTING $setvar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "READNEXT retrieves the next element in a list variable."
+  },
+  "READPREV": {
+    "prefix": "READPREV",
+    "body": [
+      "READPREV $variable FROM $list"
+    ],
+    "description": "This statement is syntactically similar to the READNEXT but it works in reverse order."
+  },
+  "READPREV All": {
+    "prefix": "READPREV",
+    "body": [
+      "READPREV $variable1, $variable2 FROM $list SETTING $setvar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "This statement is syntactically similar to the READNEXT but it works in reverse order."
+  },
+  "READT": {
+    "prefix": "READT",
+    "body": [
+      "READT $variable FROM $expression THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The READT statement is used to read a range of tape devices 0-9."
+  },
+  "READV": {
+    "prefix": "READV",
+    "body": [
+      "READV $var FROM $filevar,$recordkey,$attr THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The READV statement allows a program to read a specific field from a record in a previously opened file into a variable."
+  },
+  "READV All": {
+    "prefix": "READV",
+    "body": [
+      "READV $var FROM $filevar,$recordkey,$attr SETTING $setvar ON ERROR $error_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The READV statement allows a program to read a specific field from a record in a previously opened file into a variable."
+  },
+  "READSEQ": {
+    "prefix": "READSEQ",
+    "body": [
+      "READSEQ $Variable FROM $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The statement allows for reading from a file opened for sequential access."
+  },
+  "READU": {
+    "prefix": "READU",
+    "body": [
+      "READU $var FROM $filevar,$recordkey THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The READU statement allows a program to read a record from a previously opened file into a variable. It respects record locking and locks the specified record for update."
+  },
+  "READU All": {
+    "prefix": "READU",
+    "body": [
+      "READU $var FROM $filevar,$recordkey SETTING $setvar ON ERROR $error_statements LOCKED $lock_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The READU statement allows a program to read a record from a previously opened file into a variable. It respects record locking and locks the specified record for update."
+  },
+  "READVL": {
+    "prefix": "READVL",
+    "body": [
+      "READVL $var FROM $filevar,$recordkey,$attr THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The READVL statement acquires a shared record lock and then reads a field from the record. "
+  },
+  "READVL All": {
+    "prefix": "READVL",
+    "body": [
+      "READVL $var FROM $filevar,$recordkey,$attr SETTING $setvar ON ERROR $error_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The READVL statement acquires a shared record lock and then reads a field from the record. "
+  },
+  "READVU": {
+    "prefix": "READVU",
+    "body": [
+      "READVU $var FROM $filevar,$recordkey,$attr THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The READVU statement allows a program to read a specific field in a record in a previously opened file into a variable. It also respects record locking and locks the specified record for update. "
+  },
+  "READVU All": {
+    "prefix": "READVU",
+    "body": [
+      "READVU $var FROM $filevar,$recordkey,$attr SETTING $setvar ON ERROR $error_statements LOCKED $lock_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The READVU statement allows a program to read a specific field in a record in a previously opened file into a variable. It also respects record locking and locks the specified record for update. "
+  },
+  "READXML": {
+    "prefix": "READXML",
+    "body": [
+      "READXML $xml FROM $file,$id THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "This function reads a record and from it, outputs the data retrieved in XML format. The style sheet held in DICT->@READXML is used to transform the data. "
+  },
+  "RECORDLOCKED": {
+    "prefix": "RECORDLOCKED",
+    "body": [
+      "RECORDLOCKED($filevar, $recordkey)"
+    ],
+    "description": "This function is used to ascertain the status of a record lock."
+  },
+  "REGEXP": {
+    "prefix": "REGEXP",
+    "body": [
+      "REGEXP($variable, $expression)"
+    ],
+    "description": "The REGEXP function is a powerful function that allows pattern matching using UNIX regular expressions. REGEXP is not supported on Windows."
+  },
+  "RELEASE": {
+    "prefix": "RELEASE",
+    "body": [
+      "RELEASE $filevar, $expression"
+    ],
+    "description": "The RELEASE statement enables a program to explicitly release record locks without updating the records using WRITE."
+  },
+  "REMOVE": {
+    "prefix": "REMOVE",
+    "body": [
+      "REMOVE $variable FROM $array SETTING $setvar"
+    ],
+    "description": "REMOVE will successively extract delimited strings from a dynamic array. "
+  },
+  "REPLACE": {
+    "prefix": "REPLACE",
+    "body": [
+      "REPLACE($var, $attr, $value, $subvalue; $replace)"
+    ],
+    "description": "REPLACE is an obsolete way to assign to dynamic arrays via a function. It takes the form: "
+  },
+  "RETURN": {
+    "prefix": "RETURN",
+    "body": [
+      "RETURN"
+    ],
+    "description": "The RETURN statement transfers program execution to the caller of a subroutine/function or to a specific label in the program."
+  },
+  "REWIND": {
+    "prefix": "REWIND",
+    "body": [
+      "REWIND THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The REWIND statement will issue a rewind command to the device attached to the specified channel."
+  },
+  "WRITEBLK": {
+    "prefix": "WRITEBLK",
+    "body": [
+      "WRITEBLK $expression ON $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The WRITEBLK statement writes a block of data to a file opened for sequential processing."
+  },
+  "RQM": {
+    "prefix": "RQM",
+    "body": [
+      "RQM $seconds"
+    ],
+    "description": "RQM allows the program to pause execution for a specified period."
+  },
+  "RIGHT": {
+    "prefix": "RIGHT",
+    "body": [
+      "RIGHT($expression, $length)"
+    ],
+    "description": "The RIGHT function returns a sub-string composed of the last n characters of a specified string."
+  },
+  "RND": {
+    "prefix": "RND",
+    "body": [
+      "RND($expression)"
+    ],
+    "description": "The RND function allows the generation of random numbers by a program."
+  },
+  "RTNDATA": {
+    "prefix": "RTNDATA",
+    "body": [
+      "RTNDATA $expression"
+    ],
+    "description": "The RTNDATA statement allows a program to return specific data to the RTNDATA clause of another program's EXECUTE statement."
+  },
+  "SADD": {
+    "prefix": "SADD",
+    "body": [
+      "SADD($expression1, $expression2)"
+    ],
+    "description": "The SADD function performs string addition of two base 10-string numbers."
+  },
+  "SDIV": {
+    "prefix": "SDIV",
+    "body": [
+      "SDIV($expression1, $expression2)"
+    ],
+    "description": "The SDIV function performs a string division of two base 10-string numbers and rounds the result to 14 decimal places. It generally takes the form:"
+  },
+  "SEEK": {
+    "prefix": "SEEK",
+    "body": [
+      "SEEK $filevar, $offset, $relto THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The SEEK statement is used to move the file pointer by an offset specified in bytes, relative to the current position, the beginning of the file, or the end of the file."
+  },
+  "SELECT": {
+    "prefix": "SELECT",
+    "body": [
+      "SELECT $variable1 TO $variable2 SETTING $setvar"
+    ],
+    "description": "The SELECT statement creates a select list of elements in a specified variable. The statement takes the general form:"
+  },
+  "TIME": {
+    "prefix": "TIME",
+    "body": [
+      "TIME()"
+    ],
+    "description": "The TIME function returns the current system time."
+  },
+  "TIMEDIFF": {
+    "prefix": "TIMEDIFF",
+    "body": [
+      "TIMEDIFF($Timestamp1, $Timestamp2, $Mask)"
+    ],
+    "description": "This function returns the interval between two timestamp values as a dynamic array. Mask:\n\n0\tDays^Hours^Minutes^Seconds^Milliseconds (Default)\n1\tWeeks^Days^Hours^Minutes^Seconds^Milliseconds\n2\tMonths^Days^Hours^Minutes^Seconds^Milliseconds\n3\tMonths^Weeks^Days^Hours^Minutes^Seconds^Milliseconds\n4\tYears^Days^Hours^Minutes^Seconds^Milliseconds\n5\tYears^Weeks^Days^Hours^Minutes^Seconds^Milliseconds\n6\tYears^Months^Days^Hours^Minutes^Seconds^Milliseconds\n7\tYears^Months^Weeks^Days^Hours^Minutes^Seconds^Milliseconds"
+  },
+  "SENDX": {
+    "prefix": "SENDX",
+    "body": [
+      "SENDX $output TO $FileVar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The SENDX statement sends a block of data (in hexidecimal) directly to a device."
+  },
+  "SENTENCE": {
+    "prefix": "SENTENCE",
+    "body": [
+      "SENTENCE($expression)"
+    ],
+    "description": "The SENTENCE function allows a program to locate the command used to invoke it and the arguments it was given. It has the general form:"
+  },
+  "TIMEDATE": {
+    "prefix": "TIMEDATE",
+    "body": [
+      "TIMEDATE()"
+    ],
+    "description": "The function returns a string of the form: hh:mm:ss dd mmm yyyy or in the appropriate format for the applicable international date setting."
+  },
+  "SEQS": {
+    "prefix": "SEQS",
+    "body": [
+      "SEQS($DynArr)"
+    ],
+    "description": "The SEQS function is used to convert a dynamic array of ASCII characters to their numeric string equivalents."
+  },
+  "SIN": {
+    "prefix": "SIN",
+    "body": [
+      "SIN($expression)"
+    ],
+    "description": "The SIN function returns the mathematical sine value of a numeric expression. The function has the general form: "
+  },
+  "SLEEP": {
+    "prefix": "SLEEP",
+    "body": [
+      "SLEEP $seconds"
+    ],
+    "description": "Sleep allows the program to pause execution for a specified period."
+  },
+  "SMUL": {
+    "prefix": "SMUL",
+    "body": [
+      "SMUL($expression1, $expression2)"
+    ],
+    "description": "The SMUL function performs string multiplication of two base 10-string numbers."
+  },
+  "SORT": {
+    "prefix": "SORT",
+    "body": [
+      "SORT($expression)"
+    ],
+    "description": "The SORT function sorts all elements of a dynamic array in ascending left-justified order. It generally takes the form:"
+  },
+  "SOUNDEX": {
+    "prefix": "SOUNDEX",
+    "body": [
+      "SOUNDEX($expression)"
+    ],
+    "description": "The SOUNDEX function allows for phonetic conversions of strings."
+  },
+  "SPACE": {
+    "prefix": "SPACE",
+    "body": [
+      "SPACE($int)"
+    ],
+    "description": "The SPACE function generates a specific number of ASCII space characters."
+  },
+  "SPACES": {
+    "prefix": "SPACES",
+    "body": [
+      "SPACES($DynArr)"
+    ],
+    "description": "The SPACES function returns a dynamic array with elements composed of blank spaces."
+  },
+  "SPLICE": {
+    "prefix": "SPLICE",
+    "body": [
+      "SPLICE($array1, $expression, $array2)"
+    ],
+    "description": "The SPLICE function creates a dynamic array of the element-by-element concatenation of two dynamic arrays, separating concatenated elements by a specified value."
+  },
+  "SPOOLER": {
+    "prefix": "SPOOLER",
+    "body": [
+      "SPOOLER($n, $port_user)"
+    ],
+    "description": "The SPOOLER function returns information from the jBASE spooler."
+  },
+  "SQRT": {
+    "prefix": "SQRT",
+    "body": [
+      "SQRT($expression)"
+    ],
+    "description": "The SQRT function returns the mathematical square root of a value. It takes the form:"
+  },
+  "SSELECT": {
+    "prefix": "SSELECT",
+    "body": [
+      "SSELECT $variable TO $list ON ERROR $statements"
+    ],
+    "description": "The SSELECT statement may be used to create:\n - A numbered select list of record IDs in sorted order from a jBASE hashed file \n - A numbered select list of record IDs from a dynamic array\n - A select list of record IDs from a dynamic array is not in sorted order.\nThis list can then be accessed by subsequent READNEXT statement, which removes one record ID at a time from the list."
+  },
+  "SSUB": {
+    "prefix": "SSUB",
+    "body": [
+      "SSUB($expression1, $expression2)"
+    ],
+    "description": "The SSUB function performs string subtraction of two base 10-string numbers."
+  },
+  "STATUS": {
+    "prefix": "STATUS",
+    "body": [
+      "STATUS $array FROM $variable THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The STATUS statement is used to determine the status of an open file. The STATUS statement returns the file status as a dynamic array and assigns it to an array."
+  },
+  "STOP": {
+    "prefix": "STOP",
+    "body": [
+      "STOP"
+    ],
+    "description": "The STOP statement is virtually identical in function to the ABORT statement except that it does not terminate a calling jCL program. "
+  },
+  "STR": {
+    "prefix": "STR",
+    "body": [
+      "STR($expression1, $expression2)"
+    ],
+    "description": "The STR function allows the duplication of a string a number of times. The function generally takes the form: "
+  },
+  "STRS": {
+    "prefix": "STRS",
+    "body": [
+      "STRS($DynArr, $repeat)"
+    ],
+    "description": "The STRS function to produces a dynamic array containing the specified number of repetitions of each element of dynamic.array. It takes the form:"
+  },
+  "TAN": {
+    "prefix": "TAN",
+    "body": [
+      "TAN($expression)"
+    ],
+    "description": "The TAN function returns the mathematical tangent of an angle."
+  },
+  "SUBS": {
+    "prefix": "SUBS",
+    "body": [
+      "SUBS($DynArr1, $DynArr2)"
+    ],
+    "description": "The SUBS function returns a dynamic array, the content of which is derived by subtracting each element of the second dynamic array argument from the corresponding element of the first dynamic array argument."
+  },
+  "SUBSTRINGS": {
+    "prefix": "SUBSTRINGS",
+    "body": [
+      "SUBSTRINGS($DynArr, $start, $length)"
+    ],
+    "description": "The SUBSTRINGS function returns a dynamic array of elements, which are sub-strings of the corresponding elements in a supplied dynamic array. "
+  },
+  "SUM": {
+    "prefix": "SUM",
+    "body": [
+      "SUM($DynArr)"
+    ],
+    "description": "The SUM function sums numeric elements in a dynamic array."
+  },
+  "SWAP": {
+    "prefix": "SWAP",
+    "body": [
+      "SWAP($subject, $search, $replace)"
+    ],
+    "description": "The SWAP function operates on a variable and replaces all occurrences of one string with another."
+  },
+  "CLOSESEQ": {
+    "prefix": "CLOSESEQ",
+    "body": [
+      "CLOSESEQ $filevar"
+    ],
+    "description": "The CLOSESEQ statement closes the file previously opened for sequential access."
+  },
+  "TIMEOUT": {
+    "prefix": "TIMEOUT",
+    "body": [
+      "TIMEOUT $filevar, $time"
+    ],
+    "description": "The statement is used to terminate a read statement when no data has been read in a specified time period."
+  },
+  "TIMESTAMP": {
+    "prefix": "TIMESTAMP",
+    "body": [
+      "TIMESTAMP()"
+    ],
+    "description": "This function returns a Universal Coordinated Time (UTC) timestamp value as decimal seconds i.e. Seconds with tenths and hundredths specified after the decimal point."
+  },
+  "TRANS": {
+    "prefix": "TRANS",
+    "body": [
+      "TRANS($filename, $key, $field, $actioncode)"
+    ],
+    "description": "This function will return the data value of a field, given the name of the file, the record key, the field number, and an action code."
+  },
+  "TRANSABORT": {
+    "prefix": "TRANSABORT",
+    "body": [
+      "TRANSABORT $aborttext THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The statement is used to abort the current transaction and reverse any updates to the database."
+  },
+  "TRANSQUERY": {
+    "prefix": "TRANSQUERY",
+    "body": [
+      "TRANSQUERY()"
+    ],
+    "description": "The TRANSQUERY function is used to detect whether or not a transaction is active on the current process."
+  },
+  "TRANSTART": {
+    "prefix": "TRANSTART",
+    "body": [
+      "TRANSTART $SYNC $starttext THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "In transaction processing, the TRANSTART statement is used to mark the beginning of a transaction."
+  },
+  "TRANSEND": {
+    "prefix": "TRANSEND",
+    "body": [
+      "TRANSEND $endtext THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The TRANSEND statement is used to mark the end of a successfully completed transaction."
+  },
+  "TRIM": {
+    "prefix": "TRIM",
+    "body": [
+      "TRIM($expression1, $expression2, $type)"
+    ],
+    "description": "The TRIM statement allows characters to be removed from a string in a number of ways."
+  },
+  "TRIMB": {
+    "prefix": "TRIMB",
+    "body": [
+      "TRIMB($expression)"
+    ],
+    "description": "The TRIMB function is equivalent to TRIM(expression, \"\", \"T\")."
+  },
+  "TRIMBS": {
+    "prefix": "TRIMBS",
+    "body": [
+      "TRIMBS($DynArr)"
+    ],
+    "description": "The TRIMBS function removes all trailing spaces and tabs from each element of dynamic.array. The function thus reduces multiple occurrences of spaces and tabs to a single space or tab."
+  },
+  "TRIMF": {
+    "prefix": "TRIMF",
+    "body": [
+      "TRIMF($expression)"
+    ],
+    "description": "The TRIMF function is equivalent to TRIM(expression, \"\", \"L\"). "
+  },
+  "TRIMFS": {
+    "prefix": "TRIMFS",
+    "body": [
+      "TRIMFS($DynArr)"
+    ],
+    "description": "This function removes all leading spaces and tabs from each element of dynamic array, reducing multiple occurrences of spaces and tabs to a single space or tab ."
+  },
+  "UNASSIGNED": {
+    "prefix": "UNASSIGNED",
+    "body": [
+      "UNASSIGNED($variable)"
+    ],
+    "description": "The UNASSIGNED function allows a program to determine whether a variable has been assigned a value."
+  },
+  "UNIQUEKEY": {
+    "prefix": "UNIQUEKEY",
+    "body": [
+      "UNIQUEKEY()"
+    ],
+    "description": "The function returns a unique 16-byte character key, that it generates at each call to the function. "
+  },
+  "UNLOCK": {
+    "prefix": "UNLOCK",
+    "body": [
+      "UNLOCK($expression)"
+    ],
+    "description": "The UNLOCK statement releases a previously LOCKed execution lock."
+  },
+  "UTF8": {
+    "prefix": "UTF8",
+    "body": [
+      "UTF8($expression)"
+    ],
+    "description": "The UTF8 function converts a latin1 or binary string into the UTF-8 equivalent byte sequence."
+  },
+  "WAKE": {
+    "prefix": "WAKE",
+    "body": [
+      "WAKE $portnumber"
+    ],
+    "description": "The WAKE statement wakes a suspended process, which has executed a PAUSE statement."
+  },
+  "WEOF": {
+    "prefix": "WEOF",
+    "body": [
+      "WEOF"
+    ],
+    "description": "The WEOF statement allows the program to write an EOF mark on an attached tape device."
+  },
+  "WEOFSEQ": {
+    "prefix": "WEOFSEQ",
+    "body": [
+      "WEOFSEQ $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "WEOFSEQ writes end of file on file opened for sequential access,   forcing truncation of the file at the current file pointer. Nothing is actually 'written' to the sequential file."
+  },
+  "WRITE": {
+    "prefix": "WRITE",
+    "body": [
+      "WRITE $var TO $filevar,$recordkey"
+    ],
+    "description": "The WRITE statement allows a program to write a record into a previously opened file."
+  },
+  "WRITE All": {
+    "prefix": "WRITE",
+    "body": [
+      "WRITE $var TO $filevar,$recordkey SETTING $setvar ON ERROR $error_statements"
+    ],
+    "description": "The WRITE statement allows a program to write a record into a previously opened file."
+  },
+  "WRITELIST": {
+    "prefix": "WRITELIST",
+    "body": [
+      "WRITELIST $var TO $expression"
+    ],
+    "description": "WRITELIST allows the program to store a list held in a jBASE BASIC variable to the global list file."
+  },
+  "WRITELIST All": {
+    "prefix": "WRITELIST",
+    "body": [
+      "WRITELIST $var TO $expression SETTING $setvar ON ERROR $error_statements"
+    ],
+    "description": "WRITELIST allows the program to store a list held in a jBASE BASIC variable to the global list file."
+  },
+  "WRITESEQ": {
+    "prefix": "WRITESEQ",
+    "body": [
+      "WRITESEQ $expression $APPEND TO $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "This statement will write to a file opened for sequential access."
+  },
+  "WRITESEQF": {
+    "prefix": "WRITESEQF",
+    "body": [
+      "WRITESEQF $expression TO $filevar ON ERROR $error_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The WRITESEQF statement writes new lines to a file opened for sequential processing, and ensures that data is physically written to disk (that is, not buffered) before the next statement in the program is executed. The sequential file must be open, and the end-of-file marker must be reached before you can write to the file. The FILEINFO function can be used to determine the number of the line about to be written. "
+  },
+  "WRITET": {
+    "prefix": "WRITET",
+    "body": [
+      "WRITET $var TO $expression THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The WRITET statement enables data to be written to a range of tape devices between 0-9."
+  },
+  "WRITEU": {
+    "prefix": "WRITEU",
+    "body": [
+      "WRITEU $var TO $filevar,$recordkey"
+    ],
+    "description": "The WRITEU statement allows a program to write a record into a previously opened file. An existing record lock will be preserved."
+  },
+  "WRITEU All": {
+    "prefix": "WRITEU",
+    "body": [
+      "WRITEU $var TO $filevar,$recordkey SETTING $setvar ON ERROR $error_statements"
+    ],
+    "description": "The WRITEU statement allows a program to write a record into a previously opened file. An existing record lock will be preserved."
+  },
+  "WRITEV": {
+    "prefix": "WRITEV",
+    "body": [
+      "WRITEV $var TO $filevar,$recordkey,$attr"
+    ],
+    "description": "The WRITEV statement allows a program to write a specific field of a record in a previously opened file."
+  },
+  "WRITEV All": {
+    "prefix": "WRITEV",
+    "body": [
+      "WRITEV $var TO $filevar,$recordkey,$attr SETTING $setvar ON ERROR $error_statements"
+    ],
+    "description": "The WRITEV statement allows a program to write a specific field of a record in a previously opened file."
+  },
+  "WRITEXML": {
+    "prefix": "WRITEXML",
+    "body": [
+      "WRITEXML $rec ON $filevar,$recordkey ON ERROR $error_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "This writes a dynamic array in XML format to a hash file. It first transforms the XML into a dynamic array before being written to the file. The transform takes place using the style sheet in DICT->@WRITEXML. An XML record is thus written to a hash file. It may take the general form: "
+  },
+  "WRITEVU": {
+    "prefix": "WRITEVU",
+    "body": [
+      "WRITEVU $var TO $filevar,$recordkey,$attr"
+    ],
+    "description": "The WRITEVU statement allows a program to write a specific field on a record in a previously opened file. An existing record lock will be preserved. The statement takes the general form: "
+  },
+  "WRITEVU All": {
+    "prefix": "WRITEVU",
+    "body": [
+      "WRITEVU $var TO $filevar,$recordkey,$attr SETTING $setvar ON ERROR $error_statements"
+    ],
+    "description": "The WRITEVU statement allows a program to write a specific field on a record in a previously opened file. An existing record lock will be preserved. The statement takes the general form: "
+  },
+  "XLATE": {
+    "prefix": "XLATE",
+    "body": [
+      "XLATE($filename, $recordkey, $field, $actioncode)"
+    ],
+    "description": "The XLATE function will return the data value of a field, given the name of the file, the record key, the field number, and an action code."
+  },
+  "XMLTODYN": {
+    "prefix": "XMLTODYN",
+    "body": [
+      "XMLTODYN($xml, $xsl, $result)"
+    ],
+    "description": "This function converts XML to a dynamic array. Optionally, a transform may be used to convert the XML content. The function takes the general form: "
+  },
+  "XMLTOXML": {
+    "prefix": "XMLTOXML",
+    "body": [
+      "XMLTOXML($xml, $xsl, $result)"
+    ],
+    "description": "This function transforms XML using a given XSL."
+  },
+  "XTD": {
+    "prefix": "XTD",
+    "body": [
+      "XTD($expression)"
+    ],
+    "description": "The XTD function converts hexadecimal numbers into its decimal equivalent."
+  },
+  "SEND": {
+    "prefix": "SEND",
+    "body": [
+      "SEND $output TO $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The SEND statement sends a block of data directly to a device. This takes the general form: "
+  },
+  "SYSTEM": {
+    "prefix": "SYSTEM",
+    "body": [
+      "SYSTEM($int)"
+    ],
+    "description": "Returns various status messages."
+  },
+  "ABORT": {
+    "prefix": "ABORT",
+    "body": [
+      "ABORT $messagenum, $expression"
+    ],
+    "description": "The ABORT statement terminates the current running program and the program that called it."
+  },
+  "ABSS": {
+    "prefix": "ABSS",
+    "body": [
+      "ABSS($DynArr)"
+    ],
+    "description": "The ABSS function returns the absolute values of all the elements in a dynamic array. If an element in the dynamic array is null, it returns null for that element."
+  },
+  "ADDS": {
+    "prefix": "ADDS",
+    "body": [
+      "ADDS($array1, $array2)"
+    ],
+    "description": "The ADDS function creates a dynamic array of the element-by-element addition of two dynamic arrays."
+  },
+  "ANDS": {
+    "prefix": "ANDS",
+    "body": [
+      "ANDS($array1, $array2)"
+    ],
+    "description": "The ANDS function creates a dynamic array of the logical AND of corresponding elements of two dynamic arrays."
+  },
+  "ASCII": {
+    "prefix": "ASCII",
+    "body": [
+      "ASCII($expression)"
+    ],
+    "description": "The ASCII function converts all the characters in the expression from the EBCDIC character set to the ASCII character set."
+  },
+  "BITAND": {
+    "prefix": "BITAND",
+    "body": [
+      "BITAND($expression1, $expression2)"
+    ],
+    "description": "The BITAND function may be used to perform the bitwise AND comparison of two integers specified by numeric expressions."
+  },
+  "BITCHANGE": {
+    "prefix": "BITCHANGE",
+    "body": [
+      "BITCHANGE($tableno)"
+    ],
+    "description": "BITCHANGE toggles the state of a specified bit in the local bit table, and returns the original value of the bit."
+  },
+  "BITCHECK": {
+    "prefix": "BITCHECK",
+    "body": [
+      "BITCHECK($tableno)"
+    ],
+    "description": "BITCHECK returns the current value of a specified bit from the local bit table."
+  },
+  "BITLOAD": {
+    "prefix": "BITLOAD",
+    "body": [
+      "BITLOAD($bitstring)"
+    ],
+    "description": "BITLOAD assigns all values in the local bit table, or retrieves all the values."
+  },
+  "BITNOT": {
+    "prefix": "BITNOT",
+    "body": [
+      "BITNOT($expression, $bitnum)"
+    ],
+    "description": "The BITNOT function returns the bitwise negation of an integer specified by any numeric expression."
+  },
+  "NEG": {
+    "prefix": "NEG",
+    "body": [
+      "NEG($expression)"
+    ],
+    "description": "The NEG function is used to invert the arithmetic value of an expression."
+  },
+  "BITOR": {
+    "prefix": "BITOR",
+    "body": [
+      "BITOR($expression1, $expression2)"
+    ],
+    "description": "The BITOR function is used to perform the bitwise OR comparison of two integers specified by numeric expressions."
+  },
+  "BITRESET": {
+    "prefix": "BITRESET",
+    "body": [
+      "BITRESET($tableno)"
+    ],
+    "description": "BITRESET resets the value of a specified bit in the local bit table to zero and returns the previous value of the bit."
+  },
+  "BITSET": {
+    "prefix": "BITSET",
+    "body": [
+      "BITSET(tableno)"
+    ],
+    "description": "BITSET sets the value of a specified bit in the bit table to one and returns the value of the bit before it was changed."
+  },
+  "BITTEST": {
+    "prefix": "BITTEST",
+    "body": [
+      "BITTEST($expression, $bitnum)"
+    ],
+    "description": "The BITTEST function may be used to test the bit number of the integer specified by expression."
+  },
+  "BITXOR": {
+    "prefix": "BITXOR",
+    "body": [
+      "BITXOR($expression1, $expression2)"
+    ],
+    "description": "The BITXOR function performs the bitwise XOR comparison of two integers specified by numeric expressions. The bitwise XOR operation compares two integers bit by bit, returning a bit 1 if only one of the two bits is 1; else, it returns a bit 0. "
+  },
+  "CHECKSUM": {
+    "prefix": "CHECKSUM",
+    "body": [
+      "CHECKSUM($expression)"
+    ],
+    "description": "The CHECKSUM function returns a simple numeric checksum of a character string."
+  },
+  "EREPLACE": {
+    "prefix": "EREPLACE",
+    "body": [
+      "EREPLACE($expression, $substring, $replacement, $occurrence, $begin)"
+    ],
+    "description": "The EREPLACE  function is useful for replacing substring in an expression with another substring. If the occurrence is not specified , the function replaces each occurrence of a substring. The function takes the general form: "
+  },
+  "FIELDS": {
+    "prefix": "FIELDS",
+    "body": [
+      "FIELDS($DynArr, $delimiter, $occurrence, $extractCount)"
+    ],
+    "description": "The FIELDS function is an extension of the FIELD function. It returns a dynamic array of multicharacter delimited fields from a dynamic array of strings."
+  },
+  "FMTS": {
+    "prefix": "FMTS",
+    "body": [
+      "FMTS($DynArr, $format)"
+    ],
+    "description": "The FMTS function may be used to format elements of dynamic.array for output. Each element of the array is independently acted upon and returned as an element in a new dynamic array. The function takes the general form: "
+  },
+  "FOLD": {
+    "prefix": "FOLD",
+    "body": [
+      "FOLD($expression1, $expression2, $expression3)"
+    ],
+    "description": "The FOLD function segments a text string by replacing spaces with  a delimiter at positions defined by a length parameter. See Notes below for differences between the 2-parameter and 3-parameter versions."
+  },
+  "FOOTING": {
+    "prefix": "FOOTING",
+    "body": [
+      "FOOTING $expression"
+    ],
+    "description": "The FOOTING statement halts all subsequent output to the terminal at the end of each output page."
+  },
+  "FUNCTION": {
+    "prefix": "FUNCTION",
+    "body": [
+      "FUNCTION $name($arguments)",
+      "\t$statements",
+      "RETURN ($var)"
+    ],
+    "description": "Identifies a user-defined function, which can be invoked by other jBASE BASIC programs. Arguments to the function can optionally be declared."
+  },
+  "INMAT": {
+    "prefix": "INMAT",
+    "body": [
+      "INMAT($array)"
+    ],
+    "description": "The INMAT function returns the number of dimensioned array elements."
+  },
+  "RAISE": {
+    "prefix": "RAISE",
+    "body": [
+      "RAISE($expression)"
+    ],
+    "description": "The RAISE function raises system delimiters in a string to the next highest delimiter."
+  },
+  "SEQ": {
+    "prefix": "SEQ",
+    "body": [
+      "SEQ($expression)"
+    ],
+    "description": "The SEQ function returns numeric ASCII value of a character."
+  },
+  "INDICES": {
+    "prefix": "INDICES",
+    "body": [
+      "INDICES($filevar, $indexname)"
+    ],
+    "description": "The function finds information about a file's indexes."
+  },
+  "READNEXT KEY": {
+    "prefix": "READNEXT KEY",
+    "body": [
+      "READNEXT KEY $indexkey,$recordkey,$vmcount FORM $selectdef THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The regular jBC READNEXT statement is extended in two ways.\nFirstly it can accept an index variable create with an OPENINDEX statement.\nSecondly, you can use the KEY modifier."
+  },
+  "SELECTINDEX": {
+    "prefix": "SELECTINDEX",
+    "body": [
+      "SELECTINDEX $indexname,$indexkey FROM $filevar TO $selectvar"
+    ],
+    "description": "This statement will create a dynamic array of record keys based on a single selection of a single index key value. It is more efficient to use a combination of OPENINDEX and READNEXT statements rather than the SELECTINDEX, but this statement was included for compatibility with legacy applications."
+  },
+  "RANDOMIZE": {
+    "prefix": "RANDOMIZE",
+    "body": [
+      "RANDOMIZE $expression"
+    ],
+    "description": "Use the RANDOMIZE statement with an expression to make the RND function generate the same sequence of random numbers each time the program is run."
+  },
+  "FOR Loop": {
+    "prefix": "FOR",
+    "body": [
+      "FOR $1 = $2 To $3",
+      "$4",
+      "NEXT $1"
+    ],
+    "description": "Standard FOR Loop"
+  },
+  "FOR Step": {
+    "prefix": "FOR",
+    "body": [
+      "FOR $1 = $2 To $3 STEP $4",
+      "$5",
+      "NEXT $1"
+    ],
+    "description": "Standard FOR Loop"
+  },
+  "SUBROUTINE Skeleton": {
+    "prefix": "SUB",
+    "body": [
+      "SUBROUTINE $1($2)",
+      "*-----",
+      "* Description : $3",
+      "* Author      : $4",
+      "* Date        : $5",
+      "*-----",
+      "     \\$INCLUDE Common",
+      "*-----",
+      "     Gosub Initialise",
+      "*-----",
+      "      $6",
+      "*-----",
+      "ExitProgram:",
+      "*-----",
+      "     Return",
+      "     End",
+      "*-----",
+      "Initialise:",
+      "*-----",
+      "",
+      "     Return"
+    ],
+    "description": "Standard Subroutine Skeleton"
+  },
+  "$append": {
+    "prefix": "$append",
+    "body": [
+      "\\$append($value)"
+    ],
+    "description": "The $append() method allows you to add (append) a value to the end of an array."
+  },
+  "$append reject dupes": {
+    "prefix": "$append",
+    "body": [
+      "\\$append($value, 1)"
+    ],
+    "description": "The $append() method allows you to add (append) a value to the end of an array."
+  },
+  "$append case sensitive": {
+    "prefix": "$append",
+    "body": [
+      "\\$append($value, $reject_duplicates, 1)"
+    ],
+    "description": "The $append() method allows you to add (append) a value to the end of an array."
+  },
+  "$classname": {
+    "prefix": "$classname",
+    "body": [
+      "\\$classname()"
+    ],
+    "description": "The $classname() method returns the name of the class as a text string."
+  },
+  "$clear": {
+    "prefix": "$clear",
+    "body": [
+      "\\$clear()"
+    ],
+    "description": "The $clear() method clears (deletes) all the members (properties) from an object leaving the object void."
+  },
+  "$clone": {
+    "prefix": "$clone",
+    "body": [
+      "\\$clone()"
+    ],
+    "description": "The $clone() method creates an exact copy of an existing object.\nMaking any changes to the original object does not affect the cloned object, and vice versa.\nThe cloned object contains all nested objects and arrays."
+  },
+  "$delete": {
+    "prefix": "$delete",
+    "body": [
+      "\\$delete($property_name)"
+    ],
+    "description": "The $delete() method deletes a property from an object or array."
+  },
+  "$dump": {
+    "prefix": "$dump",
+    "body": [
+      "\\$dump($mode)"
+    ],
+    "description": "The $dump() method displays the internal contents of an object."
+  },
+  "$equals": {
+    "prefix": "$equals",
+    "body": [
+      "\\$equals($var)"
+    ],
+    "description": "The $equals(), or $equal(), method tests if two objects or arrays are equal. \nFor objects, the properties can be in any order but the properties and their values must be the same in both objects. \nFor arrays, they must be absolutely equal. If you have the same values in both arrays, but in different positions, they will not be considered equal.\nAll nested objects and arrays are compared."
+  },
+  "$fromfile": {
+    "prefix": "$fromfile",
+    "body": [
+      "\\$fromfile($path)"
+    ],
+    "description": "The $fromfile() static method creates an object from an operating system file. The file must be in a valid JSON format."
+  },
+  "$fromjson": {
+    "prefix": "$fromjson",
+    "body": [
+      "\\$fromjson()"
+    ],
+    "description": "The $fromjson() method converts a valid JSON string to an object. This is the complement of the $tojson() method."
+  },
+  "$insert": {
+    "prefix": "$insert",
+    "body": [
+      "\\$insert($value, $position)"
+    ],
+    "description": "The $insert() method inserts a value before a specified position in an array."
+  },
+  "$isfile": {
+    "prefix": "$isfile",
+    "body": [
+      "\\$isfile()"
+    ],
+    "description": "The $isfile() method is used to determine if a variable is a file variable."
+  },
+  "$ismethod": {
+    "prefix": "$ismethod",
+    "body": [
+      "\\$ismethod($method_name)"
+    ],
+    "description": "The $ismethod() method is used to determine if a method exists for a specific class."
+  },
+  "$isobject": {
+    "prefix": "$isobject",
+    "body": [
+      "\\$isobject()"
+    ],
+    "description": "The $isobject() method is used to determine if a variable is an object or array."
+  },
+  "$isproperty": {
+    "prefix": "$isproperty",
+    "body": [
+      "\\$isproperty($property_name)"
+    ],
+    "description": "The $isproperty() method is used to determine if a variable is a property of an object or array."
+  },
+  "$keys": {
+    "prefix": "$keys",
+    "body": [
+      "\\$keys($1)"
+    ],
+    "description": "The $keys() method will return an array of all the key values from an object. \nThis method is intended to be compatible with the JavaScript keys() method, but with a small syntax enhancement. The functionality created with $keys() can easily be replicated using iterators and the $iterate() class, but this provides some compatibility for those more familiar with JavaScript."
+  },
+  "$lasterror": {
+    "prefix": "$lasterror",
+    "body": [
+      "\\$lasterror()"
+    ],
+    "description": "The $lasterror method returns an object with the results of a $fromjson() method call, and since it is an object its properties can be accessed."
+  },
+  "$locate": {
+    "prefix": "$locate",
+    "body": [
+      "\\$locate($value)"
+    ],
+    "description": "The $locate() method is used to find an value in a Dynamic Objects array, optionally specifying a case insensitive search."
+  },
+  "$locate case insensitive": {
+    "prefix": "$locate",
+    "body": [
+      "\\$locate($value, 1)"
+    ],
+    "description": "The $locate() method is used to find an value in a Dynamic Objects array, optionally specifying a case insensitive search."
+  },
+  "$merge arrays": {
+    "prefix": "$merge",
+    "body": [
+      "\\$merge($array)"
+    ],
+    "description": "The $merge() method combines (concatenates) one array with another array."
+  },
+  "$merge objects": {
+    "prefix": "$merge",
+    "body": [
+      "\\$merge($obj, $precedence)"
+    ],
+    "description": "The $merge() method combines (merges) one object into another object, optionally specifying which object takes precedence if both objects contain  the same properties."
+  },
+  "$objecttype": {
+    "prefix": "$objecttype",
+    "body": [
+      "\\$objecttype()"
+    ],
+    "description": "The $objecttype() method returns the type of the object."
+  },
+  "$prepend": {
+    "prefix": "$prepend",
+    "body": [
+      "\\$prepend($value)"
+    ],
+    "description": "The $prepend() method allows you to insert a new value at the beginning of the array."
+  },
+  "$prepend reject dupes": {
+    "prefix": "$prepend",
+    "body": [
+      "\\$prepend($value, 1)"
+    ],
+    "description": "The $prepend() method allows you to insert a new value at the beginning of the array."
+  },
+  "$prepend case sensitive": {
+    "prefix": "$prepend",
+    "body": [
+      "\\$prepend($value, $reject_duplicates, 1)"
+    ],
+    "description": "The $prepend() method allows you to insert a new value at the beginning of the array."
+  },
+  "$refcount": {
+    "prefix": "$refcount",
+    "body": [
+      "\\$refcount()"
+    ],
+    "description": "The $refcount() method returns the number of variables that reference the same object."
+  },
+  "$setboolean": {
+    "prefix": "$setboolean",
+    "body": [
+      "\\$setboolean($property_name_or_index, $boolean)"
+    ],
+    "description": "The $setboolean() method allows you to create boolean values in JSON output that wouldn't normally be supported by native jBASE data types."
+  },
+  "$setnull": {
+    "prefix": "$setnull",
+    "body": [
+      "\\$setnull($property_name_or_index)"
+    ],
+    "description": "The $setnull() method sets a value to null in an object or an array. These null values can only be used in JSON output that wouldn't normally be supported by native jBASE data types."
+  },
+  "$setserialize": {
+    "prefix": "$setserialize",
+    "body": [
+      "\\$setserialize($1)"
+    ],
+    "description": "The $setserialize() method provides a limited amount of control over a serialized object when a character string is required and a dynamic object is the source. The object is serialized to a JSON string."
+  },
+  "$size": {
+    "prefix": "$size",
+    "body": [
+      "\\$size()"
+    ],
+    "description": "The $size() method returns the number of properties in an object or the number of values in an array."
+  },
+  "$sort": {
+    "prefix": "$sort",
+    "body": [
+      "\\$sort($sequence)"
+    ],
+    "description": "The $sort() method sorts the properties in an object, optionally specifying sort sequence."
+  },
+  "$tojson": {
+    "prefix": "$tojson",
+    "body": [
+      "\\$tojson($format)"
+    ],
+    "description": "The $tojson() method converts an object to a JSON string and optionally formats the string in a number of ways. This is the complement of the $fromjson() method."
+  },
+  "$valuetype": {
+    "prefix": "$valuetype",
+    "body": [
+      "\\$valuetype($property_name)"
+    ],
+    "description": "The $valuetype() method returns type of an object's property."
+  }
+}

@@ -1,0 +1,1902 @@
+{
+  "$chain": {
+    "prefix": "$chain",
+    "body": [
+      "$chain $fileref $itemid"
+    ],
+    "description": "The $chain statement continues FlashBASIC or BASIC compilation in a different source item."
+  },
+  "$include": {
+    "prefix": "$include",
+    "body": [
+      "$include $fileref $itemid"
+    ],
+    "description": "The $include statement inserts FlashBASIC or BASIC code from a separate item (known as an include item) to be compiled as part of the object module of the current program or subroutine. The original source program is not altered."
+  },
+  "$options": {
+    "prefix": "$options",
+    "body": [
+      "$options $tag"
+    ],
+    "description": "The $options statement sets compatibility options for the FlashBASIC or BASIC compiler."
+  },
+  "ABORT": {
+    "prefix": "ABORT",
+    "body": [
+      "ABORT $messagenum, $expr"
+    ],
+    "description": "The abort statement immediately stops program execution and unconditionally returns to the TCL command prompt."
+  },
+  "ABS": {
+    "prefix": "ABS",
+    "body": [
+      "ABS($math_expression)"
+    ],
+    "description": "The abs() function returns the absolute (positive) portion of the integer number derived from the given numeric expression."
+  },
+  "ACCESS": {
+    "prefix": "ACCESS",
+    "body": [
+      "ACCESS($numexp)"
+    ],
+    "description": "The access() function provides data about the AQL or Update processor environments when the program is called from a dictionary."
+  },
+  "ALPHA": {
+    "prefix": "ALPHA",
+    "body": [
+      "ALPHA($value)"
+    ],
+    "description": "The alpha() function evaluates the expression and returns 1 (true) if every character in the string is alphabetical (that is, a—z upper and lowercase), or 0 (false) if any character is nonalphabetical."
+  },
+  "ASCII": {
+    "prefix": "ASCII",
+    "body": [
+      "ASCII($expr)"
+    ],
+    "description": "The ascii() function converts a string of EBCDIC-encoded characters into their equivalent ASCII values."
+  },
+  "ASSIGNED": {
+    "prefix": "ASSIGNED",
+    "body": [
+      "ASSIGNED($variable)"
+    ],
+    "description": "The assigned() function determines if the variable has been assigned a value."
+  },
+  "AUX": {
+    "prefix": "AUX",
+    "body": [
+      "AUX $exp"
+    ],
+    "description": "The aux statement enables or disables spooling to the auxiliary port."
+  },
+  "BEGIN CASE": {
+    "prefix": "BEGIN",
+    "body": [
+      "BEGIN CASE",
+      "\tCASE $1",
+      "\t\t$2",
+      "END CASE"
+    ],
+    "description": "The begin case statement starts a case construct."
+  },
+  "BEGIN WORK": {
+    "prefix": "BEGIN WORK",
+    "body": [
+      "BEGIN WORK $name THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The begin work statement starts a transaction."
+  },
+  "BREAK": {
+    "prefix": "BREAK",
+    "body": [
+      "BREAK $1"
+    ],
+    "description": "The break statement enables or disables the BREAK key."
+  },
+  "BREAK OFF": {
+    "prefix": "BREAK",
+    "body": [
+      "BREAK OFF"
+    ],
+    "description": "The break statement enables or disables the BREAK key."
+  },
+  "BREAK ON": {
+    "prefix": "BREAK",
+    "body": [
+      "BREAK ON"
+    ],
+    "description": "The break statement enables or disables the BREAK key."
+  },
+  "CALL": {
+    "prefix": "CALL",
+    "body": [
+      "CALL $subroutine_name($arguments)"
+    ],
+    "description": "The call statement transfers control to an external FlashBASIC or BASIC subroutine and optionally passes a list of arguments to it."
+  },
+  "CASING": {
+    "prefix": "CASING",
+    "body": [
+      "CASING $1"
+    ],
+    "description": "The casing statement toggles case sensitivity relative to input data and string comparisons in the current program and any called subroutines."
+  },
+  "CFUNCTION": {
+    "prefix": "CFUNCTION",
+    "body": [
+      "CFUNCTION $names"
+    ],
+    "description": "The cfunction statement provides access to C libraries from BASIC."
+  },
+  "CHAIN": {
+    "prefix": "CHAIN",
+    "body": [
+      "CHAIN $expr"
+    ],
+    "description": "The chain statement transfers processing control to TCL, which interprets and executes the statement defined in the expression."
+  },
+  "CHANGE": {
+    "prefix": "CHANGE",
+    "body": [
+      "CHANGE($string, $search, $replace, $occurrence, $start)"
+    ],
+    "description": "The change() function searches a string expression for the search string and then, if at the start occurrence, replaces search.str with replacement.str for the amount of occurrences specified in occurrences."
+  },
+  "CHAR": {
+    "prefix": "CHAR",
+    "body": [
+      "CHAR($expr)"
+    ],
+    "description": "The char() function converts a number between 0 and 255 to its corresponding ASCII character equivalent."
+  },
+  "CLEAR": {
+    "prefix": "CLEAR",
+    "body": [
+      "CLEAR"
+    ],
+    "description": "The clear statement sets all local and common variables to 0 in a main program."
+  },
+  "CLEARDATA": {
+    "prefix": "CLEARDATA",
+    "body": [
+      "CLEARDATA"
+    ],
+    "description": "The cleardata statement clears the data stack."
+  },
+  "CLEARFILE": {
+    "prefix": "CLEARFILE",
+    "body": [
+      "CLEARFILE $variable"
+    ],
+    "description": "The clearfile statement deletes all items in the specified file variable previously opened with an open statement."
+  },
+  "CLEARSELECT": {
+    "prefix": "CLEARSELECT",
+    "body": [
+      "CLEARSELECT $ListName"
+    ],
+    "description": "The clearselect statement clears the active select-list specified by the list.var and releases all overflow associated with that list. Any external select-list is also cleared if the list variable is not specified."
+  },
+  "CLOSE": {
+    "prefix": "CLOSE",
+    "body": [
+      "CLOSE $variable"
+    ],
+    "description": "The close statement closes the file identified by file.var. If file.var is not specified, the file referenced by the default file.var is closed."
+  },
+  "COL1": {
+    "prefix": "COL1",
+    "body": [
+      "COL1()"
+    ],
+    "description": "The col1() function returns the numeric column position of the character immediately preceding the substring retrieved in the most recently executed field() function."
+  },
+  "COL2": {
+    "prefix": "COL2",
+    "body": [
+      "COL2()"
+    ],
+    "description": "The col2() function returns the numeric column position of the character following the substring retrieved in the most recently executed field() function."
+  },
+  "COMMIT WORK": {
+    "prefix": "COMMIT WORK",
+    "body": [
+      "COMMIT WORK THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The commit work operation commits a transaction."
+  },
+  "COMMON": {
+    "prefix": "COMMON",
+    "body": [
+      "COMMON $1"
+    ],
+    "description": "The common statement declares data elements to share among different FlashBASIC or BASIC modules."
+  },
+  "COM": {
+    "prefix": "COM",
+    "body": [
+      "COM $1"
+    ],
+    "description": "The common statement declares data elements to share among different FlashBASIC or BASIC modules."
+  },
+  "COMPARE": {
+    "prefix": "COMPARE",
+    "body": [
+      "COMPARE $str1 TO $str2"
+    ],
+    "description": "The compare statement compares two dynamic arrays."
+  },
+  "COMPARE All": {
+    "prefix": "COMPARE",
+    "body": [
+      "COMPARE $str1 TO $str2 PRESENT $exist MISSING $missing"
+    ],
+    "description": "The compare statement compares two dynamic arrays."
+  },
+  "CONTINUE": {
+    "prefix": "CONTINUE",
+    "body": [
+      "CONTINUE"
+    ],
+    "description": "The continue statement restarts a loop that is under for...next or loop...repeat control."
+  },
+  "CONVERT": {
+    "prefix": "CONVERT",
+    "body": [
+      "CONVERT $fromchars TO $tostring IN $var"
+    ],
+    "description": "The convert statement searches a given variable and replaces each occurrence of a character by another."
+  },
+  "CONVERT Function": {
+    "prefix": "CONVERT",
+    "body": [
+      "CONVERT($var, $str1, $str2)"
+    ],
+    "description": "The convert() function searches a given variable and replaces each occurrence of a character by another."
+  },
+  "COS": {
+    "prefix": "COS",
+    "body": [
+      "COS($expr)"
+    ],
+    "description": "The cos() function calculates the trigonometric cosine of an angle of a specified numeric expression in the range 0 to 360 degrees."
+  },
+  "COUNT": {
+    "prefix": "COUNT",
+    "body": [
+      "COUNT($expr, $delimiter)"
+    ],
+    "description": "The count() function returns the number of occurrences of str.exp2 within str.exp1."
+  },
+  "CRT": {
+    "prefix": "CRT",
+    "body": [
+      "CRT $expr"
+    ],
+    "description": "The crt statement outputs unconditionally to the terminal display, regardless of whether or not the printer on condition is in effect."
+  },
+  "CRT @": {
+    "prefix": "CRT",
+    "body": [
+      "CRT @($col, $row):$expr"
+    ],
+    "description": "The crt statement outputs unconditionally to the terminal display, regardless of whether or not the printer on condition is in effect."
+  },
+  "DISPLAY": {
+    "prefix": "DISPLAY",
+    "body": [
+      "DISPLAY $expr"
+    ],
+    "description": "The crt statement outputs unconditionally to the terminal display, regardless of whether or not the printer on condition is in effect."
+  },
+  "DISPLAY @": {
+    "prefix": "DISPLAY",
+    "body": [
+      "DISPLAY @($col, $row):$expr"
+    ],
+    "description": "The crt statement outputs unconditionally to the terminal display, regardless of whether or not the printer on condition is in effect."
+  },
+  "DATA": {
+    "prefix": "DATA",
+    "body": [
+      "DATA $expr"
+    ],
+    "description": "The data statement queues responses for use by subsequent input requests initiated from chain, enter, execute, or input statements. The data is taken from the queue in the order in which it was added."
+  },
+  "DATE": {
+    "prefix": "DATE",
+    "body": [
+      "DATE()"
+    ],
+    "description": "The date() function returns the current system date in internal format as an integer number representing the number of days that have elapsed since December 31, 1967 (day 0 on the D3 calendar)."
+  },
+  "DCOUNT": {
+    "prefix": "DCOUNT",
+    "body": [
+      "DCOUNT($expr, $delimiter)"
+    ],
+    "description": "The dcount() function returns the number of occurrences of the delimiter specified in str.exp2 within str.exp1, plus one."
+  },
+  "DEBUG": {
+    "prefix": "DEBUG",
+    "body": [
+      "DEBUG"
+    ],
+    "description": "The debug statement temporarily suspends execution of a FlashBASIC or BASIC program and invokes the FlashBASIC or BASIC debugger."
+  },
+  "DEFFUN": {
+    "prefix": "DEFFUN",
+    "body": [
+      "DEFFUN $name($args)"
+    ],
+    "description": "Use the deffun statement to define a user-written function. You must declare a user-defined function before you can use it in a program. The deffun statement provides the compiler with information such as the function name, and the number and type of arguments. In a program, each user-written function must have a unique definition. Any subsequent deffun statement for a user-written function that is already defined causes a fatal error."
+  },
+  "DEL": {
+    "prefix": "DEL",
+    "body": [
+      "DEL $variable"
+    ],
+    "description": "The del statement provides an alternate to the delete() function for deleting a location from a dynamic array."
+  },
+  "DEL Attribute": {
+    "prefix": "DEL",
+    "body": [
+      "DEL $variable<$attr>"
+    ],
+    "description": "The del statement provides an alternate to the delete() function for deleting a location from a dynamic array."
+  },
+  "DEL SubValue": {
+    "prefix": "DEL",
+    "body": [
+      "DEL $variable<$attr, $value, $subValue>"
+    ],
+    "description": "The del statement provides an alternate to the delete() function for deleting a location from a dynamic array."
+  },
+  "DEL Value": {
+    "prefix": "DEL",
+    "body": [
+      "DEL $variable<$attr, $value>"
+    ],
+    "description": "The del statement provides an alternate to the delete() function for deleting a location from a dynamic array."
+  },
+  "DELETE Function": {
+    "prefix": "DELETE",
+    "body": [
+      "DELETE($dynarr, $attr, $val, $subval)"
+    ],
+    "description": "The delete() function removes a specific attribute, value, or subvalue from a dimensioned or dynamic array."
+  },
+  "DELETE": {
+  "prefix": "DELETE",
+  "body": [
+    "DELETE $filevar,$recordkey"
+  ],
+  "description": "The delete statement removes a specific item from a file."
+},
+  "DELETE All": {
+    "prefix": "DELETE",
+    "body": [
+      "DELETE $filevar,$recordkey ON ERROR $statements"
+    ],
+    "description": "The delete statement removes a specific item from a file."
+  },
+  "DIMENSION": {
+    "prefix": "DIM",
+    "body": [
+      "DIM $variable($numbers)"
+    ],
+    "description": "The dimension statement establishes a specific number of storage locations for a matrix of variables."
+  },
+  "DQUOTE": {
+    "prefix": "DQUOTE",
+    "body": [
+      "DQUOTE($expr)"
+    ],
+    "description": "The dquote() function extracts a double-quoted string from str.exp."
+  },
+  "DTX": {
+    "prefix": "DTX",
+    "body": [
+      "DTX($expr)"
+    ],
+    "description": "The dtx() function converts a given decimal number to its corresponding hexadecimal equivalent. The number is first converted to an integer by truncating the fractional part."
+  },
+  "EBCDIC": {
+    "prefix": "EBCDIC",
+    "body": [
+      "EBCDIC($expr)"
+    ],
+    "description": "The ebcdic() function converts a string of ASCII-encoded characters into their equivalent EBCDIC values."
+  },
+  "ECHO": {
+    "prefix": "ECHO",
+    "body": [
+      "ECHO $expr"
+    ],
+    "description": "The echo statement toggles terminal echo on or off."
+  },
+  "ENTER": {
+    "prefix": "ENTER",
+    "body": [
+      "ENTER $progname"
+    ],
+    "description": "The enter statement transfers control to another cataloged FlashBASIC or BASIC program."
+  },
+  "EQUATE": {
+    "prefix": "EQUATE",
+    "body": [
+      "EQUATE $symbol TO $var"
+    ],
+    "description": "The equate statement is a compiler directive that declares a constant at compile time or a synonym of another variable or array element."
+  },
+  "EQU": {
+    "prefix": "EQU",
+    "body": [
+      "EQU $symbol TO $var"
+    ],
+    "description": "The equate statement is a compiler directive that declares a constant at compile time or a synonym of another variable or array element."
+  },
+  "EREPLACE": {
+    "prefix": "EREPLACE",
+    "body": [
+      "EREPLACE($expr, $searchstr, $replacement, $occurrence, $begin)"
+    ],
+    "description": "The ereplace() function searches a string expression for the search string and then, if at the start occurrence, replaces search.str with replacement.str for the amount of occurrences specified in occurrences."
+  },
+  "ERROR Function": {
+    "prefix": "ERROR",
+    "body": [
+      "ERROR()"
+    ],
+    "description": "The error() function retrieves the TCL command used to activate the program and loads it into a specified variable."
+  },
+  "ERROR Statement": {
+    "prefix": "ERROR",
+    "body": [
+      "ERROR $messagenum, $params"
+    ],
+    "description": "The error statement displays the error message from the messages file and continues execution of the program."
+  },
+  "EXCHANGE": {
+    "prefix": "EXCHANGE",
+    "body": [
+      "EXCHANGE($var, $search, $replace)"
+    ],
+    "description": "The exchange() function replaces the characters specified in str.exp1 with the characters specified in str.exp2."
+  },
+  "EXECUTE": {
+    "prefix": "EXECUTE",
+    "body": [
+      "EXECUTE $expr"
+    ],
+    "description": "The execute statement temporarily pushes a level and performs any valid TCL expression, then continues execution of the FlashBASIC or BASIC program."
+  },
+  "EXECUTE All": {
+    "prefix": "EXECUTE",
+    "body": [
+      "EXECUTE $expr CAPTURING $var RETURNING $statusvar"
+    ],
+    "description": "The execute statement temporarily pushes a level and performs any valid TCL expression, then continues execution of the FlashBASIC or BASIC program."
+  },
+  "EXIT": {
+    "prefix": "EXIT",
+    "body": [
+      "EXIT"
+    ],
+    "description": "The exit statement forces an early exit from a loop that is under for...next or loop...repeat control."
+  },
+  "EXP": {
+    "prefix": "EXP",
+    "body": [
+      "EXP($expr)"
+    ],
+    "description": "The exp() function returns the exponential of a numeric expression, that is, base e, which is 2.718281828 rounded to precision to the power of the numeric expression."
+  },
+  "EXTRACT": {
+    "prefix": "EXTRACT",
+    "body": [
+      "EXTRACT($DynArr, $attr)"
+    ],
+    "description": "The extract() function retrieves a specific attribute, value, or subvalue from a dimensioned or dynamic array."
+  },
+  "EXTRACT SubValue": {
+    "prefix": "EXTRACT",
+    "body": [
+      "EXTRACT($DynArr, $attr, $value, $subvalue)"
+    ],
+    "description": "The extract() function retrieves a specific attribute, value, or subvalue from a dimensioned or dynamic array."
+  },
+  "EXTRACT Value": {
+    "prefix": "EXTRACT",
+    "body": [
+      "EXTRACT($DynArr, $attr, $value)"
+    ],
+    "description": "The extract() function retrieves a specific attribute, value, or subvalue from a dimensioned or dynamic array."
+  },
+  "FIELD": {
+    "prefix": "FIELD",
+    "body": [
+      "FIELD($string, $delimiter, $occurrence)"
+    ],
+    "description": "The field() function returns a substring from a string expression, by specifying a delimiter and the desired occurrence."
+  },
+  "FIELD Extract Count": {
+    "prefix": "FIELD",
+    "body": [
+      "FIELD($string, $delimiter, $occurrence, $extractCount)"
+    ],
+    "description": "The field() function returns a substring from a string expression, by specifying a delimiter and the desired occurrence."
+  },
+  "FILE": {
+    "prefix": "FILE",
+    "body": [
+      "FILE $name"
+    ],
+    "description": "The file statement is a compiler directive that allows the use of attribute definition items in the file’s dictionary while compiling a program."
+  },
+  "FILELOCK": {
+    "prefix": "FILELOCK",
+    "body": [
+      "FILELOCK filevar LOCKED $lock_statements "
+    ],
+    "description": "The filelock statement sets an exclusive lock on an entire file."
+  },
+  "FILEUNLOCK": {
+    "prefix": "FILEUNLOCK",
+    "body": [
+      "FILEUNLOCK $file_variable"
+    ],
+    "description": "The fileunlock statement releases an exclusive lock set by the filelock statement on an entire file."
+  },
+  "FMT": {
+    "prefix": "FMT",
+    "body": [
+      "FMT($str, $mask)"
+    ],
+    "description": "The fmt() function is identical to performing a FlashBASIC or BASIC mask."
+  },
+  "FOLD": {
+    "prefix": "FOLD",
+    "body": [
+      "FOLD($str, $foldlen, $delim)"
+    ],
+    "description": "The fold() function folds a string expression into a string of a given length."
+  },
+  "FOOTING": {
+    "prefix": "FOOTING",
+    "body": [
+      "FOOTING $str"
+    ],
+    "description": "The footing statement designates a text string composed of literals and special options to output at the bottom of each page."
+  },
+  "FOR Loop": {
+    "prefix": "FOR",
+    "body": [
+      "FOR $1 = $2 TO $3",
+      "$4",
+      "NEXT $1"
+    ],
+    "description": "The for...next statement is an iterative, incremental loop statement used to repeat a sequence of statements for a specific number of occurrences."
+  },
+  "FOR Step": {
+    "prefix": "FOR",
+    "body": [
+      "FOR $1 = $2 TO $3 STEP $4",
+      "$5",
+      "NEXT $1"
+    ],
+    "description": "The for...next statement is an iterative, incremental loop statement used to repeat a sequence of statements for a specific number of occurrences."
+  },
+  "FUNCTION": {
+    "prefix": "FUNCTION",
+    "body": [
+      "FUNCTION $name($args)",
+      "\t$statements",
+      "RETURN $var"
+    ],
+    "description": "A user-defined function statement looks, compiles, and catalogs like a callable subroutine, except the RETURN statement becomes \"RETURN X\", where X is the value to return (return_value)."
+  },
+  "GET": {
+    "prefix": "GET",
+    "body": [
+      "GET $Var,$length SETTING $charcnt FROM $port UNTIL $termchar RETURNING $retTermChar WAITING $seconds THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The get statement gets raw characters from the specified port."
+  },
+  "GETX": {
+    "prefix": "GETX",
+    "body": [
+      "GETX $var,$length SETTING $charcnt FROM $portexp UNTIL $termchar RETURNING $retTermChar WAITING $seconds THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The getx statement receives input from an attached line in ASCII hexadecimal format. The statement returns an exploded ASCII hexadecimal string that allows binary data to contain a decimal 255 (x’ff’)"
+  },
+  "GOSUB": {
+    "prefix": "GOSUB",
+    "body": [
+      "GOSUB $label"
+    ],
+    "description": "The gosub statement transfers control to a local subroutine identified by a statement label within the program. Control returns to the next statement after the gosub statement when the return statement is encountered."
+  },
+  "HEADING": {
+    "prefix": "HEADING",
+    "body": [
+      "HEADING $expr"
+    ],
+    "description": "The heading statement designates a text string composed of literals and special options to output at the top of each page."
+  },
+  "ICONV": {
+    "prefix": "ICONV",
+    "body": [
+      "ICONV($subject, $convcode)"
+    ],
+    "description": "The iconv() function converts a value from its external format to its internal equivalent, according to the processing code being applied."
+  },
+  "IF Then": {
+    "prefix": "IF",
+    "body": [
+      "IF $1 THEN",
+      "\t$2",
+      "END"
+    ],
+    "description": "The if statement tests the result of a logical expression. Depending on whether the expression evaluates to either true or false, the statements following the then or else clauses respectively are executed."
+  },
+  "IF Then\/Else": {
+    "prefix": "IF",
+    "body": [
+      "IF $1 THEN",
+      "\t$2",
+      "END ELSE",
+      "\t$3",
+      "END"
+    ],
+    "description": "The if statement tests the result of a logical expression. Depending on whether the expression evaluates to either true or false, the statements following the then or else clauses respectively are executed."
+  },
+  "IFR": {
+    "prefix": "IFR",
+    "body": [
+      "IFR $1 THEN",
+      "\t$2",
+      "END ELSE",
+      "\t$3",
+      "END"
+    ],
+    "description": "The ifr statement tests the result of a logical expression."
+  },
+  "IN": {
+    "prefix": "IN",
+    "body": [
+      "IN $var THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The in statement accepts a single raw character of input from the keyboard, without displaying a prompt character or requiring pressing ENTER following the input."
+  },
+  "IN For": {
+    "prefix": "IN",
+    "body": [
+      "IN $var FOR $deciseconds THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": ""
+  },
+  "INDEX": {
+    "prefix": "INDEX",
+    "body": [
+      "INDEX($subject, $search, $occurrence)"
+    ],
+    "description": "The index() function searches through a given str.exp for the occurrence of the character or substring specified by substr.exp and if found, returns the numeric position where the nth occurrence of the substring begins. Null strings are skipped."
+  },
+  "INMAT": {
+    "prefix": "INMAT",
+    "body": [
+      "INMAT($array)"
+    ],
+    "description": "The inmat() function returns information about arrays."
+  },
+  "INPUT": {
+    "prefix": "INPUT",
+    "body": [
+      "INPUT $var"
+    ],
+    "description": "The input statement temporarily suspends execution of the program until a response is provided from the keyboard and assigns that response to a specified variable."
+  },
+  "INPUT @": {
+    "prefix": "INPUT",
+    "body": [
+      "INPUT @($col, $row): $var"
+    ],
+    "description": "The input statement temporarily suspends execution of the program until a response is provided from the keyboard and assigns that response to a specified variable."
+  },
+  "INPUT All": {
+    "prefix": "INPUT",
+    "body": [
+      "INPUT $var , $length, $fill $modes THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The input statement temporarily suspends execution of the program until a response is provided from the keyboard and assigns that response to a specified variable."
+  },
+  "INPUTCLEAR": {
+    "prefix": "INPUTCLEAR",
+    "body": [
+      "INPUTCLEAR"
+    ],
+    "description": "The inputclear statement clears the keyboard type-ahead buffer."
+  },
+  "INPUTCTRL": {
+    "prefix": "INPUTCTRL",
+    "body": [
+      "INPUTCTRL $expr"
+    ],
+    "description": "The inputctrl statement toggles on and off the ability to enter control characters on succeeding BASIC input statements."
+  },
+  "INPUTERR": {
+    "prefix": "INPUTERR",
+    "body": [
+      "INPUTERR $str"
+    ],
+    "description": "The inputerr statement displays a message on the status (bottom) line of the terminal. it meant to be used with the input@ statement."
+  },
+  "INPUTNULL": {
+    "prefix": "INPUTNULL",
+    "body": [
+      "INPUTNULL $char"
+    ],
+    "description": "The inputnull statement is used with the input @ statement to define the character used to indicate a null input on subsequent input statements."
+  },
+  "INPUTPARITY": {
+    "prefix": "INPUTPARITY",
+    "body": [
+      "INPUTPARITY $ON_OFF"
+    ],
+    "description": "The inputparity statement enables or disables the extended character set (xcs) for the current process."
+  },
+  "INPUTTRAP GOSUB": {
+    "prefix": "INPUTTRAP",
+    "body": [
+      "INPUTTRAP $str GOSUB $statementlabel"
+    ],
+    "description": "The inputtrap...gosub statement, using the str.exp, sets up an automatic computed gosub based on the next input @ statement data. The position of the character in the string expression corresponds to the position of the statement label in the list. This acts as a trap that causes a gosub on all subsequent input @ statements."
+  },
+  "INPUTTRAP OFF": {
+    "prefix": "INPUTTRAP OFF",
+    "body": [
+      "INPUTTRAP OFF"
+    ],
+    "description": "The inputtrap off statement cancels the previous inputtrap statement."
+  },
+  "INS": {
+    "prefix": "INS",
+    "body": [
+      "INS $expr BEFORE $Var<$attr, $value, $subvalue>"
+    ],
+    "description": "The ins statement is an alternative to the insert() function for inserting a string expression into a dynamic array."
+  },
+  "INSERT": {
+    "prefix": "INSERT",
+    "body": [
+      "INSERT($DynArr, $attr, $value, $subvalue; $expr)"
+    ],
+    "description": "The insert() function inserts the element referenced by str.exp into a specific attribute, value, or subvalue location in dyn.array.exp."
+  },
+  "INT": {
+    "prefix": "INT",
+    "body": [
+      "INT($expr)"
+    ],
+    "description": "The int() function returns the numeric integer equivalent from a given expression."
+  },
+  "KEY": {
+    "prefix": "KEY",
+    "body": [
+      "KEY($operator, $rootvar, $indexkey, $itemid, $vcexp) THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The key statement locates an item using a B-tree index key, and returns the item in a variable, providing the ability to sequentially search the items in the file based on the index."
+  },
+  "LEN": {
+    "prefix": "LEN",
+    "body": [
+      "LEN($str)"
+    ],
+    "description": "The len() function returns the length of a string expression."
+  },
+  "LET": {
+    "prefix": "LET",
+    "body": [
+      "LET $var = $expr"
+    ],
+    "description": "The let statement assigns the value of an expression to a variable."
+  },
+  "LN": {
+    "prefix": "LN",
+    "body": [
+      "LN($expr)"
+    ],
+    "description": "The ln() function returns the natural logarithm (base e, which is 2.718281828 rounded to precision) of a given numeric expression."
+  },
+  "LOCATE": {
+    "prefix": "LOCATE",
+    "body": [
+      "LOCATE $search IN $subject SETTING $pos THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The locate statement searches for the location of a specific string expression and returns the location in position.var."
+  },
+  "LOCATE Function": {
+    "prefix": "LOCATE",
+    "body": [
+      "LOCATE($str, $dynarr, $attr, $value; $returnVar) THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The locate statement searches for the location of a specific string expression and returns the location in position.var."
+  },
+  "LOCATE Function Order By": {
+    "prefix": "LOCATE",
+    "body": [
+      "LOCATE($str, $dynarr, $attr, $value, $start; $returnVar; $orderBy) THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": ""
+  },
+  "LOCATE Order By": {
+    "prefix": "LOCATE",
+    "body": [
+      "LOCATE $search IN $subject BY $orderBy SETTING $returnVar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The locate statement searches for the location of a specific string expression and returns the location in position.var."
+  },
+  "LOCK": {
+    "prefix": "LOCK",
+    "body": [
+      "LOCK $expr THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The lock statement sets one of 992 execution locks, in the range from 0 through 63. This prevents re-entry to the program, allowing only one process to run the program at any given time."
+  },
+  "LOOP Until": {
+    "prefix": "LOOP",
+    "body": [
+      "LOOP",
+      "\t$statement1",
+      "UNTIL $expr DO",
+      "\t$statement2",
+      "REPEAT"
+    ],
+    "description": "The loop statement repetitively executes (loops) until an ending condition is met. The first set of statements, if present, is executed at least once."
+  },
+  "LOOP While": {
+    "prefix": "LOOP",
+    "body": [
+      "LOOP",
+      "\t$statement1",
+      "WHILE $expr DO",
+      "\t$statement2",
+      "REPEAT"
+    ],
+    "description": "The loop statement repetitively executes (loops) until an ending condition is met. The first set of statements, if present, is executed at least once."
+  },
+  "MAT": {
+    "prefix": "MAT",
+    "body": [
+      "MAT $array = $expr"
+    ],
+    "description": "The mat statement assigns data to each element of a dimensioned array variable to a specific value in one operation."
+  },
+  "MATBUILD": {
+    "prefix": "MATBUILD",
+    "body": [
+      "MATBUILD $variable FROM $array, $startexpr, $endexpr"
+    ],
+    "description": "The matbuild statement converts a dimensioned array into a dynamic array."
+  },
+  "MATBUILD Using": {
+    "prefix": "MATBUILD",
+    "body": [
+      "MATBUILD $variable FROM $array, $startexpr, $endexpr USING $delimiter"
+    ],
+    "description": "The matbuild statement converts a dimensioned array into a dynamic array."
+  },
+  "MATPARSE": {
+    "prefix": "MATPARSE",
+    "body": [
+      "MATPARSE $mat FROM $str SETTING $var"
+    ],
+    "description": "The matparse statement converts a dynamic array into a dimensioned array."
+  },
+  "MATPARSE Using": {
+    "prefix": "MATPARSE",
+    "body": [
+      "MATPARSE $mat FROM $str USING $delim SETTING $var"
+    ],
+    "description": "The matparse statement converts a dynamic array into a dimensioned array."
+  },
+  "MATREAD": {
+    "prefix": "MATREAD",
+    "body": [
+      "MATREAD $mat FROM $filevar, $recordkey THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The matread statement reads the specified item from the optionally specified file.var, or if not specified, the default file.var, and stores one attribute per element in the dimensioned array."
+  },
+  "MATREAD All": {
+    "prefix": "MATREAD",
+    "body": [
+      "MATREAD $mat FROM $filevar, $recordkey LOCKED $lock_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The matread statement reads the specified item from the optionally specified file.var, or if not specified, the default file.var, and stores one attribute per element in the dimensioned array."
+  },
+  "MATREADU": {
+    "prefix": "MATREADU",
+    "body": [
+      "MATREADU $mat FROM $filevar, $recordkey THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The matreadu form of the matread statement tests if an item is already locked and locks the item if it is not. The item lock set by matreadu prevents the item from being read using the matreadu statement or updated by other processes while the lock is set."
+  },
+  "MATREADU All": {
+    "prefix": "MATREADU",
+    "body": [
+      "MATREADU $mat FROM $filevar, $recordkey LOCKED $lock_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The matreadu form of the matread statement tests if an item is already locked and locks the item if it is not. The item lock set by matreadu prevents the item from being read using the matreadu statement or updated by other processes while the lock is set."
+  },
+  "MATWRITE": {
+    "prefix": "MATWRITE",
+    "body": [
+      "MATWRITE $mat ON $filevar, $recordkey"
+    ],
+    "description": "The matwrite statement writes an item into the specified file.var."
+  },
+  "MATWRITEU": {
+    "prefix": "MATWRITEU",
+    "body": [
+      "MATWRITEU $mat ON $filevar, $recordkey"
+    ],
+    "description": "The matwriteu statement is identical to the matwrite statement, except the item remains locked. The matwriteu form keeps the item locked if it was previously locked by a readu, readvu, or matwriteu statement within the same program."
+  },
+  "MAXIMUM": {
+    "prefix": "MAXIMUM",
+    "body": [
+      "MAXIMUM($str)"
+    ],
+    "description": "The maximum() function returns the maximum of a list of numbers delimited by attribute, value, or subvalue marks. If different orders of marks are present, the maximum() function returns the maximum of all fields, regardless of delimiter."
+  },
+  "MINIMUM": {
+    "prefix": "MINIMUM",
+    "body": [
+      "MINIMUM($str)"
+    ],
+    "description": "The minimum() function returns the minimum of a list of numbers delimited by attribute, value, or subvalue marks. If different orders of marks are present, the minimum() function returns the minimum of all fields, regardless of delimiter."
+  },
+  "MOD": {
+    "prefix": "MOD",
+    "body": [
+      "MOD($dividend, $divisor)"
+    ],
+    "description": "The mod() function returns the remainder portion of the result of dividing one number by another."
+  },
+  "NOT": {
+    "prefix": "NOT",
+    "body": [
+      "NOT($expr)"
+    ],
+    "description": "The not() function returns the logical inverse of the normal outcome of true and false generated by a logical expression."
+  },
+  "NULL": {
+    "prefix": "NULL",
+    "body": [
+      "NULL"
+    ],
+    "description": "The null statement performs no operation, other than to provide an instruction where one is required. This is usually used for program readability."
+  },
+  "NUM": {
+    "prefix": "NUM",
+    "body": [
+      "NUM($str)"
+    ],
+    "description": "The num() function evaluates an expression and returns 1 (true) if it is a decimal numeric. Otherwise, it returns 0, if the expression contains any nonnumeric characters."
+  },
+  "OCCURS": {
+    "prefix": "OCCURS",
+    "body": [
+      "OCCURS($str, $num)"
+    ],
+    "description": "The occurs() function searches a string for attributes or values that occur consecutively."
+  },
+  "OCONV": {
+    "prefix": "OCONV",
+    "body": [
+      "OCONV($subject, $conversion)"
+    ],
+    "description": "The oconv() function converts a value from its internal format to its external equivalent, according to the processing code being applied."
+  },
+  "OPEN": {
+    "prefix": "OPEN",
+    "body": [
+      "OPEN $filename TO $filevar ELSE $else_statements"
+    ],
+    "description": "The open statement opens a specified file name and associates the file with the optional file.var."
+  },
+  "OPEN All": {
+    "prefix": "OPEN",
+    "body": [
+      "OPEN $filename TO $filevar ON ERROR $err_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The open statement opens a specified file name and associates the file with the optional file.var."
+  },
+  "OUT": {
+    "prefix": "OUT",
+    "body": [
+      "OUT $num"
+    ],
+    "description": "The out statement outputs a single ASCII character derived from a numeric expression in the range of 0 through 255, which indicates its corresponding position in the ASCII table."
+  },
+  "PAGE": {
+    "prefix": "PAGE",
+    "body": [
+      "PAGE $1"
+    ],
+    "description": "The page statement terminates the current page of output, prints the optional footing, positions to the top of the form, and prints the optional heading."
+  },
+  "PRECISION": {
+    "prefix": "PRECISION",
+    "body": [
+      "PRECISION $int"
+    ],
+    "description": "The precision statement defines the number of fractional decimal places that a numerical value can hold."
+  },
+  "PRINT": {
+    "prefix": "PRINT",
+    "body": [
+      "PRINT $expr"
+    ],
+    "description": "The print statement directs output of an expression to the current output device."
+  },
+  "PRINTCHAR": {
+    "prefix": "PRINTCHAR",
+    "body": [
+      "PRINTCHAR $str"
+    ],
+    "description": "The printchar statement prints the first character of the string expression to the screen or to the printer."
+  },
+  "PRINTER": {
+    "prefix": "PRINTER",
+    "body": [
+      "PRINTER $ON_OFF_CLOSE"
+    ],
+    "description": "The printer statement controls the output from subsequent print, heading, footing, or page statements."
+  },
+  "PROCREAD": {
+    "prefix": "PROCREAD",
+    "body": [
+      "PROCREAD $variable THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The procread statement reads the calling Proc’s primary input buffer and assigns its contents to a specified variable."
+  },
+  "PROCWRITE": {
+    "prefix": "PROCWRITE",
+    "body": [
+      "PROCWRITE $expr"
+    ],
+    "description": "The procwrite statement writes a string expression variable to the calling Proc’s primary input buffer."
+  },
+  "PROGRAM": {
+    "prefix": "PROGRAM",
+    "body": [
+      "PROGRAM $progname"
+    ],
+    "description": "The program statement is optionally used on the first line of a program to indicate that this is a program."
+  },
+  "PROMPT": {
+    "prefix": "PROMPT",
+    "body": [
+      "PROMPT $expr"
+    ],
+    "description": "The prompt statement indicates the single character to display during subsequent input statements that prompt for input from the keyboard."
+  },
+  "PWR": {
+    "prefix": "PWR",
+    "body": [
+      "PWR($expression1, $pwrexpr)"
+    ],
+    "description": "The pwr() function raises a value contained in an expression to the power of the value of a second expression."
+  },
+  "READ": {
+    "prefix": "READ",
+    "body": [
+      "READ $var FROM $filevar,$recordkey THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The read statement reads an item as a dynamic array and stores the item as a string. Each attribute is automatically an element of the dynamic array variable and can be referenced with the appropriate intrinsic functions."
+  },
+  "READNEXT": {
+    "prefix": "READNEXT",
+    "body": [
+      "READNEXT $var FROM $list"
+    ],
+    "description": "The readnext statement retrieves the next item-ID from an active list and assigns it to a specified variable."
+  },
+  "READNEXT All": {
+    "prefix": "READNEXT",
+    "body": [
+      "READNEXT $var, $valpos, $subvalpos FROM $list THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The readnext statement retrieves the next item-ID from an active list and assigns it to a specified variable."
+  },
+  "READT": {
+    "prefix": "READT",
+    "body": [
+      "READT $var onerr $err_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The readt statement reads a tape record and assigns the value returned to a specified variable."
+  },
+  "READTX": {
+    "prefix": "READTX",
+    "body": [
+      "READTX $var onerr $err_statement THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The readtx statement reads a tape record converts the tape record to hexadecimal and assigns the resulting hexadecimal value to a specified variable."
+  },
+  "READU": {
+    "prefix": "READU",
+    "body": [
+      "READU $var FROM $filevar,$recordkey THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The readu statement reads an item as a dynamic array, locks it, and stores the item as a string. Each attribute is automatically an element of the dynamic array variable and can be referenced with the appropriate intrinsic functions."
+  },
+  "READU Locked": {
+    "prefix": "READU",
+    "body": [
+      "READU $var FROM $filevar,$recordkey LOCKED $lock_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The readu statement reads an item as a dynamic array, locks it, and stores the item as a string. Each attribute is automatically an element of the dynamic array variable and can be referenced with the appropriate intrinsic functions."
+  },
+  "READV": {
+    "prefix": "READV",
+    "body": [
+      "READV $var FROM $filevar,$recordkey,$attr THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The readv statement reads an item from the optionally-specified file variable and assigns the value contained in the attribute number referenced in the attribute expression to the specified variable."
+  },
+  "READVU": {
+    "prefix": "READVU",
+    "body": [
+      "READVU $var FROM $filevar,$recordkey,$attr THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The readvu statement reads an item from the optionally-specified file variable, locks it, and assigns the value contained in the attribute number referenced in the attribute expression to the specified variable."
+  },
+  "READVU All": {
+    "prefix": "READVU",
+    "body": [
+      "READVU $var FROM $filevar,$recordkey,$attr LOCKED $lock_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The readv statement reads an item from the optionally-specified file variable, locks it, and assigns the value contained in the attribute number referenced in the attribute expression to the specified variable."
+  },
+  "RELEASE": {
+    "prefix": "RELEASE",
+    "body": [
+      "RELEASE $filevar, $expr ON ERROR $err_statements"
+    ],
+    "description": "The release statement clears locks on items locked with a previous matreadu, readu, or readvu statement."
+  },
+  "REM": {
+    "prefix": "REM",
+    "body": [
+      "REM($dividend, $divisor)"
+    ],
+    "description": "The rem() function returns the remainder portion of the result of dividing one number by another."
+  },
+  "REM Comment": {
+    "prefix": "REM",
+    "body": [
+      "REM $text"
+    ],
+    "description": "The REM statement is used as a remark. Text after this statement is ignored."
+  },
+  "REMOVE Statement": {
+    "prefix": "REMOVE",
+    "body": [
+      "REMOVE $str FROM $array AT $pos SETTING $setvar"
+    ],
+    "description": "The remove statement retrieves a substring delimited by a system delimiter from a dynamic array."
+  },
+  "REPLACE Function": {
+    "prefix": "REPLACE",
+    "body": [
+      "REPLACE($dynarr, $attr, $value, $subvalue; $replace)"
+    ],
+    "description": "The replace() function inserts or replaces a specific attribute, value, or subvalue in the string referenced by dyn.array.exp with the value referenced in str.exp."
+  },
+  "REPLACE Statement": {
+    "prefix": "REPLACE",
+    "body": [
+      "REPLACE $filevar, $itemid_old WITH $itemid_new"
+    ],
+    "description": "The replace statement maintains referential integrity between items that contain bidirectional bridges used by the Update processor by eliminating duplicate item-IDs."
+  },
+  "RETURN": {
+    "prefix": "RETURN",
+    "body": [
+      "RETURN $1"
+    ],
+    "description": "The return statement terminates an internal or external subroutine and returns execution control to the statement following the invoking call or gosub statement."
+  },
+  "REWIND": {
+    "prefix": "REWIND",
+    "body": [
+      "REWIND onerr $err_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The rewind statement rewinds the currently attached magnetic tape unit to the beginning of the tape."
+  },
+  "RND": {
+    "prefix": "RND",
+    "body": [
+      "RND($expr)"
+    ],
+    "description": "The rnd() function generates a random number."
+  },
+  "ROLLBACK WORK": {
+    "prefix": "ROLLBACK WORK",
+    "body": [
+      "ROLLBACK WORK THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The rollback work statement rolls back (or undoes) a transaction."
+  },
+  "ROOT": {
+    "prefix": "ROOT",
+    "body": [
+      "ROOT $fileref, $acode TO $rootvar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The root statement provides an interface to the B-tree indexes for subsequent references with the key statement."
+  },
+  "RQM": {
+    "prefix": "RQM",
+    "body": [
+      "RQM $seconds"
+    ],
+    "description": "The rqm statement suspends processing for a specific number of seconds, or until a specific time."
+  },
+  "SCAN": {
+    "prefix": "SCAN",
+    "body": [
+      "SCAN($str, $searchdelims)"
+    ],
+    "description": "The scan() function searches through a specified str.exp for the first occurrence of up to three user-definable characters specified by search.delimiters in addition to the system delimiters value, subvalue, and attribute."
+  },
+  "SELECT": {
+    "prefix": "SELECT",
+    "body": [
+      "SELECT $variable1 TO $list"
+    ],
+    "description": "The select statement creates an active list of item-IDs, allowing sequential access to each item in the file by use of the readnext statement."
+  },
+  "SEND": {
+    "prefix": "SEND",
+    "body": [
+      "SEND $str TO $port THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The send statement sends output to a specified port."
+  },
+  "SENDX": {
+    "prefix": "SENDX",
+    "body": [
+      "SENDX $str TO $portnum THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The sendx statement converts the exploded ASCII hexadecimal string results of str.exp to its binary equivalent and then transmits it to the specified port. The conversion process terminates when the first nonhexadecimal character is encountered. sendx suppresses the output of a CR/LF pair. sendx does not allow the : to exist as part of the statement."
+  },
+  "SENTENCE": {
+    "prefix": "SENTENCE",
+    "body": [
+      "SENTENCE()"
+    ],
+    "description": "The sentence() function is identical to performing a tclread statement. It returns the TCL command used to activate the program into a variable."
+  },
+  "SEQ": {
+    "prefix": "SEQ",
+    "body": [
+      "SEQ($char)"
+    ],
+    "description": "The seq() function converts any ASCII character to its corresponding numeric equivalent in the range 0 through 255."
+  },
+  "SIN": {
+    "prefix": "SIN",
+    "body": [
+      "SIN($expr)"
+    ],
+    "description": "The sin() function calculates the sine of an angle specified in degrees."
+  },
+  "SLEEP": {
+    "prefix": "SLEEP",
+    "body": [
+      "SLEEP $seconds"
+    ],
+    "description": "The sleep statement places a process to sleep for a specific number of seconds, or, until a specific time."
+  },
+  "SORT": {
+    "prefix": "SORT",
+    "body": [
+      "SORT($keycnt)"
+    ],
+    "description": "The sort() function sorts an attribute or value mark delimited str.exp in ascending order."
+  },
+  "SOUNDEX": {
+    "prefix": "SOUNDEX",
+    "body": [
+      "SOUNDEX($str, $code)"
+    ],
+    "description": "The soundex() function returns the 4-digit soundex code for a phonetic string expression."
+  },
+  "SPACE": {
+    "prefix": "SPACE",
+    "body": [
+      "SPACE($cnt)"
+    ],
+    "description": "The space() function generates a string of spaces of a length equal to the value of the numeric expression."
+  },
+  "SPOOLQ": {
+    "prefix": "SPOOLQ",
+    "body": [
+      "SPOOLQ $1"
+    ],
+    "description": "The spoolq statement enables or disables the spooler entry number message."
+  },
+  "SQRT": {
+    "prefix": "SQRT",
+    "body": [
+      "SQRT($expr)"
+    ],
+    "description": "The sqrt() function calculates the square root of a given numeric expression."
+  },
+  "SQUOTE": {
+    "prefix": "SQUOTE",
+    "body": [
+      "SQUOTE($expr)"
+    ],
+    "description": "The squote() function extracts a single-quoted string from str.exp."
+  },
+  "STATUS Function": {
+    "prefix": "STATUS",
+    "body": [
+      "STATUS()"
+    ],
+    "description": "The status() function returns the value of system(0)."
+  },
+  "STOP": {
+    "prefix": "STOP",
+    "body": [
+      "STOP $1"
+    ],
+    "description": "The stop statement stops program execution and returns to the invoking the process."
+  },
+  "STR": {
+    "prefix": "STR",
+    "body": [
+      "STR($str, $cnt)"
+    ],
+    "description": "The str() function repeats a str.exp the number of times specified in num.exp."
+  },
+  "SUBROUTINE Skeleton": {
+    "prefix": "SUB",
+    "body": [
+      "SUBROUTINE $1($2)",
+      "*-----",
+      "* Description : $3",
+      "* Author      : $4",
+      "* Date        : $5",
+      "*-----",
+      "     \\$INCLUDE Common",
+      "*-----",
+      "     Gosub Initialise",
+      "*-----",
+      "      $6",
+      "*-----",
+      "ExitProgram:",
+      "*-----",
+      "     Return",
+      "     End",
+      "*-----",
+      "Initialise:",
+      "*-----",
+      "",
+      "     Return"
+    ],
+    "description": ""
+  },
+  "SUM": {
+    "prefix": "SUM",
+    "body": [
+      "SUM($DynArr)"
+    ],
+    "description": "The sum() function returns the sum of a list of numbers delimited by attribute, value, or subvalue marks. If different orders of marks are present, the sum() function computes the sum of each sublist."
+  },
+  "SUMMATION": {
+    "prefix": "SUMMATION",
+    "body": [
+      "SUMMATION($expr)"
+    ],
+    "description": "The summation() function returns the sum of a list of numbers delimited by attribute, value, or subvalue marks."
+  },
+  "SWAP": {
+    "prefix": "SWAP",
+    "body": [
+      "SWAP($string, $old, $new, $occurrence, $start)"
+    ],
+    "description": "The swap() function searches a string expression for the search string and then, if at the start occurrence, replaces search.str with replacement.str for the amount of occurrences specified in occurrences."
+  },
+  "SYSTEM": {
+    "prefix": "SYSTEM",
+    "body": [
+      "SYSTEM($key)"
+    ],
+    "description": "The system() function provides an interface to a number of system variables"
+  },
+  "TA": {
+    "prefix": "TA",
+    "body": [
+      "TA $1"
+    ],
+    "description": "The ta statement toggles or resets the type-ahead buffer."
+  },
+  "TAN": {
+    "prefix": "TAN",
+    "body": [
+      "TAN($expr)"
+    ],
+    "description": "The tan() function calculates the trigonometric tangent of the angle specified in degrees."
+  },
+  "TCL": {
+    "prefix": "TCL",
+    "body": [
+      "TCL $tclcmd"
+    ],
+    "description": "The tcl statement executes any valid TCL command as a subroutine."
+  },
+  "TCLREAD": {
+    "prefix": "TCLREAD",
+    "body": [
+      "TCLREAD $var"
+    ],
+    "description": "The tclread statement loads the TCL command used to activate the program into a variable."
+  },
+  "TIME": {
+    "prefix": "TIME",
+    "body": [
+      "TIME()"
+    ],
+    "description": "The time() function returns the current system time in its internal format, representing the number of seconds past midnight."
+  },
+  "TIMEDATE": {
+    "prefix": "TIMEDATE",
+    "body": [
+      "TIMEDATE()"
+    ],
+    "description": "The timedate() function returns the current system time and date in external format (hh:mm:ss dd mmm yyyy)."
+  },
+  "TRANSACTION": {
+    "prefix": "TRANSACTION",
+    "body": [
+      "TRANSACTION $expr"
+    ],
+    "description": "The transaction statement enables or disables participation in a transaction."
+  },
+  "TRANSACTION ABORT": {
+    "prefix": "TRANSACTION ABORT",
+    "body": [
+      "TRANSACTION ABORT"
+    ],
+    "description": "transaction abort statement"
+  },
+  "TRANSACTION CACHE": {
+    "prefix": "TRANSACTION CACHE",
+    "body": [
+      "TRANSACTION CACHE $exp"
+    ],
+    "description": "The transaction cache statement enables or disables the transaction read cache."
+  },
+  "TRANSACTION COMMIT": {
+    "prefix": "TRANSACTION COMMIT",
+    "body": [
+      "TRANSACTION COMMIT"
+    ],
+    "description": "transaction commit statement"
+  },
+  "TRANSACTION FLUSH": {
+    "prefix": "TRANSACTION FLUSH",
+    "body": [
+      "TRANSACTION FLUSH $exp"
+    ],
+    "description": "The transaction flush statement enables or disables the transaction flush mechanism."
+  },
+  "TRANSACTION ROLLBACK": {
+    "prefix": "TRANSACTION ROLLBACK",
+    "body": [
+      "TRANSACTION ROLLBACK"
+    ],
+    "description": "transaction rollback function"
+  },
+  "TRANSACTION START": {
+    "prefix": "TRANSACTION START",
+    "body": [
+      "TRANSACTION START"
+    ],
+    "description": "transaction start function"
+  },
+  "TRIM": {
+    "prefix": "TRIM",
+    "body": [
+      "TRIM($str, $char, $mode)"
+    ],
+    "description": "The trim() function removes leading, trailing, and/or redundant characters from a string."
+  },
+  "TRIMB": {
+    "prefix": "TRIMB",
+    "body": [
+      "TRIMB($str)"
+    ],
+    "description": "The trimb() function removes trailing spaces from a string."
+  },
+  "TRIMF": {
+    "prefix": "TRIMF",
+    "body": [
+      "TRIMF($str)"
+    ],
+    "description": "The trimf() function removes leading spaces from a string."
+  },
+  "UCLOSE": {
+    "prefix": "UCLOSE",
+    "body": [
+      "UCLOSE $filehandle THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The uclose command closes a file variable previously opened with the uopen command."
+  },
+  "UCREATE": {
+    "prefix": "UCREATE",
+    "body": [
+      "UCREATE $path TO $filehandle THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The ucreate command creates and opens a specified file on the host system."
+  },
+  "UDELETE": {
+    "prefix": "UDELETE",
+    "body": [
+      "UDELETE $path THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The udelete command removes the directory entry named by the path name."
+  },
+  "UERROR": {
+    "prefix": "UERROR",
+    "body": [
+      "UERROR()"
+    ],
+    "description": "The uerror() function returns the error number that resulted from the previous inter-operating system command."
+  },
+  "UEXECUTE": {
+    "prefix": "UEXECUTE",
+    "body": [
+      "UEXECUTE $cmd RETURNING $var"
+    ],
+    "description": "The uexecute command allows users to execute various Windows programs from within mvBASIC."
+  },
+  "ULOCK": {
+    "prefix": "ULOCK",
+    "body": [
+      "ULOCK $filehandle $LOCK_UNLOCK FOR $n THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The ulock command locks or unlocks a file specified by a file variable."
+  },
+  "ULSEEK": {
+    "prefix": "ULSEEK",
+    "body": [
+      "ULSEEK($filehandle, $n, $pos)"
+    ],
+    "description": "The ulseek() function moves the file pointer in an open file and returns the position of the file pointer, which is the number of bytes from the beginning of the file."
+  },
+  "UMESSAGE": {
+    "prefix": "UMESSAGE",
+    "body": [
+      "UMESSAGE TO $var, $exp1, $exp2, $exp3"
+    ],
+    "description": "The umessage command sends a Windows-style message to the client linked to the process executing the command. If the optional TO clause is used, the umessage command sends a Windows application launched by the uexecute command."
+  },
+  "UOPEN": {
+    "prefix": "UOPEN",
+    "body": [
+      "UOPEN $path FOR $READWRITE_READ_WRITE TO $filehandle THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The uopen command opens a given file name to a file variable."
+  },
+  "UREAD": {
+    "prefix": "UREAD",
+    "body": [
+      "UREAD $var FROM $filehandle FOR $n THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The uread command reads data from a previously opened file on the host system."
+  },
+  "UREADLINE": {
+    "prefix": "UREADLINE",
+    "body": [
+      "UREADLINE $var FROM $filehandle UNTIL $delim THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The ureadline() function reads data from a previously opened file on the host system."
+  },
+  "USYSTEM": {
+    "prefix": "USYSTEM",
+    "body": [
+      "USYSTEM($1)"
+    ],
+    "description": "The usystem() function is used to obtain information from the underlying operating system environment."
+  },
+  "UWAITFOR": {
+    "prefix": "UWAITFOR",
+    "body": [
+      "UWAITFOR $var, $exp THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The uwaitfor command causes the process to wait until the Windows application, identified by the var variable, terminates or the time specified by the expr1 variable elapses."
+  },
+  "UWRITE": {
+    "prefix": "UWRITE",
+    "body": [
+      "UWRITE $var ON $filehandle THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The uwrite command writes data to a previously opened file on the host system."
+  },
+  "UNLOCK": {
+    "prefix": "UNLOCK",
+    "body": [
+      "UNLOCK $locknum"
+    ],
+    "description": "The unlock statement resets an execution lock, in the range 0 to 991, previously set with a lock statement."
+  },
+  "UNTIL LOOP (Modern)": {
+    "prefix": "LOOP",
+    "body": [
+      "LOOP UNTIL $expr DO",
+      "\t$statement2",
+      "REPEAT"
+    ],
+    "description": "The loop statement repetitively executes (loops) until an ending condition is met. The first set of statements, if present, is executed at least once."
+  },
+  "WEOF": {
+    "prefix": "WEOF",
+    "body": [
+      "WEOF $var THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The weof statement writes an eof (end of file) mark to the currently attached magnetic media."
+  },
+  "WHILE LOOP (Modern)": {
+    "prefix": "LOOP",
+    "body": [
+      "LOOP WHILE $expr DO",
+      "\t$statement2",
+      "REPEAT"
+    ],
+    "description": "The loop statement repetitively executes (loops) until an ending condition is met. The first set of statements, if present, is executed at least once."
+  },
+  "WRITE": {
+    "prefix": "WRITE",
+    "body": [
+      "WRITE $var TO $filevar,$recordkey"
+    ],
+    "description": "The write statement writes the item specified in dyn.array.var into the specified file, using the item-ID specified in the ID.exp."
+  },
+  "WRITE On Error": {
+    "prefix": "WRITE",
+    "body": [
+      "WRITE $var TO $filevar,$recordkey ON ERROR $error_statements"
+    ],
+    "description": "The write statement writes the item specified in dyn.array.var into the specified file, using the item-ID specified in the ID.exp."
+  },
+  "WRITET": {
+    "prefix": "WRITET",
+    "body": [
+      "WRITET $exp THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The writet statement writes a tape record to the attached magnetic media from the specified variable."
+  },
+  "WRITEU": {
+    "prefix": "WRITEU",
+    "body": [
+      "WRITEU $var TO $filevar,$recordkey"
+    ],
+    "description": "The writeu form of the write statement writes a dynamic array into the specified file variable and keeps items locked that were locked by a previous readu or readvu statement."
+  },
+  "WRITEU Onerr": {
+    "prefix": "WRITEU",
+    "body": [
+      "WRITEU $var TO $filevar,$recordkey onerr $error_statements"
+    ],
+    "description": "The writeu form of the write statement writes a dynamic array into the specified file variable and keeps items locked that were locked by a previous readu or readvu statement."
+  },
+  "WRITEV": {
+    "prefix": "WRITEV",
+    "body": [
+      "WRITEV $var ON $filevar,$recordkey,$attr"
+    ],
+    "description": "The writev statement writes the value of an expression into the attribute designated in the attribute expression parameter, using the item-ID specified in ID.exp."
+  },
+  "WRITEVU": {
+    "prefix": "WRITEVU",
+    "body": [
+      "WRITEVU $var TO $filevar,$recordkey,$attr"
+    ],
+    "description": "The writevu form of this statement is identical to writev, except that the item remains locked."
+  },
+  "WRITEX": {
+    "prefix": "WRITEX",
+    "body": [
+      "WRITEX $dynarr ON $filevar,$recordkey"
+    ],
+    "description": "The writex statement writes the item specified in dyn.array.var into the specified file, using the item-ID specified in the ID.exp. The writex statement will wait until the actual disk update takes place before continuing execution of the program. This is used for \"critical\" write-through, such as error-logging."
+  },
+  "XTD": {
+    "prefix": "XTD",
+    "body": [
+      "XTD($expr)"
+    ],
+    "description": "The xtd() function converts an expression from its hexadecimal format into its equivalent decimal format."
+  }
+}

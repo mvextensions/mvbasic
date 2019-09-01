@@ -1,0 +1,3502 @@
+{
+  "$BASICTYPE": {
+    "prefix": "$BASICTYPE",
+    "body": [
+      "\\$BASICTYPE $param"
+    ],
+    "description": "The UniBasic $BASICTYPE command compiles data in a specified BASICTYPE. The $BASICTYPE statement must be the first noncomment statement in the program or subroutine."
+  },
+  "$DEFINE": {
+    "prefix": "$DEFINE",
+    "body": [
+      "\\$DEFINE $var"
+    ],
+    "description": "The UniBasic $DEFINE command defines a control variable you can use later to direct compilation."
+  },
+  "$IFDEF": {
+    "prefix": "$IFDEF",
+    "body": [
+      "\\$IFDEF $var",
+      "\t$statements",
+      "\\$ELSE",
+      "\t$else_statments",
+      "\\$ENDIF"
+    ],
+    "description": "The UniBasic $IFDEF command conditionally compiles UniBasic statements depending on the existence of a variable definition. Variables are defined by $DEFINE."
+  },
+  "$IFNDEF": {
+    "prefix": "$IFNDEF",
+    "body": [
+      "\\$IFNDEF $var",
+      "\t$statements",
+      "\\$ELSE",
+      "\t$else_statments",
+      "\\$ENDIF"
+    ],
+    "description": "The UniBasic $IFNDEF command conditionally compiles UniBasic statements depending on the absence of a variable definition. Variables are defined by $DEFINE."
+  },
+  "$INCLUDE": {
+    "prefix": "$INCLUDE",
+    "body": [
+      "\\$INCLUDE $expr"
+    ],
+    "description": "The UniBasic $INCLUDE and $INSERT commands insert UniBasic source code from the file you specify into the program being compiled. The third form of the syntax inserts code from a UNIX, or Windows platform sequential file."
+  },
+  "$INSERT": {
+    "prefix": "$INSERT",
+    "body": [
+      "\\$INSERT $expr"
+    ],
+    "description": "$INSERT is a synonym for the $INCLUDE command."
+  },
+  "$UNDEFINE": {
+    "prefix": "$UNDEFINE",
+    "body": [
+      "\\$UNDEFINE $var"
+    ],
+    "description": "The UniBasic $UNDEFINE command deletes the definition of var previously defined by $DEFINE."
+  },
+  "ABORT": {
+    "prefix": "ABORT",
+    "body": [
+      "ABORT $expr"
+    ],
+    "description": "The UniBasic ABORTcommand terminates the program or subroutine in progress, returning the user to the UniData system level. ABORT returns the user to the UniData prompt, whether the aborted program was called by another program or executed through a UniData menu or paragraph. ABORT can include an optional string exprto display when the program aborts. The expression can contain variables, functions, and/or arithmetic or string operators."
+  },
+  "ABS": {
+    "prefix": "ABS",
+    "body": [
+      "ABS($expr)"
+    ],
+    "description": "The UniBasic ABS function returns the positive numeric value (absolute value) of the argument. expr can be any numeric expression."
+  },
+  "acceptConnection": {
+    "prefix": "acceptConnection($svr_socket, $blocking_mode, $timeout, $in_addr, $in_name, $socket_handle)",
+    "body": [
+      "acceptConnection"
+    ],
+    "description": "Use the acceptConnection() function to accept an incoming connection attempt on the server side socket."
+  },
+  "ACOS": {
+    "prefix": "ACOS",
+    "body": [
+      "ACOS($expr)"
+    ],
+    "description": "The UniBasic ACOS function returns the trigonometric arc cosine (inverse cosine) of a numeric expression in degrees. expr must be a value between -1 and +1. ACOS returns a value expressed as the degree of the arc cosine of the input, which ranges from 0 to 180. If expr evaluates to a value outside the range of -1 to +1, UniData displays an error message and returns 0 as the result."
+  },
+  "ACTIVATEKEY": {
+    "prefix": "ACTIVATEKEY",
+    "body": [
+      "ACTIVATEKEY $keyid, $password ON $NFA_SERVER ON ERROR $err"
+    ],
+    "description": "Use the ACTIVATEKEY command to activate a key or wallet. It is necessary to activate a key if you want to supply a password for key protection."
+  },
+  "addAuthenticationRule": {
+    "prefix": "addAuthenticationRule",
+    "body": [
+      "addAuthenticationRule($context, $serverOrClient, $rule, $ruleString)"
+    ],
+    "description": "The addAuthenticationRule function adds an authentication rule to a security context. The rules are used during SSL negotiation to determine whether or not the peer is to be trusted."
+  },
+  "addCertificate": {
+    "prefix": "addCertificate",
+    "body": [
+      "addCertificate($certPath, $usedAs, $format, $algorithm, $context)"
+    ],
+    "description": "The addCertificate function loads a certificate, or multiple certificates, into a security context for UniData to use as a server or client certificate. Alternatively, this function can specify a directory which contains the certificates that are either used as CA (Certificate Authority) certificates to authenticate incoming certificates, or act as a Revocation list to check against expired or revoked certificates."
+  },
+  "addRequestParameter": {
+    "prefix": "addRequestParameter",
+    "body": [
+      "addRequestParameter($request_handle, $parameter_name, $parameter_value, $content_handling)"
+    ],
+    "description": "The addRequestParameter function adds a parameter to the request."
+  },
+  "ALPHA": {
+    "prefix": "ALPHA",
+    "body": [
+      "ALPHA($value)"
+    ],
+    "description": "The UniBasic ALPHA function tests a string to see if it is composed entirely of alphabetic characters. If str.expr is made entirely of alphabetic characters (not special characters, escape sequences, or the null value), the function returns 1. If numeric or other characters are present in str.expr, or if str.expr evaluates to an empty string or the null value, the function returns 0."
+  },
+  "amInitialize": {
+    "prefix": "amInitialize",
+    "body": [
+      "amInitialize($hSession, $appName, $policyName, $reasonCode)"
+    ],
+    "description": "The amInitialize function creates and opens an AMI session. The output parameter, hsession, is a session handle that is valid until the session is terminated. This function returns a status code indicating success, warning, or failure."
+  },
+  "amReceiveMsg": {
+    "prefix": "amReceiveMsg",
+    "body": [
+      "amReceiveMsg($hSession, $receiverName, $policyName, $selMsgName, $maxMsgLen, $dataLen, $data, $rcvMsgName, $reasonCode)"
+    ],
+    "description": "The amReceiveMsg function receives a message sent by the amSendMsg function. For detailed information about amReceiveMsg, see UniBasic Extensions."
+  },
+  "amReceiveRequest": {
+    "prefix": "amReceiveRequest",
+    "body": [
+      "amReceiveRequest($hSession, $receiverName, $policyName, $maxMsgLen, $dataLen, $data, $rcvMsgName, $senderName, $reasonCode)"
+    ],
+    "description": "The amReceiveRequest function receives a request message. For detailed information about this function, see UniBasic Extensions."
+  },
+  "amSendMsg": {
+    "prefix": "amSendMsg",
+    "body": [
+      "amSendMsg($hSession, $senderName, $policyName, $data, $sndMsgName, $reasonCode)"
+    ],
+    "description": "The amSendMsg function sends a datagram (send and forget) message. For detailed information about this function, see UniBasic Extensions."
+  },
+  "amSendRequest": {
+    "prefix": "amSendRequest",
+    "body": [
+      "amSendRequest($hSession, $senderName, $policyName, $data, $sndMsgName, $reasonCode)"
+    ],
+    "description": "The amSendRequest function sends a request message."
+  },
+  "amSendResponse": {
+    "prefix": "amSendResponse",
+    "body": [
+      "amSendResponse($hSession, $senderName, $policyName, $rcvMsgName, $data, $sndMsgName, $reasonCode)"
+    ],
+    "description": "The amSendResponse function sends a request message."
+  },
+  "amTerminate": {
+    "prefix": "amTerminate",
+    "body": [
+      "amTerminate($hSession, $policyName, $reasonCode)"
+    ],
+    "description": "The amTerminate function closes a session."
+  },
+  "analyzeCertificate": {
+    "prefix": "analyzeCertificate",
+    "body": [
+      "analyzeCertificate($cert, $format, $result)"
+    ],
+    "description": "The analyzeCertficate function decodes a certificate and inputs plain text in the result parameter. The result parameter then contains such information as the subject name, location, institute, issuer, public key, other extensions, and the signature of the issuer."
+  },
+  "ASCII": {
+    "prefix": "ASCII",
+    "body": [
+      "ASCII($expr)"
+    ],
+    "description": "The UniBasic ASCII function converts a string in EBCDIC format to the corresponding ASCII values. Even though the ASCII function works with data in any format, its results are meaningful only when it is applied to EBCDIC data."
+  },
+  "ASIN": {
+    "prefix": "ASIN",
+    "body": [
+      "ASIN($expr)"
+    ],
+    "description": "The UniBasic ASIN function returns the trigonometric arc sine (inverse sine) of a numeric expression. expr must be a value between -1 and +1. ASIN returns a value expressed as the degree of the arc sine of the input, which ranges from -90 to +90. If expr evaluates to a value outside the range of -1 and +1, then UniData displays an error message and returns 0 as the result."
+  },
+  "ASSIGN": {
+    "prefix": "ASSIGN",
+    "body": [
+      "ASSIGN $expr TO SYSTEM($opt)"
+    ],
+    "description": "The UniBasic ASSIGN command redefines some system-level parameters. The value in option changes to the value you specify with expr."
+  },
+  "ATAN": {
+    "prefix": "ATAN",
+    "body": [
+      "ATAN($expr)"
+    ],
+    "description": "The UniBasic ATAN function returns the trigonometric arc tangent (inverse tangent) of a numeric expression expr in degrees"
+  },
+  "BITAND": {
+    "prefix": "BITAND",
+    "body": [
+      "BITAND($expr1, $expr2)"
+    ],
+    "description": "The UniBasic BITAND function performs the bit-wise AND logical function on the arguments num.expr1 and num.expr2."
+  },
+  "BITNOT": {
+    "prefix": "BITNOT",
+    "body": [
+      "BITNOT($expr)"
+    ],
+    "description": "The UniBasic BITNOT function performs the bit-wise NOT logical function on the argument num.expr."
+  },
+  "BITOR": {
+    "prefix": "BITOR",
+    "body": [
+      "BITOR($expr1, $expr2)"
+    ],
+    "description": "The UniBasic BITOR function performs the bit-wise OR logical function on the arguments num.expr1 and num.expr2."
+  },
+  "BITXOR": {
+    "prefix": "BITXOR",
+    "body": [
+      "BITXOR($expr1, $expr2)"
+    ],
+    "description": "The UniBasic BITXOR function performs the bit-wise XOR logical function on the arguments num.expr1 and num.expr2."
+  },
+  "BPIOCP": {
+    "prefix": "BPIOCP",
+    "body": [
+      "BPIOCP"
+    ],
+    "description": "The UniBasic BPIOCP command turns automatic pagination on."
+  },
+  "BPIOCPN": {
+    "prefix": "BPIOCPN",
+    "body": [
+      "BPIOCPN"
+    ],
+    "description": "The UniBasic BPIOCPN command turns off automatic pagination. With pagination off, printing to a terminal does not pause at the bottom of each screen display."
+  },
+  "BREAK": {
+    "prefix": "BREAK",
+    "body": [
+      "BREAK $1"
+    ],
+    "description": "The UniBasic BREAK command enables or disables the interrupt key to exit a program to the ‘!’ debugger prompt and displays the current program line number. The program must have been compiled and run with debugger options."
+  },
+  "BYTELEN": {
+    "prefix": "BYTELEN",
+    "body": [
+      "BYTELEN($expr)"
+    ],
+    "description": "The UniBasic BYTELEN function returns the number of bytes required to store a character. From one to four bytes could be required."
+  },
+  "CALCULATE": {
+    "prefix": "CALCULATE",
+    "body": [
+      "CALCULATE($dictitem)"
+    ],
+    "description": "The UniBasic CALCULATE or {} (braces) function executes a virtual attribute. The dictionary.item must be a valid virtual attribute within the dictionary previously opened to the @DICT variable with an OPEN statement."
+  },
+  "CALL": {
+    "prefix": "CALL",
+    "body": [
+      "CALL $subroutine_name($arguments)"
+    ],
+    "description": "The UniBasic CALL command transfers program control to an external subroutine."
+  },
+  "CALLC": {
+    "prefix": "CALLC",
+    "body": [
+      "CALLC $subname($args)"
+    ],
+    "description": "The UniBasic CALLC command transfers program control to an external function (c.sub.name). The second form of the syntax calls a function whose name is stored in a UniBasic variable (@var). The program could pass back return values in variables. CALLC arguments can be simple variables or complex expressions, but not arrays."
+  },
+  "CAT": {
+    "prefix": "CAT",
+    "body": [
+      "$expr1 CAT $expr2"
+    ],
+    "description": "The UniBasic CAT arithmetic operator concatenates expr1 to expr2."
+  },
+  "CATS": {
+    "prefix": "CATS",
+    "body": [
+      "CATS($arr1, $arr2)"
+    ],
+    "description": "The UniBasic CATS function concatenates array1 to array2. Each element of array2 is concatenated to its corresponding element in array1."
+  },
+  "CHAIN": {
+    "prefix": "CHAIN",
+    "body": [
+      "CHAIN $expr"
+    ],
+    "description": "The UniBasic CHAIN command terminates the current UniBasic program and executes the ECL command str.expr. CHAIN performs a function similar to the EXECUTE statement, except that control is not returned to the original program. UniData treats str.expr as a command you type at the ECL colon (:) prompt. If str.exp executes a UniBasic program, variables could be passed through common areas, but all other variables are reinitialized when the new program begins."
+  },
+  "CHANGE": {
+    "prefix": "CHANGE",
+    "body": [
+      "CHANGE($string, $old, $new)"
+    ],
+    "description": "The UniBasic CHANGE function replaces all occurrences of old.substring in string with new.substring. If old.substring is an empty string, the system does not change string. CHANGE supports multibyte languages."
+  },
+  "CHAR": {
+    "prefix": "CHAR",
+    "body": [
+      "CHAR($expr)"
+    ],
+    "description": "The UniBasic CHAR function changes a numeric expression to its ASCII character string equivalent. expr can be a constant, variable, numeric function, or any combination of these. expr must evaluate to a positive number from 0 to 255 (the range of ASCII character codes). CHAR supports multibyte languages."
+  },
+  "CHARLEN": {
+    "prefix": "CHARLEN",
+    "body": [
+      "CHARLEN($str)"
+    ],
+    "description": "The UniBasic CHARLEN function returns the number of characters in a character string. A multibyte character could require from one to four bytes to encode."
+  },
+  "CHARS": {
+    "prefix": "CHARS",
+    "body": [
+      "CHARS($DynArr)"
+    ],
+    "description": "The UniBasic CHARS function changes a numeric value in array to its ASCII character string equivalent. array elements can contain a constant, variable, numeric function, or any combination of these. array elements must evaluate to a positive number 0–255 (the range of ASCII character codes). CHARS supports multibyte languages."
+  },
+  "CHECKSUM": {
+    "prefix": "CHECKSUM",
+    "body": [
+      "CHECKSUM($expr)"
+    ],
+    "description": "The UniBasic CHECKSUM function computes the positional checksum of the string str.expr you specify. The positional checksum is the sum of the ASCII value of each character in the string, multiplied by the position of the character in the string."
+  },
+  "CLEAR": {
+    "prefix": "CLEAR",
+    "body": [
+      "CLEAR"
+    ],
+    "description": "The UniBasic CLEAR command sets the values of all variables stored in local memory to 0, including all array elements. Variables assigned to named or unnamed common areas are not affected."
+  },
+  "CLEARCOMMON": {
+    "prefix": "CLEARCOMMON",
+    "body": [
+      "CLEARCOMMON $1"
+    ],
+    "description": "The UniBasic CLEARCOMMON command sets all variables in a named common area to zero. If you do not specify common.label, CLEARCOMMON sets all variables specified in the unnamed common area to zero."
+  },
+  "CLEARDATA": {
+    "prefix": "CLEARDATA",
+    "body": [
+      "CLEARDATA"
+    ],
+    "description": "The UniBasic CLEARDATA command clears data stored by any executed DATA statements. Subsequent INPUT statements request data from the keyboard because the input queue is empty."
+  },
+  "CLEARFILE": {
+    "prefix": "CLEARFILE",
+    "body": [
+      "CLEARFILE $variable"
+    ],
+    "description": "The UniBasic CLEARFILE command clears all records from a file, but does not delete the file itself."
+  },
+  "CLEARINPUT": {
+    "prefix": "CLEARINPUT",
+    "body": [
+      "CLEARINPUT"
+    ],
+    "description": "The UniBasic CLEARINPUT command clears the terminal type-ahead buffer so the next INPUT statement forces a response from the user."
+  },
+  "CLEARSELECT": {
+    "prefix": "CLEARSELECT",
+    "body": [
+      "CLEARSELECT $ListName"
+    ],
+    "description": "The UniBasic CLEARSELECT command clears active select lists. You can specify a particular ID list by specifying num.expr as 0 through 9. ALL clears all active select lists. If you do not specify a parameter, UniData clears the default ID list (zero). If you specify an ID list outside the valid range, a runtime error occurs."
+  },
+  "CLEARSQL": {
+    "prefix": "CLEARSQL",
+    "body": [
+      "CLEARSQL $fileNameExpr"
+    ],
+    "description": "The UniBasic CLEARSQL command clears all active temporary tables that were created during the current session (for example, created with the EXECUTESQL command with a corresponding TO clause). If you do not specify file.name.expr, CLEARSQL clears all the UniData SQL file variables created during this UniBasic session."
+  },
+  "CLOSE": {
+    "prefix": "CLOSE",
+    "body": [
+      "CLOSE $filevar"
+    ],
+    "description": "The UniBasic CLOSE command closes a dictionary or data file."
+  },
+  "CLOSESEQ": {
+    "prefix": "CLOSESEQ",
+    "body": [
+      "CLOSESEQ $filevar"
+    ],
+    "description": "The UniBasic CLOSESEQ command closes a sequential file that you opened with the OPENSEQ or OSOPEN command. The CLOSESEQ command releases the exclusive file lock set by the OPENSEQ command. If any new lines (sequential records) were added to the file, UniData writes a new end-offile mark after the new lines."
+  },
+  "closeSocket": {
+    "prefix": "closeSocket",
+    "body": [
+      "closeSocket($socket_handle)"
+    ],
+    "description": "Use the closeSocket() function to close a socket connection."
+  },
+  "CLOSEXMLDATA": {
+    "prefix": "CLOSEXMLDATA",
+    "body": [
+      "CLOSEXMLDATA(xml_data_handle)"
+    ],
+    "description": "The CLOSEXMLDATA function closes the dynamic array variable for an XML document."
+  },
+  "COL1": {
+    "prefix": "COL1",
+    "body": [
+      "COL1()"
+    ],
+    "description": "The UniBasic COL1 function returns the column position preceding a substring found by the FIELD function. The COL1 function has no arguments. If you do not execute the FIELD function before executing COL1, the function returns 0. COL1 supports multibyte languages."
+  },
+  "COL2": {
+    "prefix": "COL2",
+    "body": [
+      "COL2()"
+    ],
+    "description": "The UniBasic COL2 function returns the column position following a substring found by the FIELD function. The COL2 function has no arguments. If you do not execute the FIELD before executing COL2, the function returns a zero. COL2 supports multibyte languages."
+  },
+  "COMMON": {
+    "prefix": "COMMON",
+    "body": [
+      "COMMON $1"
+    ],
+    "description": "The UniBasic COMMON command stores variables that can be accessed from any subroutine or program. You can declare one unnamed common area and multiple named common areas. The number of variables that a common area can contain depends on the virtual memory of your system."
+  },
+  "CONVERT Function": {
+    "prefix": "CONVERT",
+    "body": [
+      "CONVERT($fromchars, $tostring, $var)"
+    ],
+    "description": "The UniBasic CONVERT function changes all occurrences of the substring expr1 in expr3 to the string expr2. The system compares each character of the replacement string expr2 and, if necessary, replaces each character of the target string expr1 on an individual basis. UniBasic does not compare and insert strings as a whole. CONVERT supports multibyte languages."
+  },
+  "CONVERT Statement": {
+    "prefix": "CONVERT",
+    "body": [
+      "CONVERT $fromchars TO $tostring IN $var"
+    ],
+    "description": "The UniBasic CONVERT command changes all occurrences of the substring expr1 in var to the string expr2. UniBasic compares each character of the replacement string expr2 and, if necessary, replaces each character of the target string expr1 on an individual basis. UniBasic does not compare and insert strings as a whole. CONVERT supports multibyte languages."
+  },
+  "COS": {
+    "prefix": "COS",
+    "body": [
+      "COS($expr)"
+    ],
+    "description": "The UniBasic COS function returns the trigonometric cosine of a numeric expression."
+  },
+  "COUNT": {
+    "prefix": "COUNT",
+    "body": [
+      "COUNT($expr, $delimiter)"
+    ],
+    "description": "The UniBasic COUNT function returns the number of times a substring appears within a string. The string you want to search, str.expr1, must be longer than the substring str.expr2. After str.expr2 is found, the system searches the string again with the new starting point after the entire first occurrence of str.expr2. If str.expr2 is not found, the COUNT function returns 0. COUNT supports multibyte languages."
+  },
+  "COUNTS": {
+    "prefix": "COUNTS",
+    "body": [
+      "COUNTS($dynamic_array, $substring)"
+    ],
+    "description": "The UniBasic COUNTS function returns the number of times a substring appears within each element of an array. The elements in the array you want to search, expr, must be longer than the substring str.expr. After str.expr is found, the system searches the array again with the new starting point after the entire first occurrence of str.expr. If str.expr is not found, COUNTS returns 0. COUNTS supports multibyte languages."
+  },
+  "createCertificate": {
+    "prefix": "createCertificate",
+    "body": [
+      "createCertificate($action, $req, $signKey, $keyPass, $CAcert, $days, $extensions, $certOut)"
+    ],
+    "description": "The createCertificate function generates a certificate. The certificate can either be a selfsigned certificate as a root CA that you can use later to sign other certificates, or it can be a CA signed certificate. The generated certificate conforms to X509V3 standard."
+  },
+  "createCertRequest": {
+    "prefix": "createCertRequest",
+    "body": [
+      "createCertRequest($key, $inFormat, $keyLoc, $algorithm, $digest, $passPhrase, $subjectData, $outFile, $outFormat)"
+    ],
+    "description": "The createCertRequest() function generates a PKCS #10 certificate request from a private key in PKCS #8 form and a set of user specified data. The request can be sent to a CA or used as a parameter to createCertificate() to obtain an X.509 public key certificate."
+  },
+  "createRequest": {
+    "prefix": "createRequest",
+    "body": [
+      "createRequest($URL, $http_method, $request_handle)"
+    ],
+    "description": "The createRequest function creates an HTTP request and returns a handle to the request."
+  },
+  "createSecureRequest": {
+    "prefix": "createSecureRequest",
+    "body": [
+      "createSecureRequest($URL, $http_method, $request_handle, $security_context)"
+    ],
+    "description": "The createSecureRequest function behaves exactly the same as the createRequest() function, except for the fourth parameter, a handle to a security context, which is used to associate the security context with the request. If the URL does not start with “https” the parameter is ignored. If the URL starts with “https” but an invalid context handle or no handle is provided, the function aborts and returns with an error status."
+  },
+  "createSecurityContext": {
+    "prefix": "createSecurityContext",
+    "body": [
+      "createSecurityContext($context, $version)"
+    ],
+    "description": "The createSecurityContext function creates a security context and returns a handle to the context."
+  },
+  "CRT": {
+    "prefix": "CRT",
+    "body": [
+      "CRT $expr"
+    ],
+    "description": "The UniBasic CRT command sends output to the display terminal regardless of the use of the PRINTER ON/OFF command."
+  },
+  "CRT @": {
+    "prefix": "CRT",
+    "body": [
+      "CRT @($col,$row): $expr"
+    ],
+    "description": "The UniBasic CRT command sends output to the display terminal regardless of the use of the PRINTER ON/OFF command."
+  },
+  "DATA": {
+    "prefix": "DATA",
+    "body": [
+      "DATA $expr"
+    ],
+    "description": "The UniBasic DATA command places data in an input queue stored in @DATA. ASCII character 013 (CR) delimits elements in the queue. Each subsequent INPUT statement reads one element. @DATA is read-only."
+  },
+  "DATE": {
+    "prefix": "DATE",
+    "body": [
+      "DATE()"
+    ],
+    "description": "The UniBasic DATE function returns the current system date in internal format. Internal format is the number of days after December 31, 1967."
+  },
+  "DBTOXML": {
+    "prefix": "DBTOXML",
+    "body": [
+      "DBTOXML($xml_document, $doc_location, $u2xmap_file, $u2xmap_location, $condition, $status)"
+    ],
+    "description": "Creates an XML document from the UniData database."
+  },
+  "DCOUNT": {
+    "prefix": "DCOUNT",
+    "body": [
+      "DCOUNT($expr, $delimiter)"
+    ],
+    "description": "The UniBasic DCOUNT function returns the number of substrings delimited by delim in a string. If str is an empty string, UniData returns 0. If str contains data but no delimiter, UniData returns 1. DCOUNT supports multibyte languages."
+  },
+  "DEACTIVATEKEY": {
+    "prefix": "DEACTIVATEKEY",
+    "body": [
+      "DEACTIVATEKEY $keyid, $password ON $NFA_SERVER ON ERROR $err"
+    ],
+    "description": "Use the DEACTIVATEKEY command to deactivate a key or a wallet. This command is useful to deactivate keys to make your system more secure."
+  },
+  "DEBUG": {
+    "prefix": "DEBUG",
+    "body": [
+      "DEBUG"
+    ],
+    "description": "The UniBasic DEBUG command stops program execution, turns control over to the interactive UniBasic debugger, and then displays the debugger prompt (!). Pressing the interrupt key also gives control to the debugger."
+  },
+  "DEFFUN": {
+    "prefix": "DEFFUN",
+    "body": [
+      "DEFFUN $FuncName($args)"
+    ],
+    "description": "The UniBasic DEFFUN command declares a user-written function, making the function available in a UniBasic program. You must declare the function before you can use it in a program."
+  },
+  "DEL": {
+    "prefix": "DEL",
+    "body": [
+      "DEL $variable"
+    ],
+    "description": "The UniBasic DEL command deletes an attribute, value, or subvalue from a dynamic array. The corresponding delimiter is also removed."
+  },
+  "DELETE Function": {
+    "prefix": "DELETE",
+    "body": [
+      "DELETE($arr, $attr, $val, $subval)"
+    ],
+    "description": "The UniBasic DELETE command deletes a record from a UniData file. In addition, the DELETE command releases any locks on the record that have been set by previous commands."
+  },
+  "DELETE Statement": {
+    "prefix": "DELETE",
+    "body": [
+      "DELETE $filevar,$recordkey"
+    ],
+    "description": "The UniBasic DELETE command deletes a record from a UniData file. In addition, the DELETE command releases any locks on the record that have been set by previous commands."
+  },
+  "DELETELIST": {
+    "prefix": "DELETELIST",
+    "body": [
+      "DELETELIST $expr"
+    ],
+    "description": "The UniBasic DELETELIST command deletes a saved select list."
+  },
+  "DELETEU": {
+    "prefix": "DELETEU",
+    "body": [
+      "DELETEU $filevar,$recordkey"
+    ],
+    "description": "The UniBasic DELETEU command deletes the specified record from a UniData file."
+  },
+  "DIM": {
+    "prefix": "DIM",
+    "body": [
+      "DIM $variable($numbers)"
+    ],
+    "description": "The UniBasic DIM command creates and determines the dimensions of a dimensioned array. You can specify arrays with one dimension (rows) or two dimensions (rows or rows, cols)."
+  },
+  "DIGEST": {
+    "prefix": "DIGEST",
+    "body": [
+      "DIGEST($algorithm, $data, $dataLoc, $result)"
+    ],
+    "description": "The DIGEST function generates a message digest of supplied data. A message digest is the result of a one-way hash function (digest algorithm) performed on the message. Message digest has the unique properties that alight change in the input results in a significant difference in the resulting digest. Therefore, the probability of two different messages resulting in the same digest (collision) is very unlikely. It is also virtually impossible to reverse to the original message from a digest. Message digest is widely used for digital signatures and other purposes."
+  },
+  "DIR": {
+    "prefix": "DIR",
+    "body": [
+      "DIR($filename)"
+    ],
+    "description": "The UniBasic DIR function returns the file size (in bytes), the last date and time the file was modified (in internal format), and the privileges for the file. UniData stores these values in the first four attributes of the return value.file.expr must evaluate to a file name at the operating system level. If you do not specify a path, UniData searches the current directory."
+  },
+  "DISABLEDEC": {
+    "prefix": "DISABLEDEC",
+    "body": [
+      "DISABLEDEC $filename ON ERROR $err"
+    ],
+    "description": "Use the DISABLEDEC command to turn off decryption on a file or fields you specify."
+  },
+  "DISPLAY": {
+    "prefix": "DISPLAY",
+    "body": [
+      "DISPLAY $expr"
+    ],
+    "description": "DISPLAY is a synonym for the CRT command."
+  },
+  "DISPLAYWIDTH": {
+    "prefix": "DISPLAYWIDTH",
+    "body": [
+      "DISPLAYWIDTH($str)"
+    ],
+    "description": "The UniBasic DISPLAYWIDTH function returns the number of bytes needed to display a string expression. For instance, the display width of English characters is one. In languages that use multibyte characters, the display width of a character can be 1, 2, 3, or 4 bytes, depending on the language and the character."
+  },
+  "DOWNCASE": {
+    "prefix": "DOWNCASE",
+    "body": [
+      "DOWNCASE($expr)"
+    ],
+    "description": "The UniBasic DOWNCASE function converts all characters in a string (str.expr) to lowercase. Special characters, including the null value, are not converted by this function. DOWNCASE does not convert multibyte characters."
+  },
+  "DQUOTE": {
+    "prefix": "DQUOTE",
+    "body": [
+      "DQUOTE($expr)"
+    ],
+    "description": "DQUOTE is a synonym for the QUOTE function."
+  },
+  "DROUND": {
+    "prefix": "DROUND",
+    "body": [
+      "DROUND($value)"
+    ],
+    "description": "The UniBasic DROUND function performs double-precision rounding on a value. Double-precision rounding uses two words to store a number, accommodating a larger number than in single-precision rounding, which stores each number in a single word."
+  },
+  "EBCDIC": {
+    "prefix": "EBCDIC",
+    "body": [
+      "EBCDIC($expr)"
+    ],
+    "description": "The UniBasic EBCDIC function converts the ASCII data in expr to its corresponding EBCDIC values."
+  },
+  "ECHO": {
+    "prefix": "ECHO",
+    "body": [
+      "ECHO $expr"
+    ],
+    "description": "The UniBasic ECHO command controls whether characters display on the terminal screen as you type them on the keyboard."
+  },
+  "ENABLEDEC": {
+    "prefix": "ENABLEDEC",
+    "body": [
+      "ENABLEDEC $filename ON ERROR $err"
+    ],
+    "description": "Use the ENABLEDEC command to activate decryption on a file or fields you specify."
+  },
+  "ENCODE": {
+    "prefix": "ENCODE",
+    "body": [
+      "ENCODE($algorithm, $action, $data, $dataLoc, $result, $resultLoc)"
+    ],
+    "description": "The ENCODE() function performs data encoding on input data."
+  },
+  "ENCRYPT": {
+    "prefix": "ENCRYPT",
+    "body": [
+      "ENCRYPT($algorithm, $action, $data, $dataLoc, $key, $keyLoc, $keyAction, $salt, $IV, $result, $resultLoc)"
+    ],
+    "description": "The ENCRYPT() function performs symmetric encryption operations. You can call various block and stream symmetric ciphers through this function. The supported ciphers are listed in Security Features."
+  },
+  "ENTER": {
+    "prefix": "ENTER",
+    "body": [
+      "ENTER $name"
+    ],
+    "description": "The UniBasic ENTER command passes control to the program you specify. It terminates the program that is passing control and executes the cataloged program. The ENTER command allows variables to pass through common areas, but all other variables are reinitialized when the new program begins."
+  },
+  "EQ": {
+    "prefix": "EQ",
+    "body": [
+      "$expr1 EQ $expr2"
+    ],
+    "description": "The UniBasic EQ operator serves as an assignment operator and a relational operator."
+  },
+  "EQS": {
+    "prefix": "EQS",
+    "body": [
+      "EQS($array1, $array2)"
+    ],
+    "description": "The UniBasic EQS function compares each value in array1 to its corresponding value in array2. UniData returns an array with 1 in each position where values are equal, and 0 in each position for values that are not equal."
+  },
+  "EQU": {
+    "prefix": "EQU",
+    "body": [
+      "EQU $constant1 TO $value1"
+    ],
+    "description": "The UniBasic EQU command replaces a constant with an array, function, number, string, or variable name when the program is compiled."
+  },
+  "EREPLACE": {
+    "prefix": "EREPLACE",
+    "body": [
+      "EREPLACE($expr, $substring, $replacement, $occurrence, $begin)"
+    ],
+    "description": "The EREPLACE function replaces substring in expression with another substring. If you do not specify occurrence, each occurrence of substring is replaced."
+  },
+  "EXECUTE": {
+    "prefix": "EXECUTE",
+    "body": [
+      "EXECUTE $expr"
+    ],
+    "description": "The UniBasic EXECUTE command executes an ECL or UniData SQL command from within a UniBasic program."
+  },
+  "EXECUTESQL": {
+    "prefix": "EXECUTESQL",
+    "body": [
+      "EXECUTESQL $str"
+    ],
+    "description": "The UniBasic EXECUTESQL command executes a UniData SQL statement within a UniBasic program."
+  },
+  "EXIT": {
+    "prefix": "EXIT",
+    "body": [
+      "EXIT"
+    ],
+    "description": "The UniBasic EXIT command terminates a FOR/NEXT or LOOP/REPEAT structure and transfers control to the following statement. As with the CONTINUE statement, EXIT forms well structured programs."
+  },
+  "EXP": {
+    "prefix": "EXP",
+    "body": [
+      "EXP($expr)"
+    ],
+    "description": "The UniBasic EXP function raises e to the power of expr."
+  },
+  "EXTRACT": {
+    "prefix": "EXTRACT",
+    "body": [
+      "EXTRACT($DynArr, $attr)"
+    ],
+    "description": "The UniBasic EXTRACT function retrieves data from an attribute, value, or subvalue in a dynamic array. The dynamic array itself remains unchanged. You can use either of the preceding syntax forms."
+  },
+  "FIELD": {
+    "prefix": "FIELD",
+    "body": [
+      "FIELD($string, $delimiter, $field, $repexpr)"
+    ],
+    "description": "The UniBasic FIELD function treats a string as an array, with fields delimited by any specified ASCII character (for example, spaces, commas, or periods), and returns a substring or group of substrings. FIELD supports multibyte languages."
+  },
+  "FIELDSTORE": {
+    "prefix": "FIELDSTORE",
+    "body": [
+      "FIELDSTORE($string, $delimiter, $i, $opt, $newstring)"
+    ],
+    "description": "The UniBasic FIELDSTORE function inserts an expression and an appropriate delimiter into a string."
+  },
+  "FIELDWRITE": {
+    "prefix": "FIELDWRITE",
+    "body": [
+      "FIELDWRITE $recordexpr ON $filevar, $recordid, $attrlist ON ERROR $err"
+    ],
+    "description": "The UniBasic FIELDWRITE command allows you to update the specified fields in an existing record and releases locks set by the same process. For those using replication, FIELDWRITE generates fieldlevel replication logs. This command is similar to WRITEV, but it is not a replacement for WRITEV."
+  },
+  "FIELDWRITEU": {
+    "prefix": "FIELDWRITEU",
+    "body": [
+      "FIELDWRITEU $recordexpr ON $filevar, $recordid, $attrlist ON ERROR $err"
+    ],
+    "description": "The UniBasic FIELDWRITEU command allows you to update the specified fields in an existing record without releasing locks. FIELDWRITEU writes regardless of lock status. For those using replication, FIELDWRITEU generates field-level replication logs. This command is similar to WRITEVU, but it is not a replacement for WRITEVU."
+  },
+  "FILEINFO": {
+    "prefix": "FILEINFO",
+    "body": [
+      "FILEINFO($file_variable, $code)"
+    ],
+    "description": "The FILEINFO function returns information about the configuration of a file."
+  },
+  "FILELOCK": {
+    "prefix": "FILELOCK",
+    "body": [
+      "FILELOCK filevar LOCKED $lock_statements ON ERROR $error_statements"
+    ],
+    "description": "The UniBasic FILELOCK command locks the dictionary or data portion of a file against access by READL, READU, READVU, MATREADL, MATREADU, MATWRITEU, WRITEU, and WRITEVU statements. Other file input/output commands ignore FILELOCK."
+  },
+  "FILEUNLOCK": {
+    "prefix": "FILEUNLOCK",
+    "body": [
+      "FILEUNLOCK $file_variable ON ERROR $statements"
+    ],
+    "description": "The UniBasic FILEUNLOCK command unlocks a file previously locked with a FILELOCK command."
+  },
+  "FIND": {
+    "prefix": "FIND",
+    "body": [
+      "FIND $expr1 IN $Var1 SETTING $Var2 THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic FIND command determines the position of the given expression in a dynamic array. FIND returns the attribute, value, and subvalue position of the found string. The expression must match the entire array element to make a match."
+  },
+  "FINDSTR": {
+    "prefix": "FINDSTR",
+    "body": [
+      "FINDSTR $expr1 IN $Var1 SETTING $Var2 THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic FINDSTR command determines the position of a given substring in a dynamic array. FINDSTR supports multibyte languages."
+  },
+  "FLUSH": {
+    "prefix": "FLUSH",
+    "body": [
+      "FLUSH"
+    ],
+    "description": "The FLUSH command flushes output to the terminal when UDT.OPTIONS 46 is on."
+  },
+  "FMT": {
+    "prefix": "FMT",
+    "body": [
+      "FMT($var, $code)"
+    ],
+    "description": "The UniBasic FMT function formats data in expr for display purposes. FMT can format a dynamic array that contains multivalues. The statement can be no longer than 2,046 characters."
+  },
+  "FOOTING": {
+    "prefix": "FOOTING",
+    "body": [
+      "FOOTING $expr"
+    ],
+    "description": "The UniBasic FOOTING command causes the specified string to print or display at the bottom of each page of a report. You can specify a footer of any length. The ECL LIMIT command has no effect on this command."
+  },
+  "FORMLIST": {
+    "prefix": "FORMLIST",
+    "body": [
+      "FORMLIST $dynarr TO $listno"
+    ],
+    "description": "The UniBasic FORMLIST command creates an active select list from a dynamic array. FORMLIST uses the attribute marks in dynamic.array.var to create a select list that you can use with READNEXT statements or other list processing commands such as external LIST statements."
+  },
+  "FOR\/NEXT": {
+    "prefix": "FOR\/NEXT",
+    "body": [
+      "FOR $1 = $2 To $3",
+      "$4",
+      "NEXT $1"
+    ],
+    "description": "The UniBasic FOR/NEXT command executes statements repeatedly while incrementing a variable over a range until it reaches the end of the range, or until the condition in the WHILE or UNTIL clause is achieved. You can nest FOR/NEXT constructions. Each FOR statement must end with a NEXT statement."
+  },
+  "FOR\/NEXT STEP": {
+    "prefix": "FOR\/NEXT",
+    "body": [
+      "FOR $1 = $2 To $3 STEP $4",
+      "$5",
+      "NEXT $1"
+    ],
+    "description": "The UniBasic FOR/NEXT command executes statements repeatedly while incrementing a variable over a range until it reaches the end of the range, or until the condition in the WHILE or UNTIL clause is achieved. You can nest FOR/NEXT constructions. Each FOR statement must end with a NEXT statement."
+  },
+  "FUNCTION": {
+    "prefix": "FUNCTION",
+    "body": [
+      "FUNCTION $name($arguments)",
+      "\t$statements",
+      "RETURN $var"
+    ],
+    "description": "The UniBasic FUNCTION command begins the definition of a user-written function. The FUNCTION command must be the first noncomment line in the file, which must be cataloged locally or globally."
+  },
+  "GARBAGECOLLECT": {
+    "prefix": "GARBAGECOLLECT",
+    "body": [
+      "GARBAGECOLLECT"
+    ],
+    "description": "The UniBasic GARBAGECOLLECT command releases all reserved but nonactive memory allocated for UniBasic variables."
+  },
+  "generateKey": {
+    "prefix": "generateKey",
+    "body": [
+      "generateKey($priveKey, $pubKey, $format, $keyLoc, $algorithm, $keyLength, $passPhrase, $paramFile)"
+    ],
+    "description": "The generateKey() function generates a public key cryptography key pair and encrypts the private key. You should then put it into an external key file protected by the provided pass phrase. UniData SSL sessions can use the protected private key later to secure communication. The public key will not be encrypted."
+  },
+  "GES": {
+    "prefix": "GES",
+    "body": [
+      "GES($array1, $array2)"
+    ],
+    "description": "The UniBasic GES function compares each value in array1 to its corresponding value in array2. UniData returns an array with 1 in each position where the value in array1 is greater than or equal to the value in the corresponding position in array2. UniData returns 0 in each position for values that are less than array2."
+  },
+  "GET": {
+    "prefix": "GET",
+    "body": [
+      "GET $Var FROM $lineexpr THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic GET command receives unprompted input from an attached line. UniData accepts all control characters, including the carriage return and line feed as input characters. All data read from the attached line is placed in var. GET supports multibyte languages."
+  },
+  "getCipherSuite": {
+    "prefix": "getCipherSuite",
+    "body": [
+      "getCipherSuite($context, $ciphers)"
+    ],
+    "description": "The getCipherSuite() function obtains information about supported cipher suites, their version, usage, strength and type for the security context you specify."
+  },
+  "GETENV": {
+    "prefix": "GETENV",
+    "body": [
+      "GETENV($variable)"
+    ],
+    "description": "The UniBasic GETENV function returns the contents of the UNIX, or Windows platform environment variable. If you include the environment variable explicitly (as opposed to including it in a variable), you must enclose it in quotation marks."
+  },
+  "getHTTPDefault": {
+    "prefix": "getHTTPDefault",
+    "body": [
+      "getHTTPDefault($option, $value)"
+    ],
+    "description": "The getHTTPDefault function returns the default values of the HTTP settings."
+  },
+  "getIpv": {
+    "prefix": "getIpv",
+    "body": [
+      "getIpv($opt, $sockettype)"
+    ],
+    "description": "The getIpv function, without an option, returns the current IPv setting. If a network choice is entered as an option, it returns only that network’s IPv setting."
+  },
+  "GETLIST": {
+    "prefix": "GETLIST",
+    "body": [
+      "GETLIST $listname TO $listnum SETTING $cntvar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic GETLIST command restores a select list from a saved list."
+  },
+  "GETPTR": {
+    "prefix": "GETPTR",
+    "body": [
+      "GETPTR($unitnum)"
+    ],
+    "description": "The UniBasic GETPTR function returns a string variable containing the values of the current printer settings for the unit.no specified."
+  },
+  "GETPU": {
+    "prefix": "GETPU",
+    "body": [
+      "GETPU($unit)"
+    ],
+    "description": "The UniBasic GETPU function returns the full path of the current print or hold file ID created by the current user process. unit.number is the number of the logical printer unit."
+  },
+  "GETQUEUE": {
+    "prefix": "GETQUEUE",
+    "body": [
+      "GETQUEUE()"
+    ],
+    "description": "The UniBasic GETQUEUE function returns a dynamic array containing information about all records currently locked and waiting to be released."
+  },
+  "GETREADU": {
+    "prefix": "GETREADU",
+    "body": [
+      "GETREADU()"
+    ],
+    "description": "The UniBasic GETREADU function returns a dynamic array containing information about all records that have been locked by any UniBasic or ECL command that updates any record."
+  },
+  "getResponseHeader": {
+    "prefix": "getResponseHeader",
+    "body": [
+      "getResponseHeader($request_handle, $header_name, $header_value)"
+    ],
+    "description": "This function gets a specific response header value from response headers returned by submitRequest(). It can be used to query if a specific header, for example, Content-encoding, is present in the response."
+  },
+  "getSocketErrorMessage": {
+    "prefix": "getSocketErrorMessage",
+    "body": [
+      "getSocketErrorMessage($errCode, $errMsg)"
+    ],
+    "description": "Use the getSocketErrorMessage() function to translate an error code into a text error message."
+  },
+  "getSocketInformation": {
+    "prefix": "getSocketInformation",
+    "body": [
+      "getSocketInformation($socket_handle, $self_ or_ peer, $socket_info)"
+    ],
+    "description": "Use the getSocketInformation() function to obtain information about a socket connection."
+  },
+  "getSocketOptions": {
+    "prefix": "getSocketOptions",
+    "body": [
+      "getSocketOptions($socket_handle, $options)"
+    ],
+    "description": "The getSocketOptions() function gets the current value for a socket option associated with a socket of any type."
+  },
+  "GETUSERGROUP": {
+    "prefix": "GETUSERGROUP",
+    "body": [
+      "GETUSERGROUP($uid)"
+    ],
+    "description": "For UNIX, the UniBasic GETUSERGROUP function returns the group number for the user ID you specify by uid. For Windows platforms, it returns 0."
+  },
+  "GETUSERID": {
+    "prefix": "GETUSERID",
+    "body": [
+      "GETUSERID($username)"
+    ],
+    "description": "The UniBasic GETUSERID function returns the user ID for a user name. For UNIX, this is the systemrecognized user ID. For Windows platforms, the returned user ID is meaningful in UniData only."
+  },
+  "GETUSERNAME": {
+    "prefix": "GETUSERNAME",
+    "body": [
+      "GETUSERNAME($uid)"
+    ],
+    "description": "The UniBasic GETUSERNAME function returns the user name for a user ID. To obtain the ID of the current user, use the UniBasic @UID variable (or, for UNIX, enter “id” at the UNIX prompt). After you obtain the user ID, you can specify it explicitly in the GETUSERNAME function."
+  },
+  "GOSUB": {
+    "prefix": "GOSUB",
+    "body": [
+      "GOSUB $label"
+    ],
+    "description": "The UniBasic GOSUB command transfers program control to an internal subroutine. UniData requires a valid statement label. Control returns to the main program when the RETURN statement is encountered in the subroutine."
+  },
+  "GROUP": {
+    "prefix": "GROUP",
+    "body": [
+      "GROUP($subject, $delimiter, $first_field, $num_to_extract)"
+    ],
+    "description": "The UniBasic GROUP function extracts the number of continuous groups you specify from the given string."
+  },
+  "GROUPSTORE": {
+    "prefix": "GROUPSTORE",
+    "body": [
+      "GROUPSTORE $repstr IN $str USING $i, $n"
+    ],
+    "description": "The UniBasic GROUPSTORE command inserts a given substring or portion of a substring into a string, and replaces all, part, or none of the string. The string can be delimited by the single character delimiter. The unit of replacement is called an element in this section."
+  },
+  "GTS": {
+    "prefix": "GTS",
+    "body": [
+      "GTS($arr1, $arr2)"
+    ],
+    "description": "The UniBasic GTS function compares each value in array1 to its corresponding value in array2. UniData returns an array with 1 in each position where the value in array1 is greater than the value in the corresponding position in array2, and 0 in each position for values that are less than array2."
+  },
+  "HASH": {
+    "prefix": "HASH",
+    "body": [
+      "HASH($reckey, $modulo, $type)"
+    ],
+    "description": "The UniBasic HASH function determines to which group a particular record key is hashed, depending on the modulo and the file type. HASH returns the group number in which a record with a key of rec.key is stored. HASH includes a file type parameter."
+  },
+  "HEADING": {
+    "prefix": "HEADING",
+    "body": [
+      "HEADING $expr"
+    ],
+    "description": "The UniBasic HEADING command prints a string you specify at the top of each report page on the current print device."
+  },
+  "HMAC function": {
+    "prefix": "HMAC function",
+    "body": [
+      "HMAC($hmacAlg, $hmacKey, $hmacData, $outFormat)"
+    ],
+    "description": "HMAC (keyed-Hash Message Authentication Code) is a specific construction for calculating a message authentication code (MAC) involving a cryptographic hash function in combination with a secret key."
+  },
+  "HUSH": {
+    "prefix": "HUSH",
+    "body": [
+      "HUSH $expr"
+    ],
+    "description": "The UniBasic HUSH command enables or disables terminal output."
+  },
+  "ICONV": {
+    "prefix": "ICONV",
+    "body": [
+      "ICONV($subject, $convcode)"
+    ],
+    "description": "The UniBasic ICONV function converts string or numeric data to internal representation format based on conversion codes. ICONV supports multibyte languages. If the input value or conversion code is invalid, UniData returns the input value."
+  },
+  "ICONVS": {
+    "prefix": "ICONVS",
+    "body": [
+      "ICONVS($DynArr, $conversion)"
+    ],
+    "description": "The UniBasic ICONVS function converts string or numeric data from display format to internal format, based on a conversion code, for each element of a dynamic array. If the input value or conversion code is invalid, UniData returns the input value."
+  },
+  "IF Then": {
+    "prefix": "IF",
+    "body": [
+      "IF $1 THEN",
+      "\t$2",
+      "END"
+    ],
+    "description": "The UniBasic IF/THEN/ELSE command executes one of two blocks of statements based on a conditional expression. If expr is true, UniData executes the first group of statements. If expr is false, UniData executes the second group of statements."
+  },
+  "IF Then/Else": {
+    "prefix": "IF",
+    "body": [
+      "IF $1 THEN",
+      "\t$2",
+      "END ELSE",
+      "\t$3",
+      "END"
+    ],
+    "description": "The UniBasic IF/THEN/ELSE command executes one of two blocks of statements based on a conditional expression. If expr is true, UniData executes the first group of statements. If expr is false, UniData executes the second group of statements."
+  },
+  "IN": {
+    "prefix": "IN",
+    "body": [
+      "IN()"
+    ],
+    "description": "The UniBasic IN function captures raw data from an input queue or from a terminal."
+  },
+  "INDEX": {
+    "prefix": "INDEX",
+    "body": [
+      "INDEX($subject, $search, $occurrence)"
+    ],
+    "description": "The UniBasic INDEX function returns the starting position of the num.expr occurrence of str.expr2 within str.expr1. INDEX supports multibyte languages."
+  },
+  "INDICES": {
+    "prefix": "INDICES",
+    "body": [
+      "INDICES($filevar, $indexname)"
+    ],
+    "description": "The UniBasic INDICES function returns one of the following: 1) Names of alternate key indexes. 2) Information about a particular alternate key index."
+  },
+  "initSecureServerSocket": {
+    "prefix": "initSecureServerSocket",
+    "body": [
+      "initSecureServerSocket($name_or_IP, $port, $backlog, $svr_socket, $context)"
+    ],
+    "description": "Use the initSecureServerSocket() function to create a secured connection-oriented stream server socket. It does exactly the same as the initServerSocket() function except that the connection will be secure."
+  },
+  "initServerSocket": {
+    "prefix": "initServerSocket",
+    "body": [
+      "initServerSocket($name_or_IP, $port, $backlog, $svr_socket)"
+    ],
+    "description": "Use the initServerSocket() function to create a connection-oriented (stream) socket. Associate this socket with an address (name_or_IP) and port number (port), and specify the maximum length the queue of pending connections may grow to."
+  },
+  "INMAT": {
+    "prefix": "INMAT",
+    "body": [
+      "INMAT($array)"
+    ],
+    "description": "The UniBasic INMAT function, in the first form, returns the number of elements (rows) in a dimensioned array. The second form returns the current dimension of the dimensioned array array.name. If the dimensioned array has two dimensions, the bounds are separated by value marks."
+  },
+  "INPUT": {
+    "prefix": "INPUT",
+    "body": [
+      "INPUT $var"
+    ],
+    "description": "The UniBasic INPUT command requests data from an input queue or from the terminal screen. INPUT supports multibyte languages."
+  },
+  "INPUT @": {
+    "prefix": "INPUT",
+    "body": [
+      "INPUT @($col, $row): $var"
+    ],
+    "description": "The UniBasic INPUT @ command places the cursor at a specific location on the terminal screen and prompts the user for input. INPUT @ supports multibyte languages."
+  },
+  "INPUTCLEAR": {
+    "prefix": "INPUTCLEAR",
+    "body": [
+      "INPUTCLEAR"
+    ],
+    "description": "INPUTCLEAR is a synonym for the CLEARINPUT command."
+  },
+  "INPUTERR": {
+    "prefix": "INPUTERR",
+    "body": [
+      "INPUTERR $errExpr"
+    ],
+    "description": "The UniBasic INPUTERR command displays an error message at the bottom line of the terminal screen. error.expr can be any valid UniBasic statement, including a literal string enclosed in quotation marks."
+  },
+  "INPUTIF": {
+    "prefix": "INPUTIF",
+    "body": [
+      "INPUTIF $var THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic INPUTIF command retrieves input from the type-ahead buffer and assigns the input to a variable."
+  },
+  "INPUTNULL": {
+    "prefix": "INPUTNULL",
+    "body": [
+      "INPUTNULL $expr"
+    ],
+    "description": "The UniBasic INPUTNULL command enables you to change the default INPUTNULL character from the default, underscore, to any other single character. When you enter the INPUTNULL character in response to an INPUT or INPUT @ prompt, UniData stores an empty string in place of the character entered. expr specifies the character to serve as the INPUTNULL character for this session."
+  },
+  "INPUTTRAP": {
+    "prefix": "INPUTTRAP",
+    "body": [
+      "INPUTTRAP $expr GOSUB $label1"
+    ],
+    "description": "The UniBasic INPUTTRAP command sets a trap for a particular character or characters in a program. INPUTTRAP enables you to specify characters which, if entered at an INPUT or INPUT @ statement, will branch to another statement label."
+  },
+  "INS": {
+    "prefix": "INS",
+    "body": [
+      "INS $expr BEFORE $Var<$attr, $value, $subvalue>"
+    ],
+    "description": "The UniBasic INS command inserts an expression with the appropriate delimiter before the specified attribute, value, or subvalue mark in a dynamic array."
+  },
+  "INSERT": {
+    "prefix": "INSERT",
+    "body": [
+      "INSERT($DynArr, $attr, $value, $subvalue; $expr)"
+    ],
+    "description": "The UniBasic INSERT function inserts an expression (with its delimiter) before or after the specified attribute, value, or subvalue mark in a dynamic array."
+  },
+  "INT": {
+    "prefix": "INT",
+    "body": [
+      "INT($expr)"
+    ],
+    "description": "The UniBasic INT function returns the integer value of numeric expression num.expr."
+  },
+  "ISMB": {
+    "prefix": "ISMB",
+    "body": [
+      "ISMB()"
+    ],
+    "description": "The UniBasic ISMB function returns a code indicating whether the currently installed language is made up of a single-byte or multibyte character set."
+  },
+  "ISNV": {
+    "prefix": "ISNV",
+    "body": [
+      "ISNV($expr)"
+    ],
+    "description": "The UniBasic ISNV function tests an expression for the null value. If expr is the null value, this function returns a code of 1. If the expression is not null, or if it contains a null value as well as other characters, this function returns a code of 0."
+  },
+  "ISNVS": {
+    "prefix": "ISNVS",
+    "body": [
+      "ISNVS($dynarr)"
+    ],
+    "description": "The UniBasic ISNVS function tests dynamic array elements to see if any of them is the null value. This function is meaningful only when null value handling is on. It returns an array with 0 or 1 in each element. If the array element is the null value, this function returns a code of 1. If the element is not null, or if it contains the null value as well as other characters, this function returns a code of 0."
+  },
+  "ITYPE": {
+    "prefix": "ITYPE",
+    "body": [
+      "ITYPE($itype)"
+    ],
+    "description": "The UniBasic ITYPE function enables a UniBasic program to execute a UniData virtual attribute from the dictionary of a UniData file. The value of the function is the same as if it were run using UniQuery or UniData SQL."
+  },
+  "LEN": {
+    "prefix": "LEN",
+    "body": [
+      "LEN($expr)"
+    ],
+    "description": "The UniBasic LEN function returns the length of character expression str.expr. LEN supports multibyte languages."
+  },
+  "LENS": {
+    "prefix": "LENS",
+    "body": [
+      "LENS($dynamic_array)"
+    ],
+    "description": "The UniBasic LENS function returns the length of the values within each element of a dynamic array. LENS supports multibyte languages."
+  },
+  "LES": {
+    "prefix": "LES",
+    "body": [
+      "LES($array1, $array2)"
+    ],
+    "description": "The UniBasic LES function compares each value in array1 to its corresponding value in array2. UniData returns an array with 1 in each position where the value in array1 is less than or equal to the value in the corresponding value in array2, and 0 in each position when the value in array1 is greater than that in array2."
+  },
+  "LISTUSER": {
+    "prefix": "LISTUSER",
+    "body": [
+      "LISTUSER()"
+    ],
+    "description": "The LISTUSER function returns information about UniData processes currently running in a dynamic array."
+  },
+  "LN": {
+    "prefix": "LN",
+    "body": [
+      "LN($expr)"
+    ],
+    "description": "The UniBasic LN function returns the natural base logarithm of numeric expression num.expr. This function is the inverse of the EXP function."
+  },
+  "loadSecurityContext": {
+    "prefix": "loadSecurityContext",
+    "body": [
+      "loadSecurityContext($context, $name, $passPhrase)"
+    ],
+    "description": "The loadSecurityContext() function loads a saved security context record into the current session."
+  },
+  "LOCATE Function": {
+    "prefix": "LOCATE",
+    "body": [
+      "LOCATE($search, $subject; $returnVar) THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic LOCATE command locates an element within a dynamic array. For LOCATE to be successful, the search string, element, must match the entire array element (including any associated lower-level elements). LOCATE does not modify the data in the array."
+  },
+  "LOCATE Statement": {
+    "prefix": "LOCATE",
+    "body": [
+      "LOCATE $search IN $subject SETTING $returnVar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic LOCATE command locates an element within a dynamic array. For LOCATE to be successful, the search string, element, must match the entire array element (including any associated lower-level elements). LOCATE does not modify the data in the array."
+  },
+  "LOCK": {
+    "prefix": "LOCK",
+    "body": [
+      "LOCK $expr THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic LOCK command reserves a computer resource (such as a device or file) for the current user process."
+  },
+  "LOOP While": {
+    "prefix": "LOOP",
+    "body": [
+      "LOOP",
+      "\t$statement1",
+      "WHILE $expression DO",
+      "\t$statement2",
+      "REPEAT"
+    ],
+    "description": "The UniBasic LOOP/REPEAT command repeats any contained statements while or until a specified condition is met, depending on whether you use the WHILE or UNTIL clause. statements can precede and/or follow the test condition. If space permits, you can write the structure on one line. Otherwise, you can extend the structure on as many lines as necessary. REPEAT is required and finishes the LOOP operation."
+  },
+  "LOOP Until": {
+    "prefix": "LOOP",
+    "body": [
+      "LOOP",
+      "\t$statement1",
+      "UNTIL $expression DO",
+      "\t$statement2",
+      "REPEAT"
+    ],
+    "description": "The UniBasic LOOP/REPEAT command repeats any contained statements while or until a specified condition is met, depending on whether you use the WHILE or UNTIL clause. statements can precede and/or follow the test condition. If space permits, you can write the structure on one line. Otherwise, you can extend the structure on as many lines as necessary. REPEAT is required and finishes the LOOP operation."
+  },
+  "WHILE LOOP (Modern)": {
+    "prefix": "LOOP",
+    "body": [
+      "LOOP WHILE $expression DO",
+      "\t$statement2",
+      "REPEAT"
+    ],
+    "description": "The UniBasic LOOP/REPEAT command repeats any contained statements while or until a specified condition is met, depending on whether you use the WHILE or UNTIL clause. statements can precede and/or follow the test condition. If space permits, you can write the structure on one line. Otherwise, you can extend the structure on as many lines as necessary. REPEAT is required and finishes the LOOP operation."
+  },
+  "UNTIL LOOP (Modern)": {
+    "prefix": "LOOP",
+    "body": [
+      "LOOP UNTIL $expression DO",
+      "\t$statement2",
+      "REPEAT"
+    ],
+    "description": "The UniBasic LOOP/REPEAT command repeats any contained statements while or until a specified condition is met, depending on whether you use the WHILE or UNTIL clause. statements can precede and/or follow the test condition. If space permits, you can write the structure on one line. Otherwise, you can extend the structure on as many lines as necessary. REPEAT is required and finishes the LOOP operation."
+  },
+  "LOWER": {
+    "prefix": "LOWER",
+    "body": [
+      "LOWER($expr)"
+    ],
+    "description": "The UniBasic LOWER function converts all attribute marks to value marks, and, in a dynamic array, it converts all value marks to subvalue marks."
+  },
+  "LTS": {
+    "prefix": "LTS",
+    "body": [
+      "LTS($arr1, $arr2)"
+    ],
+    "description": "The UniBasic LTS function compares each element in array1 to its corresponding value in array2. UniData returns an array with 1 in each position where the value in array1 is less than the value in the corresponding position in array2, and 0 in each position for values in array1 that are greater than those in array2."
+  },
+  "MAT": {
+    "prefix": "MAT",
+    "body": [
+      "MAT $array = $expr"
+    ],
+    "description": "The first form of the UniBasic MAT command assigns new values to all elements of a dimensioned array based on an expression. The second form assigns the contents of a dimensioned array to another dimensioned array."
+  },
+  "MATBUILD": {
+    "prefix": "MATBUILD",
+    "body": [
+      "MATBUILD $variable FROM $array, $startexpr, $endexpr"
+    ],
+    "description": "The UniBasic MATBUILD command generates a dynamic array from a dimensioned array based on specified starting and ending positions and the delimiter given. The dimensioned array can be multidimensional. The statement retrieves elements from the multidimensional array according to the order in which its elements are stored."
+  },
+  "MATCH": {
+    "prefix": "MATCH",
+    "body": [
+      "$str1 MATCH $pattern"
+    ],
+    "description": "The UniBasic MATCH or MATCHES function determines if a variable matches a specific pattern of characters, numbers, or a literal string. If var matches the pattern, MATCH or MATCHES returns 1. If var does not match the pattern, MATCH or MATCHES returns 0."
+  },
+  "MATCHFIELD": {
+    "prefix": "MATCHFIELD",
+    "body": [
+      "MATCHFIELD($string, $pattern, $element)"
+    ],
+    "description": "The UniBasic MATCHFIELD function returns a substring that matches a pattern or literal. If no match is made, UniData returns an empty string. MATCHFIELD supports multibyte languages."
+  },
+  "MATPARSE": {
+    "prefix": "MATPARSE",
+    "body": [
+      "MATPARSE $mat FROM $str SETTING $var"
+    ],
+    "description": "The UniBasic MATPARSE command distributes elements of a delimited string or dynamic array to consecutive elements of a dimensioned array. Delimiters can be the standard UniData delimiters or any other ASCII character."
+  },
+  "MATREAD": {
+    "prefix": "MATREAD",
+    "body": [
+      "MATREAD $mat FROM $filevar, $recordkey THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic MATREAD command assigns the values found in successive attributes of a record to corresponding elements of a dimensioned array — regardless of lock status."
+  },
+  "MATREADL": {
+    "prefix": "MATREADL",
+    "body": [
+      "MATREADL $mat FROM $filevar, $recordkey THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic MATREADL command assigns the values found in successive attributes of a record to corresponding elements of a dimensioned array. MATREADL checks for locks and will not read a record locked with an exclusive (U) lock. If the record is available, MATREADL reads and sets a shared (L) lock on it."
+  },
+  "MATREADU": {
+    "prefix": "MATREADU",
+    "body": [
+      "MATREADU $mat FROM $filevar, $recordkey THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic MATREADU command assigns the values found in successive attributes of a record to corresponding elements of a dimensioned array. MATREADU checks for locks and will not read a locked record. If the record is available, MATREADU reads and sets an exclusive (U) lock on it."
+  },
+  "MATWRITE": {
+    "prefix": "MATWRITE",
+    "body": [
+      "MATWRITE $mat TO $filevar, $recordkey"
+    ],
+    "description": "The UniBasic MATWRITE command writes successive elements of a dimensioned array to the corresponding attributes of a record."
+  },
+  "MATWRITEU": {
+    "prefix": "MATWRITEU",
+    "body": [
+      "MATWRITEU $mat TO $filevar, $recordkey"
+    ],
+    "description": "The UniBasic MATWRITEU command writes successive elements of a dimensioned array to the corresponding attributes of a specified record. MATWRITEU does not release locks set by READU, READVU, or MATREADU statements."
+  },
+  "MAXIMUM": {
+    "prefix": "MAXIMUM",
+    "body": [
+      "MAXIMUM($DynArr)"
+    ],
+    "description": "The UniBasic MAXIMUMfunction returns the largest numeric value found in a dynamic array. This function ignores nonnumeric elements. If the array you specify contains only nonnumeric elements, MAXIMUM returns an empty string. If an element is empty, UniData treats it as 0."
+  },
+  "MBLEN": {
+    "prefix": "MBLEN",
+    "body": [
+      "MBLEN($str)"
+    ],
+    "description": "The UniBasic MBLEN function returns the number of bytes in the first character of a string."
+  },
+  "MDPERFORM": {
+    "prefix": "MDPERFORM",
+    "body": [
+      "MDPERFORM $strexpr"
+    ],
+    "description": "The UniBasic MDPERFORM command executes various UniData commands, sentences, or paragraphs within a UniBasic program while transferring lists to and from the executed commands."
+  },
+  "MINIMUM": {
+    "prefix": "MINIMUM",
+    "body": [
+      "MINIMUM($DynArr)"
+    ],
+    "description": "The UniBasic MINIMUM function returns the smallest numeric element found in a dynamic array."
+  },
+  "MOD": {
+    "prefix": "MOD",
+    "body": [
+      "MOD($dividend, $divisor)"
+    ],
+    "description": "The UniBasic MOD and REM functions return the remainder of the division of num.expr2 into num.expr1. These functions divide integers and decimals. The sign of the result is the same as that of num.expr1."
+  },
+  "NEG": {
+    "prefix": "NEG",
+    "body": [
+      "NEG($expr)"
+    ],
+    "description": "The UniBasic NEG function changes the value of expr to its opposite sign. If the value of expr is positive, NEG returns a negative value. If the value of expr is negative, NEG returns a positive value."
+  },
+  "NES": {
+    "prefix": "NES",
+    "body": [
+      "NES($expr1, $expr2)"
+    ],
+    "description": "The UniBasic NES function compares each value in array1 to its corresponding value in array2. UniData returns an array with a one in each position where the value in array1 is not equal to the value in the corresponding position in array2, and a zero in each position for values that are equal to array2."
+  },
+  "NFAUSER": {
+    "prefix": "NFAUSER",
+    "body": [
+      "NFAUSER($username, $password)"
+    ],
+    "description": "Beginning at UniData 5.0, a Network File Access (NFA) connection from an NFA client requires a valid user name and password. If the client connection is made through udtelnet, this information is available and passed to the NFA server for connecting. If the session is a console session, the system prompts for the user name and password when a connection is requested, such as when you OPEN the first NFA file on a database. UniBasic now provides the NFAUSER function which enables you to set the user name and password in a UniBasic program."
+  },
+  "NOCONVERT": {
+    "prefix": "NOCONVERT",
+    "body": [
+      "NOCONVERT $OFF_ON"
+    ],
+    "description": "The UniBasic NOCONVERT command controls the conversion of the special character CHAR(0). The following UniBasic commands read and write non-UniData files or tapes and convert CHAR(0) to CHAR(128) on input. They also convert CHAR(128) to CHAR(0) on output. This can cause problems under some circumstances, especially if you use the character CHAR(128) in an application or in stored data. NOCONVERT provides a way of switching the conversion OFF or ON. The default is OFF."
+  },
+  "NOT": {
+    "prefix": "NOT",
+    "body": [
+      "NOT($expr)"
+    ],
+    "description": "The UniBasic NOT Boolean operator inverts the logical result of the argument expr. If the expression is true, the function returns 0 (false). If the expression is not true, the function returns 1 (true)."
+  },
+  "NOTS": {
+    "prefix": "NOTS",
+    "body": [
+      "NOTS($DynArr)"
+    ],
+    "description": "The UniBasic NOTS Boolean operator inverts the logical result of each element of a dynamic array. If the element is true, the operator returns 0 (false) in the corresponding position of the new array. If the expression is not true, the operator returns 1 (true) in the corresponding position of the new array."
+  },
+  "NULL": {
+    "prefix": "NULL",
+    "body": [
+      "NULL"
+    ],
+    "description": "The UniBasic NULL command acts as a dummy statement. You can use the NULL statement anywhere a statement is required."
+  },
+  "NUM": {
+    "prefix": "NUM",
+    "body": [
+      "NUM($str)"
+    ],
+    "description": "The UniBasic NUM function determines if an expression is numeric. If expr is numeric, NUM returns 1. Otherwise, it returns 0. expr can be any valid UniBasic expression. The NUM function returns 0 for any multibyte character."
+  },
+  "NUMS": {
+    "prefix": "NUMS",
+    "body": [
+      "NUMS($DynArr)"
+    ],
+    "description": "The UniBasic NUMS function determines, for each element of an array, if that element is numeric. If the element is numeric, NUM returns 1 in the corresponding position of the new array. For nonnumeric and multibyte characters, it returns 0."
+  },
+  "OCONV": {
+    "prefix": "OCONV",
+    "body": [
+      "OCONV($subject, $conversion)"
+    ],
+    "description": "The UniBasic OCONV function converts string or numeric data from internal format to display format based on conversion codes. If the input value or conversion code is invalid, UniData returns the input value. OCONV supports multibyte languages."
+  },
+  "OCONVS": {
+    "prefix": "OCONVS",
+    "body": [
+      "OCONVS($DynArr, $conversion)"
+    ],
+    "description": "The UniBasic OCONVS function converts string or numeric data from internal format to output format, based on a conversion code, for each element of a dynamic array. If the input value or conversion code is invalid, UniData returns the input value."
+  },
+  "ON\/GOSUB": {
+    "prefix": "ON\/GOSUB",
+    "body": [
+      "ON $expr GOSUB $label"
+    ],
+    "description": "The UniBasic ON/GOSUB command transfers program control to a subroutine label based on the value of expr."
+  },
+  "OPEN": {
+    "prefix": "OPEN",
+    "body": [
+      "OPEN $filename TO $filevar ELSE $else_statements"
+    ],
+    "description": "The UniBasic OPEN command opens a UniData hashed data or dictionary file, so you can read, write, or delete records from it. The number of files you can open is determined by operating system and UniData configuration parameters. For information about file performance, see Administering UniData on UNIX or Administering UniData on Windows Platforms."
+  },
+  "openSecureSocket": {
+    "prefix": "openSecureSocket",
+    "body": [
+      "openSecureSocket($name_or_IP, $port, $mode, $timeout, $socket_handle, $context)"
+    ],
+    "description": "Use the openSecureSocket() function to open a secure socket connection in a specified mode and return the status."
+  },
+  "OPENSEQ": {
+    "prefix": "OPENSEQ",
+    "body": [
+      "OPENSEQ $path $READONLY TO $filevar ON ERROR $err LOCKED $lock THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic OPENSEQ command opens a sequential file for access, starting at the specified record. UniData limits to 150 the number of sequential files you can open in a UniBasic program."
+  },
+  "openSocket": {
+    "prefix": "openSocket",
+    "body": [
+      "openSocket($name_or_IP, $port, $mode, $timeout, $socket_handle)"
+    ],
+    "description": "Use the openSocket() function to open a socket connection in a specified mode and return the status."
+  },
+  "OPENXMLDATA": {
+    "prefix": "OPENXMLDATA",
+    "body": [
+      "OPENXMLDATA($xml_handle, $xml_data_extraction_rule, $xml_data_handle)"
+    ],
+    "description": "Use the OPENXMLDATA function to open an XML document after preparing it using the PREPAREXML function."
+  },
+  "OSBREAD": {
+    "prefix": "OSBREAD",
+    "body": [
+      "OSBREAD $var FROM $filevar LENGTH $length_expr"
+    ],
+    "description": "The UniBasic OSBREAD command reads data from a file starting at a specified byte location for a certain length of bytes, and assigns the data to a variable. OSBREAD performs an operating system block read on a UNIX, or Windows platform file."
+  },
+  "OSBWRITE": {
+    "prefix": "OSBWRITE",
+    "body": [
+      "OSBWRITE $expr TO $filevar"
+    ],
+    "description": "The UniBasic OSBWRITE command writes an expression to a sequential file starting at a specified byte location. OSBWRITE immediately writes a file segment out to the UNIX, or Windows platform file."
+  },
+  "OSCLOSE": {
+    "prefix": "OSCLOSE",
+    "body": [
+      "OSCLOSE $filevar"
+    ],
+    "description": "The UniBasic OSCLOSE command closes a sequential file that you opened with the OSOPEN or OPENSEQ command."
+  },
+  "OSDELETE": {
+    "prefix": "OSDELETE",
+    "body": [
+      "OSDELETE $path"
+    ],
+    "description": "The UniBasic OSDELETE command deletes an NTFS or UNIX sequential file."
+  },
+  "OSOPEN": {
+    "prefix": "OSOPEN",
+    "body": [
+      "OSOPEN $filename TO $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic OSOPEN command opens a sequential file that does not use CHAR(10) as the line delimiter."
+  },
+  "OSREAD": {
+    "prefix": "OSREAD",
+    "body": [
+      "OSREAD $var FROM $path ON ERROR $err THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic OSREAD command reads an entire sequential file and assigns the contents of the file to a variable."
+  },
+  "OSWRITE": {
+    "prefix": "OSWRITE",
+    "body": [
+      "OSWRITE $expr TO $path ON ERROR $err"
+    ],
+    "description": "The UniBasic OSWRITE command writes the contents of an expression to a sequential file."
+  },
+  "PAGE": {
+    "prefix": "PAGE",
+    "body": [
+      "PAGE $1"
+    ],
+    "description": "The UniBasic PAGE command prints the current output page. UniData prints the page with any specified header or footer."
+  },
+  "PAUSE": {
+    "prefix": "PAUSE",
+    "body": [
+      "PAUSE $timeout"
+    ],
+    "description": "The UniBasic PAUSE command suspends the UniData process that issues the command for the amount of time you specify with wait_time, or until a UniBasic WAKE command is executed for this process."
+  },
+  "PCPERFORM": {
+    "prefix": "PCPERFORM",
+    "body": [
+      "PCPERFORM $str CAPTURING $dynarr"
+    ],
+    "description": "The UniBasic PCPERFORM command executes an operating system command from within a UniBasic program."
+  },
+  "PERFORM": {
+    "prefix": "PERFORM",
+    "body": [
+      "PERFORM $expr"
+    ],
+    "description": "PERFORM is a synonym for the EXECUTE command."
+  },
+  "PRECISION": {
+    "prefix": "PRECISION",
+    "body": [
+      "PRECISION $integer"
+    ],
+    "description": "The UniBasic PRECISION command rounds numbers to the number of decimal places indicated in num.expr. num.expr can be a number from 0 to 14. If the number is not within this range, UniData does not change the setting. The default is four decimal places."
+  },
+  "PREPAREXML": {
+    "prefix": "PREPAREXML",
+    "body": [
+      "PREPAREXML($xml_file, $xml_handle)"
+    ],
+    "description": "Use the PREPAREXML function to prepare the XML document in the UniBasic program. This step allocates memory for the XML document, opens the document, determines the file structure of the document, and returns the file structure."
+  },
+  "PRINT": {
+    "prefix": "PRINT",
+    "body": [
+      "PRINT $expr"
+    ],
+    "description": "The UniBasic PRINT command prints data on the display terminal or the system printer, or sends data to a print file."
+  },
+  "PRINTER": {
+    "prefix": "PRINTER",
+    "body": [
+      "PRINTER $ON_OFF"
+    ],
+    "description": "The UniBasic PRINTER command directs output of PRINT, FOOTING, HEADING, and PAGE statements not sent to a file (those executed without the ON clause). If you specify ON, UniData directs all output to the system printer. If you specify OFF, UniData directs all output to the terminal screen."
+  },
+  "PRINTER CLOSE": {
+    "prefix": "PRINTER CLOSE",
+    "body": [
+      "PRINTER CLOSE"
+    ],
+    "description": "The UniBasic PRINTER CLOSE command sends data stored in either a print file or a print buffer to the print queue. The ON clause does not physically close the print file. Instead, it sends its contents to a print buffer, leaving the file empty. Then you can send additional data to the same print file to begin a new set of data to be printed. As many as 31 print files can be open at the same time. The PRINTER CLOSE statement does not generate a new line at the end of a page. UniBasic is in control of page feeds or generating new line equivalents."
+  },
+  "PRINTERR": {
+    "prefix": "PRINTERR",
+    "body": [
+      "PRINTERR $expr"
+    ],
+    "description": "The UniBasic PRINTERR command prints error messages stored in the UniData system message file or in a user-defined file."
+  },
+  "PROCREAD": {
+    "prefix": "PROCREAD",
+    "body": [
+      "PROCREAD $variable THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic PROCREAD command assigns the string value of the primary input buffer of the calling Proc to a variable. PROCREAD can be used to access the primary input buffer of a calling proc."
+  },
+  "PROCWRITE": {
+    "prefix": "PROCWRITE",
+    "body": [
+      "PROCWRITE $expr"
+    ],
+    "description": "The UniBasic PROCWRITE command writes data to the primary input buffer of the calling Proc. PROCWRITE overlays any data in the primary input buffer with the new data in PROCWRITE."
+  },
+  "PROGRAM": {
+    "prefix": "PROGRAM",
+    "body": [
+      "PROGRAM $progname"
+    ],
+    "description": "The UniBasic PROGRAM command defines the name of the current main program. This statement is optional. It is used for documentation purposes only. The PROGRAM statement must be the first noncomment statement in the program."
+  },
+  "PROMPT": {
+    "prefix": "PROMPT",
+    "body": [
+      "PROMPT $expr"
+    ],
+    "description": "The UniBasic PROMPT command sets the prompt displayed by the INPUT command to a specified single-byte character. If str.expr is longer than one character, UniData uses the first character as the prompt. You cannot set the prompt to a multibyte character."
+  },
+  "protocolLogging": {
+    "prefix": "protocolLogging",
+    "body": [
+      "protocolLogging($log_file, $log_action, $log_level)"
+    ],
+    "description": "This function will start or stop logging."
+  },
+  "PWR": {
+    "prefix": "PWR",
+    "body": [
+      "PWR($expr1, $pwrexpr)"
+    ],
+    "description": "The UniBasic PWR function raises expr1 to the power of expr2."
+  },
+  "QUOTE": {
+    "prefix": "QUOTE",
+    "body": [
+      "QUOTE($expr)"
+    ],
+    "description": "The UniBasic QUOTE function encloses a string expression in double quotation marks."
+  },
+  "RAISE": {
+    "prefix": "RAISE",
+    "body": [
+      "RAISE($str)"
+    ],
+    "description": "The UniBasic RAISE function raises all UniData delimiters to the next level. UniData raises attribute marks to record marks, value marks to attribute marks, and subvalue marks to value marks."
+  },
+  "READ": {
+    "prefix": "READ",
+    "body": [
+      "READ $var FROM $filevar,$recordkey THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic READ command reads a record from a file and assigns its contents to a dynamic array. UniData assigns the first attribute of the record to the first position of the array, the second attribute to the second position, and so on. If UniData cannot find the record you specify, it executes the ELSE clause and returns dyn.array.var empty."
+  },
+  "READBCK": {
+    "prefix": "READBCK",
+    "body": [
+      "READBCK $dynarr FROM $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The first READBCK command retrieves the alternate key set by SETINDEX, then each subsequent READBCK retrieves the previous alternate key value in the index. The corresponding record is read into a dynamic array, and the record ID is assigned to the @ID variable."
+  },
+  "READBCKL": {
+    "prefix": "READBCKL",
+    "body": [
+      "READBCKL $dynarr FROM $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The first READBCKL command retrieves the alternate key set by SETINDEX, and then each subsequent READBCKL retrieves the previous alternate key in the index. The corresponding record is read into a dynamic array, and the record ID is assigned to the @ID variable. READBCKL checks for locks. If the record is available, it sets a shared (L) lock before reading the record."
+  },
+  "READBCKU": {
+    "prefix": "READBCKU",
+    "body": [
+      "READBCKU $dynarr FROM $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The first READBCKU command retrieves the alternate key set by SETINDEX, and then each subsequent READBCKU retrieves the previous alternate key value in the index. The corresponding record is read into a dynamic array, and the record ID is assigned to the @ID variable. READBCKU checks for locks. If the record is available, it sets an exclusive (U) lock before reading the record."
+  },
+  "READFWD": {
+    "prefix": "READFWD",
+    "body": [
+      "READFWD $dynarr FROM $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The first READFWD command retrieves the alternate key set by SETINDEX, and then each subsequent READFWD retrieves the next alternate key value in the index. UniData reads the corresponding record into a dynamic array, and then assigns the record ID to the @ID variable."
+  },
+  "READFWDL": {
+    "prefix": "READFWDL",
+    "body": [
+      "READFWDL $dynarr FROM $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The first READFWDL command retrieves the alternate key set by SETINDEX, and then each subsequent READFWDL retrieves the next alternate key value in the index. UniData reads the corresponding record into a dynamic array, and then assigns the record ID to the @ID variable. READFWDL checks for locks. If the record is available, it sets a shared (L) lock."
+  },
+  "READFWDU": {
+    "prefix": "READFWDU",
+    "body": [
+      "READFWDU $dynarr FROM $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The first READFWDU command retrieves the alternate key set by SETINDEX, and then each subsequent READFWDU retrieves the next alternate key value in the index. UniData reads the corresponding record into a dynamic array, and then assigns the record ID to the @ID variable. READFWDU checks for locks. If the record is available, READFWDU sets an exclusive (U) lock before reading the record."
+  },
+  "READL": {
+    "prefix": "READL",
+    "body": [
+      "READL $var FROM $filevar,$recordkey THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic READL command reads the specified record from a file and assigns its contents to a dynamic array. UniData assigns the first attribute of the record to the first position of the array, the second attribute to the second position, and so on. READL checks for locks. If the record is available, it sets a read-only lock on the record, preventing other lock-checking commands from updating it."
+  },
+  "READLIST": {
+    "prefix": "READLIST",
+    "body": [
+      "READLIST $var FROM $listnum THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic READLIST command assigns the values in an active select list to a dynamic array. Each select list element becomes an attribute in the dynamic array."
+  },
+  "READNEXT": {
+    "prefix": "READNEXT",
+    "body": [
+      "READNEXT $var FROM $list"
+    ],
+    "description": "The UniBasic READNEXT command assigns the next record ID from an active select list to a variable."
+  },
+  "READNEXTTUPLE": {
+    "prefix": "READNEXTTUPLE",
+    "body": [
+      "READNEXTTUPLE $dynarr FROM $filenameexpr THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic READNEXTTUPLE command assigns the next entire record to a variable. The record ID is obtained from an active select list that was created by a UniData SQL SELECT statement during the current work session."
+  },
+  "READSELECT": {
+    "prefix": "READSELECT",
+    "body": [
+      "READSELECT $var FROM $listnum THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "READSELECT is a synonym for the READLIST command."
+  },
+  "READSEQ": {
+    "prefix": "READSEQ",
+    "body": [
+      "READSEQ $var FROM $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic READSEQ command reads the next record from a sequential file and assigns the data read to a variable."
+  },
+  "readSocket": {
+    "prefix": "readSocket",
+    "body": [
+      "readSocket($socket_handle, $socket_data, $max_read_size, $time_out, $mode, $actual_read_size)"
+    ],
+    "description": "Use the readSocket() function to read data in the socket buffer up to max_read_size characters."
+  },
+  "READT": {
+    "prefix": "READT",
+    "body": [
+      "READT $variable THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic READT command reads the next record from a tape and assigns it to a variable."
+  },
+  "READU": {
+    "prefix": "READU",
+    "body": [
+      "READU $var FROM $filevar,$recordkey LOCKED $lock_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic READU command reads a record from a file and assigns its contents to a dynamic array. READU checks for locks. If the record is available, it sets an exclusive lock and reads the record."
+  },
+  "READV": {
+    "prefix": "READV",
+    "body": [
+      "READV $var FROM $filevar,$recordkey,$attr THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic READV command assigns the data from an attribute of a record to a variable."
+  },
+  "READVL": {
+    "prefix": "READVL",
+    "body": [
+      "READVL $var FROM $filevar,$recordkey,$attr THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic READVL command assigns the data from an attribute of a record to a variable. READVL checks for locks. If the record is available, it sets a shared lock before it reads the record."
+  },
+  "READVU": {
+    "prefix": "READVU",
+    "body": [
+      "READVU $var FROM $filevar,$recordkey,$attr LOCKED $lock_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic READVU command assigns the data from an attribute of a record to a variable. READVU checks for locks. If the record is available, it sets an exclusive lock before it reads the record."
+  },
+  "READXBCK": {
+    "prefix": "READXBCK",
+    "body": [
+      "READXBCK $dynarr FROM $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic READXBCK command reads the previous key in an alternate key index in much the same manner as the READBCK command, but does not read the associated record. READXBCK enables a program to read alternate keys without incurring the overhead of retrieving a record every time."
+  },
+  "READXFWD": {
+    "prefix": "READXFWD",
+    "body": [
+      "READXFWD $dynarr FROM $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic READXFWD command reads the next value in an alternate key index in much the same manner as the READFWD command, but does not read the associated record. READXFWD enables a program to read alternate keys without incurring the overhead of retrieving a record every time."
+  },
+  "READXMLDATA": {
+    "prefix": "READXMLDATA",
+    "body": [
+      "READXMLDATA($xml_data_handler, $rec)"
+    ],
+    "description": "After opening the XML document with the OPENXMLDATA function, read the document using the READXMLDATA function. UniBasic returns the XML data as a dynamic array."
+  },
+  "RECORDLOCKED": {
+    "prefix": "RECORDLOCKED",
+    "body": [
+      "RECORDLOCKED($filevar, $recordkey)"
+    ],
+    "description": "The UniBasic RECORDLOCKED function returns the lock status of the specified record or file. For an explanation of UniData locks, and for a sample program you can use to test this command, see Developing UniBasic Applications."
+  },
+  "RECORDLOCKL": {
+    "prefix": "RECORDLOCKL",
+    "body": [
+      "RECORDLOCKL $filevar, $recordkey ON ERROR $err_statements LOCKED $lock_statements"
+    ],
+    "description": "The UniBasic RECORDLOCKL command checks for record locks. If the record is available, it sets a shared lock on the record. For an explanation of UniData locks, and for a sample program that you can use to test this command, see Developing UniBasic Applications."
+  },
+  "RECORDLOCKU": {
+    "prefix": "RECORDLOCKU",
+    "body": [
+      "RECORDLOCKU $filevar, $recordkey ON ERROR $err_statements LOCKED $lock_statements"
+    ],
+    "description": "The UniBasic RECORDLOCKU command checks for record locks. If the record is available, it sets an exclusive lock on the record. For an explanation of UniData locks, and for a sample program that you can use to test this command, see Developing UniBasic Applications."
+  },
+  "RELEASE": {
+    "prefix": "RELEASE",
+    "body": [
+      "RELEASE $filevar, $expr ON ERROR $err_statements"
+    ],
+    "description": "The UniBasic RELEASE command unlocks records and files locked by the same user process. If no files or records are locked, RELEASE has no effect."
+  },
+  "RELEASEXML": {
+    "prefix": "RELEASEXML",
+    "body": [
+      "RELEASEXML($XMLhandle)"
+    ],
+    "description": "Release the dynamic array variable using the RELEASEXML function. RELEASEXML destroys the internal DOM tree and releases the associated memory."
+  },
+  "REM": {
+    "prefix": "REM",
+    "body": [
+      "REM $commentText"
+    ],
+    "description": "The UniBasic REM command enables you to enter remarks in a program. You can enter the comment on a line by itself by entering the comment command followed by text. You also can enter a comment on a line that contains another UniBasic command by preceding the comment command with a semicolon."
+  },
+  "REMOVE": {
+    "prefix": "REMOVE",
+    "body": [
+      "REMOVE $variable FROM $array SETTING $setvar"
+    ],
+    "description": "The UniBasic REMOVE command extracts an element from a dynamic array and assigns the removed element to a variable. REMOVE does not change the value of the dynamic array. REMOVE supports multibyte languages."
+  },
+  "REMOVE Function": {
+    "prefix": "REMOVE",
+    "body": [
+      "REMOVE($dynarr, $delim)"
+    ],
+    "description": "The UniBasic REMOVE function extracts an element from a dynamic array and assigns the removed element to a variable. REMOVE does not change the value of the dynamic array."
+  },
+  "REPLACE": {
+    "prefix": "REPLACE",
+    "body": [
+      "REPLACE($var, $attr, $value, $subvalue; $replace)"
+    ],
+    "description": "The UniBasic REPLACE function replaces data in a dynamic array with an expression. If an attribute, value, or subvalue is less than 0, the replacement string is placed after the last attribute, value, or subvalue as appropriate. If the position given does not exist (for example, attribute 6 specified in an array with two attributes), the necessary number of attribute, value, and subvalue marks are added to create the specified position."
+  },
+  "RESIZET": {
+    "prefix": "RESIZET",
+    "body": [
+      "RESIZET $expr THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic RESIZET command changes the block size the WRITET command uses. When UniData processes a variable length record, the record length is less than the block length and UniData fills the remaining portion of the block with blanks."
+  },
+  "RETURN": {
+    "prefix": "RETURN",
+    "body": [
+      "RETURN $1"
+    ],
+    "description": "The UniBasic RETURN command transfers program control from a subroutine back to the calling program or subroutine."
+  },
+  "REUSE": {
+    "prefix": "REUSE",
+    "body": [
+      "REUSE($dynarr)"
+    ],
+    "description": "The UniBasic REUSE function affects the application of arithmetic operations on dynamic arrays."
+  },
+  "REWIND": {
+    "prefix": "REWIND",
+    "body": [
+      "REWIND THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic REWIND command rewinds a tape."
+  },
+  "RND": {
+    "prefix": "RND",
+    "body": [
+      "RND($expr)"
+    ],
+    "description": "The UniBasic RND function returns a random integer from 0 through num.expr minus 1."
+  },
+  "RNDSEED": {
+    "prefix": "RNDSEED",
+    "body": [
+      "RNDSEED $expr"
+    ],
+    "description": "The UniBasic RNDSEED command enables you to “seed” the pseudo random number generator. The RND function gives you a different sequence of numbers each time. RNDSEED generates the same sequence of random numbers each time you run a program with the same seed. expr is a numeric seed point. Each time you use the same expr, RND generates the same sequence of random numbers."
+  },
+  "RQM": {
+    "prefix": "RQM",
+    "body": [
+      "RQM $seconds"
+    ],
+    "description": "RQM is a synonym for the SLEEP function"
+  },
+  "SADD": {
+    "prefix": "SADD",
+    "body": [
+      "SADD($1, $2)"
+    ],
+    "description": "The UniBasic SADD function adds two string numbers and returns the result as a string number. SADD is the string addition function. Arguments can be any valid numbers or string numbers of any magnitude or precision."
+  },
+  "saveSecurityContext": {
+    "prefix": "saveSecurityContext",
+    "body": [
+      "saveSecurityContext($context, $name, $passPhrase)"
+    ],
+    "description": "The saveSecurityContext() function encrypts and saves a security context to a system security file. UniData maintains this file on a per account basis for. and uses the name as the record ID to access the saved security information. Since the information is encrypted, you should not attempt to directly manipulate the information."
+  },
+  "SCMP": {
+    "prefix": "SCMP",
+    "body": [
+      "SCMP($1, $2)"
+    ],
+    "description": "The UniBasic SCMP function compares two string numbers and returns a value depending on the result of the comparison. Arguments can be any valid numbers or string numbers of any magnitude or precision. If x or y contains nonnumeric data, UniData displays an error message, and the comparison returns 0."
+  },
+  "SDIV": {
+    "prefix": "SDIV",
+    "body": [
+      "SDIV($1, $2)"
+    ],
+    "description": "The UniBasic SDIV function divides two string numbers and returns the result as a string number. SDIV divides x by y. Arguments can be any valid numbers or string numbers of any magnitude or precision. However, result precision is limited to 14 significant digits."
+  },
+  "SELECT": {
+    "prefix": "SELECT",
+    "body": [
+      "SELECT $variable1 TO $list ON ERROR $err_statements"
+    ],
+    "description": "The UniBasic SELECT command creates an active select list of all record IDs in a file. Records appear in the list in the order in which they are stored in the file."
+  },
+  "SELECTINDEX": {
+    "prefix": "SELECTINDEX",
+    "body": [
+      "SELECTINDEX $indexname, $val FROM $filevar TO $listno"
+    ],
+    "description": "The UniBasic SELECTINDEX command creates a select list based on an alternate key index."
+  },
+  "SELECTINFO": {
+    "prefix": "SELECTINFO",
+    "body": [
+      "SELECTINFO($listnum, 1)"
+    ],
+    "description": "The UniBasic SELECTINFO function returns the state of a select list. list.num.expr is an expression evaluating to the number of the select list (0-9)."
+  },
+  "SEND": {
+    "prefix": "SEND",
+    "body": [
+      "SEND $output TO $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic SEND command sends output data to a specified line. You usually use SEND after a line is attached."
+  },
+  "SEQ": {
+    "prefix": "SEQ",
+    "body": [
+      "SEQ($char)"
+    ],
+    "description": "The UniBasic SEQ function converts a single character to its ASCII code value. The SEQ function is the complement of the CHAR function. SEQ supports multibyte languages."
+  },
+  "SEQS": {
+    "prefix": "SEQS",
+    "body": [
+      "SEQS($DynArr)"
+    ],
+    "description": "The UniBasic SEQS function converts the first character in each element of a dynamic array to its ASCII code value. SEQS supports multibyte languages."
+  },
+  "setAuthenticationDepth": {
+    "prefix": "setAuthenticationDepth",
+    "body": [
+      "setAuthenticationDepth($context, $depth, $serverOrClient)"
+    ],
+    "description": "The setAuthenticationDepth() function sets how deeply UniData should verify before deciding that a certificate is not valid."
+  },
+  "setCipherSuite": {
+    "prefix": "setCipherSuite",
+    "body": [
+      "setCipherSuite($context, $cipherSpecs)"
+    ],
+    "description": "The setCipherSuite() function enables you to identify which cipher suites to support for the specified context. It affects the cipher suites and public key algorithms supported during the SSL/TLS handshake and subsequent data exchanges."
+  },
+  "setClientAuthentication": {
+    "prefix": "setClientAuthentication",
+    "body": [
+      "setClientAuthentication($context, $option)"
+    ],
+    "description": "The setClientAuthentication() function turns client authentication for a server socket on or off. When option is set to on, during the initial SSL handshake, the server sends a client authentication request to the client. It will also receive the client certificate and perform authentication according to the issuer’s certificate (or certificate chain) set in the security context."
+  },
+  "SETENV": {
+    "prefix": "SETENV",
+    "body": [
+      "SETENV($var_name, $value)"
+    ],
+    "description": "Use the SETENV function to set an environment variable from UniBasic."
+  },
+  "setHTTPDefault": {
+    "prefix": "setHTTPDefault",
+    "body": [
+      "setHTTPDefault($opt, $val)"
+    ],
+    "description": "The setHTTPDefault function configures the default HTTP settings, including proxy server and port, buffer size, authentication credential, HTTP version, and request header values. UniBasic uses these settings with every HTTP request that follows."
+  },
+  "setIpv": {
+    "prefix": "setIpv",
+    "body": [
+      "setIpv($opt, $sockettype)"
+    ],
+    "description": "The setIpv function configures which IP setting to use; IPv4 or IPv6. If the machine is IPv6 enabled, all server side sockets will use IPv6, which can accept client connections on both IPv4 and IPv6. If the machine is not IPv6 enabled, server and client will remain working on IPv4. This function can accept one or two options. For example, setIpv(IPV6) or setIpv(IPV6,SOCKET)."
+  },
+  "SETINDEX": {
+    "prefix": "SETINDEX",
+    "body": [
+      "SETINDEX $indexname ON $filevar"
+    ],
+    "description": "The UniBasic SETINDEX command sets a pointer to a key in an alternate key index."
+  },
+  "setPrivateKey": {
+    "prefix": "setPrivateKey",
+    "body": [
+      "setPrivateKey($key, $format, $keyLoc, $passPhrase, $validate, $context)"
+    ],
+    "description": "The setPrivateKey() function loads the private key into a security context so that it can be used by SSL functions. If the context already had a set private key, it will be replaced."
+  },
+  "setRandomSeed": {
+    "prefix": "setRandomSeed",
+    "body": [
+      "setRandomSeed($inFiles, $outFile, $length, $context)"
+    ],
+    "description": "The setRandomSeed() function generates a random seed file from a series of source files and sets that file as the default seed file for the supplied security context."
+  },
+  "setRequestHeader": {
+    "prefix": "setRequestHeader",
+    "body": [
+      "setRequestHeader($request_handle, $header_name, $header_value)"
+    ],
+    "description": "The setRequestHeader function allows the user to set additional headers for a request."
+  },
+  "setSocketOptions": {
+    "prefix": "setSocketOptions",
+    "body": [
+      "setSocketOptions($socket_handle, $options)"
+    ],
+    "description": "The setSocketOptions() function sets the current value for a socket option associated with a socket of any type."
+  },
+  "showSecurityContext": {
+    "prefix": "showSecurityContext",
+    "body": [
+      "showSecurityContext($context, $config)"
+    ],
+    "description": "The showSecurityContext() function dumps the SSL configuration parameters of a security context into a readable format."
+  },
+  "SIGNATURE": {
+    "prefix": "SIGNATURE",
+    "body": [
+      "SIGNATURE($algorithm, $action, $data, $dataLoc, $key, $keyLoc, $keyFmt, $pass, $sigIn, $result)"
+    ],
+    "description": "The SIGNATURE() function generates a digital signature or verifies a signature using the supplied key."
+  },
+  "SIN": {
+    "prefix": "SIN",
+    "body": [
+      "SIN($expr)"
+    ],
+    "description": "The UniBasic SIN function returns the trigonometric sine of the numeric expression num.expr."
+  },
+  "SLEEP": {
+    "prefix": "SLEEP",
+    "body": [
+      "SLEEP $seconds"
+    ],
+    "description": "The UniBasic SLEEP and RQM commands halt program execution for the time specified in seconds, or until the time specified."
+  },
+  "SMUL": {
+    "prefix": "SMUL",
+    "body": [
+      "SMUL($1, $2)"
+    ],
+    "description": "The UniBasic SMUL function multiplies two string numbers and returns the result as a string number. Arguments can be any valid numbers or string numbers of any magnitude or precision. Using string numbers rather than standard numbers degrades processing speed."
+  },
+  "SOAPCreateRequest": {
+    "prefix": "SOAPCreateRequest",
+    "body": [
+      "SOAPCreateRequest($URL, $soapAction, $Request)"
+    ],
+    "description": "Creates a SOAP request and returns a handle to the request."
+  },
+  "SOAPCreateSecureRequest": {
+    "prefix": "SOAPCreateSecureRequest",
+    "body": [
+      "SOAPCreateSecureRequest($URL, $soapAction, $Request, $security_context)"
+    ],
+    "description": "The SOAPCreateSecureRequest function creates a secure SOAP request and returns a handle to the request."
+  },
+  "SOAPGetDefault": {
+    "prefix": "SOAPGetDefault",
+    "body": [
+      "SOAPGetDefault($option, $value)"
+    ],
+    "description": "Gets default SOAP settings, such as the SOAP version."
+  },
+  "SOAPGetFault": {
+    "prefix": "SOAPGetFault",
+    "body": [
+      "SOAPGetFault($respData, $soapFault)"
+    ],
+    "description": "Parses the response data from SOAPSubmitRequest after receiving a SOAP Fault, into a dynamic array of SOAP Fault components."
+  },
+  "SOAPGetResponseHeader": {
+    "prefix": "SOAPGetResponseHeader",
+    "body": [
+      "SOAPGetResponseHeader($Request, $headerName, $headerValue)"
+    ],
+    "description": "Gets a specific response header after issuing a SOAP request."
+  },
+  "SOAPRequestWrite": {
+    "prefix": "SOAPRequestWrite",
+    "body": [
+      "SOAPRequestWrite($Request, $reqDoc, $docTypeFlag)"
+    ],
+    "description": "Outputs the SOAP request in XML format to a string or to a file."
+  },
+  "SOAPSetDefault": {
+    "prefix": "SOAPSetDefault",
+    "body": [
+      "SOAPSetDefault($option, $value)"
+    ],
+    "description": "Setup default SOAP settings, such as SOAP version."
+  },
+  "SOAPSetParameters": {
+    "prefix": "SOAPSetParameters",
+    "body": [
+      "SOAPSetParameters($Request, $URI, $serviceName, $value)"
+    ],
+    "description": "Sets up the SOAP request body, specifying a remote method to call along with the method's parameter list."
+  },
+  "SOAPSetRequestBody": {
+    "prefix": "SOAPSetRequestBody",
+    "body": [
+      "SOAPSetRequestBody($Request, $value)"
+    ],
+    "description": "Sets up a SOAP request body directly, as opposed to having it be constructed through the SOAPSetParameters function. With this function it also possible to attach multiple body blocks to the SOAP request."
+  },
+  "SOAPSetRequestContent": {
+    "prefix": "SOAPSetRequestContent",
+    "body": [
+      "SOAPSetRequestContent($Request, $reqDoc, $docTypeFlag)"
+    ],
+    "description": "Sets the entire SOAP request's content from an input string or from a file."
+  },
+  "SOAPSetRequestHeader": {
+    "prefix": "SOAPSetRequestHeader",
+    "body": [
+      "SOAPSetRequestHeader($Request, $value)"
+    ],
+    "description": "Sets up a SOAP request header. By default, there is no SOAP header."
+  },
+  "SOAPSubmitRequest": {
+    "prefix": "SOAPSubmitRequest",
+    "body": [
+      "SOAPSubmitRequest($Request, $timeout, $respHeaders, $respData, $soapStatus)"
+    ],
+    "description": "Submits a request and gets the response."
+  },
+  "SORT": {
+    "prefix": "SORT",
+    "body": [
+      "SORT($keycnt)"
+    ],
+    "description": "The SORT function enables you to sort a dynamic array."
+  },
+  "SOUNDEX": {
+    "prefix": "SOUNDEX",
+    "body": [
+      "SOUNDEX($str)"
+    ],
+    "description": "The UniBasic SOUNDEX function converts an expression into a phonetic code. This function can return unpredictable results with multibyte characters."
+  },
+  "SPACE": {
+    "prefix": "SPACE",
+    "body": [
+      "SPACE($cnt)"
+    ],
+    "description": "The UniBasic SPACE function returns a string containing the specified number of spaces."
+  },
+  "SPACES": {
+    "prefix": "SPACES",
+    "body": [
+      "SPACES($DynArr)"
+    ],
+    "description": "The UniBasic SPACES function returns the number of spaces specified in each element of the dynamic array dyn.array.expr."
+  },
+  "SPLICE": {
+    "prefix": "SPLICE",
+    "body": [
+      "SPLICE($array1, $str, $array2)"
+    ],
+    "description": "The UniBasic SPLICE function concatenates two strings or arrays and inserts an expression between them."
+  },
+  "SQLAllocConnect": {
+    "prefix": "SQLAllocConnect",
+    "body": [
+      "SQLAllocConnect($bcienv, $connectenv)"
+    ],
+    "description": "SQLAllocConnect allocates and initializes a connection environment in a UniData BCI environment."
+  },
+  "SQLAllocEnv": {
+    "prefix": "SQLAllocEnv",
+    "body": [
+      "SQLAllocEnv($bcienv)"
+    ],
+    "description": "SQLAllocEnv creates an environment in which to execute UniData BCI calls."
+  },
+  "SQLAllocStmt": {
+    "prefix": "SQLAllocStmt",
+    "body": [
+      "SQLAllocStmt($connect.env, $statement.env)"
+    ],
+    "description": "SQLAllocStmt creates an SQL statement environment in which to execute SQL statements."
+  },
+  "SQLBindCol": {
+    "prefix": "SQLBindCol",
+    "body": [
+      "SQLBindCol($statementenv, $col, $datatype, $column)"
+    ],
+    "description": "Use this function to tell UniData BCI where to return the results of an SQLFetch call. SQLBindCol defines the name of the variable (column) to contain column results retrieved by SQLFetch, and specifies the data conversion (data.type) on the fetched data. SQLBindCol has no effect until SQLFetch is used."
+  },
+  "SQLBindParameter": {
+    "prefix": "SQLBindParameter",
+    "body": [
+      "SQLBindParameter($statementenv, $mrk, $datatype, $sqltype, $prec, $scale, $param, $paramtype)"
+    ],
+    "description": "SQLBindParameter specifies where to find values for input parameter markers when you issue an SQLExecute or SQLExecDirect call. For output parameter markers, SQLBindParameter specifies where to find the return value of a called procedure."
+  },
+  "SQLCancel": {
+    "prefix": "SQLCancel",
+    "body": [
+      "SQLCancel($statementenv)"
+    ],
+    "description": "This function is equivalent to the SQLFreeStmt call with the SQL.CLOSE option. It closes any open cursor associated with the SQL statement environment and discards pending results at the data source."
+  },
+  "SQLColAttributes": {
+    "prefix": "SQLColAttributes",
+    "body": [
+      "SQLColAttributes($statementenv, $col, $colattr, $textvar, $numvar)"
+    ],
+    "description": "Use this function to get information about a column. SQLColAttributes returns the specific information requested by the value of col.attribute."
+  },
+  "SQLColumns": {
+    "prefix": "SQLColumns",
+    "body": [
+      "SQLColumns($statementenv, $schema, $owner, $tablename, $columnname)"
+    ],
+    "description": "This function returns a result set in statement.env as a cursor of 12 columns describing those columns found by the search pattern (see SQLTables). As with SQLTables, the search is done on the SQL catalog. This is a standard result set that can be accessed with SQLFetch. The ability to obtain descriptions of columns does not imply that a user has any privileges on those columns."
+  },
+  "SQLConnect": {
+    "prefix": "SQLConnect",
+    "body": [
+      "SQLConnect($connectenv, $datasource, $login1, $login2)"
+    ],
+    "description": "Use this function to connect to the ODBC data source specified by data.source. Use the login1 and login2 parameters to log in to the DBMS specified by the ODBC data.source."
+  },
+  "SQLDescribeCol": {
+    "prefix": "SQLDescribeCol",
+    "body": [
+      "SQLDescribeCol($statementenv, $col, $colname, $sqltype, $prec, $scale, $null)"
+    ],
+    "description": "Use this function to get information about the column described by col#."
+  },
+  "SQLDisconnect": {
+    "prefix": "SQLDisconnect",
+    "body": [
+      "SQLDisconnect($connectenv)"
+    ],
+    "description": "SQLDisconnect disconnects a connection environment from a data source."
+  },
+  "SQLError": {
+    "prefix": "SQLError",
+    "body": [
+      "SQLError($bcienv, $connectenv, $statementenv, $sqlstate, $dbmscode, $error)"
+    ],
+    "description": "SQLError returns error status information about one of the three environments you use."
+  },
+  "SQLExecDirect": {
+    "prefix": "SQLExecDirect",
+    "body": [
+      "SQLExecDirect($statementenv, $statement)"
+    ],
+    "description": "SQLExecDirect accepts an SQL statement or procedure call and delivers it to the data source for execution. It uses the current values of any SQL statement parameter markers."
+  },
+  "SQLExecute": {
+    "prefix": "SQLExecute",
+    "body": [
+      "SQLExecute($statementenv)"
+    ],
+    "description": "Use this function to repeatedly execute an SQL statement, using different values for parameter markers. You must use an SQLPrepare call to prepare the SQL statement before you can use SQLExecute. If the SQL statement specified in the SQLPrepare call contains parameter markers, you must also issue an SQLBindParameter call for each marker in the SQL statement before you use SQLExecute. After you load the parameter marker variables with data to send to the data source, you can issue the SQLExecute call. By setting new values in the parameter marker variables and calling SQLExecute, new data values are sent to the data source and the SQL statement is executed using those values"
+  },
+  "SQLFetch": {
+    "prefix": "SQLFetch",
+    "body": [
+      "SQLFetch($statementenv)"
+    ],
+    "description": "Use this function to retrieve the next row’s column values from the result set at the data source and put them into the variables specified with SQLBindCol. SQLFetch performs any required data conversions."
+  },
+  "SQLFreeConnect": {
+    "prefix": "SQLFreeConnect",
+    "body": [
+      "SQLFreeConnect($connectenv)"
+    ],
+    "description": "SQLFreeConnect releases a connection environment and its resources. You must use SQLDisconnect to disconnect the connection environment from the data source before you release the connection environment with SQLFreeConnect, otherwise an error is returned."
+  },
+  "SQLFreeEnv": {
+    "prefix": "SQLFreeEnv",
+    "body": [
+      "SQLFreeEnv($bcienv)"
+    ],
+    "description": "SQLFreeEnv releases an SQL Client Interface environment and its resources. You must use SQLFreeConnect to release all connection environments attached to the UniData BCI environment before you release the UniData BCI environment with SQLFreeEnv, otherwise an error is returned."
+  },
+  "SQLFreeStmt": {
+    "prefix": "SQLFreeStmt",
+    "body": [
+      "SQLFreeStmt($statementenv, $option)"
+    ],
+    "description": "SQLFreeStmt frees some or all resources associated with an SQL statement environment."
+  },
+  "SQLGetInfo": {
+    "prefix": "SQLGetInfo",
+    "body": [
+      "SQLGetInfo($connectenv, $infotype, $infovalue)"
+    ],
+    "description": "SQLGetInfo returns general information about the ODBC driver and the data source. This function supports all of the possible requests for information defined in the ODBC 2.0 specification. The #defines for info.type are contained in the ODBC.H include file."
+  },
+  "SQLGetTypeInfo": {
+    "prefix": "SQLGetTypeInfo",
+    "body": [
+      "SQLGetTypeInfo($statementenv, $sqltype)"
+    ],
+    "description": "SQLGetTypeInfo returns information about an SQL on the data source. You can use SQLGetTypeInfo only against ODBC data sources. SQLGetTypeInfo returns a standard result set ordered by DATA.TYPE and TYPE.NAME."
+  },
+  "SQLNumParams": {
+    "prefix": "SQLNumParams",
+    "body": [
+      "SQLNumParams($statementenv, $params)"
+    ],
+    "description": "SQLNumParams returns the number of parameters in an SQL statement. Use this function after preparing or executing an SQL statement or procedure call to find the number of parameters in an SQL statement. If the statement associated with statement.env contains no parameters, parameters is set to 0."
+  },
+  "SQLNumResultCols": {
+    "prefix": "SQLNumResultCols",
+    "body": [
+      "SQLNumResultCols($statementenv, $cols)"
+    ],
+    "description": "SQLNumResultCols returns the number of columns in a result set. Use this function after executing an SQL statement to find the number of columns in the result set. If the executed statement was not a SELECT statement or a called procedure that produced a result set, the number of result columns returned is 0. Use this function when the number of columns to be bound to application variables is unknown, for example, when your program is processing SQL statements entered by users."
+  },
+  "SQLParamOptions": {
+    "prefix": "SQLParamOptions",
+    "body": [
+      "SQLParamOptions($statementenv, $option, $value)"
+    ],
+    "description": "SQLParamOptions lets applications load an array of parameter markers in a single SQLExecDirect or SQLExecute function call. Use this function only when you are connected to an ODBC data source."
+  },
+  "SQLPrepare": {
+    "prefix": "SQLPrepare",
+    "body": [
+      "SQLPrepare($statementenv, $statement)"
+    ],
+    "description": "SQLPrepare passes an SQL statement or procedure call to the data source in order to prepare it for execution by SQLExecute."
+  },
+  "SQLRowCount": {
+    "prefix": "SQLRowCount",
+    "body": [
+      "SQLRowCount($statementenv, $rows)"
+    ],
+    "description": "SQLRowCount returns the number of rows changed by UPDATE, INSERT, or DELETE statements, or by a called procedure that executes one of these statements."
+  },
+  "SQLSetConnectOption": {
+    "prefix": "SQLSetConnectOption",
+    "body": [
+      "SQLSetConnectOption($connectenv, $option, $value)"
+    ],
+    "description": "SQLSetConnectOption controls some aspects of the connection to a data source."
+  },
+  "SQLSetParam": {
+    "prefix": "SQLSetParam",
+    "body": [
+      "SQLSetParam($statementenv, $mrk, $datatype, $sqltype, $prec, $scale, $param, $paramtype)"
+    ],
+    "description": "SQLSetParam is a synonym for SQLBindParameter."
+  },
+  "SQLSpecialColumns": {
+    "prefix": "SQLSpecialColumns",
+    "body": [
+      "SQLSpecialColumns($statementenv, $coltype, $schema, $owner, $tablename, $IDscope, $null)"
+    ],
+    "description": "SQLSpecialColumns gets information about columns in a table."
+  },
+  "SQLStatistics": {
+    "prefix": "SQLStatistics",
+    "body": [
+      "SQLStatistics($statementenv, $schema, $owner, $tablename, $indextype, $accuracy)"
+    ],
+    "description": "SQLStatistics gets a list of statistics about a single table and its indexes. Use this function only when you are connected to an ODBC data source. SQLStatistics returns information as a standard result set ordered by NON.UNIQUE, TYPE, INDEX.QUALIFIER, INDEX.NAME, and SEQ.IN.INDEX. The result set combines statistics for the table with statistics for each index."
+  },
+  "SQLTables": {
+    "prefix": "SQLTables",
+    "body": [
+      "SQLTables($statementenv, $schema, $owner, $tablename, $type)"
+    ],
+    "description": "SQLTables returns a result set listing the tables matching the search patterns. Use this function only when you are connected to an ODBC data source."
+  },
+  "SQLTransact": {
+    "prefix": "SQLTransact",
+    "body": [
+      "SQLTransact($bcienv, $connectenv, $type)"
+    ],
+    "description": "SQLTransact requests a COMMIT or ROLLBACK for all SQL statements associated with a connection or all connections associated with an environment. Use this function only when you are connected to an ODBC data source."
+  },
+  "SQRT": {
+    "prefix": "SQRT",
+    "body": [
+      "SQRT($expr)"
+    ],
+    "description": "The UniBasic SQRT function returns the square root of a positive numeric argument."
+  },
+  "SQUOTE": {
+    "prefix": "SQUOTE",
+    "body": [
+      "SQUOTE($expr)"
+    ],
+    "description": "The UniBasic SQUOTE function encloses a string with single quotation marks."
+  },
+  "SSUB": {
+    "prefix": "SSUB",
+    "body": [
+      "SSUB($1, $2)"
+    ],
+    "description": "The UniBasic SSUB function subtracts the second string number from the first string number and returns the result as a string number. Arguments can be any valid numbers or string numbers of any magnitude or precision."
+  },
+  "STATUS": {
+    "prefix": "STATUS",
+    "body": [
+      "STATUS()"
+    ],
+    "description": "The UniBasic STATUS function returns a code indicating the condition of the command or function just executed. Several UniBasic commands and functions set STATUS function return values."
+  },
+  "STOP": {
+    "prefix": "STOP",
+    "body": [
+      "STOP $1"
+    ],
+    "description": "The UniBasic STOP command halts execution of the current program. If you specify an expression, UniData prints the expression on the display terminal before halting the program. expr can contain variables, functions, and arithmetic or string operators."
+  },
+  "STR": {
+    "prefix": "STR",
+    "body": [
+      "STR($str, $cnt)"
+    ],
+    "description": "The UniBasic STR function returns a string composed of a number of repetitions of a string."
+  },
+  "STRS": {
+    "prefix": "STRS",
+    "body": [
+      "STRS($DynArr, $count)"
+    ],
+    "description": "The UniBasic STRS function returns each element of dyn.array the number of times specified in expr."
+  },
+  "submitRequest": {
+    "prefix": "submitRequest",
+    "body": [
+      "submitRequest($request_handle, $time_out, $post_data, $response_headers, $response_data, $http_status)"
+    ],
+    "description": "The submitRequest function submits a request and gets a response."
+  },
+  "SUBROUTINE Skeleton": {
+    "prefix": "SUB",
+    "body": [
+      "SUBROUTINE $1($2)",
+      "*-----",
+      "* Description : $3",
+      "* Author      : $4",
+      "* Date        : $5",
+      "*-----",
+      "     \\$INCLUDE Common",
+      "*-----",
+      "     Gosub Initialise",
+      "*-----",
+      "      $6",
+      "*-----",
+      "ExitProgram:",
+      "*-----",
+      "     Return",
+      "     End",
+      "*-----",
+      "Initialise:",
+      "*-----",
+      "",
+      "     Return"
+    ],
+    "description": "The UniBasic SUBROUTINE command determines the beginning of an external subroutine."
+  },
+  "SUBSTRINGS": {
+    "prefix": "SUBSTRINGS",
+    "body": [
+      "SUBSTRINGS($DynArr, $start, $length)"
+    ],
+    "description": "The UniBasic SUBSTRINGS function extracts strings from elements within a dynamic array. SUBSTRINGS supports multibyte languages."
+  },
+  "SUM": {
+    "prefix": "SUM",
+    "body": [
+      "SUM($DynArr)"
+    ],
+    "description": "The UniBasic SUM function adds the numeric values in the dynamic array dyn.array according to dynamic array delimiters. SUM begins with the lowest level of delimiter and sums all values to the next level. You can input a range, starting position, and level at which to perform the sum."
+  },
+  "SWAP": {
+    "prefix": "SWAP",
+    "body": [
+      "SWAP $search WITH $replace IN $var"
+    ],
+    "description": "The UniBasic SWAP command replaces all occurrences of one substring with a second substring. The search string does not have to be the same length as the replacement string. SWAP supports mulitbyte languages."
+  },
+  "SYSTEM": {
+    "prefix": "SYSTEM",
+    "body": [
+      "SYSTEM($key)"
+    ],
+    "description": "The UniBasic SYSTEM function retrieves certain system-level parameters set by UniBasic statements or by ECL commands such as SETPTR, TERM, and query statements."
+  },
+  "TAN": {
+    "prefix": "TAN",
+    "body": [
+      "TAN($expr)"
+    ],
+    "description": "The UniBasic TAN function returns the trigonometric tangent of a numeric expression, num.expr."
+  },
+  "TIME": {
+    "prefix": "TIME",
+    "body": [
+      "TIME()"
+    ],
+    "description": "The UniBasic TIME function returns the time of day in internal format, expressed as the number of seconds elapsed since midnight."
+  },
+  "TIMEDATE": {
+    "prefix": "TIMEDATE",
+    "body": [
+      "TIMEDATE()"
+    ],
+    "description": "The UniBasic TIMEDATE function returns a string representation of the current time and date in the following external format: hh:mm:ss dd mmm yyyy"
+  },
+  "TRANSACTION ABORT": {
+    "prefix": "TRANSACTION ABORT",
+    "body": [
+      "TRANSACTION ABORT"
+    ],
+    "description": "The UniBasic TRANSACTION ABORT command cancels the active transaction. UniData discards the pending writes. As a result, other users never know that the transaction was in progress, and none of the updates associated with the transaction take place."
+  },
+  "TRANSACTION COMMIT": {
+    "prefix": "TRANSACTION COMMIT",
+    "body": [
+      "TRANSACTION COMMIT THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic TRANSACTION COMMIT command concludes the active transaction. UniData writes all pending writes to the appropriate files. You must specify a THEN clause or an ELSE clause. You can specify both clauses."
+  },
+  "TRANSACTION START": {
+    "prefix": "TRANSACTION START",
+    "body": [
+      "TRANSACTION START THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic TRANSACTION START command initiates a new transaction, storing all updates until a TRANSACTION COMMIT or TRANSACTION ABORT statement executes."
+  },
+  "TRIM": {
+    "prefix": "TRIM",
+    "body": [
+      "TRIM($str, $char, $mode)"
+    ],
+    "description": "The UniBasic TRIM function removes all spaces or every occurrence of a specified character from a string expression. If UniData does not find an occurrence of the specified character, the string remains unchanged. TRIM removes leading or trailing occurrences of the specified character from a string, and converts embedded spaces or occurrences of the specified characters in a string to one space or a specified character. UniData does not remove single spaces or occurrences of the specified character embedded in the string."
+  },
+  "TRIMB": {
+    "prefix": "TRIMB",
+    "body": [
+      "TRIMB($str)"
+    ],
+    "description": "The UniBasic TRIMB function removes any trailing spaces from a string expression. If UniData does not find any trailing spaces, the string remains unchanged."
+  },
+  "TRIMF": {
+    "prefix": "TRIMF",
+    "body": [
+      "TRIMF($str)"
+    ],
+    "description": "The UniBasic TRIMF function removes any leading spaces from the string expression. If UniData does not find any leading spaces, the string remains unchanged."
+  },
+  "TRIMS": {
+    "prefix": "TRIMS",
+    "body": [
+      "TRIMS($str, $char, $mode)"
+    ],
+    "description": "The UniBasic TRIMS function removes any spaces from each element of a dynamic array. If UniData does not find any spaces, the element remains unchanged. TRIMS removes any leading or trailing spaces from a string and converts any contiguous spaces in a string to one space. Single blanks between text are not removed."
+  },
+  "UDOArrayAppendItem": {
+    "prefix": "UDOArrayAppendItem",
+    "body": [
+      "UDOArrayAppendItem($udoHandle, $value)"
+    ],
+    "description": "The UDOArrayAppendItem() function appends the item you specify to the UDO array."
+  },
+  "UDOArrayDeleteItem": {
+    "prefix": "UDOArrayDeleteItem",
+    "body": [
+      "UDOArrayDeleteItem($udoHandle, $index)"
+    ],
+    "description": "The UDOArrayDeleteItem() function deletes the array item you specify by its index."
+  },
+  "UDOArrayGetItem": {
+    "prefix": "UDOArrayGetItem",
+    "body": [
+      "UDOArrayGetItem($udoHandle, $index, $value, $value_type)"
+    ],
+    "description": "The UDOArrayGetItem() function returns a UDO array item by its index."
+  },
+  "UDOArrayGetNextItem": {
+    "prefix": "UDOArrayGetNextItem",
+    "body": [
+      "UDOArrayGetNextItem($udoHandle, $value, $type)"
+    ],
+    "description": "The UDOArrayGetNextItem() function returns the next UDO array item relative to the current position, which is the position of the array the last time it was accessed by this function. The initial position is 1."
+  },
+  "UDOArrayGetSize": {
+    "prefix": "UDOArrayGetSize",
+    "body": [
+      "UDOArrayGetSize($udoHandle, $size)"
+    ],
+    "description": "The UDOArrayGetSize() function gets the size of a UDO array."
+  },
+  "UDOArrayInsertItem": {
+    "prefix": "UDOArrayInsertItem",
+    "body": [
+      "UDOArrayInsertItem($udoHandle, $index, $value)"
+    ],
+    "description": "The UDOArrayInsertItem() function inserts a UDO array element at the position you specify by index."
+  },
+  "UDOArraySetItem": {
+    "prefix": "UDOArraySetItem",
+    "body": [
+      "UDOArraySetItem($udoHandle, $index, $value)"
+    ],
+    "description": "The UDOArraySetItem() function sets or inserts a UDO array element at the position you specify."
+  },
+  "UDOClone": {
+    "prefix": "UDOClone",
+    "body": [
+      "UDOClone($udoHandle, $newUdoHandle)"
+    ],
+    "description": "The UDOClone function clones a UDO object or array so that changes to the new object or array will not affect the original object."
+  },
+  "UDOCreate": {
+    "prefix": "UDOCreate",
+    "body": [
+      "UDOCreate($udoType, $udoHandle)"
+    ],
+    "description": "The UDOCreate function creates a UDO item of the type you specify."
+  },
+  "UDODeleteProperty": {
+    "prefix": "UDODeleteProperty",
+    "body": [
+      "UDODeleteProperty($udoHandle, $name)"
+    ],
+    "description": "The UDODeleteProperty function deletes a property from the UDO object."
+  },
+  "UDOFree": {
+    "prefix": "UDOFree",
+    "body": [
+      "UDOFree($udoHandle)"
+    ],
+    "description": "The UDOFree function forcefully removes a UDO object or array from memory."
+  },
+  "UDOGetLastError": {
+    "prefix": "UDOGetLastError",
+    "body": [
+      "UDOGetLastError($errorCode, $errorMessage)"
+    ],
+    "description": "If the previous UDO call returned UDO_ERROR, use the UDOGetLastError() function to return the error code and error message."
+  },
+  "UDOGetNextProperty": {
+    "prefix": "UDOGetNextProperty",
+    "body": [
+      "UDOGetNextProperty($udoHandle, $name, $value, $value_type)"
+    ],
+    "description": "The UDOGetNextProperty function provides a convenient way to walk through all the properties in a UDO object, without needing to know the property names in advance."
+  },
+  "UDOGetOption": {
+    "prefix": "UDOGetOption",
+    "body": [
+      "UDOGetOption($option, $value)"
+    ],
+    "description": "The UDOGetOption function gets the value of a UDO option."
+  },
+  "UDOGetProperty": {
+    "prefix": "UDOGetProperty",
+    "body": [
+      "UDOGetProperty($udoHandle, $name, $value, $value_type)"
+    ],
+    "description": "The UDOGetProperty function returns the value and type of property on the UDO object."
+  },
+  "UDOGetPropertyNames": {
+    "prefix": "UDOGetPropertyNames",
+    "body": [
+      "UDOGetPropertyNames($udoHandle, $udoArray)"
+    ],
+    "description": "The UDOGetPropertyNames function returns a UDO array that holds the names of all the properties in the UDO object."
+  },
+  "UDOGetType": {
+    "prefix": "UDOGetType",
+    "body": [
+      "UDOGetType($udoHandle, $type)"
+    ],
+    "description": "The UDOGetType() function gets the UDO value type of a UniBasic variable."
+  },
+  "UDOIsTypeOf": {
+    "prefix": "UDOIsTypeOf",
+    "body": [
+      "UDOIsTypeOf($udoHandle, $type)"
+    ],
+    "description": "The UDOIsTypeOf() function tests the UDO value type of a UniBasic variable."
+  },
+  "UDORead": {
+    "prefix": "UDORead",
+    "body": [
+      "UDORead($inputString, $inputType, $udoHandle)"
+    ],
+    "description": "The UDORead function creates a UDO object from a JSON string."
+  },
+  "UDOSetOption": {
+    "prefix": "UDOSetOption",
+    "body": [
+      "UDOSetOption($option, $value)"
+    ],
+    "description": "Sets the options for the UDO API."
+  },
+  "UDOSetProperty": {
+    "prefix": "UDOSetProperty",
+    "body": [
+      "UDOSetProperty($udoHandle, $name, $value, $type)"
+    ],
+    "description": "The UDOSetProperty function creates or updates a property on a UDO object."
+  },
+  "UDOWrite": {
+    "prefix": "UDOWrite",
+    "body": [
+      "UDOWrite($udoHandle, $outputType, $outputString)"
+    ],
+    "description": "Writes a UDO object in JSON format."
+  },
+  "UDTEXECUTE": {
+    "prefix": "UDTEXECUTE",
+    "body": [
+      "UDTEXECUTE $expr"
+    ],
+    "description": "The UniBasic UDTEXECUTE command executes a command in ECLTYPE U, regardless of the BASICTYPE used when the program was compiled."
+  },
+  "UNASSIGNED": {
+    "prefix": "UNASSIGNED",
+    "body": [
+      "UNASSIGNED($variable)"
+    ],
+    "description": "The UniBasic UNASSIGNED function checks a variable in a program to see if it is currently assigned a value. If the variable is not assigned a value, the function returns 1. Otherwise, it returns 0."
+  },
+  "UNLOCK": {
+    "prefix": "UNLOCK",
+    "body": [
+      "UNLOCK $num"
+    ],
+    "description": "The UniBasic UNLOCK command unlocks predefined computer resources reserved by the LOCK command. Resource numbers range from 0 through 63. If you do not specify a resource number, the system releases all locks you have set. If there are no locked resources at the time of execution, the statement does not have any effect."
+  },
+  "UPCASE": {
+    "prefix": "UPCASE",
+    "body": [
+      "UPCASE($str)"
+    ],
+    "description": "The UniBasic UPCASE function converts lowercase characters to uppercase. Nonalphabetic values are not changed. Special characters, including the null value, are not converted by this function unless you use the U_UPCASE_DELIM UDT.OPTION 122. UPCASE does not support multibyte languages."
+  },
+  "WAKE": {
+    "prefix": "WAKE",
+    "body": [
+      "WAKE $pid"
+    ],
+    "description": "The UniBasic WAKE command activates a UniData process (pid) that has been paused with either the ECL PAUSE command or the UniBasic PAUSE command. If the specified process has not already been paused, UniData disregards the next PAUSE issued for the process indicated by pid."
+  },
+  "WEOF": {
+    "prefix": "WEOF",
+    "body": [
+      "WEOF THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic WEOF command writes an EOF (end-of-file) mark to a magnetic tape."
+  },
+  "WEOFSEQ": {
+    "prefix": "WEOFSEQ",
+    "body": [
+      "WEOFSEQ $filevar ON ERROR $err_statements"
+    ],
+    "description": "The UniBasic WEOFSEQ command writes an end-of-file mark at the record pointer position in a sequential file, which results in the file being truncated at the current position. Use WEOFSEQ after a series of WRITESEQ operations."
+  },
+  "WRITE": {
+    "prefix": "WRITE",
+    "body": [
+      "WRITE $var TO $filevar,$recordkey"
+    ],
+    "description": "The UniBasic WRITE command writes an expression to an opened file and releases locks set by the same process."
+  },
+  "WRITELIST": {
+    "prefix": "WRITELIST",
+    "body": [
+      "WRITELIST $ids TO $listname"
+    ],
+    "description": "The UniBasic WRITELIST command writes the contents of a variable to a saved list. The values saved can then be used as item IDs to retrieve the data record. WRITELIST saves only the first value of the attribute. UniData saves only the first value in a multivalued or multi-subvalued attribute."
+  },
+  "WRITESEQ": {
+    "prefix": "WRITESEQ",
+    "body": [
+      "WRITESEQ $var TO $filevar ON ERROR $err_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic WRITESEQ command writes an expression as a record on a sequential file at the current record pointer position."
+  },
+  "WRITESEQF": {
+    "prefix": "WRITESEQF",
+    "body": [
+      "WRITESEQF $var TO $filevar ON ERROR $err_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic WRITESEQF command writes an expression as a record on a sequential file from a current record pointer position and forces UniData to immediately write the data to the disk."
+  },
+  "writeSocket": {
+    "prefix": "writeSocket",
+    "body": [
+      "writeSocket($socket_handle, $socket_data, $time_out, $mode, $actual_write_size)"
+    ],
+    "description": "Use the writeSocket() function to write data to a socket connection."
+  },
+  "WRITET": {
+    "prefix": "WRITET",
+    "body": [
+      "WRITET $expr THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The UniBasic WRITET command writes the value of an expression as a record onto tape."
+  },
+  "WRITEU": {
+    "prefix": "WRITEU",
+    "body": [
+      "WRITEU $var TO $filevar,$recordkey"
+    ],
+    "description": "The UniBasic WRITEU command writes a record to a file without releasing locks. WRITEU writes regardless of lock status."
+  },
+  "WRITEV": {
+    "prefix": "WRITEV",
+    "body": [
+      "WRITEV $var TO $filevar,$recordkey,$attr"
+    ],
+    "description": "The UniBasic WRITEV command updates a specified attribute or multiple attributes in a file regardless of lock status. The WRITEV command releases locks set by the same process."
+  },
+  "WRITEVU": {
+    "prefix": "WRITEVU",
+    "body": [
+      "WRITEVU $var TO $filevar,$recordkey,$attr"
+    ],
+    "description": "The UniBasic WRITEVU command writes an expression to an attribute of a record regardless of lock status. This command retains locks. As with the WRITEV statement, the record ID and attribute number are mandatory."
+  },
+  "XDOMAddChild": {
+    "prefix": "XDOMAddChild",
+    "body": [
+      "XDOMAddChild($xmlHandle, $xpathString, $nsMap, $nodeHandle, $dupFlag, $nodeType)"
+    ],
+    "description": "Finds the xpathString in the context xmlHandle in the DOM structure, and inserts a node as the last child of the found node. If the inserted node type is XDOM.ATTR.NODE, this node is inserted as an attribute."
+  },
+  "XDOMAppend": {
+    "prefix": "XDOMAppend",
+    "body": [
+      "XDOMAppend($xmlHandle, $xpathString, $nsMap, $nodeHandle, $dupFlag)"
+    ],
+    "description": "Finds the xpathString in the context xmlHandle in the DOM structure, and inserts nodeHandle into the DOM structure as next sibling of the found node. If the inserted node type is XDOM.ATTR.NODE, this node is inserted as an attribute"
+  },
+  "XDOMClone": {
+    "prefix": "XDOMClone",
+    "body": [
+      "XDOMClone($xmlHandle, $newXmlHandle, $depth)"
+    ],
+    "description": "Duplicates the DOM subtree specified by xmlHandle to a new subtree specified by newXmlHandle. The duplicate node has no parent (parentNode returns null.). Cloning an element copies all attributes and their values, including those generated by the XML processor, to represent defaulted attributes, but this method does not copy any text it contains unless it is a deep clone, since the text is contained in a child Text node. Cloning any other type of node simply returns a copy of this node."
+  },
+  "XDOMClose": {
+    "prefix": "XDOMClose",
+    "body": [
+      "XDOMClose($domHandle)"
+    ],
+    "description": "XDOMClose frees the DOM structure."
+  },
+  "XDOMCreateNode": {
+    "prefix": "XDOMCreateNode",
+    "body": [
+      "XDOMCreateNode($xmlHandle, $nodeName, $nodeValue, $nodeType, $nodeHandle)"
+    ],
+    "description": "XDOMCreateNode creates a new node in the DOM structure."
+  },
+  "XDOMCreateRoot": {
+    "prefix": "XDOMCreateRoot",
+    "body": [
+      "XDOMCreateRoot($domHandle, $xmlOptions)"
+    ],
+    "description": "XDOMCreateRoot creates a new DOM structure with root only. You can use the result handle in other functions where a DOM handle or node handle is needed."
+  },
+  "XDOMEvaluate": {
+    "prefix": "XDOMEvaluate",
+    "body": [
+      "XDOMEvaluate($xmlHandle, $xpathString, $nsMap, $aValue)"
+    ],
+    "description": "XDOMEvaluate returns the value of the XPathString in the context xmlHandle in the DOM structure."
+  },
+  "XDOMGetAttribute": {
+    "prefix": "XDOMGetAttribute",
+    "body": [
+      "XDOMGetAttribute($nodeHandle, $attrName, $nodeHandle)"
+    ],
+    "description": "XDOMGetAttribute gets the node's attribute node, whose attribute name is attrName."
+  },
+  "XDOMGetChildNodes": {
+    "prefix": "XDOMGetChildNodes",
+    "body": [
+      "XDOMChildNodes($xmlHandle, $nodeListHandle)"
+    ],
+    "description": "The XDOMGetChildNodes function returns all child nodes of xmlHandle."
+  },
+  "XDOMGetElementById": {
+    "prefix": "XDOMGetElementById",
+    "body": [
+      "XDOMGetElementById($xmlHandle, $idstr, $nodeHandle)"
+    ],
+    "description": "The XDOMGetElementByld function finds the first element with the ID you specify."
+  },
+  "XDOMGetElementsByName": {
+    "prefix": "XDOMGetElementsByName",
+    "body": [
+      "XDOMGetElementsByName($xmlHandle, $namestrnodeListHandle)"
+    ],
+    "description": "The XDOMGetElementsByName function tries to find all elements with the name you specify."
+  },
+  "XDOMGetElementsByTag": {
+    "prefix": "XDOMGetElementsByTag",
+    "body": [
+      "XDOMGetElementsByTag($xmlHandle, $tagname, $nodeListHandle)"
+    ],
+    "description": "The XDOMGetElementsByTag function tries to find all elements with the tag name you specify."
+  },
+  "XDOMGetNodeName": {
+    "prefix": "XDOMGetNodeName",
+    "body": [
+      "XDOMGetNodeName($nodeHandle, $nodeName)"
+    ],
+    "description": "XDOMGetNodeName gets the node name."
+  },
+  "XDOMGetNodeType": {
+    "prefix": "XDOMGetNodeType",
+    "body": [
+      "XDOMGetNodeType($nodeHandle, $nodeType)"
+    ],
+    "description": "XDOMGetNodeType gets the node type."
+  },
+  "XDOMGetNodeValue": {
+    "prefix": "XDOMGetNodeValue",
+    "body": [
+      "XDOMGetNodeValue($nodeHandle, $nodeValue)"
+    ],
+    "description": "XDOMGetNodeValue gets the node value."
+  },
+  "XDOMGetOwnerDocument": {
+    "prefix": "XDOMGetOwnerDocument",
+    "body": [
+      "XDOMGetOwnerDocument($nodeHandle, $domHandle)"
+    ],
+    "description": "XDOMGetOwnerDocument gets the DOM handle to which the nodeHandle belongs."
+  },
+  "XDOMGetUserData": {
+    "prefix": "XDOMGetUserData",
+    "body": [
+      "XDOMGetUserData($nodeHandle, $userData)"
+    ],
+    "description": "XDOMGetUserData gets the user data associated with the node."
+  },
+  "XDOMImportNode": {
+    "prefix": "XDOMImportNode",
+    "body": [
+      "XDOMImportNode($xmlHandle, $depth, $importedNodeHandle, $outNodeHandle)"
+    ],
+    "description": "The XDOMImportNode function imports a node from another document into the current document. The returned node has no parent. The source node is not altered or removed from the original document."
+  },
+  "XDOMInsert": {
+    "prefix": "XDOMInsert",
+    "body": [
+      "XDOMInsert($xmlHandle, $xpathString, $nsMap, $nodeHandle, $dupFlag)"
+    ],
+    "description": "XDOMInsert finds the xpathString in the context xmlHandle in the DOM structure, and inserts nodeHandle into the DOM structure as the previous sibling of the found node. If the inserted node type is XDOM.ATTR.NODE, this node is inserted as an attribute."
+  },
+  "XDOMItem": {
+    "prefix": "XDOMItem",
+    "body": [
+      "XDOMItem($nodeListHandle, $index, $dataHandle, $dataType)"
+    ],
+    "description": "The XDOMItem function returns the index-th item in the list."
+  },
+  "XDOMLength": {
+    "prefix": "XDOMLength",
+    "body": [
+      "XDOMLength($nodeListHandle, $length)"
+    ],
+    "description": "The XDOMLength function determines the number of nodes in the list. The range of the valid child node index is to 1 to length, inclusive."
+  },
+  "XDOMLocate": {
+    "prefix": "XDOMLocate",
+    "body": [
+      "XDOMLocate($xmlHandle, $xpathString, $nsMap, $nodeHandle)"
+    ],
+    "description": "XDOMLocate finds a starting point for relative XPath searching in context xmlHandle in the DOM structure. The xpathString should specify only one node; otherwise, this function will return an error."
+  },
+  "XDOMLocateNode": {
+    "prefix": "XDOMLocateNode",
+    "body": [
+      "XDOMLocateNode($nodeHandle, $direction, $childIndex, $nodeType, $newNodeHandle)"
+    ],
+    "description": "XDOMLocateNode traverses from nodeHandle and gets the next node according to direction and childIndex."
+  },
+  "XDOMOpen": {
+    "prefix": "XDOMOpen",
+    "body": [
+      "XDOMOpen($xmlDocument, $docLocation, $domHandle)"
+    ],
+    "description": "XDOMOpen reads an XML document and creates a DOM structure. If the DTD is included in the document, UniData validates the document. The XML document can be from a string, or from a file, depending on the docLocation flag."
+  },
+  "XDOMRemove": {
+    "prefix": "XDOMRemove",
+    "body": [
+      "XDOMRemove($xmlHandle, $xpathString, $nsMap, $attrName, $nodeHandle)"
+    ],
+    "description": "XDOMRemove finds the xpathString in the context xmlHandle in the DOM structure, then removes the found node or its attribute with name attrName."
+  },
+  "XDOMReplace": {
+    "prefix": "XDOMReplace",
+    "body": [
+      "XDOMReplace($xmlHandle, $xpathString, $nsMap, $nodeHandle, $dupFlag)"
+    ],
+    "description": "XDOMReplace finds the xpathString in the context xmlHandle in the DOM structure, and replaces the found node with nodeHandle."
+  },
+  "XDOMSetNodeValue": {
+    "prefix": "XDOMSetNodeValue",
+    "body": [
+      "XDOMSetNodeValue($nodeHandle, $nodeValue)"
+    ],
+    "description": "XDOMSetNodeValue sets the node value."
+  },
+  "XDOMSetUserData": {
+    "prefix": "XDOMSetUserData",
+    "body": [
+      "XDOMSetUserData($nodeHandle, $userData)"
+    ],
+    "description": "XDOMSetUserData sets the user data associated with the node."
+  },
+  "XDOMTransform": {
+    "prefix": "XDOMTransform",
+    "body": [
+      "XDOMTransform($domHandle, $styleSheet, $ssLocation, $outHandle, $outFormat)"
+    ],
+    "description": "XDOMTransform transforms the input DOM structure using the style sheet specified by styleSheetFile to output the DOM structure, file, or string."
+  },
+  "XDOMValidate": {
+    "prefix": "XDOMValidate",
+    "body": [
+      "XDOMValidate($xmlDocument, $docLocation, $noNsSchema, $noNsSchemaLocation, $NsSchemas)"
+    ],
+    "description": "XDOMValidate validates the DOM document using an external nonamespace schema specified by noNsSchema and, optionally, external namespace schemas specified by NsSchemas."
+  },
+  "XDOMValidateDom": {
+    "prefix": "XDOMValidateDom",
+    "body": [
+      "XDOMValidateDom($domHandle, $noNsSchema, $noNsSchemaLocation, $NsSchemas)"
+    ],
+    "description": "XDOMValidateDom validates the DOM document using an external no-namespace schema specified by noNsSchema and, optionally, external namespace schemas specified by NsSchemas."
+  },
+  "XDOMWrite": {
+    "prefix": "XDOMWrite",
+    "body": [
+      "XDOMWrite($domHandle, $xmlDocument, $docLocation, $xmlOptions)"
+    ],
+    "description": "XDOMWrite writes the DOM structure to xmlDocument. xmlDocument can be a string or a file, depending on the value of the docLocation flag."
+  },
+  "XLATE": {
+    "prefix": "XLATE",
+    "body": [
+      "XLATE($filename, $recordkey, $field, $actioncode)"
+    ],
+    "description": "The UniBasic XLATE function returns the contents of an attribute, and takes additional action if the record does not exist or the attribute is empty. This function performs the same action as the TRANS virtual attribute function."
+  },
+  "XMAPAppendRec": {
+    "prefix": "XMAPAppendRec",
+    "body": [
+      "XMAPAppendRec($XMAPhandle, $file_name, $record)"
+    ],
+    "description": "The XMAPAppendRec function formats the specified record from the UniData file as a U2XMAP dataset record and appends it to the U2XMAP dataset."
+  },
+  "XMAPClose": {
+    "prefix": "XMAPClose",
+    "body": [
+      "XMAPClose($XMAPhandle)"
+    ],
+    "description": "The XMAPClose function closes the U2XMAP dataset handle and frees all related structures and memory."
+  },
+  "XMAPCreate": {
+    "prefix": "XMAPCreate",
+    "body": [
+      "XMAPCreate($u2xmapping_rules, $mapping_flag, $XMAPhandle)"
+    ],
+    "description": "The XMAPCreate function creates an empty XML document for transferring data from the UniData database to XML according the mapping rules you define."
+  },
+  "XMAPOpen": {
+    "prefix": "XMAPOpen",
+    "body": [
+      "XMAPOpen($xml_document, $doc_flag, $u2xmapping_rules, $u2xmap_flag, $XMAPhandle)"
+    ],
+    "description": "The XMAPOpen function opens an XML document as a U2XMAP data set."
+  },
+  "XMAPReadNext": {
+    "prefix": "XMAPReadNext",
+    "body": [
+      "XMAPReadNext($XMAPhandle, $file_name, $record)"
+    ],
+    "description": "The XMAPReadNext function retrieves the next record from the U2XMAP dataset and formats it as a record of the UniData file that is being mapped."
+  },
+  "XMAPToXMLDoc": {
+    "prefix": "XMAPToXMLDoc",
+    "body": [
+      "XMAPToXMLDoc($XMAPhandle, $xmlfile, $doc_flag, $xmlOptions)"
+    ],
+    "description": "The XMAPToXMLDoc function generates an XML document from the data in the U2XMAP dataset using the mapping rules you define. The XML document can be either an XML DOM handle or an XML document. UniData writes the data to a file or a UniBasic variable."
+  },
+  "XMLError": {
+    "prefix": "XMLError",
+    "body": [
+      "XMLError($errmsg)"
+    ],
+    "description": "Use the XMLError function to get the last error message."
+  },
+  "XMLExecute": {
+    "prefix": "XMLExecute",
+    "body": [
+      "XMLExecute($cmd, $options, $xmlvar, $xsdvar)"
+    ],
+    "description": "The XMLExecute function enables you to create an XML document using the UniQuery LIST statement or the UniData SQL SELECT statement from a UniBasic program."
+  },
+  "XMLGetError": {
+    "prefix": "XMLGetError",
+    "body": [
+      "XMLGetError($errorCode, $errorMessage)"
+    ],
+    "description": "XMLGetError gets the error code and error message after the previous XML API failed."
+  },
+  "XMLGetOptions": {
+    "prefix": "XMLGetOptions",
+    "body": [
+      "XMLGetOptions($outOptions, $delimiterString)"
+    ],
+    "description": "Use this function in UniBasic programs to return the values for encoding and other XML options in effect in the current UniData session."
+  },
+  "XMLGetOptionValue": {
+    "prefix": "XMLGetOptionValue",
+    "body": [
+      "XMLGetOptionValue($optionName, $outOptionValue)"
+    ],
+    "description": "Use this function in UniBasic programs to return the value of encoding or any other XML option in effect in the current UniData session."
+  },
+  "XMLSetOptions": {
+    "prefix": "XMLSetOptions",
+    "body": [
+      "XMLSetOptions($options)"
+    ],
+    "description": "Use this function in UniBasic programs to set the encoding parameter and other XML options in the current UniData session. The settings specified in this API override the settings in the system-level and account-level xmlconfig files and in ECL commands during the current session."
+  },
+  "XMLTODB": {
+    "prefix": "XMLTODB",
+    "body": [
+      "XMLTODB($xml_document, $doc_flag, $u2xmapping_rules, $u2xmap_ flag, status)"
+    ],
+    "description": "The XMLTODB function populates the UniData database from UniBasic. If you want to transform specific data, use the XMAP API."
+  }
+}
