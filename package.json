@@ -1,19 +1,29 @@
 {
-  "name": "mvon",
-  "displayName": "MV# Developer Extension",
-  "description": "MV# Developer Extension",
-  "version": "1.97.0",
-  "publisher": "ongroup",
-  "icon": "images/mvsharp_logo128.ico",
+  "name": "mvbasic",
+  "displayName": "MV Basic",
+  "description": "MV Basic",
+  "version": "2.0.0",
+  "publisher": "MV Extensions",
+  "icon": "images/mvbasic-logo.ico",
   "preview": false,
   "keywords": [
-    "MVON#",
-    "Pick",
-    "BASIC",
     "MultiValue",
+    "Pick",
+    "PickBASIC",
+    "D3",
+    "jBASE",
+    "MVON#",
+    "MV# BASIC",
+    "MV#",
     "MVsharp",
-    "MV#"
+    "OpenQM",
+    "UniData",
+    "UniVerse"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mvextensions/mvbasic"
+  },
   "engines": {
     "vscode": "^1.23.0"
   },
@@ -22,44 +32,46 @@
     "Linters",
     "Snippets"
   ],
-  "homepage": "http://www.ongroup.com",
+  "homepage": "https://github.com/mvextensions",
   "files": [
     "C:/Program files (x86)/ONGroup/MVON#/MVON#.d.ts"
   ],
   "contributes": {
     "snippets": [
       {
-        "language": "mvon",
+        "language": "mvbasic",
         "path": "./Syntaxes/snippets.json"
       }
     ],
     "languages": [
       {
-        "id": "mvon",
+        "id": "mvbasic",
         "aliases": [
-          "MVON# Basic",
-          "mvon"
+          "MultiValue Basic",
+          "PickBASIC",
+          "Pick"
         ],
         "extensions": [
           ".bas",
+          ".b",
           ".",
           ""
         ],
-        "configuration": "./language-configuration.json"
+        "configuration": "./client/language-configuration.json"
       }
     ],
     "menus": {
       "editor/context": [
         {
-          "when": "resourceLangId == mvon",
+          "when": "resourceLangId == mvbasic",
           "command": "extension.compileProgram"
         },
         {
-          "when": "resourceLangId == mvon",
+          "when": "resourceLangId == mvbasic",
           "command": "extension.compileDebug"
         },
         {
-          "when": "resourceLangId == mvon",
+          "when": "resourceLangId == mvbasic",
           "command": "extension.catalogProgram"
         }
       ]
@@ -71,7 +83,7 @@
       },
       {
         "command": "extension.initialiseRestFS",
-        "title": "Connect to MVON# REST FS"
+        "title": "Connect to MultiValue REST FS"
       },
       {
         "command": "extension.compileDebug",
@@ -88,153 +100,153 @@
     ],
     "grammars": [
       {
-        "language": "mvon",
+        "language": "mvbasic",
         "scopeName": "source.mvon",
         "path": "./Syntaxes/mvon.tmLanguage.json"
       }
     ],
     "configuration": {
       "type": "object",
-      "title": "MVON configuration",
+      "title": "MultiValue Basic configuration",
       "properties": {
-        "mvon.gatewayDebug": {
+        "MVBasic.gatewayDebug": {
           "scope": "resource",
           "type": "boolean",
           "default": false,
           "description": "When set to true the MvonGateway will write a log 'gateway.log' to C:\\Temp."
         },
-        "mvon.margin": {
+        "MVBasic.margin": {
           "scope": "resource",
           "type": "number",
           "default": 5,
           "description": "The number of characters to use as a mergin when formatting."
         },
-        "mvon.customWords": {
+        "MVBasic.customWords": {
           "scope": "resource",
           "type": "string",
           "default": "()",
           "description": "List of custom words to highlight in a specific color. e.g. (HELLO|WORLD)"
         },
-        "mvon.customWordColor": {
+        "MVBasic.customWordColor": {
           "scope": "resource",
           "type": "string",
           "default": "yellow",
           "description": "The color to use when highlighting the custom words."
         },
-        "mvon.customWordPath": {
+        "MVBasic.customWordPath": {
           "scope": "resource",
           "type": "string",
           "description": "Path to a file that contains key value pairs for custom words"
         },
-        "mvon.indent": {
+        "MVBasic.indent": {
           "scope": "resource",
           "type": "number",
           "default": 3,
           "description": "The number of characters to use when indenting code blocks."
         },
-        "mvon.maxNumberOfProblems": {
+        "MVBasic.maxNumberOfProblems": {
           "scope": "resource",
           "type": "number",
           "default": 100,
           "description": "Controls the maximum number of problems produced by the server."
         },
-        "mvon.useCamelCase": {
+        "MVBasic.useCamelCase": {
           "scope": "resource",
           "type": "boolean",
           "default": true,
           "description": "Use Camelcase for Intellisense keywords."
         },
-        "mvon.formattingEnabled": {
+        "MVBasic.formattingEnabled": {
           "scope": "resource",
           "type": "boolean",
           "default": true,
           "description": "Set to false to disable code formatting."
         },
-        "mvon.RemoteHost": {
+        "MVBasic.RemoteHost": {
           "scope": "resource",
           "type": "string",
           "default": "",
           "description": "The host name of the server."
         },
-        "mvon.UserName": {
+        "MVBasic.UserName": {
           "scope": "resource",
           "type": "string",
           "default": "",
           "description": "The user name to use to login to the server."
         },
-        "mvon.encoding": {
+        "MVBasic.encoding": {
           "scope": "resource",
           "type": "string",
           "default": "iso8859-1",
-          "description": "The user name to use to login to the MVON# server."
+          "description": "The encoding type to use when connecting to the server."
         },
-        "mvon.ignoreGotoScope": {
+        "MVBasic.ignoreGotoScope": {
           "scope": "resource",
           "type": "boolean",
           "default": false,
           "description": "The linter will not highlight goto that jump into the middle of loops."
         },
-        "mvon.Password": {
+        "MVBasic.Password": {
           "scope": "resource",
           "type": "string",
           "default": "",
-          "description": "The password to use to login to the MVON# server."
+          "description": "The password to use to login to the server."
         },
-        "mvon.AccountPassword": {
+        "MVBasic.AccountPassword": {
           "scope": "resource",
           "type": "string",
           "default": "",
           "description": "The password to use to use for D3/mvBase Logto."
         },
-        "mvon.HomePath": {
+        "MVBasic.HomePath": {
           "scope": "resource",
           "type": "string",
           "default": "c:\\u2\\ud81",
           "description": "The home path for Unidata on server. This is only required for Unidata."
         },
-        "mvon.Account": {
+        "MVBasic.Account": {
           "scope": "resource",
           "type": "string",
           "default": "",
           "description": "The Account Name or path on the Server."
         },
-        "mvon.AccountPath": {
+        "MVBasic.AccountPath": {
           "scope": "resource",
           "type": "string",
           "default": "",
           "description": "The path the Unidata Account. This is only used for Unidata."
         },
-        "mvon.RemoteDebug": {
+        "MVBasic.RemoteDebug": {
           "scope": "resource",
           "type": "boolean",
           "default": "false",
           "description": "Set to true when connecting to a Remote MVON# Host."
         },
-        "mvon.additionalFiles": {
+        "MVBasic.additionalFiles": {
           "scope": "resource",
           "type": "array",
           "default": [],
           "description": "Additional Files that must be including in the file list."
         },
-        "mvon.GatewayType": {
+        "MVBasic.GatewayType": {
           "scope": "resource",
           "type": "string",
           "default": "",
           "description": "The type of host the gateway is connecting to. QM, D3, Universe, Unidata,jBASE or mvBase."
         },
-        "mvon.UseGateway": {
+        "MVBasic.UseGateway": {
           "scope": "resource",
           "type": "boolean",
           "default": false,
           "description": "Connect to the MV Gateway."
         },
-        "mvon.RestPath": {
+        "MVBasic.RestPath": {
           "scope": "resource",
           "type": "string",
           "default": "http://localhost/mvonrest",
           "description": "The URL when connecting via the REST FileSystem"
         },
-        "mvon.trace.server": {
+        "MVBasic.trace.server": {
           "scope": "window",
           "type": "string",
           "enum": [
@@ -250,7 +262,7 @@
   },
   "activationEvents": [
     "*",
-    "onLanguage:mvon",
+    "onLanguage:mvbasic",
     "onCommand:extension.compileProgram",
     "onCommand:extension.catalogProgram",
     "onCommand:extension.CompileDebug",

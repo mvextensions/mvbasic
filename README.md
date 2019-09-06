@@ -22,7 +22,7 @@ This extension includes the following features:
   * LOOPS
   * CASE statements
   * IF THEN/ELSE statements
-* Access your remote MVON# files and programs
+* Access your remote MultiValue files and programs
 * Find all References of a word in current program
 * Shows outline of internal subroutines, include files and subroutine calls
 

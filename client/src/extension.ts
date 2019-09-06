@@ -1,5 +1,5 @@
 /* --------------------------------------------------------------------------------------------
- * Copyright (c) Ongroup International. All rights reserved.
+ * Copyright (c) MV Extensions. All rights reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  * ------------------------------------------------------------------------------------------ */
 'use strict';
@@ -22,7 +22,7 @@ var UsingRest: Boolean = false;
 
 export function activate(context: ExtensionContext) {
 
-	// initialise Remote MVON# FileSystem
+	// initialise Remote REST FileSystem
 
 	const RESTFS = new RestFS();
 	context.subscriptions.push(vscode.workspace.registerFileSystemProvider('RestFS', RESTFS, { isCaseSensitive: true }));
@@ -45,34 +45,34 @@ export function activate(context: ExtensionContext) {
 	// Options to control the language client
 	let clientOptions: LanguageClientOptions = {
 		// Register the server for mvon and remote mvon documents
-		documentSelector: [{ scheme: 'file', language: 'mvon' }, { scheme: 'RestFS', language: 'mvon' }],
+		documentSelector: [{ scheme: 'file', language: 'mvbasic' }, { scheme: 'RestFS', language: 'mvbasic' }],
 		synchronize: {
 			// Synchronize the setting section 'languageServerExample' to the server
-			configurationSection: 'mvon',
+			configurationSection: 'MVBasic',
 			// Notify the server about file changes to '.clientrc files contain in the workspace
 			fileEvents: workspace.createFileSystemWatcher('**/.clientrc')
 		}
 	}
 
-	let RemoteHost: string = vscode.workspace.getConfiguration("mvon").get("RemoteHost");
-	let UserName: string = vscode.workspace.getConfiguration("mvon").get("UserName");
-	let Password: string = vscode.workspace.getConfiguration("mvon").get("Password");
-	let Account: string = vscode.workspace.getConfiguration("mvon").get("Account")
-	let AccountPath: string = vscode.workspace.getConfiguration("mvon").get("AccountPath")
-	let AccountPassword: string = vscode.workspace.getConfiguration("mvon").get("AccountPassword")
-	let GatewayType: string = vscode.workspace.getConfiguration("mvon").get("GatewayType");
-	let UseGateway: string = vscode.workspace.getConfiguration("mvon").get("UseGateway");
-	//let HomePath: string = vscode.workspace.getConfiguration("mvon").get("homePath");
-	//let codePage: string = vscode.workspace.getConfiguration("mvon").get("encoding");
-	let margin: number = vscode.workspace.getConfiguration("mvon").get("margin");
-	let indent: number = vscode.workspace.getConfiguration("mvon").get("indent");
-	let formattingEnabled: boolean = vscode.workspace.getConfiguration("mvon").get("formattingEnabled");
-	let additionalFiles: any = vscode.workspace.getConfiguration("mvon").get("additionalFiles");
-	//let gatewayDebug: any = vscode.workspace.getConfiguration("mvon").get("gatewayDebug");
-	let customWordColor: any = vscode.workspace.getConfiguration("mvon").get("customWordColor");
-	let customWordlist: string = vscode.workspace.getConfiguration("mvon").get("customWords");
-	let customWordPath: any = vscode.workspace.getConfiguration("mvon").get("customWordPath");
-	let RestPath: any = vscode.workspace.getConfiguration("mvon").get("RestPath");
+	let RemoteHost: string = vscode.workspace.getConfiguration("MVBasic").get("RemoteHost");
+	let UserName: string = vscode.workspace.getConfiguration("MVBasic").get("UserName");
+	let Password: string = vscode.workspace.getConfiguration("MVBasic").get("Password");
+	let Account: string = vscode.workspace.getConfiguration("MVBasic").get("Account")
+	let AccountPath: string = vscode.workspace.getConfiguration("MVBasic").get("AccountPath")
+	let AccountPassword: string = vscode.workspace.getConfiguration("MVBasic").get("AccountPassword")
+	let GatewayType: string = vscode.workspace.getConfiguration("MVBasic").get("GatewayType");
+	let UseGateway: string = vscode.workspace.getConfiguration("MVBasic").get("UseGateway");
+	//let HomePath: string = vscode.workspace.getConfiguration("MVBasic").get("homePath");
+	//let codePage: string = vscode.workspace.getConfiguration("MVBasic").get("encoding");
+	let margin: number = vscode.workspace.getConfiguration("MVBasic").get("margin");
+	let indent: number = vscode.workspace.getConfiguration("MVBasic").get("indent");
+	let formattingEnabled: boolean = vscode.workspace.getConfiguration("MVBasic").get("formattingEnabled");
+	let additionalFiles: any = vscode.workspace.getConfiguration("MVBasic").get("additionalFiles");
+	//let gatewayDebug: any = vscode.workspace.getConfiguration("MVBasic").get("gatewayDebug");
+	let customWordColor: any = vscode.workspace.getConfiguration("MVBasic").get("customWordColor");
+	let customWordlist: string = vscode.workspace.getConfiguration("MVBasic").get("customWords");
+	let customWordPath: any = vscode.workspace.getConfiguration("MVBasic").get("customWordPath");
+	let RestPath: any = vscode.workspace.getConfiguration("MVBasic").get("RestPath");
 
 	let timeout: NodeJS.Timer | null = null;
 	var customWordDict = new Map();
@@ -93,7 +93,7 @@ export function activate(context: ExtensionContext) {
 
 
 	// Create the language client and start the client.
-	let disposable = new LanguageClient('mvon', 'MVON# Server', serverOptions, clientOptions).start();
+	let disposable = new LanguageClient('mvbasic', 'MV Basic Server', serverOptions, clientOptions).start();
 
 
 
@@ -103,7 +103,7 @@ export function activate(context: ExtensionContext) {
 		let rPath = await vscode.window.showInputBox({ prompt: "Enter or select the REST path ", value: RestPath });
 		if (rPath != undefined) {
 			RestPath = rPath;
-			vscode.workspace.getConfiguration("mvon").update("RestPath", RestPath, false);
+			vscode.workspace.getConfiguration("MVBasic").update("RestPath", RestPath, false);
 		}
 		if (RestPath === "") {
 			vscode.window.showInformationMessage('Please configure the RESTFul Path in the workspace settings');
@@ -273,7 +273,7 @@ export function activate(context: ExtensionContext) {
 	context.subscriptions.push(compile);
 	context.subscriptions.push(compileDebug);
 
-	vscode.languages.registerDocumentFormattingEditProvider('mvon', {
+	vscode.languages.registerDocumentFormattingEditProvider('mvbasic', {
 		provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
 			// first work out indents
 			// regex for statements that start a block

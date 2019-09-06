@@ -1,15 +1,28 @@
 {
-  "name": "mvon",
-  "description": "MV# Developer Extension",
-  "author": "MV Extensions",
-  "license": "MIT",
-  "version": "1.52.0",
-  "publisher": "ongroup",
-  "icon": "images/mvsharp_logo128.ico",
+  "name": "mvbasic",
+  "displayName": "MV Basic",
+  "description": "MV Basic",
+  "version": "2.0.0",
+  "publisher": "MV Extensions",
+  "icon": "images/mvbasic-logo.ico",
   "preview": false,
+  "keywords": [
+    "MultiValue",
+    "Pick",
+    "PickBASIC",
+    "D3",
+    "jBASE",
+    "MVON#",
+    "MV# BASIC",
+    "MV#",
+    "MVsharp",
+    "OpenQM",
+    "UniData",
+    "UniVerse"
+  ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Microsoft/vscode-extension-samples"
+    "url": "https://github.com/mvextensions/mvbasic"
   },
   "engines": {
     "vscode": "^1.23.0"

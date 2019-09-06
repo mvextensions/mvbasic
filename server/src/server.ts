@@ -1,5 +1,5 @@
 /* --------------------------------------------------------------------------------------------
- * Copyright (c) ONGroup International. All rights reserved.
+ * Copyright (c) MV Extensions. All rights reserved.
  * Licensed under the MIT License. See License.txt in the project root for license information.
  * ------------------------------------------------------------------------------------------ */
 'use strict';
@@ -62,7 +62,7 @@ documents.onDidChangeContent((change) => {
 
 // The settings interface describe the server relevant settings part
 interface Settings {
-	mvon: ExampleSettings;
+	MVBasic: ExampleSettings;
 }
 
 // These are the example settings we defined in the client's package.json
@@ -89,11 +89,11 @@ connection.onNotification("languagePath",(path:string) =>{
 })
 connection.onDidChangeConfiguration((change) => {
 	let settings = <Settings>change.settings;
-	maxNumberOfProblems = settings.mvon.maxNumberOfProblems || 100;
-	useCamelcase = settings.mvon.useCamelCase
-	ignoreGotoScope = settings.mvon.ignoreGotoScope
-	customWordList = settings.mvon.customWords
-	customWordPath = settings.mvon.customWordPath;
+	maxNumberOfProblems = settings.MVBasic.maxNumberOfProblems || 100;
+	useCamelcase = settings.MVBasic.useCamelCase
+	ignoreGotoScope = settings.MVBasic.ignoreGotoScope
+	customWordList = settings.MVBasic.customWords
+	customWordPath = settings.MVBasic.customWordPath;
 	if (customWordPath != "") {
 		var contents = fs.readFileSync(customWordPath, 'utf8')
 		customWordList = "(";
@@ -326,7 +326,7 @@ function validateTextDocument(textDocument: TextDocument): void {
 						end: { line: lineNo, character: lines[lineNo].length }
 					},
 					message: errorMsg,
-					source: 'mvon#'
+					source: 'MV Basic'
 				};
 				if (shouldSendDiagnosticRelatedInformation) {
 					diagnosic.relatedInformation = [
@@ -363,7 +363,7 @@ function validateTextDocument(textDocument: TextDocument): void {
 				end: { line: i, character: lines[i].length }
 			},
 			message: `Missing END CASE statement`,
-			source: 'mvon#'
+			source: 'MV Basic'
 		};
 		if (shouldSendDiagnosticRelatedInformation) {
 			diagnosic.relatedInformation = [
@@ -399,7 +399,7 @@ function validateTextDocument(textDocument: TextDocument): void {
 				end: { line: i, character: lines[i].length }
 			},
 			message: `Missing REPEAT statement`,
-			source: 'mvon#'
+			source: 'MV Basic'
 		};
 		if (shouldSendDiagnosticRelatedInformation) {
 			diagnosic.relatedInformation = [
@@ -548,7 +548,7 @@ function validateTextDocument(textDocument: TextDocument): void {
 									end: { line: i, character: index + labelName.length }
 								},
 								message: `${labelName} is not defined as a label in the program`,
-								source: 'mvon#'
+								source: 'MV Basic'
 							};
 							if (shouldSendDiagnosticRelatedInformation) {
 								diagnosic.relatedInformation = [
@@ -583,7 +583,7 @@ function validateTextDocument(textDocument: TextDocument): void {
 					end: { line: label.LineNumber, character: label.LabelName.length }
 				},
 				message: `${label.LabelName} is not referenced in the program`,
-				source: 'mvon#'
+				source: 'MV Basic'
 			};
 			if (shouldSendDiagnosticRelatedInformation) {
 				diagnosic.relatedInformation = [
