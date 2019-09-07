@@ -26,11 +26,14 @@ This extension includes the following features:
 * Find all References of a word in current program
 * Shows outline of internal subroutines, include files and subroutine calls
 
-## Feedback
+## Participate
 
-* Join the conversation on [Stack Overflow](https://stackoverflow.com/tags/mvextensions)
-* [Report a bug or request a new feature](https://github.com/mvextensions/.github/blob/master/CONTRIBUTING.md)
-* [Weigh in on existing issues](https://github.com/mvextensions/mvbasic/issues)
+* Ask or respond to questions on [Stack Overflow](https://stackoverflow.com/tags/mvextensions). Please be sure to follow their guidelines for well-formed questions and answers.
+* Report a bug or request a new feature in the repo [Issue tracker](https://github.com/mvextensions/mvbasic/issues).
+* Learn about [Contributing](https://github.com/mvextensions/.github/blob/master/CONTRIBUTING.md) with code, documentation, or testing.
+* Open a discussion in the [MVDBMS Google Group](https://groups.google.com/d/forum/mvdbms). Please specify "\[MVExtensions\]" in your subject.
+* Get more immediate feedback in the [mvTalk Slack Team](https://mvtalk.slack.com). See channel #mvextensions.
+* Try the [Gitterm.IM/mvextensions/mvbasic](https://gitter.im/mvextensions/mvbasic) chat group
 
 ## Credit
 
