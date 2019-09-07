@@ -3,8 +3,8 @@
   "displayName": "MV Basic",
   "description": "MV Basic",
   "version": "2.0.0",
-  "publisher": "MV Extensions",
-  "icon": "images/mvbasic-logo.ico",
+  "publisher": "mvextensions",
+  "icon": "images/mvbasic-logo.png",
   "preview": true,
   "keywords": [
     "MultiValue",
