@@ -4,7 +4,19 @@ This [Visual Studio Code][vs_code] extension is used for syntax highlighting, In
 
 ## Installation
 
-The easiest way to use this extension is to download it from the [Visual Studio Code Marketplace][vs_code_market]. Of course if you'd prefer you may also clone and run the code locally.
+The easiest way to use this extension is to download it from the [Visual Studio Code Marketplace][vs_code_market]. Of course if you'd prefer you may also clone and run the code locally. To do the latter, you will need:
+
+1. [Node.js](https://nodejs.org/en/download/)
+2. [Git](https://git-scm.com/downloads)
+3. Clone the repository from GitHub (`git clone https://github.com/mvextensions/mvbasic.git`)
+4. Open the cloned copy in an IDE. We'd suggest using [Visual Studio Code](https://code.visualstudio.com/) because that's why we're all here right?
+5. Run `npm install` from the command line wherever you cloned the project. VS Code makes this easy, with the project open just open a new terminal window in the editor.
+6. Congratulations! You're setup to work on the code.
+
+To debug, make sure you run the debugger for the following configurations (these are provided in the `.vscode/launch.json` file).
+
+1. Launch Client
+2. Attach to Server
 
 ## Features
 
