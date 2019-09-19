@@ -45,7 +45,7 @@ This extension includes the following features:
 * Learn about [Contributing](https://github.com/mvextensions/.github/blob/master/CONTRIBUTING.md) with code, documentation, or testing.
 * Open a discussion in the [MVDBMS Google Group](https://groups.google.com/d/forum/mvdbms). Please specify "\[MVExtensions\]" in your subject.
 * Get more immediate feedback in the [mvTalk Slack Team](https://mvtalk.slack.com). See channel #mvextensions.
-* Try the [Gitterm.IM/mvextensions/mvbasic](https://gitter.im/mvextensions/mvbasic) chat group
+* Try the [Gitterm.IM/mvextensions/community](https://gitter.im/mvextensions/community) chat group
 
 ## Credit
 
@@ -67,7 +67,7 @@ This extension would not be possible without the hard work by Grant Hart, Perry 
 * [@andrewcole50](https://github.com/andrewcole50)
 * [@JeffTeter](https://github.com/JeffTeter)
 * [@mikes-zum](https://github.com/mikes-zum)
-* [@TonyGravagno](https://github.com/TonyGravagno)
+* [@MVDBMS-Solutions](https://github.com/MVDBMS-Solutions)
 
 [code_of_conduct]: https://github.com/mvextensions/.github/blob/master/CODE_OF_CONDUCT.md
 [contribution_guidelines]: https://github.com/mvextensions/.github/blob/master/CONTRIBUTING.md
