@@ -1,0 +1,3819 @@
+{
+  "#INCLUDE": {
+    "prefix": "#INCLUDE",
+    "body": [
+      "#INCLUDE $filename $program"
+    ],
+    "description": "Use the #INCLUDE statement to direct the compiler to insert the source code in the record program and compile it with the main program. The #INCLUDE statement differs from the $CHAIN statement in that the compiler returns to the main program and continues compiling with the statement following the #INCLUDE statement."
+  },
+  "$CHAIN": {
+    "prefix": "$CHAIN",
+    "body": [
+      "\\$CHAIN $filename $program"
+    ],
+    "description": "Use the $CHAIN statement to direct the compiler to read source code from program and compile it as if it were part of the current program. The $CHAIN statement differs from the $INCLUDE statement, #INCLUDE statement, and INCLUDE statement in that the compiler does not return to the main program. Any statements appearing after the $CHAIN statement are not compiled or executed."
+  },
+  "$COPYRIGHT": {
+    "prefix": "$COPYRIGHT",
+    "body": [
+      "\\$COPYRIGHT $str"
+    ],
+    "description": "Use the $COPYRIGHT statement to specify copyright information in UniVerse BASIC object code. copyright.notice is inserted in the copyright field at the end of the object code."
+  },
+  "$DEFINE": {
+    "prefix": "$DEFINE",
+    "body": [
+      "\\$DEFINE $identifier $text"
+    ],
+    "description": "Use the $DEFINE statement to define identifiers that control program compilation. $DEFINE has two functions: 1) Defining an identifier 2) Supplying replacement text for an identifier"
+  },
+  "$EJECT": {
+    "prefix": "$EJECT",
+    "body": [
+      "\\$EJECT"
+    ],
+    "description": "Use the $EJECT statement to begin a new page in the listing record."
+  },
+  "$IFDEF": {
+    "prefix": "$IFDEF",
+    "body": [
+      "\\$IFDEF $identifier $statements \\$ELSE",
+      "\t$else_statements",
+      "\\$ENDIF"
+    ],
+    "description": "Use the $IFDEF statement to test for the definition of a compile-time symbol. $IFDEF tests to see if identifier is currently defined (that is, has appeared in a $DEFINE statement and has not been undefined)."
+  },
+  "$IFNDEF": {
+    "prefix": "$IFNDEF",
+    "body": [
+      "\\$IFNDEF $identifier $statements \\$ELSE",
+      "\t$else_statements",
+      "\\$ENDIF"
+    ],
+    "description": "Use the $IFNDEF statement to test for the definition of a compile-time symbol. The $IFNDEF statement complements the $IFDEF statement."
+  },
+  "$INCLUDE": {
+    "prefix": "$INCLUDE",
+    "body": [
+      "\\$INCLUDE $filename $program"
+    ],
+    "description": "Use the $INCLUDE statement to direct the compiler to insert the source code in the record program and compile it with the main program. The $INCLUDE statement differs from the $CHAIN statement in that the compiler returns to the main program and continues compiling with the statement following the $INCLUDE statement."
+  },
+  "$INSERT": {
+    "prefix": "$INSERT",
+    "body": [
+      "\\$INSERT $primospathname"
+    ],
+    "description": "Use the $INSERT statement to direct the compiler to insert the source code contained in the file specified by primos.pathname and compile it with the main program. The difference between the $INSERT statement and $INCLUDE statement (and its synonyms #INCLUDE and INCLUDE) is that $INSERT takes a PRIMOS path name as an argument, whereas $INCLUDE takes a UniVerse file name and record ID. The PRIMOS path is converted to a path; any leading *> is ignored."
+  },
+  "$MAP": {
+    "prefix": "$MAP",
+    "body": [
+      "\\$MAP $mapname"
+    ],
+    "description": "In NLS mode, use the $MAP statement to direct the compiler to specify the map for the source code. Use the $MAP statement if you use embedded literal strings that contain non-ASCII characters."
+  },
+  "$OPTIONS": {
+    "prefix": "$OPTIONS",
+    "body": [
+      "\\$OPTIONS $flavor $options"
+    ],
+    "description": "Use the $OPTIONS statement to set compile-time emulation of any UniVerse flavor. This does not allow object code compiled in one flavor to execute in another flavor. You can select individual options in a program to override the default setting."
+  },
+  "$PAGE": {
+    "prefix": "$PAGE",
+    "body": [
+      "\\$PAGE"
+    ],
+    "description": "Use the $PAGE statement to begin a new page in the listing record."
+  },
+  "$UNDEFINE": {
+    "prefix": "$UNDEFINE",
+    "body": [
+      "\\$UNDEFINE $identifier"
+    ],
+    "description": "Use the $UNDEFINE statement to remove the definition of identifiers set with the $DEFINE statement. The $UNDEFINE statement removes the definition of identifier from the symbol table if it appeared in a previous $DEFINE statement. If the identifier was not previously defined, $UNDEFINE has no effect."
+  },
+  "ABORT": {
+    "prefix": "ABORT",
+    "body": [
+      "ABORT $expression"
+    ],
+    "description": "Use the ABORT statement to terminate execution of a BASIC program and return to the UniVerse prompt. ABORT differs from STOP in that a STOP statement returns to the calling environment (for example, a menu, a paragraph, another UniVerse BASIC program following an EXECUTE statement, and so on), whereas ABORT terminates all calling environments as well as the UniVerse BASIC program. You can use it as part of an IF…THEN statement to terminate processing if certain conditions exist."
+  },
+  "ABS": {
+    "prefix": "ABS",
+    "body": [
+      "ABS($math_expression)"
+    ],
+    "description": "Use the ABS function to return the absolute value of any numeric expression. The absolute value of an expression is its unsigned magnitude."
+  },
+  "ABSS": {
+    "prefix": "ABSS",
+    "body": [
+      "ABSS($DynArr)"
+    ],
+    "description": "Use the ABSS function to return the absolute values of all the elements in a dynamic array. If an element in dynamic.array is the null value, null is returned for that element."
+  },
+  "acceptConnection": {
+    "prefix": "acceptConnection",
+    "body": [
+      "acceptConnection($svr_socket, $blocking_mode, $timeout, $in_addr, $in_name, $socket_handle)"
+    ],
+    "description": "Use the acceptConnection() function to accept an incoming connection attempt on the server side socket."
+  },
+  "ACOS": {
+    "prefix": "ACOS",
+    "body": [
+      "ACOS($expr)"
+    ],
+    "description": "Use the ACOS function to return the trigonometric arc-cosine of expression. expression must be a numeric value. The result is expressed in degrees. If expression evaluates to the null value, null is returned. The ACOS function is the inverse of the COS function."
+  },
+  "ACTIVATEKEY": {
+    "prefix": "ACTIVATEKEY",
+    "body": [
+      "ACTIVATEKEY $keyid, $password ON $host"
+    ],
+    "description": "Use the ACTIVATEKEY statement to activate a key. It is necessary to activate a key if you want to supply a password for key protection."
+  },
+  "addAuthenticationRule": {
+    "prefix": "addAuthenticationRule",
+    "body": [
+      "addAuthenticationRule($context, $serverOrClient, $rule, $rulestr)"
+    ],
+    "description": "The addAuthenticationRule() function adds an authentication rule to a security context. The rules are used during SSL negotiation to determine whether the peer is to be trusted."
+  },
+  "addCertificate": {
+    "prefix": "addCertificate",
+    "body": [
+      "addCertificate($certPath, $usedAs, $format, $algorithm, $context, $p12pass)"
+    ],
+    "description": "The addCertificate() function stores a certificate (or multiple certificates) into a security context to be used as a UniData or UniVerse server or client certificate. Alternatively, it can specify a certificate or a directory which contains the certificates that are either used as CA (Certificate Authority) certificates to verify incoming certificates or act as a Revocation list to check against expired or revoked certificates."
+  },
+  "addRequestParameter": {
+    "prefix": "addRequestParameter",
+    "body": [
+      "addRequestParameter($request_handle, $parameter_name, $parameter_value, $content_handling)"
+    ],
+    "description": "The addRequestParameter function adds a parameter to the request."
+  },
+  "ADDS": {
+    "prefix": "ADDS",
+    "body": [
+      "ADDS($array1, $array2)"
+    ],
+    "description": "Use the ADDS function to create a dynamic array of the element-by-element addition of two dynamic arrays."
+  },
+  "ALPHA": {
+    "prefix": "ALPHA",
+    "body": [
+      "ALPHA($value)"
+    ],
+    "description": "Use the ALPHA function to determine whether expression is an alphabetic or non-alphabetic string. If expression contains the characters a through z or A through Z, it evaluates to true and a value of 1 is returned. If expression contains any other character or an empty string, it evaluates to false and a value of 0 is returned. If expression evaluates to the null value, null is returned. If NLS is enabled, the ALPHA function uses the characters in the Alphabetics field in the NLS.LC.CTYPE file. For more information, see the Rocket UniVerse NLS User Guide."
+  },
+  "amInitialize": {
+    "prefix": "amInitialize",
+    "body": [
+      "amInitialize($hSession, $appName, $policyName, $reasonCode)"
+    ],
+    "description": "The amInitialize function creates and opens an AMI session. The hSession output parameter is a session handle which is valid unless the session is terminated. The function returns a status code indicating success, warning, or failure. You can also use the STATUS() function to obtain this value."
+  },
+  "amReceiveMsg": {
+    "prefix": "amReceiveMsg",
+    "body": [
+      "amReceiveMsg($hSession, $receiverName, $policyName, $selMsgName, $maxMsgLen, $dataLen, $data, $rcvMsgName, $reasonCode, $recMsgOption)"
+    ],
+    "description": "The amReceiveMsg function receives a message sent by the amSendMsg function."
+  },
+  "amReceiveRequest": {
+    "prefix": "amReceiveRequest",
+    "body": [
+      "amReceiveRequest($hSession, $receiverName, $policyName, $maxMsgLen, $dataLen, $data, $rcvMsgName, $senderName, $reasonCode, $recReqOption)"
+    ],
+    "description": "The amReceiveRequest function receives a request message."
+  },
+  "amSendMsg": {
+    "prefix": "amSendMsg",
+    "body": [
+      "amSendMsg($hSession, $senderName, $policyName, $data, $sndMsgName, $reasonCode)"
+    ],
+    "description": "The amSendMsg function sends a datagram (send and forget) message."
+  },
+  "amSendRequest": {
+    "prefix": "amSendRequest",
+    "body": [
+      "amSendRequest($hSession, $senderName, $policyName, $responseName, $data, $sndMsgName, $reasonCode)"
+    ],
+    "description": "The amSendRequest function sends a request message."
+  },
+  "amSendResponse": {
+    "prefix": "amSendResponse",
+    "body": [
+      "amSendResponse($hSession, $senderName, $policyName, $rcvMsgName, $data, $sndMsgName, $reasonCode)"
+    ],
+    "description": "The amSendResponse function sends a request message."
+  },
+  "amTerminate": {
+    "prefix": "amTerminate",
+    "body": [
+      "amTerminate($hSession, $policyName, $reasonCode)"
+    ],
+    "description": "The amTerminate function closes a session."
+  },
+  "analyzeCertificate": {
+    "prefix": "analyzeCertificate",
+    "body": [
+      "analyzeCertificate($cert, $format, $result, $p12pass)"
+    ],
+    "description": "The analyzeCertificate() function decodes a certificate and puts plain text into the result parameter. The result parameter will then contain such information as the subject name, location, institute, issuer, public key, other extensions, and the issuer’s signature."
+  },
+  "ANDS": {
+    "prefix": "ANDS",
+    "body": [
+      "ANDS($array1, $array2)"
+    ],
+    "description": "Use the ANDS function to create a dynamic array of the logical AND of corresponding elements of two dynamic arrays."
+  },
+  "ASCII": {
+    "prefix": "ASCII",
+    "body": [
+      "ASCII($expression)"
+    ],
+    "description": "Use the ASCII function to convert each character of expression from its EBCDIC representation value to its ASCII representation value. If expression evaluates to the null value, null is returned."
+  },
+  "ASIN": {
+    "prefix": "ASIN",
+    "body": [
+      "ASIN($expr)"
+    ],
+    "description": "Use the ASIN function to return the trigonometric arc-sine of expression. expression must be a numeric value. The result is expressed in degrees. If expression evaluates to the null value, null is returned. The ASIN function is the inverse of the SIN function."
+  },
+  "ASSIGNED": {
+    "prefix": "ASSIGNED",
+    "body": [
+      "ASSIGNED($variable)"
+    ],
+    "description": "Use the ASSIGNED function to determine if variable is assigned a value. ASSIGNED returns 1 (true) if variable is assigned a value, including common variables and the null value. It returns 0 (false) if variable is not assigned a value."
+  },
+  "ATAN": {
+    "prefix": "ATAN",
+    "body": [
+      "ATAN($expr)"
+    ],
+    "description": "Use the ATAN function to return the trigonometric arc-tangent of expression. expression must be a numeric value. The result is expressed in degrees. If expression evaluates to the null value, null is returned. The ATAN function is the inverse of the TAN function."
+  },
+  "AuditLog": {
+    "prefix": "AuditLog",
+    "body": [
+      "AuditLog($Originator, $Action, $File, $Record, $Info, $Status, $OldData, $NewData)"
+    ],
+    "description": "To reduce unnecessary or excessive logging, the UniVerse BASICUniBasic AuditLog() function has been added to allow for application-driven audits. For example, instead of enabling system-wide UniVerse BASICUniBasic READ auditing, which could create a huge number of audit log records, you can choose to have your application call this function at a strategic point to have the action recorded in the system audit file."
+  },
+  "AUTHORIZATION": {
+    "prefix": "AUTHORIZATION",
+    "body": [
+      "AUTHORIZATION $username"
+    ],
+    "description": "Use the AUTHORIZATION statement to specify or change the effective runtime user of a program. After an AUTHORIZATION statement is executed, any SQL security checking acts as if username is running the program."
+  },
+  "AUXMAP": {
+    "prefix": "AUXMAP",
+    "body": [
+      "AUXMAP $expr"
+    ],
+    "description": "In NLS mode, use the AUXMAP statement to associate an auxiliary device with a terminal."
+  },
+  "BEGIN CASE": {
+    "prefix": "BEGIN",
+    "body": [
+      "BEGIN CASE",
+      "\tCASE $1",
+      "\t\t$2",
+      "END CASE"
+    ],
+    "description": "Use the BEGIN CASE statement to begin a set of CASE statements."
+  },
+  "BEGIN TRANSACTION": {
+    "prefix": "BEGIN",
+    "body": [
+      "BEGIN TRANSACTION $ISOLATION_LEVEL $lvl",
+      "\t$1",
+      "END TRANSACTION"
+    ],
+    "description": "Use the BEGIN TRANSACTION statement to indicate the beginning of a transaction."
+  },
+  "BITAND": {
+    "prefix": "BITAND",
+    "body": [
+      "BITAND($expression1, $expression2)"
+    ],
+    "description": "Use the BITAND function to perform the bitwise AND comparison of two integers specified by numeric expressions. The bitwise AND operation compares two integers bit by bit. It returns a bit of 1 if both bits are 1; otherwise it returns a bit of 0."
+  },
+  "BITNOT": {
+    "prefix": "BITNOT",
+    "body": [
+      "BITNOT($expression, $bitnum)"
+    ],
+    "description": "Use the BITNOT function to return the bitwise negation of an integer specified by any numeric expression."
+  },
+  "BITOR": {
+    "prefix": "BITOR",
+    "body": [
+      "BITOR($expression1, $expression2)"
+    ],
+    "description": "Use the BITOR function to perform the bitwise OR comparison of two integers specified by numeric expressions. The bitwise OR operation compares two integers bit by bit. It returns the bit 1 if the bit in either or both numbers is 1; otherwise it returns the bit 0."
+  },
+  "BITRESET": {
+    "prefix": "BITRESET",
+    "body": [
+      "BITRESET($expr, $bit)"
+    ],
+    "description": "Use the BITRESET function to reset to 0 the bit number of the integer specified by expression. Bits are counted from right to left. The number of the rightmost bit is 0. If the bit is 0, it is left unchanged."
+  },
+  "BITSET": {
+    "prefix": "BITSET",
+    "body": [
+      "BITSET($expr, $bit)"
+    ],
+    "description": "Use the BITSET function to set to 1 the bit number of the integer specified by expression. The number of the rightmost bit is 0. If the bit is 1, it is left unchanged."
+  },
+  "BITTEST": {
+    "prefix": "BITTEST",
+    "body": [
+      "BITTEST($expression, $bit)"
+    ],
+    "description": "Use the BITTEST function to test the bit number of the integer specified by expression. The function returns 1 if the bit is set; it returns 0 if it is not. Bits are counted from right to left. The number of the rightmost bit is 0."
+  },
+  "BITXOR": {
+    "prefix": "BITXOR",
+    "body": [
+      "BITXOR($expression1, $expression2)"
+    ],
+    "description": "Use the BITXOR function to perform the bitwise XOR comparison of two integers specified by numeric expressions. The bitwise XOR operation compares two integers bit by bit. It returns a bit 1 if only one of the two bits is 1; otherwise it returns a bit 0."
+  },
+  "BREAK": {
+    "prefix": "BREAK",
+    "body": [
+      "BREAK $1"
+    ],
+    "description": "Use the BREAK statement to enable or disable the Intr, Quit, and Susp keys on the keyboard."
+  },
+  "BSCAN": {
+    "prefix": "BSCAN",
+    "body": [
+      "BSCAN $idVar, $recVar, FROM $filevar, $record USING $indexname RESET BY $seq THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the BSCAN statement to scan the leaf nodes of a B-tree file (type 25) or of a secondary index. The record ID returned by the current scan operation is assigned to ID.variable. If you specify rec.variable, the contents of the record whose ID is ID.variable is assigned to it."
+  },
+  "BYTE": {
+    "prefix": "BYTE",
+    "body": [
+      "BYTE($expr)"
+    ],
+    "description": "In NLS mode, use the BYTE function to generate a byte from the numeric value of expression. BYTE returns a string containing a single byte."
+  },
+  "BYTELEN": {
+    "prefix": "BYTELEN",
+    "body": [
+      "BYTELEN($expression)"
+    ],
+    "description": "In NLS mode, use the BYTELEN function to generate the number of bytes contained in the ASCII string value in expression."
+  },
+  "BYTETYPE": {
+    "prefix": "BYTETYPE",
+    "body": [
+      "BYTETYPE($val)"
+    ],
+    "description": "In NLS mode, use the BYTETYPE function to determine the function of a byte in value."
+  },
+  "BYTEVAL": {
+    "prefix": "BYTEVAL",
+    "body": [
+      "BYTEVAL($expr, $n)"
+    ],
+    "description": "In NLS mode, use the BYTEVAL function to examine the bytes contained in the internal string value of expression. The BYTEVAL function returns a number from 0 through 255 as the byte value of n in expression. If you omit n, 1 is assumed."
+  },
+  "CALL": {
+    "prefix": "CALL",
+    "body": [
+      "CALL $subroutine_name($arguments)"
+    ],
+    "description": "Use the CALL statement to transfer program control from the calling program to an external subroutine or program that has been compiled and cataloged."
+  },
+  "CATS": {
+    "prefix": "CATS",
+    "body": [
+      "CATS($arr1, $arr2)"
+    ],
+    "description": "Use the CATS function to create a dynamic array of the element-by-element concatenation of two dynamic arrays."
+  },
+  "CENTURY.PIVOT": {
+    "prefix": "CENTURY.PIVOT",
+    "body": [
+      "CENTURY.PIVOT $year"
+    ],
+    "description": "Use the CENTURY.PIVOT function to override the system-wide century pivot year defined in the uvconfig file."
+  },
+  "CHAIN": {
+    "prefix": "CHAIN",
+    "body": [
+      "CHAIN $expression"
+    ],
+    "description": "Use the CHAIN statement to terminate execution of a UniVerse BASIC program and to execute the value of command. command is an expression that evaluates to any valid UniVerse command. If command evaluates to the null value, the CHAIN statement fails and the program terminates with a runtime error message."
+  },
+  "CHANGE": {
+    "prefix": "CHANGE",
+    "body": [
+      "CHANGE($string, $old, $new, $occurrence, $start)"
+    ],
+    "description": "Use the CHANGE function to replace a substring in expression with another substring. If you do not specify occurrence, each occurrence of the substring is replaced."
+  },
+  "CHAR": {
+    "prefix": "CHAR",
+    "body": [
+      "CHAR($expression)"
+    ],
+    "description": "Use the CHAR function to generate an ASCII character from the numeric value of expression."
+  },
+  "CHARS": {
+    "prefix": "CHARS",
+    "body": [
+      "CHARS($DynArr)"
+    ],
+    "description": "Use the CHARS function to generate a dynamic array of ASCII characters from the decimal numeric value of each element of dynamic.array."
+  },
+  "CHECKSUM": {
+    "prefix": "CHECKSUM",
+    "body": [
+      "CHECKSUM($str)"
+    ],
+    "description": "Use the CHECKSUM function to return a cyclical redundancy code (a checksum value)."
+  },
+  "CLEAR": {
+    "prefix": "CLEAR",
+    "body": [
+      "CLEAR"
+    ],
+    "description": "Use the CLEAR statement at the beginning of a program to set all assigned and unassigned values of variables outside of the common area of the program to 0. This procedure avoids run-time errors for unassigned variables. If you use the CLEAR statement later in the program, any values assigned to noncommon variables (including arrays) are lost."
+  },
+  "CLEARCOMMON": {
+    "prefix": "CLEARCOMMON",
+    "body": [
+      "CLEARCOMMON $1"
+    ],
+    "description": "Use the UniVerse BASIC CLEARCOMMON command to clear variables in the common area."
+  },
+  "CLEARDATA": {
+    "prefix": "CLEARDATA",
+    "body": [
+      "CLEARDATA"
+    ],
+    "description": "Use the CLEARDATA statement to flush all data that has been loaded in the input stack by the DATA statement. No expressions or spaces are allowed with this statement. Use the CLEARDATA statement when an error is detected, to prevent data placed in the input stack from being used incorrectly."
+  },
+  "CLEARFILE": {
+    "prefix": "CLEARFILE",
+    "body": [
+      "CLEARFILE $variable ON ERROR $err_statements LOCKED $lock_statements"
+    ],
+    "description": "Use the CLEARFILE statement to delete all records in an open dictionary or data file. You cannot use this statement to delete the file itself. Each file to be cleared must be specified in a separate CLEARFILE statement."
+  },
+  "CLEARPROMPTS": {
+    "prefix": "CLEARPROMPTS",
+    "body": [
+      "CLEARPROMPTS"
+    ],
+    "description": "Use the CLEARPROMPTS statement to clear the value of the inline prompt. Once a value is entered for an in-line prompt, the prompt continues to have that value until a CLEARPROMPTS statement is executed, unless the in-line prompt control option A is specified. CLEARPROMPTS clears all values that have been entered for inline prompts."
+  },
+  "CLEARSELECT": {
+    "prefix": "CLEARSELECT",
+    "body": [
+      "CLEARSELECT $ListName"
+    ],
+    "description": "Use the CLEARSELECT statement to clear an active select list. This statement is normally used when one or more select lists have been generated but are no longer needed. Clearing select lists prevents remaining select list entries from being used erroneously."
+  },
+  "CLOSE": {
+    "prefix": "CLOSE",
+    "body": [
+      "CLOSE $variable ON ERROR $err"
+    ],
+    "description": "Use the CLOSE statement after opening and processing a file. Any file locks or record locks are released."
+  },
+  "CLOSESEQ": {
+    "prefix": "CLOSESEQ",
+    "body": [
+      "CLOSESEQ $filevar ON ERROR $err"
+    ],
+    "description": "Use the CLOSESEQ statement after opening and processing a file opened for sequential processing. CLOSESEQ makes the file available to other users."
+  },
+  "closeSocket": {
+    "prefix": "closeSocket",
+    "body": [
+      "closeSocket($socket_handle)"
+    ],
+    "description": "Use the closeSocket() function to close a socket connection."
+  },
+  "CloseXMLData": {
+    "prefix": "CloseXMLData",
+    "body": [
+      "CloseXMLData($xml_data_handle)"
+    ],
+    "description": "After you finish using an XML data, use CloseXMLData to close the dynamic array variable."
+  },
+  "COL1": {
+    "prefix": "COL1",
+    "body": [
+      "COL1()"
+    ],
+    "description": "Use the COL1 function after the execution of a FIELD function to return the numeric value for the character position that immediately precedes the selected substring. Although the COL1 function takes no arguments, parentheses are required to identify it as a function."
+  },
+  "COL2": {
+    "prefix": "COL2",
+    "body": [
+      "COL2()"
+    ],
+    "description": "Use the COL2 function after the execution of a FIELD function to return the numeric value for the character position that immediately follows the selected substring. Although the COL2 function takes no arguments, parentheses are required to identify it as a function."
+  },
+  "COMMAND.EDITOR": {
+    "prefix": "COMMAND.EDITOR",
+    "body": [
+      "COMMAND.EDITOR $expr"
+    ],
+    "description": "The COMMAND.EDITOR command enables or disables the Command Editor in PI/open. The Command Editor provides you with facilities for simple command line editing and command stack manipulation."
+  },
+  "COMMIT": {
+    "prefix": "COMMIT",
+    "body": [
+      "COMMIT WORK THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the COMMIT statement to commit all file I/O changes made during a transaction. The WORK keyword is provided for compatibility with SQL syntax conventions; it is ignored by the compiler."
+  },
+  "COMMON": {
+    "prefix": "COMMON",
+    "body": [
+      "COMMON $1"
+    ],
+    "description": "Use the COMMON statement to provide a storage area for variables. Variables in the common area are accessible to main programs and external subroutines. Corresponding variables can have different names in the main program and in external subroutines, but they must be defined in the same order. The COMMON statement must precede any reference to the variables it names."
+  },
+  "COMPARE": {
+    "prefix": "COMPARE",
+    "body": [
+      "COMPARE($str1, $str2, $justification)"
+    ],
+    "description": "Use the COMPARE function to compare two strings and return a numeric value indicating the result."
+  },
+  "CONVERT Function": {
+    "prefix": "CONVERT",
+    "body": [
+      "CONVERT($search, $replace, $var)"
+    ],
+    "description": "Use the CONVERT function to return a copy of variable with every occurrence of specified characters in variable replaced with other specified characters. Every time a character to be converted appears in variable, it is replaced by the replacement character."
+  },
+  "CONVERT Statement": {
+    "prefix": "CONVERT",
+    "body": [
+      "CONVERT $fromchars TO $tostring IN $var"
+    ],
+    "description": "Use the CONVERT statement to replace every occurrence of specific characters in a string with other characters. Every time the character to be converted appears in the string, it is replaced by the replacement character."
+  },
+  "COS": {
+    "prefix": "COS",
+    "body": [
+      "COS($expression)"
+    ],
+    "description": "Use the COS function to return the trigonometric cosine of an angle. expression is an angle expressed as a numeric value in degrees. The COS function is the inverse of the ACOS function."
+  },
+  "COSH": {
+    "prefix": "COSH",
+    "body": [
+      "COSH($expr)"
+    ],
+    "description": "Use the COSH function to return the hyperbolic cosine of expression. expression must be a numeric value."
+  },
+  "COUNT": {
+    "prefix": "COUNT",
+    "body": [
+      "COUNT($expression, $delimiter)"
+    ],
+    "description": "Use the COUNT function to return the number of times a substring is repeated in a string value."
+  },
+  "COUNTS": {
+    "prefix": "COUNTS",
+    "body": [
+      "COUNTS($dynamic_array, $substring)"
+    ],
+    "description": "Use the COUNTS function to count the number of times a substring is repeated in each element of a dynamic array. The result is a new dynamic array whose elements are the counts corresponding to the elements in dynamic.array."
+  },
+  "CREATE": {
+    "prefix": "CREATE",
+    "body": [
+      "CREATE $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the CREATE statement after an OPENSEQ statement to create a record in a type 1 or type 19 UniVerse file or to create a UNIX or DOS file. CREATE creates the record or file if the OPENSEQ statement fails. An OPENSEQ statement for the specified file.variable must be executed before the CREATE statement to associate the path or record ID of the file to be created with the file.variable. If file.variable is the null value, the CREATE statement fails and the program terminates with a runtime error message."
+  },
+  "createCertificate": {
+    "prefix": "createCertificate",
+    "body": [
+      "createCertificate($action, $req, $signKey, $keyPass, $CAcert, $days, $extensions, $certOut, $signAlg)"
+    ],
+    "description": "The createCertificate() function generates a certificate. The certificate can either be a selfsigned certificate as a root CA that can then be used later to sign other certificates, or it can be a CA signed certificate. The generated certificate conforms to X509V3 standard."
+  },
+  "createCertRequest": {
+    "prefix": "createCertRequest",
+    "body": [
+      "createCertRequest($key, $inFormat, $keyLoc, $algorithm, $digest, $passPhrase, $subjectData, $outFile, $outFormat)"
+    ],
+    "description": "The createCertRequest() function generates a PKCS #10 certificate request from a private key in PKCS #8 form and a set of user specified data. The request can be sent to a CA or used as a parameter to createCertificate() to obtain an X.509 public key certificate."
+  },
+  "createRequest": {
+    "prefix": "createRequest",
+    "body": [
+      "createRequest($URL, $http_method, $request_handle)"
+    ],
+    "description": "The createRequest function creates an HTTP request and returns a handle to the request."
+  },
+  "createSecureRequest": {
+    "prefix": "createSecureRequest",
+    "body": [
+      "createSecureRequest($URL, $http_method, $request_handle, $security_context)"
+    ],
+    "description": "The createSecureRequest function behaves exactly the same as the createRequest() function, except for the fourth parameter, a handle to a security context, which is used to associate the security context with the request. If the URL does not start with “https” then the parameter is ignored. If the URL starts with “https” but an invalid context handle or no handle is provided, the function will abort and return with an error status."
+  },
+  "createSecurityContext": {
+    "prefix": "createSecurityContext",
+    "body": [
+      "createSecurityContext($context, $protocol version)"
+    ],
+    "description": "The createSecurityContext() function creates a security context and returns a handle to the context."
+  },
+  "CRT": {
+    "prefix": "CRT",
+    "body": [
+      "CRT $expression"
+    ],
+    "description": "Use the CRT statement to print data on the screen, regardless of whether a PRINTER ON statement has been executed. The syntax for print.list is the same as for a PRINT statement."
+  },
+  "CRT @": {
+    "prefix": "CRT",
+    "body": [
+      "CRT @($col,$row) $expression"
+    ],
+    "description": "Use the CRT statement to print data on the screen, regardless of whether a PRINTER ON statement has been executed. The syntax for print.list is the same as for a PRINT statement."
+  },
+  "DATA": {
+    "prefix": "DATA",
+    "body": [
+      "DATA $expression"
+    ],
+    "description": "Use the DATA statement to place values in an input stack. These values can be used as responses to INPUT statements executed later in the program or in a subroutine. The values can also serve as responses to UniVerse commands that request input."
+  },
+  "DATE": {
+    "prefix": "DATE",
+    "body": [
+      "DATE()"
+    ],
+    "description": "Use the DATE function to return the numeric value of the internal system date. Although the DATE function takes no arguments, parentheses are required to identify it as a function."
+  },
+  "DBTOXML": {
+    "prefix": "DBTOXML",
+    "body": [
+      "DBTOXML($xml_document, $doc_location, $u2xmap_file, $u2xmap_location, $condition, status)"
+    ],
+    "description": "To create an XML document from the UniVerse database using UniVerse BASIC, use the DBTOXML function."
+  },
+  "DCOUNT": {
+    "prefix": "DCOUNT",
+    "body": [
+      "DCOUNT($expression, $delimiter)"
+    ],
+    "description": "Use the DCOUNT function to return the number of delimited fields in a data string."
+  },
+  "DEACTIVATEKEY": {
+    "prefix": "DEACTIVATEKEY",
+    "body": [
+      "DEACTIVATEKEY $keyid, $password ON $hostname"
+    ],
+    "description": "Use the DEACTIVATEKEY command to deactivate one or more encryption keys. This command is useful to deactivate keys to make your system more secure."
+  },
+  "DEBUG": {
+    "prefix": "DEBUG",
+    "body": [
+      "DEBUG"
+    ],
+    "description": "Use the DEBUG statement to invoke RAID, the interactive UniVerse BASIC debugger. The DEBUG statement takes no arguments. When this statement is encountered, program execution stops and the double colon (:: ) prompt appears, waiting for a RAID command. The following table summarizes the RAID commands."
+  },
+  "DEFFUN": {
+    "prefix": "DEFFUN",
+    "body": [
+      "DEFFUN $FuncName($args)"
+    ],
+    "description": "Use the DEFFUN statement to define a user-written function. You must declare a user-defined function before you can use it in a program. The DEFFUN statement provides the compiler with information such as the function name and the number and type of arguments. You can define a user-written function only once in a program. A subsequent DEFFUN statement for an already defined user-written function causes a fatal error."
+  },
+  "DEL": {
+    "prefix": "DEL",
+    "body": [
+      "DEL $dynarr"
+    ],
+    "description": "Use the DEL statement to delete a field, value, or subvalue from a dynamic array. The DEL statement works similarly to the DELETE function."
+  },
+  "DELETE Function": {
+    "prefix": "DELETE",
+    "body": [
+      "DELETE($dynarr, $attr, $val, $subval)"
+    ],
+    "description": "Use the DELETE function to erase the data contents of a specified field, value, or subvalue and its corresponding delimiter from a dynamic array. The DELETE function returns the contents of the dynamic array with the specified data removed without changing the actual value of the dynamic array."
+  },
+  "DELETE": {
+    "prefix": "DELETE",
+    "body": [
+      "DELETE $filevar,$recordkey ON ERROR $err THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the DELETE statements to delete a record from a UniVerse file. If you specify a file variable, the file must be open when the DELETE statement is encountered."
+  },
+  "DELETELIST": {
+    "prefix": "DELETELIST",
+    "body": [
+      "DELETELIST $expression"
+    ],
+    "description": "Use the DELETELIST statement to delete a select list saved in the &SAVEDLISTS& file."
+  },
+  "DESCRINFO": {
+    "prefix": "DESCRINFO",
+    "body": [
+      "DESCRINFO($key, $var)"
+    ],
+    "description": "The DESCRINFO function returns requested information (key) about a variable. Set the key value to 1 to obtain information about the type of variable. Set the key value to 2 to obtain the reuse flag of the variable. Any other value is invalid, and will result in the program exiting."
+  },
+  "DIGEST": {
+    "prefix": "DIGEST",
+    "body": [
+      "DIGEST($algorithm, $data, $dataLoc, $result)"
+    ],
+    "description": "The DIGEST() function generates a message digest of supplied data. A message digest is the result of a one-way hash function (digest algorithm) performed on the message. Message digest has the unique properties that a slight change in the input will result in a significant difference in the resulting digest. Therefore, the probability of two different messages resulting in the same digest (collision) is very unlikely. It is also virtually impossible to reverse to the original message from a digest. Message digest is widely used for digital signatures and other purposes."
+  },
+  "DIMENSION": {
+    "prefix": "DIM",
+    "body": [
+      "DIM $matrix($rows, $cols)"
+    ],
+    "description": "Use the DIMENSION statement to define the dimensions of an array variable before referencing the array in the program. For a matrix (a two-dimensional array), use the DIMENSION statement to set the maximum number of rows and columns available for the elements of the array. For a vector (a one-dimensional array), use the DIMENSION statement to set the maximum value of the subscript (the maximum elements) in the array."
+  },
+  "DISABLEDEC": {
+    "prefix": "DISABLEDEC",
+    "body": [
+      "DISABLEDEC $filename ON ERROR $err"
+    ],
+    "description": "Use the DISABLEDEC command to turn off decryption on a field or fields you specify."
+  },
+  "DISPLAY": {
+    "prefix": "DISPLAY",
+    "body": [
+      "DISPLAY $expression"
+    ],
+    "description": "Use the DISPLAY statement to print data on the screen, regardless of whether a PRINTER ON statement has been executed. The syntax for print.list is the same as for PRINT statement."
+  },
+  "DIV": {
+    "prefix": "DIV",
+    "body": [
+      "DIV($dividend, $divisor)"
+    ],
+    "description": "Use the DIV function to calculate the value of the quotient after dividend is divided by divisor. The dividend and divisor expressions can evaluate to any numeric value. The only exception is that divisor cannot be 0. If either dividend or divisor evaluates to the null value, null is returned."
+  },
+  "DIVS": {
+    "prefix": "DIVS",
+    "body": [
+      "DIVS($array1, $array2)"
+    ],
+    "description": "Each element of array1 is divided by the corresponding element of array2 with the result being returned in the corresponding element of a new dynamic array. If elements of array1 have no corresponding elements in array2, array2 is padded with ones and the array1 elements are returned. If an element of array2 has no corresponding element in array1, 0 is returned. If an element of array2 is 0, a run-time error message is printed and a 0 is returned. If either element of a corresponding pair is the null value, null is returned."
+  },
+  "DOWNCASE": {
+    "prefix": "DOWNCASE",
+    "body": [
+      "DOWNCASE($expression)"
+    ],
+    "description": "Use the DOWNCASE function to change all uppercase letters in expression to lowercase. If expression evaluates to the null value, null is returned."
+  },
+  "DQUOTE": {
+    "prefix": "DQUOTE",
+    "body": [
+      "DQUOTE($expression)"
+    ],
+    "description": "Use the DQUOTE function to enclose an expression in double quotation marks. If expression evaluates to the null value, null is returned (without quotation marks)."
+  },
+  "DTX": {
+    "prefix": "DTX",
+    "body": [
+      "DTX($expression)"
+    ],
+    "description": "Use the DTX function to convert a decimal integer to its hexadecimal equivalent. size indicates the minimum size which the hexadecimal character string should have. This field is supplemented with zeros if appropriate. If number evaluates to the null value, null is returned. If size is the null value, the DTX function fails and the program terminates with a runtime error message."
+  },
+  "EBCDIC": {
+    "prefix": "EBCDIC",
+    "body": [
+      "EBCDIC($expression)"
+    ],
+    "description": "Use the EBCDIC function to convert each character of expression from its ASCII representation value to its EBCDIC representation value. The EBCDIC and ASCII functions perform complementary operations. Data that is not represented in ASCII code produces undefined results."
+  },
+  "ECHO": {
+    "prefix": "ECHO",
+    "body": [
+      "ECHO $expr"
+    ],
+    "description": "Use the ECHO statement to control the display of input characters on the screen."
+  },
+  "ENABLEDEC": {
+    "prefix": "ENABLEDEC",
+    "body": [
+      "ENABLEDEC $filename ON ERROR $err"
+    ],
+    "description": "Use the ENABLEDEC command to activate decryption on a file or fields you specify."
+  },
+  "ENCODE": {
+    "prefix": "ENCODE",
+    "body": [
+      "ENCODE($algorithm, $action, $data, $dataLoc, $result, $resultLoc)"
+    ],
+    "description": "The ENCODE() function performs data encoding on input data. The function can perform either encoding or decoding, as specified by action. The data can either be in the dynamic array, data, or in a file whose name is specified in data, determined by dataLoc."
+  },
+  "ENCRYPT": {
+    "prefix": "ENCRYPT",
+    "body": [
+      "ENCRYPT (algorithm, action, data, dataLoc,key, keyLoc, keyAction, salt, $IV, $result, $resultLoc)"
+    ],
+    "description": "The ENCRYPT() function performs symmetric encryption operations. Various block and stream symmetric ciphers can be called through this function."
+  },
+  "ENTER": {
+    "prefix": "ENTER",
+    "body": [
+      "ENTER $name"
+    ],
+    "description": "Use the ENTER statement to transfer program control from the calling program to an external subroutine without returning to the calling program. The subroutine must have been compiled and cataloged."
+  },
+  "EOF(ARG.)": {
+    "prefix": "EOF(ARG.)",
+    "body": [
+      "EOF(ARG.)"
+    ],
+    "description": "Use the EOF(ARG.) function to check if the command line argument pointer is past the last command line argument. ARG. is part of the syntax of the EOF(ARG.) function and must be specified. EOF(ARG.) returns 1 (true) if the pointer is past the last command line argument, otherwise it returns 0 (false). The arg# argument of the GET(ARG.) statement and the SEEK(ARG.) statement affect the value of the EOF(ARG.) function."
+  },
+  "EQS": {
+    "prefix": "EQS",
+    "body": [
+      "EQS($array1, $array2)"
+    ],
+    "description": "Use the EQS function to test if elements of one dynamic array are equal to the elements of another dynamic array."
+  },
+  "EQUATE": {
+    "prefix": "EQU",
+    "body": [
+      "EQU $symbol TO $expression"
+    ],
+    "description": "In an EQUATE statement, symbol represents the value of expression or string. You can use the two interchangeably in the program. When the program is compiled, each occurrence of symbol is replaced by the value of expression or string. The value is compiled as object code and does not have to be reassigned each time the program is executed."
+  },
+  "EREPLACE": {
+    "prefix": "EREPLACE",
+    "body": [
+      "EREPLACE($expression, $substring, $replacement, $occurrence, $begin)"
+    ],
+    "description": "Use the EREPLACE function to replace substring in expression with another substring. If you do not specify occurrence, each occurrence of substring is replaced."
+  },
+  "ERRMSG": {
+    "prefix": "ERRMSG",
+    "body": [
+      "ERRMSG $msgid"
+    ],
+    "description": "Use the ERRMSG statement to print a formatted error message from the ERRMSG file. message.ID is an expression evaluating to the record ID of a message to be printed on the screen. Additional expressions are evaluated as arguments that can be included in the error message."
+  },
+  "EXCHANGE": {
+    "prefix": "EXCHANGE",
+    "body": [
+      "EXCHANGE($str, $xx, $yy)"
+    ],
+    "description": "Use the EXCHANGE function to replace one character with another or to delete all occurrences of the specified character."
+  },
+  "EXECUTE": {
+    "prefix": "EXECUTE",
+    "body": [
+      "EXECUTE $expression"
+    ],
+    "description": "Use the EXECUTE statement to execute UniVerse commands from within the BASIC program and then return execution to the statement following the EXECUTE statement."
+  },
+  "EXECUTE All": {
+    "prefix": "EXECUTE",
+    "body": [
+      "EXECUTE $expression CAPTURING $var PASSLIST $dynarr RTNLIST $varlist SETTING $setvar"
+    ],
+    "description": "Use the EXECUTE statement to execute UniVerse commands from within the BASIC program and then return execution to the statement following the EXECUTE statement."
+  },
+  "EXIT": {
+    "prefix": "EXIT",
+    "body": [
+      "EXIT"
+    ],
+    "description": "Use the EXIT statement to quit execution of a FOR...NEXT loop or a LOOP...REPEAT loop and branch to the statement following the NEXT or REPEAT statement of the loop. The EXIT statement quits exactly one loop. When loops are nested and the EXIT statement is executed in an inner loop, the outer loop remains in control."
+  },
+  "EXP": {
+    "prefix": "EXP",
+    "body": [
+      "EXP($expression)"
+    ],
+    "description": "Use the EXP function to return the value of \"e\" raised to the power designated by expression. The value of \"e\" is approximately 2.71828. expression must evaluate to a numeric value."
+  },
+  "EXTRACT": {
+    "prefix": "EXTRACT",
+    "body": [
+      "EXTRACT($DynArr, $attr, $val, $subval)"
+    ],
+    "description": "Use the EXTRACT function to access the data contents of a specified field, value, or subvalue from a dynamic array. You can use either syntax shown to extract data. The first syntax uses the EXTRACT keyword, the second uses angle brackets."
+  },
+  "FADD": {
+    "prefix": "FADD",
+    "body": [
+      "FADD($expression1, $expression2)"
+    ],
+    "description": "Use the FADD function to perform floating-point addition on two numeric values. If either number evaluates to the null value, null is returned. If either number1 or number2 evaluates to the null value, null is returned. return.array equates to number1 plus number2. This function is provided for compatibility with existing software. You can also use the + operator to perform floating-point addition."
+  },
+  "FDIV": {
+    "prefix": "FDIV",
+    "body": [
+      "FDIV($expression1, $expression2)"
+    ],
+    "description": "Use the FDIV function to perform floating-point division on two numeric values. number1 is divided by number2. return.array equates to number1 divided by number2. If number2 is 0, a runtime error message is produced and a 0 is returned for the function. If either number evaluates to the null value, null is returned."
+  },
+  "FFIX": {
+    "prefix": "FFIX",
+    "body": [
+      "FFIX($num)"
+    ],
+    "description": "Use the FFIX function to convert a floating-point number to a numeric string with fixed precision. If number evaluates to the null value, null is returned."
+  },
+  "FFLT": {
+    "prefix": "FFLT",
+    "body": [
+      "FFLT($num)"
+    ],
+    "description": "Use the FFLT function to round a number to a string with a precision of 13. The number also converts to scientific notation when required for precision. If number evaluates to the null value, null is returned."
+  },
+  "FIELD": {
+    "prefix": "FIELD",
+    "body": [
+      "FIELD($string, $delimiter, $occurrence, $numsubstr)"
+    ],
+    "description": "Use the FIELD function to return one or more substrings located between specified delimiters in string."
+  },
+  "FIELDS": {
+    "prefix": "FIELDS",
+    "body": [
+      "FIELDS($DynArr, $delimiter, $occurrence, $numsubstr)"
+    ],
+    "description": "Use the FIELDS function to return a dynamic array of substrings located between specified delimiters in each element of dynamic.array."
+  },
+  "FIELDSTORE": {
+    "prefix": "FIELDSTORE",
+    "body": [
+      "FIELDSTORE($string, $delimiter, $i, $n, $repstring)"
+    ],
+    "description": "Use the FIELDSTORE function to modify character strings by inserting, deleting, or replacing fields separated by specified delimiters."
+  },
+  "FIELDWRITE": {
+    "prefix": "FIELDWRITE",
+    "body": [
+      "FIELDWRITE $expr ON $filevar,$recordkey,$attrexprlist ON ERROR $err LOCKED $lock THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The FIELDWRITE statement allows you to update the specified fields in an existing record and releases locks set by the same process. For those using replication, FIELDWRITE generates field-level replication logs. This statement is similar to WRITEV, but it is not a replacement for WRITEV."
+  },
+  "FIELDWRITEU": {
+    "prefix": "FIELDWRITEU",
+    "body": [
+      "FIELDWRITEU $expr ON $filevar,$recordkey,$attrexprlist ON ERROR $err LOCKED $lock THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The FIELDWRITE statement allows you to update the specified fields in an existing record and releases locks set by the same process. For those using replication, FIELDWRITE generates field-level replication logs. This statement is similar to WRITEV, but it is not a replacement for WRITEV."
+  },
+  "FILEINFO": {
+    "prefix": "FILEINFO",
+    "body": [
+      "FILEINFO($file_variable, $key)"
+    ],
+    "description": "Use the FILEINFO function to return information about the specified file’s configuration, such as the specified file’s parameters, its modulus and load, its operating system file name, and its VOC name. The information returned depends on the file type and the value of the key."
+  },
+  "FILELOCK": {
+    "prefix": "FILELOCK",
+    "body": [
+      "FILELOCK filevar LOCKED $lock_statements ON ERROR $error_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the FILELOCK statement to acquire a lock on an entire file. This prevents other users from updating the file until the program releases it. A FILELOCK statement that does not specify lock.type is equivalent to obtaining an update record lock on every record of the file."
+  },
+  "FILEUNLOCK": {
+    "prefix": "FILEUNLOCK",
+    "body": [
+      "FILEUNLOCK $file_variable ON ERROR $statements"
+    ],
+    "description": "Use the FILEUNLOCK statement to release a file lock set by the FILELOCK statement."
+  },
+  "FIND": {
+    "prefix": "FIND",
+    "body": [
+      "FIND $expression1 IN $Var1 SETTING $Var2 THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the FIND statement to locate an element in dynamic.array. The field, value, and subvalue positions of element are put in the variables fmc, vmc, and smc respectively."
+  },
+  "FINDSTR": {
+    "prefix": "FINDSTR",
+    "body": [
+      "FINDSTR $expression1 IN $Var1 SETTING $Var2 THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the FINDSTR statement to locate substring in dynamic.array. The field, value, and subvalue positions of substring are placed in the variables fmc, vmc, and smc respectively."
+  },
+  "FIX": {
+    "prefix": "FIX",
+    "body": [
+      "FIX($num, $prec, $mode)"
+    ],
+    "description": "Use the FIX function to convert a numeric value to a floating-point number with a specified precision. FIX lets you control the accuracy of computation by eliminating excess or unreliable data from numeric results. For example, a bank application that computes the interest accrual for customer accounts does not need to deal with credits expressed in fractions of cents. An engineering application needs to throw away digits that are beyond the accepted reliability of computations."
+  },
+  "FLUSH": {
+    "prefix": "FLUSH",
+    "body": [
+      "FLUSH $file_variable THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The FLUSH statement causes all the buffers for a sequential I/O file to be written immediately. Normally, sequential I/O uses UNIX \"stdio\" buffering for input/output operations, and writes are not performed immediately."
+  },
+  "FMT": {
+    "prefix": "FMT",
+    "body": [
+      "FMT($var, $code)"
+    ],
+    "description": "Use the FMT function or a format expression to format data for output. Any BASIC expression can be formatted for output by following it with a format expression."
+  },
+  "FMTDP": {
+    "prefix": "FMTDP",
+    "body": [
+      "FMTDP($expr, $format, $mapname)"
+    ],
+    "description": "In NLS mode, use the FMTDP function to format data for output in display positions rather than character lengths."
+  },
+  "FMTS": {
+    "prefix": "FMTS",
+    "body": [
+      "FMTS($DynArr, $format)"
+    ],
+    "description": "Use the FMTS function to format elements of dynamic.array for output. Each element of the array is acted upon independently and is returned as an element in a new dynamic array."
+  },
+  "FMTSDP": {
+    "prefix": "FMTSDP",
+    "body": [
+      "FMTSDP($dynarr, $format, $mapname)"
+    ],
+    "description": "In NLS mode, use the FMTSDP function to format elements of dynamic.array for output in display positions rather than character lengths. Each element of the array is acted upon independently and is returned as an element in a new dynamic array. Any unmappable characters in dynamic.array are assumed to have a display length of 1."
+  },
+  "FMUL": {
+    "prefix": "FMUL",
+    "body": [
+      "FMUL($num1, $num2)"
+    ],
+    "description": "Use the FMUL function to perform floating-point multiplication on two numeric values. If either number evaluates to the null value, null is returned. return.array equates to number1 multiplied by number2."
+  },
+  "FOLD": {
+    "prefix": "FOLD",
+    "body": [
+      "FOLD($str, $width)"
+    ],
+    "description": "Use the FOLD function to divide a string into a number of substrings separated by field marks."
+  },
+  "FOLDDP": {
+    "prefix": "FOLDDP",
+    "body": [
+      "FOLDDP($str, $len, $mapname)"
+    ],
+    "description": "In NLS mode, use the FOLDDP function to divide a string into a number of substrings separated by field marks. The division is in display positions rather than character lengths."
+  },
+  "FOOTING": {
+    "prefix": "FOOTING",
+    "body": [
+      "FOOTING $expr"
+    ],
+    "description": "Use the FOOTING statement to specify the text and format of the footing to print at the bottom of each page of output."
+  },
+  "FOR Loop": {
+    "prefix": "FOR",
+    "body": [
+      "FOR $1 = $2 To $3",
+      "$4",
+      "NEXT $1"
+    ],
+    "description": "Use the FOR statement to create a FOR…NEXT program loop. A program loop is a series of statements that execute repeatedly until the specified number of repetitions have been performed or until specified conditions are met."
+  },
+  "FOR Step": {
+    "prefix": "FOR",
+    "body": [
+      "FOR $1 = $2 To $3 STEP $4",
+      "$5",
+      "NEXT $1"
+    ],
+    "description": "Use the FOR statement to create a FOR…NEXT program loop. A program loop is a series of statements that execute repeatedly until the specified number of repetitions have been performed or until specified conditions are met."
+  },
+  "FORMLIST": {
+    "prefix": "FORMLIST",
+    "body": [
+      "FORMLIST $dynarr TO $listno ON ERROR $err"
+    ],
+    "description": "The FORMLIST statement is the same as the SELECT statements."
+  },
+  "FSUB": {
+    "prefix": "FSUB",
+    "body": [
+      "FSUB($expr1, $expr2)"
+    ],
+    "description": "Use the FSUB function to perform floating-point subtraction on two numeric values. number2 is subtracted from number1. If either number evaluates to the null value, null is returned. result equates to number1 minus number2."
+  },
+  "FUNCTION": {
+    "prefix": "FUNCTION",
+    "body": [
+      "FUNCTION $name($arguments)",
+      "\t$statements",
+      "RETURN($var)"
+    ],
+    "description": "Use the FUNCTION statement to identify a user-written function and to specify the number and names of the arguments to be passed to it. The FUNCTION statement must be the first noncomment line in the user-written function. A user-written function can contain only one FUNCTION statement."
+  },
+  "generateKey": {
+    "prefix": "generateKey",
+    "body": [
+      "generateKey($privKey, $pubKey, $format, $keyLoc, $algorithm, $keyLength, $passPhrase, $paramFile)"
+    ],
+    "description": "The generateKey() function generates a public key cryptography key pair and encrypts the private key. You should then put it into an external key file protected by the provided pass phrase. The protected private key can later be used by UniData and UniVerse SSL sessions (through setPrivateKey()) to secure communication. The public key will not be encrypted."
+  },
+  "GES": {
+    "prefix": "GES",
+    "body": [
+      "GES($array1, $array2)"
+    ],
+    "description": "Use the GES function to test if elements of one dynamic array are greater than or equal to corresponding elements of another dynamic array."
+  },
+  "GET": {
+    "prefix": "GET",
+    "body": [
+      "GET $Var SETTING $readcnt FROM device THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use GET statements to read a block of data from an input stream associated with a device, such as a serial line or terminal. The device must be opened with the OPENDEV statement or the OPENSEQ statement. Once the device has been opened, the GET statements read data from the device. The GET statements do not perform any pre- or postprocessing of the data stream, nor do they control local echo characteristics. These aspects of terminal control are handled either by the application or by the device driver. The behavior of certain devices can be managed through the TTYSET/TTYGET interface."
+  },
+  "GETX": {
+    "prefix": "GETX",
+    "body": [
+      "GETX $Var SETTING $readcnt FROM device THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use GET statements to read a block of data from an input stream associated with a device, such as a serial line or terminal. The device must be opened with the OPENDEV statement or the OPENSEQ statement. Once the device has been opened, the GET statements read data from the device. The GET statements do not perform any pre- or postprocessing of the data stream, nor do they control local echo characteristics. These aspects of terminal control are handled either by the application or by the device driver. The behavior of certain devices can be managed through the TTYSET/TTYGET interface."
+  },
+  "getCipherSuite": {
+    "prefix": "getCipherSuite",
+    "body": [
+      "getCipherSuite($context, $ciphers)"
+    ],
+    "description": "The getCipherSuite() function obtains information about supported cipher suites, their version, usage, strength, and type for the specified security context. The result is put into the dynamic array ciphers, with one line for each cipher suite, separated by a field mark (@FM)."
+  },
+  "getIpv": {
+    "prefix": "getIpv",
+    "body": [
+      "getIpv($networkexpr)"
+    ],
+    "description": "Use the getIpv function to display the current IPv setting on the whole system or a particular network's connection."
+  },
+  "GET(ARG.)": {
+    "prefix": "GET(ARG.)",
+    "body": [
+      "GET(ARG. $arg) $var THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the GET(ARG.) statement to retrieve the next command line argument. The command line is delimited by blanks, and the first argument is assumed to be the first word after the program name. When a cataloged program is invoked, the argument list starts with the second word in the command line."
+  },
+  "getHTTPDefault": {
+    "prefix": "getHTTPDefault",
+    "body": [
+      "getHTTPDefault($opt, $val)"
+    ],
+    "description": "The getHTTPDefault function returns the default values of the HTTP settings. See the section under setHTTPDefault for additional information."
+  },
+  "GETLIST": {
+    "prefix": "GETLIST",
+    "body": [
+      "GETLIST $listname IN $start, $end TO $variable1 SETTING $variable2 THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the GETLIST statement to activate a saved select list so that a READNEXT statement can use it."
+  },
+  "GETLOCALE": {
+    "prefix": "GETLOCALE",
+    "body": [
+      "GETLOCALE($cat)"
+    ],
+    "description": "In NLS mode use the GETLOCALE function to return the names of specified categories of the current locale. The GETLOCALE function also returns the details of any saved locale that differs from the current one."
+  },
+  "GETREM": {
+    "prefix": "GETREM",
+    "body": [
+      "GETREM($dynarr)"
+    ],
+    "description": "Use the GETREM function after the execution of a REMOVE statement, a REMOVE function, or a REVREMOVE statement, to return the numeric value for the character position of the pointer associated with dynamic.array."
+  },
+  "getSocketErrorMessage": {
+    "prefix": "getSocketErrorMessage",
+    "body": [
+      "getSocketErrorMessage($errCode, $errMsg)"
+    ],
+    "description": "Use the getSocketErrorMessage() function to translate an error code into a text error message. This function works with all socket functions. The return status of those functions can be passed into this function to get the corresponding error message."
+  },
+  "getSocketInformation": {
+    "prefix": "getSocketInformation",
+    "body": [
+      "getSocketInformation($socket_handle, $self_peer, $socket_info)"
+    ],
+    "description": "Use the getSocketInformation() function to obtain information about a socket connection."
+  },
+  "getSocketMap": {
+    "prefix": "getSocketMap",
+    "body": [
+      "getSocketMap($aSocket, $mapname)"
+    ],
+    "description": "The getSocketMap() function gets the NLS map associated with the input socket handle with the input socket handle aSocket."
+  },
+  "getSocketOptions": {
+    "prefix": "getSocketOptions",
+    "body": [
+      "getSocketOptions($socket_handle, $options)"
+    ],
+    "description": "The getSocketOptions() function gets the current value for a socket option associated with a socket of any type."
+  },
+  "GOSUB": {
+    "prefix": "GOSUB",
+    "body": [
+      "GOSUB $label"
+    ],
+    "description": "Use the GOSUB statement to transfer program control to an internal subroutine referenced by statement.label. A colon (: ) is optional in GOSUB statements, even though it is required after nonnumeric statement labels at the beginning of program lines."
+  },
+  "GROUP": {
+    "prefix": "GROUP",
+    "body": [
+      "GROUP($subject, $delimiter, $occurence, $num_to_extract)"
+    ],
+    "description": "Use the GROUP function to return one or more substrings located between specified delimiters in string."
+  },
+  "GROUPSTORE": {
+    "prefix": "GROUPSTORE",
+    "body": [
+      "GROUPSTORE $newstr IN $str USING $start, $n, $delim"
+    ],
+    "description": "Use the GROUPSTORE statement to modify character strings by inserting, deleting, or replacing fields separated by specified delimiters."
+  },
+  "GTS": {
+    "prefix": "GTS",
+    "body": [
+      "GTS($arr1, $arr2)"
+    ],
+    "description": "Use the GTS function to test if elements of one dynamic array are greater than elements of another dynamic array."
+  },
+  "HEADING": {
+    "prefix": "HEADING",
+    "body": [
+      "HEADING $expression"
+    ],
+    "description": "Use the HEADING statement to specify the text and format of the heading to print at the top of each page of output."
+  },
+  "HMAC": {
+    "prefix": "HMAC",
+    "body": [
+      "HMAC($hmacAlg, $hmacKey, $hmacData, $outFormat)"
+    ],
+    "description": "HMAC (keyed-Hash Message Authentication Code) is a specific construction for calculating a message authentication code (MAC) involving a cryptographic hash function in combination with a secret key."
+  },
+  "HUSH": {
+    "prefix": "HUSH",
+    "body": [
+      "HUSH $expression"
+    ],
+    "description": "Use the HUSH statement to suppress the display of all output normally sent to a terminal during processing. HUSH also suppresses output to a COMO file or TANDEM display."
+  },
+  "ICHECK": {
+    "prefix": "ICHECK",
+    "body": [
+      "ICHECK($dynarr, $filevar, $key, $col)"
+    ],
+    "description": "Use the ICHECK function to check if data you intend to write to an SQL table violates any SQL integrity constraints. ICHECK verifies that specified data and primary keys satisfy the defined SQL integrity constraints for an SQL table."
+  },
+  "ICONV": {
+    "prefix": "ICONV",
+    "body": [
+      "ICONV($subject, $convcode)"
+    ],
+    "description": "Use the ICONV function to convert string to a specified internal storage format. string is an expression that evaluates to the string to be converted."
+  },
+  "ICONVS": {
+    "prefix": "ICONVS",
+    "body": [
+      "ICONVS($DynArr, $conversion)"
+    ],
+    "description": "Use the ICONVS function to convert each element of dynamic.array to a specified internal storage format."
+  },
+  "IF Then": {
+    "prefix": "IF",
+    "body": [
+      "IF $1 THEN",
+      "\t$2",
+      "END"
+    ],
+    "description": "Use the IF statement to determine program flow based on the evaluation of expression. If the value of expression is true, the THEN clauses are executed. If the value of expression is false, the THEN statements are ignored and the ELSE statements are executed. If expression is the null value, expression evaluates to false. If no ELSE statements are present, program execution continues with the next executable statement."
+  },
+  "IF Then/Else": {
+    "prefix": "IF",
+    "body": [
+      "IF $1 THEN",
+      "\t$2",
+      "END ELSE",
+      "\t$3",
+      "END"
+    ],
+    "description": "Use the IF statement to determine program flow based on the evaluation of expression. If the value of expression is true, the THEN clauses are executed. If the value of expression is false, the THEN statements are ignored and the ELSE statements are executed. If expression is the null value, expression evaluates to false. If no ELSE statements are present, program execution continues with the next executable statement."
+  },
+  "IFS": {
+    "prefix": "IFS",
+    "body": [
+      "IFS($dynamic_array, $true_array, $false_array)"
+    ],
+    "description": "Use the IFS function to return a dynamic array whose elements are chosen individually from one of two dynamic arrays based on the contents of a third dynamic array."
+  },
+  "ILPROMPT": {
+    "prefix": "ILPROMPT",
+    "body": [
+      "ILPROMPT($inLinePrompt)"
+    ],
+    "description": "Use the ILPROMPT function to evaluate a string containing UniVerse in-line prompts."
+  },
+  "INCLUDE": {
+    "prefix": "INCLUDE",
+    "body": [
+      "INCLUDE $prog"
+    ],
+    "description": "Use the INCLUDE statement to direct the compiler to insert the source code in the record program and compile it along with the main program. The INCLUDE statement differs from the $CHAIN statement in that the compiler returns to the main program and continues compiling with the statement following the INCLUDE statement."
+  },
+  "INDEX": {
+    "prefix": "INDEX",
+    "body": [
+      "INDEX($subject, $search, $occurrence)"
+    ],
+    "description": "Use the INDEX function to return the starting character position for the specified occurrence of substring in string."
+  },
+  "INDEXS": {
+    "prefix": "INDEXS",
+    "body": [
+      "INDEXS($subject, $search, $occurrence)"
+    ],
+    "description": "Use the INDEXS function to return a dynamic array of the starting column positions for a specified occurrence of a substring in each element of dynamic.array."
+  },
+  "INDICES": {
+    "prefix": "INDICES",
+    "body": [
+      "INDICES($filevar, $indexname)"
+    ],
+    "description": "Use the INDICES function to return information about the secondary key indexes in a file."
+  },
+  "initSecureServerSocket": {
+    "prefix": "initSecureServerSocket",
+    "body": [
+      "initSecureServerSocket($name_or_IP, $port, $backlog, $svr_socket, $context)"
+    ],
+    "description": "Use the initSecureServerSocket() function to create a secured connection-oriented stream server socket. It does exactly the same as the initServerSocket() function except that the connection will be secure. Once the server socket is opened, any change in the associated security context will not affect the opened socket."
+  },
+  "initServerSocket": {
+    "prefix": "initServerSocket",
+    "body": [
+      "initServerSocket($name_or_IP, $port, $backlog, $svr_socket)"
+    ],
+    "description": "Use the initServerSocket() function to create a connection-oriented (stream) socket. Associate this socket with an address (name_or_IP) and port number (port), and specify the maximum length the queue of pending connections may grow to."
+  },
+  "INMAT": {
+    "prefix": "INMAT",
+    "body": [
+      "INMAT($array)"
+    ],
+    "description": "Use the INMAT function to return the number of array elements that have been loaded after the execution of MATREAD statements, MATREADL statement, MATREADU statement, or MATPARSE statement, or to return the modulo of a file after the execution of an OPEN statement. You can also use the INMAT function after a DIMENSION statement to determine whether the DIM statement failed due to lack of available memory. If a preceding DIM statement fails, INMAT returns a value of 1."
+  },
+  "INPUT": {
+    "prefix": "INPUT",
+    "body": [
+      "INPUT $var"
+    ],
+    "description": "Use the INPUT statement to halt program execution and prompt the user to enter a response. Data entered at the terminal or supplied by a DATA statement in response to an INPUT statement is assigned to variable. Input supplied by a DATA statement is echoed to the terminal. If the response is a RETURN with no preceding data, an empty string is assigned to variable."
+  },
+  "INPUT @": {
+    "prefix": "INPUT",
+    "body": [
+      "INPUT @($col, $row) $var"
+    ],
+    "description": "Use the INPUT statement to halt program execution and prompt the user to enter a response. Data entered at the terminal or supplied by a DATA statement in response to an INPUT statement is assigned to variable. Input supplied by a DATA statement is echoed to the terminal. If the response is a RETURN with no preceding data, an empty string is assigned to variable."
+  },
+  "INPUTCLEAR": {
+    "prefix": "INPUTCLEAR",
+    "body": [
+      "INPUTCLEAR"
+    ],
+    "description": "Use the INPUTCLEAR statement to clear the type-ahead buffer. You can use this statement before input prompts so input is not affected by unwanted characters."
+  },
+  "INPUTDISP": {
+    "prefix": "INPUTDISP",
+    "body": [
+      "INPUTDISP @($col, $row) $var"
+    ],
+    "description": "Use the INPUTDISP statement with an @ expression to position the cursor at a specified location and define a format for the variable to print. The current contents of variable are displayed as the value in the defined field. Calculations are based on display length rather than character length."
+  },
+  "INPUTDP": {
+    "prefix": "INPUTDP",
+    "body": [
+      "INPUTDP $var THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "In NLS mode, use the INPUTDP statement to let the user enter data. The INPUTDP statement is similar to the INPUT statement, INPUTIF statement, and INPUTDISP statement, but it calculates display positions rather than character lengths."
+  },
+  "INPUTERR": {
+    "prefix": "INPUTERR",
+    "body": [
+      "INPUTERR $errMsg"
+    ],
+    "description": "Use the INPUTERR statement to print a formatted error message on the bottom line of the terminal. error.message is an expression that evaluates to the error message text. The message is cleared by the next INPUT statement or is overwritten by the next INPUTERR statement or PRINTERR statement. INPUTERR clears the type-ahead buffer."
+  },
+  "INPUTIF": {
+    "prefix": "INPUTIF",
+    "body": [
+      "INPUTIF $1"
+    ],
+    "description": "Use the INPUTIF statement to assign the contents of the type-ahead buffer to a variable."
+  },
+  "INPUTNULL": {
+    "prefix": "INPUTNULL",
+    "body": [
+      "INPUTNULL $char"
+    ],
+    "description": "Use the INPUTNULL statement to define a character to be recognized as an empty string when it is input in response to an INPUT statement. If the only input to the INPUT statement is character, that character is recognized as an empty string. character replaces the default value of the INPUT variable with an empty string. If character evaluates to the null value, the INPUTNULL statement fails and the program terminates with a run-time error message."
+  },
+  "INPUTTRAP": {
+    "prefix": "INPUTTRAP",
+    "body": [
+      "INPUTTRAP $chars GOSUB $label1"
+    ],
+    "description": "Use the INPUTTRAP statement to branch to a program label or subroutine when a trap character is input. Execution is passed to the statement label which corresponds to the trap number of the trap character. If the trap number is larger than the number of labels, execution is passed to the statement specified by the last label in the list."
+  },
+  "INS": {
+    "prefix": "INS",
+    "body": [
+      "INS $expression BEFORE $array<$attr, $value, $subvalue>"
+    ],
+    "description": "Use the INS statement to insert a new field, value, or subvalue into the specified dynamic.array."
+  },
+  "INSERT": {
+    "prefix": "INSERT",
+    "body": [
+      "INSERT($DynArr, $attr, $value, $subvalue; $expression)"
+    ],
+    "description": "Use the INSERT function to return a dynamic array that has a new field, value, or subvalue inserted into the specified dynamic array."
+  },
+  "INT": {
+    "prefix": "INT",
+    "body": [
+      "INT($expression)"
+    ],
+    "description": "Use the INT function to return the integer portion of an expression."
+  },
+  "ISNULL": {
+    "prefix": "ISNULL",
+    "body": [
+      "ISNULL($var)"
+    ],
+    "description": "Use the ISNULL function to test whether a variable is the null value. If variable is the null value, 1 (true) is returned, otherwise 0 (false) is returned. This is the only way to test for the null value since the null value is not equal to any value, including itself."
+  },
+  "ISNULLS": {
+    "prefix": "ISNULLS",
+    "body": [
+      "ISNULLS($dynarr)"
+    ],
+    "description": "Use the ISNULLS function to test whether any element of dynamic.array is the null value. A dynamic array is returned, each of whose elements is either 1 (true) or 0 (false). If an element in dynamic.array is the null value, 1 is returned, otherwise 0 is returned. This is the only way to test for the null value since the null value is not equal to any value, including itself."
+  },
+  "ITYPE": {
+    "prefix": "ITYPE",
+    "body": [
+      "ITYPE($item)"
+    ],
+    "description": "The ITYPE function leverages the object code stored within a compiled i.type item to return a result."
+  },
+  "KEYEDIT": {
+    "prefix": "KEYEDIT",
+    "body": [
+      "KEYEDIT($action, $key)"
+    ],
+    "description": "Use the KEYEDIT statement to assign specific keyboard keys to the editing functions of the INPUT @ statement, and to the !EDIT.INPUT and !GET.KEY subroutines."
+  },
+  "KEYEXIT": {
+    "prefix": "KEYEXIT",
+    "body": [
+      "KEYEXIT($action, $key)"
+    ],
+    "description": "Use the KEYEXIT statement to specify exit traps for the keys assigned specific functions by the KEYEDIT statement. When an exit trap key is typed, the variable being edited with the INPUT @ statement or the !EDIT.INPUT subroutine remains in its last edited state. Use the KEYTRAP statement to restore the variable to its initial state."
+  },
+  "KEYIN": {
+    "prefix": "KEYIN",
+    "body": [
+      "KEYIN()"
+    ],
+    "description": "Use the KEYIN function to read a single character from the input buffer and return it. All UniVerse special character handling (such as case inversion, erase, kill, and so on) is disabled. UNIX special character handling (processing of interrupts, XON/XOFF, conversion of CR to LF, and so on) still takes place. Calculations are based on display length rather than character length. No arguments are required with the KEYIN function; however, parentheses are required."
+  },
+  "KEYTRAP": {
+    "prefix": "KEYTRAP",
+    "body": [
+      "KEYTRAP($action, $key)"
+    ],
+    "description": "Use the KEYTRAP statement to specify traps for the keys assigned specific functions by the KEYEDIT statement. When a trap key is typed, the variable being edited with the INPUT @ statement or the !EDIT.INPUT subroutine is restored to its initial state. Use the KEYEXIT statement to leave the variable in its last edited state."
+  },
+  "LEFT": {
+    "prefix": "LEFT",
+    "body": [
+      "LEFT($str, $length)"
+    ],
+    "description": "Use the LEFT function to extract a substring comprising the first n characters of a string, without specifying the starting character position."
+  },
+  "LEN": {
+    "prefix": "LEN",
+    "body": [
+      "LEN($expression)"
+    ],
+    "description": "Use the LEN function to return the number of characters in string. Calculations are based on character length rather than display length."
+  },
+  "LENDP": {
+    "prefix": "LENDP",
+    "body": [
+      "LENDP($expression, $mapname)"
+    ],
+    "description": "In NLS mode, use the LENDP function to return the number of display positions occupied by string when using the specified map. Calculations are based on display length rather than character length."
+  },
+  "LENS": {
+    "prefix": "LENS",
+    "body": [
+      "LENS($dynamic_array)"
+    ],
+    "description": "Use the LENS function to return a dynamic array of the number of display positions in each element of dynamic.array. Calculations are based on character length rather than display length."
+  },
+  "LENSDP": {
+    "prefix": "LENSDP",
+    "body": [
+      "LENSDP($dynarr, $mapname)"
+    ],
+    "description": "In NLS mode, use the LENSDP function to return a dynamic array of the number of display positions occupied by each element of dynamic.array. Calculations are based on display length rather than character length."
+  },
+  "LES": {
+    "prefix": "LES",
+    "body": [
+      "LES($array1, $array2)"
+    ],
+    "description": "Use the LES function to test if elements of one dynamic array are less than or equal to the elements of another dynamic array."
+  },
+  "LET": {
+    "prefix": "LET",
+    "body": [
+      "LET $var = $expr"
+    ],
+    "description": "Use the LET statement to assign the value of expression to variable."
+  },
+  "LN": {
+    "prefix": "LN",
+    "body": [
+      "LN($expression)"
+    ],
+    "description": "Use the LN function to calculate the natural logarithm of the value of an expression, using base \"e\". The value of \"e\" is approximately 2.71828. expression must evaluate to a numeric value greater than 0. If expression is 0 or negative, 0 is returned and a warning is printed. If expression evaluates to the null value, null is returned."
+  },
+  "loadSecurityContext": {
+    "prefix": "loadSecurityContext",
+    "body": [
+      "loadSecurityContext($context, $name, $passPhrase)"
+    ],
+    "description": "The loadSecurityContext() function loads a saved security context record into the current session. The name and passPhrase parameters are needed to retrieve and decrypt the saved context. An internal data structure is created and its handle is returned in the context parameter."
+  },
+  "LOCALEINFO": {
+    "prefix": "LOCALEINFO",
+    "body": [
+      "LOCALEINFO($category)"
+    ],
+    "description": "In NLS mode, use the LOCALEINFO function to retrieve the settings of the current locale."
+  },
+  "LOCATE Function": {
+    "prefix": "LOCATE",
+    "body": [
+      "LOCATE($search, $subject; $returnVar) THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the LOCATE statement to search dynamic.array for a field, value, or subvalue."
+  },
+  "LOCATE Statement": {
+    "prefix": "LOCATE",
+    "body": [
+      "LOCATE $search IN $subject SETTING $returnVar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the LOCATE statement to search dynamic.array for a field, value, or subvalue."
+  },
+  "LOCK": {
+    "prefix": "LOCK",
+    "body": [
+      "LOCK $expression THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the LOCK statement to protect specified user-defined resources or events against unauthorized use or simultaneous data file access by different users."
+  },
+  "LOOP While": {
+    "prefix": "LOOP",
+    "body": [
+      "LOOP",
+      "\t$statement1",
+      "WHILE $expression DO",
+      "\t$statement2",
+      "REPEAT"
+    ],
+    "description": "Use the LOOP statement to start a LOOP…REPEAT program loop. A program loop is a series of statements that executes for a specified number of repetitions or until specified conditions are met."
+  },
+  "LOOP Until": {
+    "prefix": "LOOP",
+    "body": [
+      "LOOP",
+      "\t$statement1",
+      "UNTIL $expression DO",
+      "\t$statement2",
+      "REPEAT"
+    ],
+    "description": "Use the LOOP statement to start a LOOP…REPEAT program loop. A program loop is a series of statements that executes for a specified number of repetitions or until specified conditions are met."
+  },
+  "LOWER": {
+    "prefix": "LOWER",
+    "body": [
+      "LOWER($expression)"
+    ],
+    "description": "Use the LOWER function to return a value equal to expression, except that system delimiters which appear in expression are converted to the next lower-level delimiter: field marks are changed to value marks, value marks are changed to subvalue marks, and so on. If expression evaluates to the null value, null is returned."
+  },
+  "LTS": {
+    "prefix": "LTS",
+    "body": [
+      "LTS($arr1, $arr2)"
+    ],
+    "description": "Use the LTS function to test if elements of one dynamic array are less than elements of another dynamic array."
+  },
+  "MAT": {
+    "prefix": "MAT",
+    "body": [
+      "MAT $array = $expression"
+    ],
+    "description": "Use the MAT statement to assign one value to all of the elements in the array or to assign all the values of one array to the values of another array."
+  },
+  "MATBUILD": {
+    "prefix": "MATBUILD",
+    "body": [
+      "MATBUILD $variable FROM $array, $startexpr, $endexpr USING $delim"
+    ],
+    "description": "Use the MATBUILD statement to build a dynamic array from a dimensioned array."
+  },
+  "MATCH": {
+    "prefix": "MATCH",
+    "body": [
+      "$str MATCH $pattern"
+    ],
+    "description": "Use the MATCH operator or its synonym MATCHES to compare a string expression with a pattern."
+  },
+  "MATCHFIELD": {
+    "prefix": "MATCHFIELD",
+    "body": [
+      "MATCHFIELD($string, $pattern, $element)"
+    ],
+    "description": "Use the MATCHFIELD function to check a string against a match pattern."
+  },
+  "MATPARSE": {
+    "prefix": "MATPARSE",
+    "body": [
+      "MATPARSE $arr FROM $str"
+    ],
+    "description": "Use the MATPARSE statement to separate the fields of dynamic.array into consecutive elements of array."
+  },
+  "MATREAD": {
+    "prefix": "MATREAD",
+    "body": [
+      "MATREAD $mat FROM $filevar, $recordkey THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the MATREAD statement to assign the contents of the fields of a record from a UniVerse file to consecutive elements of array. The first field of the record becomes the first element of array, the second field of the record becomes the second element of array, and so on. The array must be named and dimensioned in a DIMENSION statement or COMMON statement before it is used in this statement."
+  },
+  "MATREADL": {
+    "prefix": "MATREADL",
+    "body": [
+      "MATREADL $mat FROM $filevar, $recordkey THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the MATREADL statement to set a shared record lock and perform the MATREAD statement."
+  },
+  "MATREADU": {
+    "prefix": "MATREADU",
+    "body": [
+      "MATREADU $mat FROM $filevar, $recordkey THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the MATREADU statement to set an update record lock and perform the MATREAD statement."
+  },
+  "MATWRITE": {
+    "prefix": "MATWRITE",
+    "body": [
+      "MATWRITE $mat TO $filevar, $recordkey"
+    ],
+    "description": "Use the MATWRITE statement to write data from the elements of a dimensioned array to a record in a UniVerse file. The elements of array replace any data stored in the record. MATWRITE strips any trailing empty fields from the record."
+  },
+  "MATWRITEU": {
+    "prefix": "MATWRITEU",
+    "body": [
+      "MATWRITEU $mat TO $filevar, $recordkey"
+    ],
+    "description": "Use the MATWRITEU statement to maintain an update record lock and perform the MATWRITE statement."
+  },
+  "MAXIMUM": {
+    "prefix": "MAXIMUM",
+    "body": [
+      "MAXIMUM($DynArr)"
+    ],
+    "description": "Use the MAXIMUM function to return the element with the highest numeric value in dynamic.array. Nonnumeric values, except the null value, are treated as 0. If dynamic.array evaluates to the null value, null is returned. Any element that is the null value is ignored, unless all elements of dynamic.array are null, in which case null is returned."
+  },
+  "MINIMUM": {
+    "prefix": "MINIMUM",
+    "body": [
+      "MINIMUM($DynArr)"
+    ],
+    "description": "Use the MINIMUM function to return the element with the lowest numeric value in dynamic.array. Nonnumeric values and empty strings, except the SQL null value, are treated as 0. If dynamic.array evaluates to the null value, null is returned. Any element that is the null value is ignored, unless all elements of dynamic.array are null, in which case null is returned."
+  },
+  "MOD": {
+    "prefix": "MOD",
+    "body": [
+      "MOD($dividend, $divisor)"
+    ],
+    "description": "Use the MOD function to calculate the value of the remainder after integer division is performed on the dividend expression by the divisor expression."
+  },
+  "MODS": {
+    "prefix": "MODS",
+    "body": [
+      "MODS($array1, $array2)"
+    ],
+    "description": "Use the MODS function to create a dynamic array of the remainder after the integer division of corresponding elements of two dynamic arrays."
+  },
+  "MQCLOSE": {
+    "prefix": "MQCLOSE",
+    "body": [
+      "MQCLOSE($hConn, $hObj, $options)"
+    ],
+    "description": "Use the MQCLOSE() function to close access to a queue or other object. When you close the queue, the queue and all uncommitted messages on the queue are deleted."
+  },
+  "MQCONN": {
+    "prefix": "MQCONN",
+    "body": [
+      "MQCONN($qManager, $hConn)"
+    ],
+    "description": "The MQCONN() function connects an application to a WebSphere MQ queue manager."
+  },
+  "MQDISC": {
+    "prefix": "MQDISC",
+    "body": [
+      "MQDISC($hConn)"
+    ],
+    "description": "The MQDISC function terminates connections to the queue manager that were create using the MQCONN function. The input for this function is the hConn connection handle returned by the MQCONN function."
+  },
+  "MULS": {
+    "prefix": "MULS",
+    "body": [
+      "MULS($array1, $array2)"
+    ],
+    "description": "Use the MULS function to create a dynamic array of the element-by-element multiplication of two dynamic arrays."
+  },
+  "NAP": {
+    "prefix": "NAP",
+    "body": [
+      "NAP $milliseconds"
+    ],
+    "description": "Use the NAP statement to suspend the execution of a BASIC program, pausing for a specified number of milliseconds."
+  },
+  "NEG": {
+    "prefix": "NEG",
+    "body": [
+      "NEG($num)"
+    ],
+    "description": "Use the NEG function to return the arithmetic inverse of the value of the argument. number is an expression evaluating to a number."
+  },
+  "NEGS": {
+    "prefix": "NEGS",
+    "body": [
+      "NEGS($DynArr)"
+    ],
+    "description": "Use the NEGS function to return the negative values of all the elements in a dynamic array. If the value of an element is negative, the returned value is positive. If dynamic.array evaluates to the null value, null is returned. If any element is null, null is returned for that element."
+  },
+  "NES": {
+    "prefix": "NES",
+    "body": [
+      "NES($arr1, $arr2)"
+    ],
+    "description": "Use the NES function to test if elements of one dynamic array are equal to the elements of another dynamic array."
+  },
+  "NOBUF": {
+    "prefix": "NOBUF",
+    "body": [
+      "NOBUF $file_variable THEN ",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the NOBUF statement to turn off buffering for a file previously opened for sequential processing. Normally UniVerse uses buffering for sequential input and output operations. The NOBUF statement turns off this buffering and causes all writes to the file to be performed immediately. It eliminates the need for FLUSH statement operations but also eliminates the benefits of buffering. The NOBUF statement must be executed after a successful OPENSEQ statement or CREATE statement and before any input or output operation is performed on the record."
+  },
+  "NOT": {
+    "prefix": "NOT",
+    "body": [
+      "NOT($expr)"
+    ],
+    "description": "Use the NOT function to return the logical complement of the value of expression. If the value of expression is true, the NOT function returns a value of false (0). If the value of expression is false, the NOT function returns a value of true (1)."
+  },
+  "NOTS": {
+    "prefix": "NOTS",
+    "body": [
+      "NOTS($DynArr)"
+    ],
+    "description": "Use the NOTS function to return a dynamic array of the logical complements of each element of dynamic.array. If the value of the element is true, the NOTS function returns a value of false (0) in the corresponding element of the returned array. If the value of the element is false, the NOTS function returns a value of true (1) in the corresponding element of the returned array."
+  },
+  "NULL": {
+    "prefix": "NULL",
+    "body": [
+      "NULL"
+    ],
+    "description": "Use the NULL statement when a statement is required but no operation is to be performed. For example, you can use it with the ELSE clause if you do not want any operation performed when the ELSE clause is executed."
+  },
+  "NUM": {
+    "prefix": "NUM",
+    "body": [
+      "NUM($expr)"
+    ],
+    "description": "Use the NUM function to determine whether expression is a numeric or nonnumeric string. If expression is a number, a numeric string, or an empty string, it evaluates to true and a value of 1 is returned. If expression is a nonnumeric string, it evaluates to false and a value of 0 is returned."
+  },
+  "NUMS": {
+    "prefix": "NUMS",
+    "body": [
+      "NUMS($DynArr)"
+    ],
+    "description": "Use the NUMS function to determine whether the elements of a dynamic array are numeric or nonnumeric strings. If an element is numeric, a numeric string, or an empty string, it evaluates to true, and a value of 1 is returned to the corresponding element in a new dynamic array. If the element is a nonnumeric string, it evaluates to false, and a value of 0 is returned."
+  },
+  "OCONV": {
+    "prefix": "OCONV",
+    "body": [
+      "OCONV($subject, $conversion)"
+    ],
+    "description": "Use the OCONV function to convert string to a specified format for external output. The result is always a string expression."
+  },
+  "OCONVS": {
+    "prefix": "OCONVS",
+    "body": [
+      "OCONVS($DynArr, $conversion)"
+    ],
+    "description": "Use the OCONVS function to convert the elements of dynamic.array to a specified format for external output."
+  },
+  "ON": {
+    "prefix": "ON",
+    "body": [
+      "ON $expr GOSUB $label"
+    ],
+    "description": "Use the ON statement to transfer program control to one of the internal subroutines named in the GOSUB clause or to one of the statements named in the GOTO clause."
+  },
+  "OPEN": {
+    "prefix": "OPEN",
+    "body": [
+      "OPEN $filename TO $filevar ELSE $else_statements"
+    ],
+    "description": "Use the OPEN statement to open a UniVerse file for use by BASIC programs. All file references in a BASIC program must be preceded by either an OPEN statement or an OPENCHECK statement for that file. You can open several UniVerse files at the same point in a program, but you must use a separate OPEN statement for each file."
+  },
+  "OPENCHECK": {
+    "prefix": "OPENCHECK",
+    "body": [
+      "OPENCHECK $filename TO $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the OPENCHECK statement to open an SQL table for use by BASIC programs, enforcing SQL integrity checking. All file references in a BASIC program must be preceded by either an OPENCHECK statement or an OPEN statement for that file."
+  },
+  "OPENDEV": {
+    "prefix": "OPENDEV",
+    "body": [
+      "OPENDEV $Device TO $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the OPENDEV statement to open a device for sequential processing. OPENDEV also sets a record lock on the opened device or file."
+  },
+  "OPENPATH": {
+    "prefix": "OPENPATH",
+    "body": [
+      "OPENPATH $pathname TO $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "The OPENPATH statement is similar to the OPEN statement, except that the pathname of the file is specified. This file is opened without reference to the VOC file. The file must be a hashed UniVerse file or a directory (UniVerse types 1 and 19)."
+  },
+  "OPENSEQ": {
+    "prefix": "OPENSEQ",
+    "body": [
+      "OPENSEQ $filename, $recordid TO $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the OPENSEQ statement to open a file for sequential processing. All sequential file references in a BASIC program must be preceded by an OPENSEQ or OPENDEV statement for that file. Although you can open several files for sequential processing at the same point in the program, you must issue a separate OPENSEQ statement for each."
+  },
+  "openSecureSocket": {
+    "prefix": "openSecureSocket",
+    "body": [
+      "openSecureSocket($name_or_IP, $port, $mode, $timeout, $socket_handle, $context)"
+    ],
+    "description": "Use the openSecureSocket() function to open a secure socket connection in a specified mode and return the status."
+  },
+  "openSocket": {
+    "prefix": "openSocket",
+    "body": [
+      "openSocket($name_or_IP, $port, $mode, $timeout, $socket_handle)"
+    ],
+    "description": "Use the openSocket() function to open a socket connection in a specified mode and return the status."
+  },
+  "OpenXMLData": {
+    "prefix": "OpenXMLData",
+    "body": [
+      "OpenXMLData($xml_handle, $xml_data_extraction_rule, $xml_data_handle)"
+    ],
+    "description": "After you prepare the XML document, open it using the OpenXMLData function."
+  },
+  "ORS": {
+    "prefix": "ORS",
+    "body": [
+      "ORS($arr1, $arr2)"
+    ],
+    "description": "Use the ORS function to create a dynamic array of the logical OR of corresponding elements of two dynamic arrays."
+  },
+  "PAGE": {
+    "prefix": "PAGE",
+    "body": [
+      "PAGE $1"
+    ],
+    "description": "Use the PAGE statement to print headings, footings, and page advances at the appropriate places on the specified output device."
+  },
+  "PERFORM": {
+    "prefix": "PERFORM",
+    "body": [
+      "PERFORM $expression"
+    ],
+    "description": "Use the PERFORM statement to execute a UniVerse sentence, paragraph, menu, or command from within the BASIC program, then return execution to the statement following the PERFORM statement. The commands are executed in the same environment as the BASIC program that called them; that is, unnamed common variables, @variables, and in-line prompts retain their values, and select lists and the DATA stack remain active. If these values change, the new values are passed back to the calling program."
+  },
+  "PRECISION": {
+    "prefix": "PRECISION",
+    "body": [
+      "PRECISION $integer"
+    ],
+    "description": "Use the PRECISION statement to control the maximum number of decimal places that are output when the system converts a numeric value from internal binary format to an ASCII character string value."
+  },
+  "PrepareXML": {
+    "prefix": "PrepareXML",
+    "body": [
+      "PrepareXML($xml_file, $xml_handle)"
+    ],
+    "description": "The PrepareXML function allocates memory for the XML document, opens the document, determines the file structure of the document, and returns the file structure."
+  },
+  "PRINT": {
+    "prefix": "PRINT",
+    "body": [
+      "PRINT $expression"
+    ],
+    "description": "Use the PRINT statement to send data to the screen, a line printer, or another print file."
+  },
+  "PRINTER": {
+    "prefix": "PRINTER",
+    "body": [
+      "PRINTER $ON_OFF_RESET"
+    ],
+    "description": "Use the PRINTER statement to direct output either to the screen or to a printer. By default, all output is sent to the screen unless a PRINTER ON is executed or the P option to the RUN command is used. See the SETPTR command for more details about redirecting output."
+  },
+  "PRINTERR": {
+    "prefix": "PRINTERR",
+    "body": [
+      "PRINTERR $errMsg"
+    ],
+    "description": "Use the PRINTERR statement to print a formatted error message on the bottom line of the terminal. The message is cleared by the next INPUT @ statement or is overwritten by the next PRINTERR or INPUTERR statement. PRINTERR clears the type-ahead buffer."
+  },
+  "PROCREAD": {
+    "prefix": "PROCREAD",
+    "body": [
+      "PROCREAD $variable THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the PROCREAD statement to assign the contents of the primary input buffer to a variable. Your BASIC program must be called by a proc. If your program was not called from a proc, the ELSE statements are executed; otherwise the THEN statements are executed."
+  },
+  "PROCWRITE": {
+    "prefix": "PROCWRITE",
+    "body": [
+      "PROCWRITE $str"
+    ],
+    "description": "Use the PROCWRITE statement to write string to the primary input buffer. Your program must be called by a proc."
+  },
+  "PROGRAM": {
+    "prefix": "PROGRAM",
+    "body": [
+      "PROGRAM $progname"
+    ],
+    "description": "Use the PROGRAM statement to identify a program. The PROGRAM statement is optional; if you use it, it must be the first noncomment line in the program."
+  },
+  "PROMPT": {
+    "prefix": "PROMPT",
+    "body": [
+      "PROMPT $char"
+    ],
+    "description": "Use the PROMPT statement to specify the character to be displayed on the screen when user input is required. If no PROMPT statement is issued, the default prompt character is the question mark (? )."
+  },
+  "protocolLogging": {
+    "prefix": "protocolLogging",
+    "body": [
+      "protocolLogging($log_file, $log_action, $log_level)"
+    ],
+    "description": "The protocolLogging function starts or stops logging."
+  },
+  "PWR": {
+    "prefix": "PWR",
+    "body": [
+      "PWR($expr, $power)"
+    ],
+    "description": "Use the PWR function to return the value of expression raised to the power specified by power."
+  },
+  "PyCall": {
+    "prefix": "PyCall",
+    "body": [
+      "PyCall(PyObj, $args)"
+    ],
+    "description": "The PyCall function calls a Python callable object."
+  },
+  "PyCallFunction": {
+    "prefix": "PyCallFunction",
+    "body": [
+      "PyCallFunction($moduleName, $funcName, $args)"
+    ],
+    "description": "The PyCallFunction function calls a Python function on a Python module."
+  },
+  "PyCallMethod": {
+    "prefix": "PyCallMethod",
+    "body": [
+      "PyCallMethod($pyObj, $methName, $args)"
+    ],
+    "description": "The PyCallMethod function calls a method on a Python object."
+  },
+  "PyGetAttr": {
+    "prefix": "PyGetAttr",
+    "body": [
+      "PyGetAttr($pyobj, $attrName)"
+    ],
+    "description": "The PyGetAttr function gets the value of an attribute of a Python object."
+  },
+  "PyImport": {
+    "prefix": "PyImport",
+    "body": [
+      "PyImport($moduleName)"
+    ],
+    "description": "The PyImport function imports a Python module."
+  },
+  "PySetAttr": {
+    "prefix": "PySetAttr",
+    "body": [
+      "PySetAttr($pyobj, $attrName, $val)"
+    ],
+    "description": "The PySetAttr function sets the value of an attribute of a Python object."
+  },
+  "QUOTE": {
+    "prefix": "QUOTE",
+    "body": [
+      "QUOTE($expression)"
+    ],
+    "description": "Use the QUOTE function to enclose an expression in double quotation marks. If expression evaluates to the null value, null is returned (without quotation marks)."
+  },
+  "RAISE": {
+    "prefix": "RAISE",
+    "body": [
+      "RAISE($str)"
+    ],
+    "description": "Use the RAISE function to return a value equal to expression, except that system delimiters in expression are converted to the next higher-level delimiter: value marks are changed to field marks, subvalue marks are changed to value marks, and so on. If expression evaluates to the null value, null is returned."
+  },
+  "RANDOMIZE": {
+    "prefix": "RANDOMIZE",
+    "body": [
+      "RANDOMIZE $expression"
+    ],
+    "description": "Use the RANDOMIZE statement with an expression to make the RND function generate the same sequence of random numbers each time the program is run. expression must be a positive integer or zero. If no expression is supplied, or if expression evaluates to the null value, the internal time of day is used (the null value is ignored). In these cases the sequence is different each time the program is run."
+  },
+  "READ": {
+    "prefix": "READ",
+    "body": [
+      "READ $var FROM $filevar,$recordkey THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use READ statements to assign the contents of a record from a UniVerse file to dynamic.array."
+  },
+  "READBLK": {
+    "prefix": "READBLK",
+    "body": [
+      "READBLK $var $ENCODING FROM $filevariable, $blocksize THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the READBLK statement to read a block of data of a specified length from a file opened for sequential processing and assign it to a variable. The READBLK statement reads a block of data beginning at the current position in the file and continuing for blocksize bytes and assigns it to variable. The current position is reset to just beyond the last byte read."
+  },
+  "READL": {
+    "prefix": "READL",
+    "body": [
+      "READL $var FROM $filevar,$recordkey THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the READL statement to acquire a shared record lock and perform the READ statement."
+  },
+  "READLIST": {
+    "prefix": "READLIST",
+    "body": [
+      "READLIST $dynarr FROM $listnum THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the READLIST statement to read the remainder of an active select list into a dynamic array."
+  },
+  "READNEXT": {
+    "prefix": "READNEXT",
+    "body": [
+      "READNEXT $var FROM $list"
+    ],
+    "description": "Use the READNEXT statement to assign the next record ID from an active select list to dynamic.array."
+  },
+  "READSEQ": {
+    "prefix": "READSEQ",
+    "body": [
+      "READSEQ $var FROM $filevar ON ERROR $err_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the READSEQ statement to read a line of data from a file opened for sequential processing. Sequential processing lets you process data one line at a time. UniVerse keeps a pointer at the current position in the file. The $OPTIONS statement sets this pointer to the first byte of the file, and it is advanced by READSEQ, READBLK statement, WRITESEQ statement, and WRITEBLK statement."
+  },
+  "readSocket": {
+    "prefix": "readSocket",
+    "body": [
+      "readSocket($socket_handle, $socket_data, $max_read_size, $time_out, $mode, $actual_read_size)"
+    ],
+    "description": "Use the readSocket() function to read data in the socket buffer up to max_read_size characters."
+  },
+  "READT": {
+    "prefix": "READT",
+    "body": [
+      "READT $variable FROM $expression THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the READT statement to read the next tape record from a magnetic tape unit and assign its contents to a variable."
+  },
+  "READU": {
+    "prefix": "READU",
+    "body": [
+      "READU $var FROM $filevar,$recordkey LOCKED $lock_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the READU statement to set an update record lock and perform the READ statement."
+  },
+  "READV": {
+    "prefix": "READV",
+    "body": [
+      "READV $var FROM $filevar,$recordkey,$attr THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the READV statement to read the contents of a specified field of a record in a UniVerse file."
+  },
+  "READVL": {
+    "prefix": "READVL",
+    "body": [
+      "READVL $var FROM $filevar,$recordkey,$attr THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the READV statement to read the contents of a specified field of a record in a UniVerse file."
+  },
+  "READVU": {
+    "prefix": "READVU",
+    "body": [
+      "READVU $var FROM $filevar,$recordkey,$attr LOCKED $lock_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the READV statement to read the contents of a specified field of a record in a UniVerse file."
+  },
+  "ReadXMLData": {
+    "prefix": "ReadXMLData",
+    "body": [
+      "ReadXMLData($xml_data_handle, $rec)"
+    ],
+    "description": "After you open an XML document, read the document using the ReadXMLData function. UniVerse BASIC returns the XML data as a dynamic array."
+  },
+  "REAL": {
+    "prefix": "REAL",
+    "body": [
+      "REAL($num)"
+    ],
+    "description": "Use the REAL function to convert number into a floating-point number without loss of accuracy. If number evaluates to the null value, null is returned."
+  },
+  "RECORDLOCKL": {
+    "prefix": "RECORDLOCKL",
+    "body": [
+      "RECORDLOCKL $filevar, $recordid"
+    ],
+    "description": "Use RECORDLOCK statements to acquire a record lock on a record without reading the record."
+  },
+  "RECORDLOCKU": {
+    "prefix": "RECORDLOCKU",
+    "body": [
+      "RECORDLOCKU $filevar, $recordid"
+    ],
+    "description": "Use RECORDLOCK statements to acquire a record lock on a record without reading the record."
+  },
+  "RECORDLOCKED": {
+    "prefix": "RECORDLOCKED",
+    "body": [
+      "RECORDLOCKED($filevar, $recordkey)"
+    ],
+    "description": "Use the RECORDLOCKED function to return the status of a record lock."
+  },
+  "RELEASE": {
+    "prefix": "RELEASE",
+    "body": [
+      "RELEASE $filevar, $recordid ON ERROR $err_statements"
+    ],
+    "description": "Use the RELEASE statement to unlock, or release, locks set by a FILELOCK statement, MATREADL statement, MATREADU statement, READL statement, READU statement, READVL statement, READVU statement, and OPENSEQ statement. These statements lock designated records to prevent concurrent updating by other users. If you do not explicitly release a lock that you have set, it is unlocked automatically when the program terminates."
+  },
+  "ReleaseXML": {
+    "prefix": "ReleaseXML",
+    "body": [
+      "ReleaseXML($XMLhandle)"
+    ],
+    "description": "Release the XML dynamic array after closing it using the ReleaseXML function. ReleaseXML destroys the internal DOM tree and releases the associated memory."
+  },
+  "REM Function": {
+    "prefix": "REM",
+    "body": [
+      "REM($dividend, $divisor)"
+    ],
+    "description": "Use the REM function to calculate the remainder after integer division is performed on the dividend expression by the divisor expression."
+  },
+  "REM Statement": {
+    "prefix": "REM",
+    "body": [
+      "REM $comment"
+    ],
+    "description": "Use the REM statement to insert a comment in a BASIC program. Comments explain or document various parts of a program. They are part of the source code only and are nonexecutable. They do not affect the size of the object code."
+  },
+  "REMOVE Function": {
+    "prefix": "REMOVE",
+    "body": [
+      "REMOVE($dynarr, $var)"
+    ],
+    "description": "Use the REMOVE function to successively extract and return dynamic array elements that are separated by system delimiters, and to indicate which system delimiter was found. When a system delimiter is encountered, the value of the extracted element is returned. The REMOVE function is more efficient than the EXTRACT function for extracting successive fields, values, and so on, for multivalue list processing."
+  },
+  "REMOVE Statement": {
+    "prefix": "REMOVE",
+    "body": [
+      "REMOVE $variable FROM $array SETTING $setvar"
+    ],
+    "description": "Use the REMOVE statement to successively extract dynamic array elements that are separated by system delimiters. When a system delimiter is encountered, the extracted element is assigned to element. The REMOVE statement is more efficient than the EXTRACT function for extracting successive fields, values, and so on, for multivalue list processing."
+  },
+  "REPLACE": {
+    "prefix": "REPLACE",
+    "body": [
+      "REPLACE($var, $attr, $value, $subvalue; $replace)"
+    ],
+    "description": "Use the REPLACE function to return a copy of a dynamic array with the specified field, value, or subvalue replaced with new data."
+  },
+  "RETURN": {
+    "prefix": "RETURN",
+    "body": [
+      "RETURN $1"
+    ],
+    "description": "Use the RETURN statement to terminate a subroutine and return control to the calling program or statement."
+  },
+  "RETURN (value)": {
+    "prefix": "RETURN (value)",
+    "body": [
+      "RETURN ($value)"
+    ],
+    "description": "Use the RETURN (value) statement to return a value from a user-written function."
+  },
+  "REUSE": {
+    "prefix": "REUSE",
+    "body": [
+      "REUSE($dynarr)"
+    ],
+    "description": "Use the REUSE function to specify that the value of the last field, value, or subvalue be reused in a dynamic array operation."
+  },
+  "REVREMOVE": {
+    "prefix": "REVREMOVE",
+    "body": [
+      "REVREMOVE $element FROM $dynarr SETTING $var"
+    ],
+    "description": "Use the REVREMOVE statement to successively extract dynamic array elements that are separated by system delimiters. The elements are extracted from right to left, in the opposite order from those extracted by the REMOVE statement. When a system delimiter is encountered, the extracted element is assigned to element."
+  },
+  "REWIND": {
+    "prefix": "REWIND",
+    "body": [
+      "REWIND $UNIT THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the REWIND statement to rewind a magnetic tape to the beginning-of-tape position."
+  },
+  "RIGHT": {
+    "prefix": "RIGHT",
+    "body": [
+      "RIGHT($str, $length)"
+    ],
+    "description": "Use the RIGHT function to extract a substring comprising the last n characters of a string."
+  },
+  "RND": {
+    "prefix": "RND",
+    "body": [
+      "RND($expr)"
+    ],
+    "description": "Use the RND function to generate any positive or negative random integer or 0."
+  },
+  "ROLLBACK": {
+    "prefix": "ROLLBACK",
+    "body": [
+      "ROLLBACK $WORK THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the ROLLBACK statement to cancel all file I/O changes made during a transaction. The WORK keyword provides compatibility with SQL syntax conventions; it is ignored by the compiler."
+  },
+  "ROUND": {
+    "prefix": "ROUND",
+    "body": [
+      "ROUND($num, $places)"
+    ],
+    "description": "Use the ROUND function to round a numeric value to the specified number of decimal places."
+  },
+  "RPC.CALL": {
+    "prefix": "RPC.CALL",
+    "body": [
+      "RPC.CALL ($connID, $procedure, $numargs, MAT $arglist, $numvalues, MAT $return.list)"
+    ],
+    "description": "Use the RPC.CALL function to make requests of a connected server. The request is packaged and sent to the server using the C client RPC library. RPC.CALL returns the results of processing the remote request: 1 for success, 0 for failure."
+  },
+  "RPC.CONNECT": {
+    "prefix": "RPC.CONNECT",
+    "body": [
+      "RPC.CONNECT($host, $server)"
+    ],
+    "description": "Use the RPC.CONNECT function to establish a connection to a server process. Once the host and server are identified, the local UVNet daemon tries to connect to the remote server. If the attempt succeeds, RPC.CONNECT returns a connection ID. If it fails, RPC.CONNECT returns 0. The connection ID is a nonzero integer used to refer to the server in subsequent calls to RPC.CALL function and RPC.DISCONNECT function."
+  },
+  "RPC.DISCONNECT": {
+    "prefix": "RPC.DISCONNECT",
+    "body": [
+      "RPC.DISCONNECT($connID)"
+    ],
+    "description": "Use the RPC.DISCONNECT function to end an RPC session."
+  },
+  "RQM": {
+    "prefix": "RQM",
+    "body": [
+      "RQM $seconds"
+    ],
+    "description": "RQM is a synonym for the SLEEP statement."
+  },
+  "SADD": {
+    "prefix": "SADD",
+    "body": [
+      "SADD($1, $2)"
+    ],
+    "description": "Use the SADD function to add two string numbers and return the result as a string number. You can use this function in any expression where a string or string number is valid, but not necessarily where a standard number is valid, because string numbers can exceed the range of numbers that standard arithmetic operators can handle."
+  },
+  "saveSecurityContext": {
+    "prefix": "saveSecurityContext",
+    "body": [
+      "saveSecurityContext($context, $name, $passPhrase)"
+    ],
+    "description": "The saveSecurityContext() function encrypts and saves a security context to a system security file. The file is maintained on a per account basis for UniData and UniVerse. The name is used as the record ID to access the saved security information. Since the information is encrypted, you should not attempt to directly manipulate it."
+  },
+  "SCMP": {
+    "prefix": "SCMP",
+    "body": [
+      "SCMP($1, $2)"
+    ],
+    "description": "Use the SCMP function to compare two string numbers and return one of the following three numbers: -1 (less than), 0 (equal), or 1 (greater than). If string.number.1 is less than string.number.2, the result is -1. If they are equal, the result is 0. If string.number.1 is greater than string.number.2, the result is 1. You can use this function in any expression where a string or string number is valid."
+  },
+  "SDIV": {
+    "prefix": "SDIV",
+    "body": [
+      "SDIV($1, $2, $precision)"
+    ],
+    "description": "Use the SDIV function to divide string.number.1 by string.number.2 and return the result as a string number. You can use this function in any expression where a string or string number is valid, but not necessarily where a standard number is valid, because string numbers can exceed the range of numbers which standard arithmetic operators can handle. Either string number can be a valid number or a string number."
+  },
+  "SEEK": {
+    "prefix": "SEEK",
+    "body": [
+      "SEEK $filevar, $offset, $relto THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the SEEK statement to move the file pointer by an offset specified in bytes, relative to the current position, the beginning of the file, or the end of the file."
+  },
+  "SEEK(ARG.)": {
+    "prefix": "SEEK(ARG.)",
+    "body": [
+      "SEEK(ARG. $argnum) THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the SEEK(ARG.) statement to move the command line argument pointer to the next command line argument from left to right, or to a command line argument specified by arg#. The command line is delimited by blanks, and the first argument is assumed to be the first word after the program name. When a cataloged program is invoked, the argument list starts with the second word in the command line."
+  },
+  "SELECT": {
+    "prefix": "SELECT",
+    "body": [
+      "SELECT $variable1 TO $list ON ERROR $err_statements"
+    ],
+    "description": "Use a SELECT statement to create a numbered select list of record IDs from a UniVerse file or a dynamic array. A subsequent READNEXT statement can access this select list, removing one record ID at a time from the list. READNEXT instructions can begin processing the select list immediately."
+  },
+  "SELECTE": {
+    "prefix": "SELECTE",
+    "body": [
+      "SELECTE TO $listname"
+    ],
+    "description": "Use the SELECTE statement to assign the contents of select list 0 to list.variable. list.variable is activated in place of select list 0 and can be read with the READNEXT statement."
+  },
+  "SELECTINDEX": {
+    "prefix": "SELECTINDEX",
+    "body": [
+      "SELECTINDEX $indexname, $val FROM $filevar TO $listno"
+    ],
+    "description": "Use the SELECTINDEX statement to create select lists from secondary indexes."
+  },
+  "SELECTINFO": {
+    "prefix": "SELECTINFO",
+    "body": [
+      "SELECTINFO($list, $key)"
+    ],
+    "description": "Use the SELECTINFO function to determine whether a select list is active, or to determine the number of items it contains."
+  },
+  "SEND": {
+    "prefix": "SEND",
+    "body": [
+      "SEND $output TO $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the SEND statement to write a block of data to a device. The SEND statement can be used to write data to a device that has been opened for I/O using the OPENDEV statement or OPENSEQ statement."
+  },
+  "SENTENCE": {
+    "prefix": "SENTENCE",
+    "body": [
+      "SENTENCE()"
+    ],
+    "description": "Use the SENTENCE function to return the stored sentence that invoked the current process. Although the SENTENCE function uses no arguments, parentheses are required to identify it as a function. The SENTENCE function is a synonym for the @SENTENCE system variable."
+  },
+  "SEQ": {
+    "prefix": "SEQ",
+    "body": [
+      "SEQ($char)"
+    ],
+    "description": "Use the SEQ function to convert an ASCII character to its numeric string equivalent."
+  },
+  "SEQS": {
+    "prefix": "SEQS",
+    "body": [
+      "SEQS($DynArr)"
+    ],
+    "description": "Use the SEQS function to convert a dynamic array of ASCII characters to their numeric string equivalents."
+  },
+  "setAuthenticationDepth": {
+    "prefix": "setAuthenticationDepth",
+    "body": [
+      "setAuthenticationDepth($context, $depth, $ServerOrClient)"
+    ],
+    "description": "The setAuthenticationDepth() function sets how deeply UniData and UniVerse should verify before deciding that a certificate is not valid."
+  },
+  "setCipherSuite": {
+    "prefix": "setCipherSuite",
+    "body": [
+      "setCipherSuite($context, $cipherSpecs)"
+    ],
+    "description": "The setCipherSuite() function allows you to identify which cipher suites should be supported for the specified context. It affects the cipher suites and public key algorithms supported during the SSL/ TLS handshake and subsequent data exchanges."
+  },
+  "setClientAuthentication": {
+    "prefix": "setClientAuthentication",
+    "body": [
+      "setClientAuthentication($context, $option)"
+    ],
+    "description": "The setClientAuthentication() function turns on or off client authentication for a server socket."
+  },
+  "setIpv": {
+    "prefix": "setIpv",
+    "body": [
+      "setIpv($option, $sockettype)"
+    ],
+    "description": "Use the setIpv function to set the default IPv connection for the whole system or for only Socket networks or UVNet. The function also returns the setting back for display."
+  },
+  "setPrivateKey": {
+    "prefix": "setPrivateKey",
+    "body": [
+      "setPrivateKey($key, $format, $keyLoc, $passPhrase, $validate, $context, $p12pass)"
+    ],
+    "description": "The setPrivateKey() function loads the private key into a security context so that it can be used by SSL functions. If the context already had a set private key, it will be replaced."
+  },
+  "setRandomSeed": {
+    "prefix": "setRandomSeed",
+    "body": [
+      "setRandomSeed($inFiles, $outFile, $length, $context)"
+    ],
+    "description": "The setRandomSeed() function generates a random seed file from a series of source files and sets that file as the default seed file for the supplied security context."
+  },
+  "SET TRANSACTION ISOLATION LEVEL": {
+    "prefix": "SET TRANSACTION ISOLATION LEVEL",
+    "body": [
+      "SET TRANSACTION ISOLATION LEVEL $lvl"
+    ],
+    "description": "Use the SET TRANSACTION ISOLATION LEVEL statement to set the default transaction isolation level you need for your program."
+  },
+  "setHTTPDefault": {
+    "prefix": "setHTTPDefault",
+    "body": [
+      "setHTTPDefault($opt, $val)"
+    ],
+    "description": "The setHTTPDefault function configures the default HTTP settings, including proxy server and port, buffer size, authentication credential, HTTP version, and request header values. These settings are used with every HTTP request that follows."
+  },
+  "setRequestHeader": {
+    "prefix": "setRequestHeader",
+    "body": [
+      "setRequestHeader($request_handle, $header_name, $header_value)"
+    ],
+    "description": "The setRequestHeader function enables you to set additional headers for a request."
+  },
+  "SETLOCALE": {
+    "prefix": "SETLOCALE",
+    "body": [
+      "SETLOCALE($category, $val)"
+    ],
+    "description": "In NLS mode, use the SETLOCALE function to enable or disable a locale for a specified category or change its setting."
+  },
+  "SETREM": {
+    "prefix": "SETREM",
+    "body": [
+      "SETREM $pos ON $dynarr"
+    ],
+    "description": "Use the SETREM statement to set the remove pointer in dynamic.array to the position specified by position."
+  },
+  "setSocketMap": {
+    "prefix": "setSocketMap",
+    "body": [
+      "setSocketMap($mapname)"
+    ],
+    "description": "The setSocketMap() function sets the default NLS map for either server or client sockets. If you call openSocket() or acceptConnection() prior to calling setSocketMap(), UniVerse uses the default map defined in uvconfig."
+  },
+  "setSocketOptions": {
+    "prefix": "setSocketOptions",
+    "body": [
+      "setSocketOptions($socket_handle, $options)"
+    ],
+    "description": "The setSocketOptions() function sets the current value for a socket option associated with a socket of any type."
+  },
+  "showSecurityContext": {
+    "prefix": "showSecurityContext",
+    "body": [
+      "showSecurityContext($context, $config)"
+    ],
+    "description": "The showSecurityContext() function dumps the SSL configuration parameters of a security context into a readable format."
+  },
+  "SIGNATURE": {
+    "prefix": "SIGNATURE",
+    "body": [
+      "SIGNATURE($algorithm, $action, $data, $dataLoc, $key, $keyLoc, $keyFmt, $pass, $sigIn, $result, $p12pass)"
+    ],
+    "description": "The SIGNATURE() function generates a digital signature or verifies a signature using the supplied key. Digital signature is generally created over a piece of data or document by some cryptographic algorithm and used to prove the authenticity and integrity of the data or document, for example, the recipient of the data with a valid digital signature has reason to believe that the data is from a trusted sender and its contents are not modified."
+  },
+  "SIN": {
+    "prefix": "SIN",
+    "body": [
+      "SIN($expr)"
+    ],
+    "description": "Use the SIN function to return the trigonometric sine of an expression. expression represents the angle expressed in degrees. Numbers greater than 1E17 produce a warning message, and 0 is returned. If expression evaluates to the null value, null is returned."
+  },
+  "SINH": {
+    "prefix": "SINH",
+    "body": [
+      "SINH($expr)"
+    ],
+    "description": "Use the SINH function to return the hyperbolic sine of expression. expression must be numeric and represents the angle expressed in degrees. If expression evaluates to the null value, null is returned."
+  },
+  "SLEEP": {
+    "prefix": "SLEEP",
+    "body": [
+      "SLEEP $seconds"
+    ],
+    "description": "Use the SLEEP statement to suspend execution of a BASIC program, pausing for a specified number of seconds."
+  },
+  "SMUL": {
+    "prefix": "SMUL",
+    "body": [
+      "SMUL($1, $2)"
+    ],
+    "description": "Use the SMUL function to multiply two string numbers and return the result as a string number. You can use this function in any expression where a string or string number is valid, but not necessarily where a standard number is valid, because string numbers can exceed the range of numbers that standard arithmetic operators can handle."
+  },
+  "SOAPCreateRequest": {
+    "prefix": "SOAPCreateRequest",
+    "body": [
+      "SOAPCreateRequest($URL, $soapAction, $Request)"
+    ],
+    "description": "The SOAPCreateRequest function creates a SOAP request and returns a handle to the request."
+  },
+  "SOAPCreateSecureRequest": {
+    "prefix": "SOAPCreateSecureRequest",
+    "body": [
+      "SOAPCreateSecureRequest($URL, $soapAction, $Request, $security_context)"
+    ],
+    "description": "The SOAPCreateSecureRequest function creates a secure SOAP request and returns a handle to the request."
+  },
+  "SOAPGetDefault": {
+    "prefix": "SOAPGetDefault",
+    "body": [
+      "SOAPGetDefault($opt, $val)"
+    ],
+    "description": "The SOAPGetDefault function retrieves default SOAP settings, such as the SOAP version."
+  },
+  "SOAPGetFault": {
+    "prefix": "SOAPGetFault",
+    "body": [
+      "SOAPGetFault($respData, $soapFault)"
+    ],
+    "description": "If the SOAPSubmitRequest function receives a SOAP Fault, the SOAPGetFault function parses the response data from SOAPSubmitRequest into a dynamic array of SOAP Fault components."
+  },
+  "SOAPGetResponseHeader": {
+    "prefix": "SOAPGetResponseHeader",
+    "body": [
+      "SOAPGetResponseHeader($Request, $headerName, $headerValue)"
+    ],
+    "description": "The SOAPGetResponseHeader function gets a specific response header after issuing a SOAP request."
+  },
+  "SOAPSetRequestBody": {
+    "prefix": "SOAPSetRequestBody",
+    "body": [
+      "SOAPSetRequestBody($Request, $value)"
+    ],
+    "description": "The SOAPSetRequestBody function sets up a SOAP request body directly, as opposed to having it constructed via the SOAPSetParameters function. With this function, you can also attach multiple body blocks to the SOAP request."
+  },
+  "SOAPSetRequestContent": {
+    "prefix": "SOAPSetRequestContent",
+    "body": [
+      "SOAPSetRequestContent($Request, $reqDoc, $docTypeFlag)"
+    ],
+    "description": "The SOAPSetRequestContent function sets the entire SOAP request's content from an input string or from a file."
+  },
+  "SOAPSetRequestHeader": {
+    "prefix": "SOAPSetRequestHeader",
+    "body": [
+      "SOAPSetRequestHeader($Request, $value)"
+    ],
+    "description": "The SOAPSetRequestHeader function sets up a SOAP request header. By default, there is no SOAP header."
+  },
+  "SOAPRequestWrite": {
+    "prefix": "SOAPRequestWrite",
+    "body": [
+      "SOAPRequestWrite($Request, $reqDoc, $docTypeFlag)"
+    ],
+    "description": "The SOAPRequestWrite function outputs the SOAP request, in XML format, to a string or to a file."
+  },
+  "SOAPSetDefault": {
+    "prefix": "SOAPSetDefault",
+    "body": [
+      "SOAPSetDefault($opt, $val)"
+    ],
+    "description": "Use the SOAPSetDefault function to define default SOAP settings, such as the SOAP version. By default, the SOAP version is 1.1, although you can specify version 1.2."
+  },
+  "SOAPSetParameters": {
+    "prefix": "SOAPSetParameters",
+    "body": [
+      "SOAPSetParameters($Request, $URI, $serviceName, $paramArray)"
+    ],
+    "description": "The SOAPSetParameters function sets up the SOAP request body, specifying a remote method to call along with the method's parameter list."
+  },
+  "SOAPSubmitRequest": {
+    "prefix": "SOAPSubmitRequest",
+    "body": [
+      "SOAPSubmitRequest($Request, $timeout, $respHeaders, $respData, $soapStatus)"
+    ],
+    "description": "The SOAPSubmitRequest function submits a request and gets the response."
+  },
+  "SOUNDEX": {
+    "prefix": "SOUNDEX",
+    "body": [
+      "SOUNDEX($str)"
+    ],
+    "description": "The SOUNDEX function evaluates expression and returns the most significant letter in the input string followed by a phonetic code. Non-alphabetic characters are ignored. If expression evaluates to the null value, null is returned."
+  },
+  "SPACE": {
+    "prefix": "SPACE",
+    "body": [
+      "SPACE($cnt)"
+    ],
+    "description": "Use the SPACE function to return a string composed of blank spaces. expression specifies the number of spaces in the string. If expression evaluates to the null value, the SPACE function fails and the program terminates with a run-time error message."
+  },
+  "SPACES": {
+    "prefix": "SPACES",
+    "body": [
+      "SPACES($DynArr)"
+    ],
+    "description": "Use the SPACES function to return a dynamic array with elements composed of blank spaces. dynamic.array specifies the number of spaces in each element. If dynamic.array or any element of dynamic.array evaluates to the null value, the SPACES function fails and the program terminates with a run-time error message."
+  },
+  "SPLICE": {
+    "prefix": "SPLICE",
+    "body": [
+      "SPLICE($array1, $str, $array2)"
+    ],
+    "description": "Use the SPLICE function to create a dynamic array of the element-by-element concatenation of two dynamic arrays, separating concatenated elements by the value of expression."
+  },
+  "SQRT": {
+    "prefix": "SQRT",
+    "body": [
+      "SQRT($expression)"
+    ],
+    "description": "Use the SQRT function to return the square root of expression. expression must evaluate to a numeric value that is greater than or equal to 0. If expression evaluates to a negative value, the result of the function is SQRT(-n) and an error message is printed. If expression evaluates to the null value, null is returned."
+  },
+  "SQUOTE": {
+    "prefix": "SQUOTE",
+    "body": [
+      "SQUOTE($expression)"
+    ],
+    "description": "Use the SQUOTE function to enclose an expression in single quotation marks. If expression evaluates to the null value, null is returned, without quotation marks."
+  },
+  "SSELECT": {
+    "prefix": "SSELECT",
+    "body": [
+      "SSELECT $filevar TO $list ON ERROR $statements"
+    ],
+    "description": "Use an SSELECT statement to create: 1) A numbered select list of record IDs in sorted order from a UniVerse file 2) A numbered select list of record IDs from a dynamic array. A select list of record IDs from a dynamic array is not in sorted order."
+  },
+  "SSUB": {
+    "prefix": "SSUB",
+    "body": [
+      "SSUB($1, $2)"
+    ],
+    "description": "Use the SSUB function to subtract string.number.2 from string.number.1 and return the result as a string number. You can use this function in any expression where a string or string number is valid, but not necessarily where a standard number is valid, because string numbers can exceed the range of numbers that standard arithmetic operators can handle."
+  },
+  "STATUS Function": {
+    "prefix": "STATUS",
+    "body": [
+      "STATUS()"
+    ],
+    "description": "Use the STATUS function to determine the results of the operations performed by certain statements and functions."
+  },
+  "STATUS Statement": {
+    "prefix": "STATUS",
+    "body": [
+      "STATUS $array FROM $variable THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the STATUS statement to determine the status of an open file. The STATUS statement returns the file status as a dynamic array and assigns it to dynamic.array."
+  },
+  "STOP": {
+    "prefix": "STOP",
+    "body": [
+      "STOP $1"
+    ],
+    "description": "Use the STOP statement to terminate program execution and return system control to the invoking process. To terminate a subroutine and return to the calling program, use the RETURN statement."
+  },
+  "STORAGE": {
+    "prefix": "STORAGE",
+    "body": [
+      "STORAGE $args"
+    ],
+    "description": "The STORAGE statement performs no function. It is provided for compatibility with other Pick systems."
+  },
+  "STR": {
+    "prefix": "STR",
+    "body": [
+      "STR($str, $cnt)"
+    ],
+    "description": "Use the STR function to produce a specified number of repetitions of a particular character string."
+  },
+  "STRS": {
+    "prefix": "STRS",
+    "body": [
+      "STRS($DynArr, $count)"
+    ],
+    "description": "Use the STRS function to produce a dynamic array containing the specified number of repetitions of each element of dynamic.array."
+  },
+  "submitRequest": {
+    "prefix": "submitRequest",
+    "body": [
+      "submitRequest($request_handle, $time_out, $post_data, $response_headers, $response_data, $http_status)"
+    ],
+    "description": "The submitRequest function will submit a request and get a response."
+  },
+  "SUBR": {
+    "prefix": "SUBR",
+    "body": [
+      "SUBR($name, $args)"
+    ],
+    "description": "Use the SUBR function to return the value of an external subroutine. The SUBR function is commonly used in I-descriptors."
+  },
+  "SUBROUTINE Skeleton": {
+    "prefix": "SUB",
+    "body": [
+      "SUBROUTINE $1($2)",
+      "*-----",
+      "* Description : $3",
+      "* Author      : $4",
+      "* Date        : $5",
+      "*-----",
+      "     \\$INCLUDE Common",
+      "*-----",
+      "     Gosub Initialise",
+      "*-----",
+      "      $6",
+      "*-----",
+      "ExitProgram:",
+      "*-----",
+      "     Return",
+      "     End",
+      "*-----",
+      "Initialise:",
+      "*-----",
+      "",
+      "     Return"
+    ],
+    "description": "Standard Subroutine Skeleton"
+  },
+  "SUBS": {
+    "prefix": "SUBS",
+    "body": [
+      "SUBS($DynArr1, $DynArr2)"
+    ],
+    "description": "Use the SUBS function to create a dynamic array of the element-by-element subtraction of two dynamic arrays."
+  },
+  "SUBSTRINGS": {
+    "prefix": "SUBSTRINGS",
+    "body": [
+      "SUBSTRINGS($DynArr, $start, $length)"
+    ],
+    "description": "Use the SUBSTRINGS function to create a dynamic array each of whose elements are substrings of the corresponding elements of dynamic.array."
+  },
+  "SUM": {
+    "prefix": "SUM",
+    "body": [
+      "SUM($DynArr)"
+    ],
+    "description": "Use the SUM function to calculate the sum of numeric data. Only elements at the lowest delimiter level of a dynamic array are summed. The total is returned as a single element at the next highest delimiter level."
+  },
+  "SUMMATION": {
+    "prefix": "SUMMATION",
+    "body": [
+      "SUMMATION($dynarr)"
+    ],
+    "description": "Use the SUMMATION function to return the sum of all the elements in dynamic.array. Nonnumeric values, except the null value, are treated as 0."
+  },
+  "SWAP": {
+    "prefix": "SWAP",
+    "body": [
+      "SWAP $var1 $var2"
+    ],
+    "description": "The SWAP statement interchanges the values in the variables you specify. variable can be any valid variable, for example, integers, numbers, characters, and so forth."
+  },
+  "SYSTEM": {
+    "prefix": "SYSTEM",
+    "body": [
+      "SYSTEM($key)"
+    ],
+    "description": "Use the SYSTEM function to check on the status of a system function. Use the SYSTEM function to test whether NLS is on when you run a program, and to display information about NLS settings."
+  },
+  "TABSTOP": {
+    "prefix": "TABSTOP",
+    "body": [
+      "TABSTOP $expr"
+    ],
+    "description": "Use the TABSTOP statement to set the current tabstop width for PRINT statement. The initial tabstop setting is 10."
+  },
+  "TAN": {
+    "prefix": "TAN",
+    "body": [
+      "TAN($expression)"
+    ],
+    "description": "Use the TAN function to return the trigonometric tangent of expression. expression represents an angle expressed in degrees."
+  },
+  "TANH": {
+    "prefix": "TANH",
+    "body": [
+      "TANH($expr)"
+    ],
+    "description": "Use the TANH function to return the hyperbolic tangent of expression. expression must be numeric and represents the angle expressed in degrees. If expression evaluates to the null value, null is returned."
+  },
+  "TERMINFO": {
+    "prefix": "TERMINFO",
+    "body": [
+      "TERMINFO($arg)"
+    ],
+    "description": "Use the TERMINFO function to access the device-independent terminal handler string defined for the current terminal type. The TERMINFO function returns a dynamic array containing the terminal characteristics for the terminal type set by TERM or SET.TERM.TYPE."
+  },
+  "TIME": {
+    "prefix": "TIME",
+    "body": [
+      "TIME()"
+    ],
+    "description": "Use the TIME function to return a string value expressing the internal time of day. The internal time is the number of seconds that have passed since midnight to the nearest thousandth of a second (local time)."
+  },
+  "TIMEDATE": {
+    "prefix": "TIMEDATE",
+    "body": [
+      "TIMEDATE()"
+    ],
+    "description": "Use the TIMEDATE function to return the current system time and date in format: hh:mm:ss dd mmm yyyy."
+  },
+  "TIMEOUT": {
+    "prefix": "TIMEOUT",
+    "body": [
+      "TIMEOUT $filevar, $time"
+    ],
+    "description": "Use the TIMEOUT statement to terminate a READSEQ statement or READBLK statement if no data is read in the specified time. You can also use the TIMEOUT statement to set a time limit for a UVNet link. Use the TTYGET and TTYSET statements to set a timeout value for a file open on a serial communications port."
+  },
+  "TPARM": {
+    "prefix": "TPARM",
+    "body": [
+      "TPARM($terminfo, $args)"
+    ],
+    "description": "Use the TPARM function to evaluate a parameterized terminfo string."
+  },
+  "TPRINT": {
+    "prefix": "TPRINT",
+    "body": [
+      "TPRINT $printlist"
+    ],
+    "description": "Use the TPRINT statement to send data to the screen, a line printer, or another print file. TPRINT is similar to the PRINT statement, except that TPRINT lets you specify time delay expressions in the print list."
+  },
+  "TRANS": {
+    "prefix": "TRANS",
+    "body": [
+      "TRANS($filename, $key, $field, $controlcode)"
+    ],
+    "description": "Use the TRANS function to return the contents of a field or a record in a UniVerse file. TRANS opens the file, reads the record, and extracts the specified data."
+  },
+  "TRANSACTION ABORT": {
+    "prefix": "TRANSACTION ABORT",
+    "body": [
+      "TRANSACTION ABORT"
+    ],
+    "description": "Use the TRANSACTION ABORT statement to cancel all file I/O changes made during a transaction."
+  },
+  "TRANSACTION COMMIT": {
+    "prefix": "TRANSACTION COMMIT",
+    "body": [
+      "TRANSACTION COMMIT THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the TRANSACTION COMMIT statement to commit all file I/O changes made during a transaction."
+  },
+  "TRANSACTION START": {
+    "prefix": "TRANSACTION START",
+    "body": [
+      "TRANSACTION START THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the TRANSACTION START statement to begin a new transaction."
+  },
+  "TRIM": {
+    "prefix": "TRIM",
+    "body": [
+      "TRIM($str, $char, $mode)"
+    ],
+    "description": "Use the TRIM function to remove unwanted characters in expression."
+  },
+  "TRIMB": {
+    "prefix": "TRIMB",
+    "body": [
+      "TRIMB($str)"
+    ],
+    "description": "Use the TRIMB function to remove all trailing spaces and tabs from expression. All other spaces or tabs in expression are left intact. If expression evaluates to the null value, null is returned."
+  },
+  "TRIMBS": {
+    "prefix": "TRIMBS",
+    "body": [
+      "TRIMBS($DynArr)"
+    ],
+    "description": "Use the TRIMBS function to remove all trailing spaces and tabs from each element of dynamic.array, and to reduce multiple occurrences of spaces and tabs to a single space."
+  },
+  "TRIMF": {
+    "prefix": "TRIMF",
+    "body": [
+      "TRIMF($str)"
+    ],
+    "description": "Use the TRIMF function to remove all leading spaces and tabs from expression. All other spaces or tabs in expression are left intact. If expression evaluates to the null value, null is returned."
+  },
+  "TRIMFS": {
+    "prefix": "TRIMFS",
+    "body": [
+      "TRIMFS($DynArr)"
+    ],
+    "description": "Use the TRIMFS function to remove all leading spaces and tabs from each element of dynamic.array, and to reduce multiple occurrences of spaces and tabs to a single space."
+  },
+  "TRIMS": {
+    "prefix": "TRIMS",
+    "body": [
+      "TRIMS($dynarr)"
+    ],
+    "description": "Use the TRIMS function to remove unwanted spaces and tabs from each element of dynamic.array, and to reduce multiple occurrences of spaces and tabs to a single space."
+  },
+  "TRUNC": {
+    "prefix": "TRUNC",
+    "body": [
+      "TRUNC($number, $places)"
+    ],
+    "description": "Use the TRUNC function to truncate a numeric variable or string to a specified number of decimal places."
+  },
+  "TTYCTL": {
+    "prefix": "TTYCTL",
+    "body": [
+      "TTYCTL $filevar, $code THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the TTYCTL statement to set terminal device characteristics on Berkeley terminal drivers. code# specifies the action to take. This statement is not supported on UNIX System V or Windows NT."
+  },
+  "TTYGET": {
+    "prefix": "TTYGET",
+    "body": [
+      "TTYGET $var FROM $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the TTYGET statement to assign the characteristics of a terminal, line printer channel, or tape unit as a dynamic array to variable. If the FROM clause is omitted, a dynamic array of the terminal characteristics for your terminal is assigned to variable."
+  },
+  "TTYSET": {
+    "prefix": "TTYSET",
+    "body": [
+      "TTYSET $dynarr ON $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the TTYSET statement to set the characteristics of a terminal, line printer channel, or tape unit. If only dynamic.array is specified, the terminal characteristics for your terminal are set based on the contents of dynamic.array. dynamic.array is a dynamic array of eleven fields, each of which has multiple values."
+  },
+  "UDOArrayAppendItem": {
+    "prefix": "UDOArrayAppendItem",
+    "body": [
+      "UDOArrayAppendItem($udoHandle, $value)"
+    ],
+    "description": "The UDOArrayAppendItem() function appends the item you specify to the UDO array."
+  },
+  "UDOArrayDeleteItem": {
+    "prefix": "UDOArrayDeleteItem",
+    "body": [
+      "UDOArrayDeleteItem($udoHandle, $index)"
+    ],
+    "description": "The UDOArrayDeleteItem() function deletes the array item you specify by its index."
+  },
+  "UDOArrayGetItem": {
+    "prefix": "UDOArrayGetItem",
+    "body": [
+      "UDOArrayGetItem($udoHandle, $index, $value, $value_type)"
+    ],
+    "description": "The UDOArrayGetItem() function returns a UDO array item by its index."
+  },
+  "UDOArrayGetNextItem": {
+    "prefix": "UDOArrayGetNextItem",
+    "body": [
+      "UDOArrayGetNextItem($udoHandle, $value, $type)"
+    ],
+    "description": "The UDOArrayGetNextItem() function returns the next UDO array item relative to the current position, which is the position of the array the last time it was accessed by this function. The initial position is 1."
+  },
+  "UDOArrayGetSize": {
+    "prefix": "UDOArrayGetSize",
+    "body": [
+      "UDOArrayGetSize($udoHandle, $size)"
+    ],
+    "description": "The UDOArrayGetSize() function gets the size of a UDO array."
+  },
+  "UDOArrayInsertItem": {
+    "prefix": "UDOArrayInsertItem",
+    "body": [
+      "UDOArrayInsertItem($udoHandle, $index, $value)"
+    ],
+    "description": "The UDOArrayInsertItem() function inserts a UDO array element at the position you specify by index."
+  },
+  "UDOArraySetItem": {
+    "prefix": "UDOArraySetItem",
+    "body": [
+      "UDOArraySetItem($udoHandle, $index, $value)"
+    ],
+    "description": "The UDOArraySetItem() function sets or inserts a UDO array element at the position you specify."
+  },
+  "UDOClone": {
+    "prefix": "UDOClone",
+    "body": [
+      "UDOClone($udoHandle, $newUdoHandle)"
+    ],
+    "description": "The UDOClone function clones a UDO object or array so that changes to the new object or array will not affect the original object."
+  },
+  "UDOCreate": {
+    "prefix": "UDOCreate",
+    "body": [
+      "UDOCreate($udoType, $udoHandle)"
+    ],
+    "description": "The UDOCreate function creates a UDO item of the type you specify."
+  },
+  "UDODeleteProperty": {
+    "prefix": "UDODeleteProperty",
+    "body": [
+      "UDODeleteProperty($udoHandle, $name)"
+    ],
+    "description": "The UDODeleteProperty function deletes a property from the UDO object."
+  },
+  "UDOFree": {
+    "prefix": "UDOFree",
+    "body": [
+      "UDOFree($udoHandle)"
+    ],
+    "description": "The UDOFree function forcefully removes a UDO object or array from memory."
+  },
+  "UDOGetLastError": {
+    "prefix": "UDOGetLastError",
+    "body": [
+      "UDOGetLastError($errorCode, $errorMessage)"
+    ],
+    "description": "If the previous UDO call returned UDO_ERROR, use the UDOGetLastError() function to return the error code and error message."
+  },
+  "UDOGetNextProperty": {
+    "prefix": "UDOGetNextProperty",
+    "body": [
+      "UDOGetNextProperty($udoHandle, $name, $value, $value_type)"
+    ],
+    "description": "The UDOGetNextProperty function provides a convenient way to walk through all the properties in a UDO object, without needing to know the property names in advance."
+  },
+  "UDOGetOption": {
+    "prefix": "UDOGetOption",
+    "body": [
+      "UDOGetOption($option, $value)"
+    ],
+    "description": "The UDOGetOption function gets the value of a UDO option."
+  },
+  "UDOGetProperty": {
+    "prefix": "UDOGetProperty",
+    "body": [
+      "UDOGetProperty($udoHandle, $name, $value, $value_type)"
+    ],
+    "description": "The UDOGetProperty function returns the value and type of property on the UDO object."
+  },
+  "UDOGetPropertyNames": {
+    "prefix": "UDOGetPropertyNames",
+    "body": [
+      "UDOGetPropertyNames($udoHandle, $udoArray)"
+    ],
+    "description": "The UDOGetPropertyNames function returns a UDO array that holds the names of all the properties in the UDO object."
+  },
+  "UDOGetType": {
+    "prefix": "UDOGetType",
+    "body": [
+      "UDOGetType($udoHandle, $type)"
+    ],
+    "description": "The UDOGetType() function gets the UDO value type of a UniVerse BASIC variable."
+  },
+  "UDOIsTypeOf": {
+    "prefix": "UDOIsTypeOf",
+    "body": [
+      "UDOIsTypeOf($udoHandle, $type)"
+    ],
+    "description": "The UDOIsTypeOf() function tests the UDO value type of a UniVerse BASIC variable."
+  },
+  "UDORead": {
+    "prefix": "UDORead",
+    "body": [
+      "UDORead($inputString, $inputType, $udoHandle)"
+    ],
+    "description": "The UDORead function creates a UDO object from a JSON string or XMLstring."
+  },
+  "UDOSetOption": {
+    "prefix": "UDOSetOption",
+    "body": [
+      "UDOSetOption($option, $value)"
+    ],
+    "description": "The UDOSetOption function sets the options for the UDO API."
+  },
+  "UDOSetProperty": {
+    "prefix": "UDOSetProperty",
+    "body": [
+      "UDOSetProperty($udoHandle, $name, $value)"
+    ],
+    "description": "The UDOSetProperty function creates or updates a property on a UDO object."
+  },
+  "UDOWrite": {
+    "prefix": "UDOWrite",
+    "body": [
+      "UDOWrite($udoHandle, $outputType, $outputString)"
+    ],
+    "description": "Writes a UDO object in JSON or XML format."
+  },
+  "UNASSIGNED": {
+    "prefix": "UNASSIGNED",
+    "body": [
+      "UNASSIGNED($variable)"
+    ],
+    "description": "Use the UNASSIGNED function to determine if variable is unassigned. UNASSIGNED returns 1 (true) if variable is unassigned. It returns 0 (false) if variable is assigned a value, including the null value."
+  },
+  "UNICHAR": {
+    "prefix": "UNICHAR",
+    "body": [
+      "UNICHAR($unicode)"
+    ],
+    "description": "Use the UNICHAR function to generate a single character from a Unicode value."
+  },
+  "UNICHARS": {
+    "prefix": "UNICHARS",
+    "body": [
+      "UNICHARS($dynarr)"
+    ],
+    "description": "Use the UNICHARS function to generate a dynamic array of characters from a dynamic array of Unicode values."
+  },
+  "UNISEQ": {
+    "prefix": "UNISEQ",
+    "body": [
+      "UNISEQ($expr)"
+    ],
+    "description": "Use the UNISEQ function to generate a Unicode value from expression."
+  },
+  "UNISEQS": {
+    "prefix": "UNISEQS",
+    "body": [
+      "UNISEQS($dynarr)"
+    ],
+    "description": "Use the UNISEQS function to generate an array of Unicode values from a dynamic array of characters."
+  },
+  "UNLOCK": {
+    "prefix": "UNLOCK",
+    "body": [
+      "UNLOCK $expr"
+    ],
+    "description": "Use the UNLOCK statement to release a process lock set by the LOCK statement."
+  },
+  "UPCASE": {
+    "prefix": "UPCASE",
+    "body": [
+      "UPCASE($str)"
+    ],
+    "description": "Use the UPCASE function to change all lowercase letters in expression to uppercase. If expression evaluates to the null value, null is returned."
+  },
+  "UPRINT": {
+    "prefix": "UPRINT",
+    "body": [
+      "UPRINT $expr"
+    ],
+    "description": "In NLS mode, use the UPRINT statement to print data that was mapped to an external format using OCONV mapname. The UPRINT statement subsequently sends the mapped data to the screen, a line printer, or another print file with no further mapping."
+  },
+  "USERINFO": {
+    "prefix": "USERINFO",
+    "body": [
+      "USERINFO($code, $value, $userinfo)"
+    ],
+    "description": "Use the USERINFO function to get the pid, user number, and more for the pid or user number specified."
+  },
+  "uvsysmon": {
+    "prefix": "uvsysmon",
+    "body": [
+      "uvsysmon"
+    ],
+    "description": "The system-level uvsysmon utility monitors the performance of the Recoverable File System (RFS)."
+  },
+  "WEOF": {
+    "prefix": "WEOF",
+    "body": [
+      "WEOF $UNIT THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the WEOF statement to write an end-of-file (EOF) mark to tape."
+  },
+  "WEOFSEQ": {
+    "prefix": "WEOFSEQ",
+    "body": [
+      "WEOFSEQ $filevar ON ERROR $err_statements"
+    ],
+    "description": "Use the WEOFSEQ statement to write an end-of-file (EOF) mark in a file opened for sequential access. The end-of-file mark is written at the current position and has the effect of truncating the file at this point. Any subsequent READSEQ statement has its ELSE statements executed."
+  },
+  "WRITE": {
+    "prefix": "WRITE",
+    "body": [
+      "WRITE $var TO $filevar,$recordkey"
+    ],
+    "description": "Use WRITE statements to write new data to a record in a UniVerse file. The value of expression replaces any data previously stored in the record."
+  },
+  "WRITEBLK": {
+    "prefix": "WRITEBLK",
+    "body": [
+      "WRITEBLK $var ON $filevar THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the WRITEBLK statement to write a block of data to a file opened for sequential processing. Each WRITEBLK statement writes the value of expression starting at the current position in the file. The current position is incremented to beyond the last byte written. WRITEBLK does not add a newline at the end of the data."
+  },
+  "WRITELIST": {
+    "prefix": "WRITELIST",
+    "body": [
+      "WRITELIST $dynarr TO $listname"
+    ],
+    "description": "Use the WRITELIST statement to save a list as a record in the &SAVEDLISTS& file."
+  },
+  "WRITESEQ": {
+    "prefix": "WRITESEQ",
+    "body": [
+      "WRITESEQ $expr TO $filevar ON ERROR $err_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the WRITESEQ statement to write new lines to a file opened for sequential processing. UniVerse keeps a pointer to the current position in the file while it is open for sequential processing. The OPENSEQ statement sets this pointer to the first byte of the file, and it is advanced by the READSEQ statement, READBLK statement, WRITESEQ, and WRITEBLK statement."
+  },
+  "WRITESEQF": {
+    "prefix": "WRITESEQF",
+    "body": [
+      "WRITESEQF $var TO $filevar ON ERROR $err_statements THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the WRITESEQF statement to write new lines to a file opened for sequential processing, and to ensure that data is physically written to disk (that is, not buffered) before the next statement in the program is executed. The sequential file must be open, and the end-of-file marker must be reached before you can write to the file. You can use the FILEINFO function to determine the number of the line about to be written."
+  },
+  "writeSocket": {
+    "prefix": "writeSocket",
+    "body": [
+      "writeSocket($socket_handle, $socket_data, $time_out, $mode, $actual_write_size)"
+    ],
+    "description": "Use the writeSocket() function to write data to a socket connection."
+  },
+  "WRITET": {
+    "prefix": "WRITET",
+    "body": [
+      "WRITET $var TO $expression THEN",
+      "\t$then_statements",
+      "END ELSE",
+      "\t$else_statements",
+      "END"
+    ],
+    "description": "Use the WRITET statement to write a tape record to tape. The value of variable becomes the next tape record. variable is an expression that evaluates to the text to be written to tape."
+  },
+  "WRITEU": {
+    "prefix": "WRITEU",
+    "body": [
+      "WRITEU $var TO $filevar,$recordkey"
+    ],
+    "description": "Use the WRITEU statement to maintain an update record lock while performing the WRITE statement."
+  },
+  "WRITEV": {
+    "prefix": "WRITEV",
+    "body": [
+      "WRITEV $var TO $filevar,$recordkey,$attr"
+    ],
+    "description": "Use the WRITEV statement to write new values to specified fields in a record. The WRITEV statement requires that attrib.expr.list be specified. The attribute expression list can be an individual field number or a field mark delimited dynamic array containing the field numbers to be written. Field numbers must be greater than 0."
+  },
+  "WRITEVU": {
+    "prefix": "WRITEVU",
+    "body": [
+      "WRITEVU $var TO $filevar,$recordkey,$attr"
+    ],
+    "description": "Use the WRITEVU statement to maintain an update record lock while writing on the contents of a specified field of a record of a UniVerse file."
+  },
+  "XDOMAddChild": {
+    "prefix": "XDOMAddChild",
+    "body": [
+      "XDOMAddChild($xmlHandle, $xpathString, $nsMap, $nodeHandle, $dupFlag, $nodeType)"
+    ],
+    "description": "Finds the xpathString in the context xmlHandle in the DOM structure, and inserts a node as the last child of the found node. If the inserted node type is XDOM.ATTR.NODE, this node is inserted as an attribute."
+  },
+  "XDOMAppend": {
+    "prefix": "XDOMAppend",
+    "body": [
+      "XDOMAppend($xmlHandle, $xpathString, $nsMap, $nodeHandle, $dupFlag)"
+    ],
+    "description": "Finds the xpathString in the context xmlHandle in the DOM structure, and inserts nodeHandle into the DOM structure as the next sibling of the found node. If the inserted node type is XDOM.ATTR.NODE, this node is inserted as an attribute."
+  },
+  "XDOMClone": {
+    "prefix": "XDOMClone",
+    "body": [
+      "XDOMClone($xmlHandle, $newXmlHandle, $depth)"
+    ],
+    "description": "The XDOMClone function duplicates the DOM subtree specified by xmlHandle to a new subtree newXmlHandle. The duplicate node has no parent (parentNode returns null.)."
+  },
+  "XDOMClose": {
+    "prefix": "XDOMClose",
+    "body": [
+      "XDOMClose($domHandle)"
+    ],
+    "description": "The XDOMClose function frees the DOM structure."
+  },
+  "XDOMCreateNode": {
+    "prefix": "XDOMCreateNode",
+    "body": [
+      "XDOMCreateNode($xmlHandle, $nodeName, $nodeValue, $nodeType, $nodeHandle)"
+    ],
+    "description": "XDOMCreateNode creates a new node in the DOM structure."
+  },
+  "XDOMCreateRoot": {
+    "prefix": "XDOMCreateRoot",
+    "body": [
+      "XDOMCreateRoot($domHandle)"
+    ],
+    "description": "The XDOMCreateRoot function creates a new DOM structure with root only. You can use the result handle in other functions where a DOM handle or node handle is needed."
+  },
+  "XDOMEvaluate": {
+    "prefix": "XDOMEvaluate",
+    "body": [
+      "XDOMEvaluate($xmlHandle, $xpathString, $nsMap, $aValue)"
+    ],
+    "description": "XDOMEvaluate returns the value of xpathString in the context xmlHandle in the DOM structure."
+  },
+  "XDOMGetAttribute": {
+    "prefix": "XDOMGetAttribute",
+    "body": [
+      "XDOMGetAttribute($nodeHandle, $attrName, $nodeHandle)"
+    ],
+    "description": "XDOMGetAttribute gets the node's attribute node, whose attribute name is attrName."
+  },
+  "XDOMGetChildNodes": {
+    "prefix": "XDOMGetChildNodes",
+    "body": [
+      "XDOMGetChildNodes($xmlHandle, $nodeListHandle)"
+    ],
+    "description": "The XDOMGetChildNodes function returns all child nodes of xmlHandle."
+  },
+  "XDOMGetElementById": {
+    "prefix": "XDOMGetElementById",
+    "body": [
+      "XDOMGetElementById($xmlHandle, $idstr, $nodeHandle)"
+    ],
+    "description": "The XDOMGetElementById function finds the first element with the ID you specify."
+  },
+  "XDOMGetElementsByName": {
+    "prefix": "XDOMGetElementsByName",
+    "body": [
+      "XDOMGetElementsByName($xmlHandle, $namestr, $nodeListHandle)"
+    ],
+    "description": "The XDOMGetElementsByName function tries to find all elements with the name you specify."
+  },
+  "XDOMGetElementsByTag": {
+    "prefix": "XDOMGetElementsByName($xmlHandle, $namestr, $nodeListHandle)",
+    "body": [
+      "XDOMGetElementsByTag($xmlHandle, $tagname, $nodeListHandle)"
+    ],
+    "description": "The XDOMGetElementsByTag function tries to find all elements with the tag name you specify."
+  },
+  "XDOMGetNodeName": {
+    "prefix": "XDOMGetNodeName",
+    "body": [
+      "XDOMGetElementsByTag($nodeHandle, $nodeName)"
+    ],
+    "description": "XDOMGetNodeName returns the node name."
+  },
+  "XDOMGetNodeType": {
+    "prefix": "XDOMGetNodeType",
+    "body": [
+      "XDOMGetNodeType($nodeHandle, $nodeType)"
+    ],
+    "description": "The XDOMGetNodeType function returns the node type."
+  },
+  "XDOMGetNodeValue": {
+    "prefix": "XDOMGetNodeValue",
+    "body": [
+      "XDOMGetNodeValue($nodeHandle, $nodeValue)"
+    ],
+    "description": "XDOMGetNodeValue gets the node value."
+  },
+  "XDOMGetOwnerDocument": {
+    "prefix": "XDOMGetOwnerDocument",
+    "body": [
+      "XDOMGetOwnerDocument($nodeHandle, $domHandle)"
+    ],
+    "description": "The XDOMGetOwnerDocument function returns the DOM handle to which nodeHandle belongs."
+  },
+  "XDOMGetUserData": {
+    "prefix": "XDOMGetUserData",
+    "body": [
+      "XDOMGetUserData($nodeHandle, $userData)"
+    ],
+    "description": "The XDOMGetUserData function returns the user data associated with the node."
+  },
+  "XDOMItem": {
+    "prefix": "XDOMItem",
+    "body": [
+      "XDOMItem($nodeListHandle, $index, $dataHandle, $dataType)"
+    ],
+    "description": "The XDOMItem function returns the index-th item in the list."
+  },
+  "XDOMLength": {
+    "prefix": "XDOMLength",
+    "body": [
+      "XDOMLength($nodeListHandle, $length)"
+    ],
+    "description": "The XDOMLength function determines the number of nodes in the list. The range of the valid child node index is to 1 to length, inclusive."
+  },
+  "XDOMLocate": {
+    "prefix": "XDOMLocate",
+    "body": [
+      "XDOMLocate($xmlHandle, $xpathString, $nsMap, $nodeHandle, $XMLSINGLE_XMLMULTI)"
+    ],
+    "description": "XDOMLocate finds a starting point for relative XPath searching in context xmlHandle in the DOM structure. The xpathString should specify only one node; otherwise, this function will return an error."
+  },
+  "XDOMLocateNode": {
+    "prefix": "XDOMLocateNode",
+    "body": [
+      "XDOMLocateNode($nodeHandle, $direction, $childIndex, $nodeType, $newNodeHandle)"
+    ],
+    "description": "The XDOMLocateNode function traverses from nodeHandle and gets the next node according to direction and childIndex."
+  },
+  "XDOMOpen": {
+    "prefix": "XDOMOpen",
+    "body": [
+      "XDOMOpen($xmlDocument, $docLocation, $domHandle)"
+    ],
+    "description": "The XDOMOpen function reads an xmlDocument and creates DOM structure. If the DTD is included in the document, UniVerse validates the document. The xmlDocument can be from a string, or from a file, depending on the docLocation flag."
+  },
+  "XDOMQuery": {
+    "prefix": "XDOMQuery",
+    "body": [
+      "XDOMQuery($xmlHandle, $xquery, $xqueryLocation, $itemListHandle)"
+    ],
+    "description": "The XDOMQuery function runs xquery on the current document or document node you specify with xmlHandle."
+  },
+  "XDOMRemove": {
+    "prefix": "XDOMRemove",
+    "body": [
+      "XDOMRemove($xmlHandle, $xpathString, $nsMap, $attrName, $nodeHandle)"
+    ],
+    "description": "XDOMRemove finds the xpathString in the context xmlHandle in the DOM structure, and then removes the found node or its attribute with name attrName."
+  },
+  "XDOMReplace": {
+    "prefix": "XDOMReplace",
+    "body": [
+      "XDOMReplace($xmlHandle, $xpathString, $nsMap, $nodeHandle, $dupFlag)"
+    ],
+    "description": "XDOMReplace finds the xpathString in the context xmlHandle in the DOM structure, and replaces the found node with nodeHandle."
+  },
+  "XDOMSetNodeValue": {
+    "prefix": "XDOMSetNodeValue",
+    "body": [
+      "XDOMSetNodeValue($nodeHandle, $nodeValue)"
+    ],
+    "description": "XDOMSetNodeValue sets the node value."
+  },
+  "XDOMSetUserData": {
+    "prefix": "XDOMSetUserData",
+    "body": [
+      "XDOMSetUserData($nodeHandle, $userData)"
+    ],
+    "description": "The XDOMSetUserData function sets the user data associated with the node."
+  },
+  "XDOMTransform": {
+    "prefix": "XDOMTransform",
+    "body": [
+      "XDOMTransform($domHandle, $styleSheet, $ssLocation, $outDomHandle)"
+    ],
+    "description": "The XDOMTransform function transforms input DOM structure using the style sheet specified by styleSheet to output DOM structure."
+  },
+  "XDOMValidate": {
+    "prefix": "XDOMValidate",
+    "body": [
+      "XDOMValidate($xmlDocument, $docLocation, $schFile, $schLocation)"
+    ],
+    "description": "The XDOMValidate function validates the DOM document using the schema specified by schFile."
+  },
+  "XDOMWrite": {
+    "prefix": "XDOMWrite",
+    "body": [
+      "XDOMWrite($domHandle, $xmlDocument, $docLocation)"
+    ],
+    "description": "The XDOMWrite function writes the DOM structure to xmlDocument. xmlDocument can be a string or a file, depending on the value of the docLocation flag."
+  },
+  "XLATE": {
+    "prefix": "XLATE",
+    "body": [
+      "XLATE($filename, $recordkey, $field, $actioncode)"
+    ],
+    "description": "Use the XLATE function to return the contents of a field or a record in a UniVerse file. XLATE opens the file, reads the record, and extracts the specified data."
+  },
+  "XMAPAppendRec": {
+    "prefix": "XMAPAppendRec",
+    "body": [
+      "XMAPAppendRec($XMAPhandle, $file_name, $record)"
+    ],
+    "description": "The XMAPAppendRec function formats the specified record from the UniVerseUniData file as a U2XMAP dataset record and appends it to the U2XMAP dataset."
+  },
+  "XMAPClose": {
+    "prefix": "XMAPClose",
+    "body": [
+      "XMAPClose($XMAP_handle)"
+    ],
+    "description": "The XMAPClose function closes the U2XMAP dataset handle and frees all related structures and memory."
+  },
+  "XMAPCreate": {
+    "prefix": "XMAPCreate",
+    "body": [
+      "XMAPCreate($u2xmapping_rules, $mapping_flag, $XMAPhandle)"
+    ],
+    "description": "The XMAPCreate function creates an empty XML document for transferring data from the UniVerse database to XML according the mapping rules you define."
+  },
+  "XMAPOpen": {
+    "prefix": "XMAPOpen",
+    "body": [
+      "XMAPOpen($xml_document, $doc_flag, $u2xmapping_rules, $u2xmap_flag, $XMAPhandle)"
+    ],
+    "description": "The XMAPOpen function opens an XML document as a U2XMAP data set."
+  },
+  "XMAPReadNext": {
+    "prefix": "XMAPReadNext",
+    "body": [
+      "XMAPReadNext($XMAPhandle, $file_name, $record)"
+    ],
+    "description": "The XMAPReadNext function retrieves the next record from the U2XMAP dataset and formats it as a record of the UniVerseUniData file that is being mapped."
+  },
+  "XMAPToXMLDoc": {
+    "prefix": "XMAPToXMLDoc",
+    "body": [
+      "XMAPToXMLDoc($XMAPhandle, $xmlfile, $doc_flag)"
+    ],
+    "description": "The XMAPToXMLDoc function generates an XML document from the data in the U2XMAP dataset using the mapping rules you define. The XML document can be either an XML DOM handle or an XML document. UniVerse writes the data to a file or a UniVerse BASIC variable."
+  },
+  "XMLError": {
+    "prefix": "XMLError",
+    "body": [
+      "XMLError($errmsg)"
+    ],
+    "description": "Use the XMLError function to get the last error message."
+  },
+  "XMLExecute": {
+    "prefix": "XMLExecute",
+    "body": [
+      "XMLExecute($cmd, $options, $xmlvar, $xsdvar)"
+    ],
+    "description": "The XMLExecute function enables you to create an XML document using the RetrieVe LIST statement or the UniVerse SQL SELECT statement from a UniVerse BASIC program."
+  },
+  "XMLGetError": {
+    "prefix": "XMLGetError",
+    "body": [
+      "XMLGetError($errorCode, $errorMessage)"
+    ],
+    "description": "The XMLGetError function returns the error code and error message after the previous XML API failed."
+  },
+  "XMLTODB": {
+    "prefix": "XMLTODB",
+    "body": [
+      "XMLTODB($xml_document, $doc_flag, $u2xmapping_rules, $u2xmap_flag, $status)"
+    ],
+    "description": "You can also populate the UniVerse database by calling the UniVerse BASIC XMLTODB function. XMLTODB does the same thing as the TCL XML.TODB command. It cannot transform data from a specific subtree in an XML document. If you want to transform specific data, use the XMAP API."
+  },
+  "XTD": {
+    "prefix": "XTD",
+    "body": [
+      "XTD($str)"
+    ],
+    "description": "Use the XTD function to convert a string of hexadecimal characters to an integer. If string evaluates to the null value, null is returned."
+  }
+}

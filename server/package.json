@@ -3,8 +3,8 @@
   "displayName": "MV Basic",
   "description": "MV Basic",
   "version": "2.0.0",
-  "publisher": "MV Extensions",
-  "icon": "images/mvbasic-logo.ico",
+  "publisher": "mvextensions",
+  "icon": "images/mvbasic-logo.png",
   "preview": true,
   "keywords": [
     "MultiValue",
@@ -31,9 +31,5 @@
   "dependencies": {
     "vscode-languageserver": "^4.1.2"
   },
-  "scripts": {
-    "installServer": "installServerIntoExtension ../client ./package.json ./tsconfig.json",
-    "compile": "installServerIntoExtension ../client ./package.json ./tsconfig.json && tsc -p .",
-    "watch": "installServerIntoExtension ../client ./package.json ./tsconfig.json && tsc -w -p ."
-  }
+  "scripts": {}
 }
