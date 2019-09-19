@@ -71,14 +71,14 @@ This extension would not be possible without the hard work by Grant Hart, Perry 
 
 [code_of_conduct]: https://github.com/mvextensions/.github/blob/master/CODE_OF_CONDUCT.md
 [contribution_guidelines]: https://github.com/mvextensions/.github/blob/master/CONTRIBUTING.md
-[maint_andy_takacs]: https://github.com/orgs/mvextensions/people/andytakacs
-[maint_charles_barouch]: https://github.com/orgs/mvextensions/people/CharlesBarouch
-[maint_dick_thiot]: https://github.com/orgs/mvextensions/people/dthiot
-[maint_grant_hart]: https://github.com/orgs/mvextensions/people/GrantHart
-[maint_mike_wright]: https://github.com/orgs/mvextensions/people/itsxallwater
-[maint_patrick_payne]: https://github.com/orgs/mvextensions/people/patrickp
-[maint_perry_stauffer]: https://github.com/orgs/mvextensions/people/PerryStauffer
-[maint_pete_schellenbach]: https://github.com/orgs/mvextensions/people/pschellenbach
+[maint_andy_takacs]: https://github.com/andytakacs
+[maint_charles_barouch]: https://github.com/CharlesBarouch
+[maint_dick_thiot]: https://github.com/dthiot
+[maint_grant_hart]: https://github.com/GrantHart
+[maint_mike_wright]: https://github.com/itsxallwater
+[maint_patrick_payne]: https://github.com/patrickp
+[maint_perry_stauffer]: https://github.com/PerryStauffer
+[maint_pete_schellenbach]: https://github.com/pschellenbach
 [on_group]: http://www.ongroup.com
 [vs_code]: https://code.visualstudio.com/
 [vs_code_market]: https://marketplace.visualstudio.com/vscode
