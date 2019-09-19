@@ -1,19 +1,17 @@
 {
-	"compilerOptions": {
-		"noUnusedLocals": true,
-		"noUnusedParameters": true,
-		"noImplicitAny": true,
-		"noImplicitReturns": true,		
-		"target": "es2017",
-		"module": "commonjs",
-		"moduleResolution": "node",
-		"rootDir": ".",
-		"outDir": "out",
-		"lib": [ "es2016" ],
-		"sourceMap": true
-	},
-	"exclude": [
-		"node_modules",
-		"server"
-	]
+  "compilerOptions": {
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "target": "es2017",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "lib": ["es2016"],
+    "outDir": "out",
+    "rootDir": "src",
+    "sourceMap": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules", "server"]
 }
