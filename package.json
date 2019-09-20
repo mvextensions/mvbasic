@@ -119,7 +119,7 @@
           "scope": "resource",
           "type": "number",
           "default": 5,
-          "description": "The number of characters to use as a mergin when formatting."
+          "description": "The number of characters to use as a margin when formatting."
         },
         "MVBasic.customWords": {
           "scope": "resource",
