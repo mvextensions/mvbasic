@@ -3,8 +3,8 @@
   "displayName": "MV Basic",
   "description": "MV Basic",
   "version": "2.0.0",
-  "publisher": "MV Extensions",
-  "icon": "images/mvbasic-logo.ico",
+  "publisher": "mvextensions",
+  "icon": "images/mvbasic-logo.png",
   "preview": false,
   "keywords": [
     "MultiValue",
@@ -54,9 +54,10 @@
         "extensions": [
           ".bas",
           ".b",
+          ".",
           ""
         ],
-        "configuration": "./language-configuration.json"
+        "configuration": "./client/language-configuration.json"
       }
     ],
     "menus": {
@@ -101,7 +102,7 @@
       {
         "language": "mvbasic",
         "scopeName": "source.mvon",
-        "path": "./client/Syntaxes/mvon.tmLanguage.json"
+        "path": "./Syntaxes/mvon.tmLanguage.json"
       }
     ],
     "configuration": {
@@ -118,7 +119,7 @@
           "scope": "resource",
           "type": "number",
           "default": 5,
-          "description": "The number of characters to use as a mergin when formatting."
+          "description": "The number of characters to use as a margin when formatting."
         },
         "MVBasic.customWords": {
           "scope": "resource",
@@ -261,24 +262,25 @@
   },
   "activationEvents": [
     "*",
+    "onLanguage:mvbasic",
     "onCommand:extension.compileProgram",
     "onCommand:extension.catalogProgram",
-    "onCommand:extension.compileDebug",
-    "onLanguage:mvbasic"
+    "onCommand:extension.CompileDebug",
+    "onFileSystem:RestFS",
+    "onCommand:extension.initialiseRestFS"
   ],
-  "main": "./client/out/src/extension",
+  "main": "./client/out/extension",
   "scripts": {
-    "postinstall": "cd server && npm install && cd ../client && npm install && cd ..",
-    "compile": "tsc -p client/tsconfig.json && cd server && npm run installServer && cd .. && tsc -p server/tsconfig.json",
-    "compile:client": "tsc -p client/tsconfig.json",
-    "watch:client": "tsc -w -p client/tsconfig.json",
-    "compile:server": "cd server && npm run installServer && cd .. && tsc -p server/tsconfig.json",
-    "watch:server": "cd server && npm run installServer && cd .. && tsc -w -p server/tsconfig.json"
+    "vscode:prepublish": "cd client && npm run update-vscode && cd .. && npm run compile",
+    "compile": "tsc -b",
+    "watch": "tsc -b -w",
+    "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
+    "test": "sh ./scripts/e2e.sh"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.48",
     "@types/node": "^6.14.6",
-    "typescript": "^2.9.2"
+    "typescript": "^3.6.2"
   },
   "dependencies": {
     "@types/socket.io": "^1.4.40",
