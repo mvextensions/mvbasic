@@ -4,7 +4,7 @@ This [Visual Studio Code][vs_code] extension is used for syntax highlighting, In
 
 ## Installation
 
-The easiest way to use this extension is to download it from the [Visual Studio Code Marketplace][vs_code_market].
+The easiest way to use this extension is to download it from the [Visual Studio Code Marketplace][vs_code_market]. Please be aware that VS Code may require a reload after installation or updating.
 
 ## Features
 
