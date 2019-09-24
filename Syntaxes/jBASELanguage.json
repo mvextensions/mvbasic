@@ -1,0 +1,2694 @@
+{
+   "Language": {
+      "Type": "jBASE PickBASIC",
+      "Keywords": [
+         {
+            "key": "$Include",
+            "icon": 14,
+            "index": 1,
+            "documentation": "The $INCLUDE\\$INSERT directive inserts the program/code snippet specified into the current source code.\r\nIf the optional filename is specified the code is read from that file.",
+            "detail": "$INCLUDE programname\r\n$INCLUDE filename programname\r\n$INSERT programname\r\n$INSERT filename programname"
+         },
+         {
+            "key": "@Am",
+            "icon": 21,
+            "index": 2,
+            "documentation": "Inserts an attribute mark CHAR(254)",
+            "detail": "@AM"
+         },
+         {
+            "key": "@Account",
+            "icon": 21,
+            "index": 3,
+            "documentation": "Returns the name of the current jBASE user account",
+            "detail": "@ACCOUNT"
+         },
+         {
+            "key": "@Application.Id",
+            "icon": 21,
+            "index": 4,
+            "documentation": "@ID Dataname used to reference the record-id in a query language statement",
+            "detail": "@APPLICATION.ID"
+         },
+         {
+            "key": "@Callstack",
+            "icon": 21,
+            "index": 5,
+            "documentation": "For DEBUG purposes - returns the callstack if used in a subroutine",
+            "detail": "@CALLSTACK"
+         },
+         {
+            "key": "@Codepage",
+            "icon": 21,
+            "index": 6,
+            "documentation": "Returns the current JBASE_CODEPAGE setting when in I18N mode",
+            "detail": "@CODEPAGE"
+         },
+         {
+            "key": "@Command",
+            "icon": 21,
+            "index": 7,
+            "documentation": "See @SENTENCE",
+            "detail": "@COMMAND"
+         },
+         {
+            "key": "@CR",
+            "icon": 21,
+            "index": 8,
+            "documentation": "Inserts a carriage return CHAR(13)",
+            "detail": "@CR"
+         },
+         {
+            "key": "@Data",
+            "icon": 21,
+            "index": 9,
+            "documentation": "Returns the data stack or input queue",
+            "detail": "@DATA"
+         },
+         {
+            "key": "@Date",
+            "icon": 21,
+            "index": 10,
+            "documentation": "Returns the internal date – on some systems, this differs from the DATE function in that the variable is set when program execution starts, whereas the function reflects the current date",
+            "detail": "@DATE"
+         },
+         {
+            "key": "@Day",
+            "icon": 21,
+            "index": 11,
+            "documentation": "Returns the day of the month from @DATE",
+            "detail": "@DAY"
+         },
+         {
+            "key": "@Eof",
+            "icon": 21,
+            "index": 12,
+            "documentation": "Returns the End of File character from the TTY characteristics",
+            "detail": "@EOF"
+         },
+         {
+            "key": "@Esc",
+            "icon": 21,
+            "index": 13,
+            "documentation": "Inserts a escape character CHAR(27)",
+            "detail": "@ESC"
+         },
+         {
+            "key": "@False",
+            "icon": 21,
+            "index": 14,
+            "documentation": "Inserts a zero",
+            "detail": "@FALSE"
+         },
+         {
+            "key": "@Ff",
+            "icon": 21,
+            "index": 15,
+            "documentation": "Inserts a form feed chacater for printing CHAR(12)",
+            "detail": "@FF"
+         },
+         {
+            "key": "@Filename",
+            "icon": 21,
+            "index": 16,
+            "documentation": "Returns the current filename, used in I-types",
+            "detail": "@FILENAME"
+         },
+         {
+            "key": "@Fm",
+            "icon": 21,
+            "index": 17,
+            "documentation": "Inserts an attribute/field mark CHAR(254)",
+            "detail": "@FM"
+         },
+         {
+            "key": "@Id",
+            "icon": 21,
+            "index": 18,
+            "documentation": "Returns the current Item ID, used in I-types",
+            "detail": "@ID"
+         },
+         {
+            "key": "@Im",
+            "icon": 21,
+            "index": 19,
+            "documentation": "Inserts an item mark CHAR(255)",
+            "detail": "@IM"
+         },
+         {
+            "key": "@Level",
+            "icon": 21,
+            "index": 20,
+            "documentation": "Returns the EXECUTE nesting level",
+            "detail": "@LEVEL"
+         },
+         {
+            "key": "@Lf",
+            "icon": 21,
+            "index": 21,
+            "documentation": "Inserts a line feed CHAR(10)",
+            "detail": "@LF"
+         },
+         {
+            "key": "@Locale",
+            "icon": 21,
+            "index": 22,
+            "documentation": "Returns the current JBASE_LOCALE setting",
+            "detail": "@LOCALE"
+         },
+         {
+            "key": "@Logname",
+            "icon": 21,
+            "index": 23,
+            "documentation": "Returns the current operating system user name",
+            "detail": "@LOGNAME"
+         },
+         {
+            "key": "@Lptrhigh",
+            "icon": 21,
+            "index": 24,
+            "documentation": "Returns the number of lines on the device to which you are printing (terminal or printer)",
+            "detail": "@LPTRHIGH"
+         },
+         {
+            "key": "@Month",
+            "icon": 21,
+            "index": 25,
+            "documentation": "Returns the number of the current month from @DATE",
+            "detail": "@MONTH"
+         },
+         {
+            "key": "@Parasentence",
+            "icon": 21,
+            "index": 26,
+            "documentation": "The last sentence or paragraph that invoked the current process",
+            "detail": "@PARASENTENCE"
+         },
+         {
+            "key": "@Path",
+            "icon": 21,
+            "index": 27,
+            "documentation": "Current working directory",
+            "detail": "@PATH"
+         },
+         {
+            "key": "@Pid",
+            "icon": 21,
+            "index": 28,
+            "documentation": "Current Process ID",
+            "detail": "@PID"
+         },
+         {
+            "key": "@Record",
+            "icon": 21,
+            "index": 29,
+            "documentation": "Returns the current record, used in I-types",
+            "detail": "@RECORD"
+         },
+         {
+            "key": "@Rm",
+            "icon": 21,
+            "index": 30,
+            "documentation": "Inserts a record mark CHAR(255)",
+            "detail": "@TM"
+         },
+         {
+            "key": "@Selected",
+            "icon": 21,
+            "index": 31,
+            "documentation": "Returns the item count from the active select",
+            "detail": "@SELECTED"
+         },
+         {
+            "key": "@Sentence",
+            "icon": 21,
+            "index": 32,
+            "documentation": "The last sentence or paragraph that invoked the current process",
+            "detail": "@SENTENCE"
+         },
+         {
+            "key": "@Sm",
+            "icon": 21,
+            "index": 33,
+            "documentation": "Inserts a subvalue mark CHAR(252)",
+            "detail": "@SM"
+         },
+         {
+            "key": "@Svm",
+            "icon": 21,
+            "index": 34,
+            "documentation": "Inserts a subvalue mark CHAR(252)",
+            "detail": "@SVM"
+         },
+         {
+            "key": "@Tab",
+            "icon": 21,
+            "index": 35,
+            "documentation": "Inserts a tab character CHAR(9)",
+            "detail": "@TAB"
+         },
+         {
+            "key": "@Time",
+            "icon": 21,
+            "index": 36,
+            "documentation": "Returns the current time in internal format",
+            "detail": "@TIME"
+         },
+         {
+            "key": "@Timezone",
+            "icon": 21,
+            "index": 37,
+            "documentation": "Returns the current JBASE_TIMEZONE setting",
+            "detail": "@TIMEZONE"
+         },
+         {
+            "key": "@Tm",
+            "icon": 21,
+            "index": 38,
+            "documentation": "Inserts a text mark CHAR(251)",
+            "detail": "@TM"
+         },
+         {
+            "key": "@True",
+            "icon": 21,
+            "index": 39,
+            "documentation": "Inserts a one",
+            "detail": "@TRUE"
+         },
+         {
+            "key": "@Tty",
+            "icon": 21,
+            "index": 40,
+            "documentation": "Returns the current terminal device",
+            "detail": "@TTY"
+         },
+         {
+            "key": "@Udtno",
+            "icon": 21,
+            "index": 41,
+            "documentation": "Returns the current jBASE port number",
+            "detail": "@UDTNO"
+         },
+         {
+            "key": "@Uid",
+            "icon": 21,
+            "index": 42,
+            "documentation": "Returns the operating system user ID",
+            "detail": "@UID"
+         },
+         {
+            "key": "@User",
+            "icon": 21,
+            "index": 43,
+            "documentation": "Returns the operating system login name",
+            "detail": "@USER"
+         },
+         {
+            "key": "@Userno",
+            "icon": 21,
+            "index": 44,
+            "documentation": "Returns the jBASE port number",
+            "detail": "@USERNO"
+         },
+         {
+            "key": "@Userstats",
+            "icon": 21,
+            "index": 45,
+            "documentation": "Returns the current user statistics",
+            "detail": "@USERSTATS"
+         },
+         {
+            "key": "@Vm",
+            "icon": 21,
+            "index": 46,
+            "documentation": "Inserts a value mark CHAR(253)",
+            "detail": "@VM"
+         },
+         {
+            "key": "@Who",
+            "icon": 21,
+            "index": 47,
+            "documentation": "Returns the name of the current jBASE account name",
+            "detail": "@WHO"
+         },
+         {
+            "key": "@Year",
+            "icon": 21,
+            "index": 48,
+            "documentation": "Returns the current two-digit year number",
+            "detail": "@YEAR"
+         },
+         {
+            "key": "Abort",
+            "icon": 14,
+            "index": 49,
+            "documentation": "The ABORT statement terminates the running program as well as the program that called it.",
+            "detail": "ABORT {message.number{, expression ...}}"
+         },
+         {
+            "key": "Abs",
+            "icon": 3,
+            "index": 50,
+            "documentation": "The ABS function will return the mathematical absolute of the ()expression.",
+            "detail": "ABS(expression)"
+         },
+         {
+            "key": "Abss",
+            "icon": 3,
+            "index": 51,
+            "documentation": "The ABS function will return the absolute values of all the elements in a dynamic array.\r\nIf an element in the dynamic array is null, it returns null for that element.",
+            "detail": "ABSS(dynamic array)"
+         },
+         {
+            "key": "Adds",
+            "icon": 3,
+            "index": 52,
+            "documentation": "The ADDS function returns a dynamic array, the content of which is derived by adding corresponding elements from two dynamic arrays supplied as arguments.",
+            "detail": "ADDS(DynArr1, DynArr2)"
+         },
+         {
+            "key": "Alpha",
+            "icon": 3,
+            "index": 53,
+            "documentation": "The ALPHA function will check that the expression consists entirely of alphabetic characters.",
+            "detail": "ALPHA(expression)"
+         },
+         {
+            "key": "Ands",
+            "icon": 3,
+            "index": 54,
+            "documentation": "Use the ANDS function to create a dynamic array of the logical AND of corresponding elements from two dynamic arrays.",
+            "detail": "ANDS(Array1, Array2)"
+         },
+         {
+            "key": "Ascii",
+            "icon": 3,
+            "index": 55,
+            "documentation": "The ASCII function converts all the characters in the expression from the EBCDIC character set to the ASCII character set.",
+            "detail": "ASCII(expression)"
+         },
+         {
+            "key": "Assigned",
+            "icon": 3,
+            "index": 56,
+            "documentation": "The ASSIGNED function returns a Boolean TRUE or FALSE result depending on whether a variable has been assigned a value or not.",
+            "detail": "ASSIGNED(variable)"
+         },
+         {
+            "key": "Begin Case",
+            "icon": 14,
+            "index": 57,
+            "documentation": "The CASE structure is bounded by the BEGIN CASE and END CASE statements.",
+            "detail": "BEGIN CASE\r\n\r\n...\r\nEND CASE"
+         },
+         {
+            "key": "Bitand",
+            "icon": 3,
+            "index": 58,
+            "documentation": "Use the BITAND function to perform the bitwise AND comparison of two integers specified by numeric expressions.",
+            "detail": "BITAND(expression1, expression2)"
+         },
+         {
+            "key": "Bitchange",
+            "icon": 3,
+            "index": 59,
+            "documentation": "BITCHANGE toggles the state of a specified bit in the local bit table, and return the original value of the bit.",
+            "detail": "BITCHANGE(table_no)"
+         },
+         {
+            "key": "Bitcheck",
+            "icon": 3,
+            "index": 60,
+            "documentation": "BITCHECK returns the current value of a specified bit from the local bit table.",
+            "detail": "BITCHECK(table_no)"
+         },
+         {
+            "key": "Bitload",
+            "icon": 3,
+            "index": 61,
+            "documentation": "BITLOAD assigns all values in the local bit table, or retrieves all the values.",
+            "detail": "BITLOAD(bit_string)"
+         },
+         {
+            "key": "Bitnot",
+            "icon": 3,
+            "index": 62,
+            "documentation": "BITNOT returns the bitwise negation of an integer specified by any numeric expression.",
+            "detail": "BITNOT(expression, bit#)"
+         },
+         {
+            "key": "Bitor",
+            "icon": 3,
+            "index": 63,
+            "documentation": "BITOR performs the bitwise OR comparison of two integers specified by numeric expressions.",
+            "detail":"BITNOT(expression1, expression2)"
+         },
+         {
+            "key": "Bitreset",
+            "icon": 3,
+            "index": 64,
+            "documentation": "BITRESET resets the value of a specified bit in the local bit table to 0 and returns the value of the bit before it was changed.",
+            "detail":"BITRESET(table_no)"
+         },
+         {
+            "key": "Bitset",
+            "icon": 3,
+            "index": 65,
+            "documentation": "BITSET sets the value of a specified bit in the bit table to 1 and returns the value of the bit before it was changed.",
+            "detail":"BITSET(table_no)"
+         },
+         {
+            "key": "Bittest",
+            "icon": 3,
+            "index": 66,
+            "documentation": "BITTEST tests the bit number of the integer specified by an expression.",
+            "detail":"BITTEST(expression, bit#)"
+         },
+         {
+            "key": "Bitxor",
+            "icon": 3,
+            "index": 67,
+            "documentation": "BITXOR performs the bitwise XOR comparison of two integers specified by numeric expressions.\r\nThe bitwise XOR operation compares two integers bit by bit.\r\nIt returns a bit 1 if only one of the two bits is 1; else, it returns a bit 0.",
+            "detail":"BITXOR(expression1, expression2)"
+         },
+         {
+            "key": "Break",
+            "icon": 14,
+            "index": 68,
+            "documentation": "The BREAK statement allows the break key to be configured.",
+            "detail":"BREAK\r\nBREAK ON\r\nBREAK OFF\r\nBREAK expression"
+         },
+         {
+            "key": "Bytelen",
+            "icon": 3,
+            "index": 69,
+            "documentation": "The BYTELEN function  will return the length of the expression as the number of bytes rather than the number of characters.",
+            "detail":"BYTELEN(expression)"
+         },
+         {
+            "key": "Call",
+            "icon": 14,
+            "index": 70,
+            "documentation": "The CALL statement transfers program execution to an external subroutine.",
+            "detail": "CALL {@}subroutine.name {(argument {, argument ... })}"
+         },
+         {
+            "key": "Callc",
+            "icon": 14,
+            "index": 71,
+            "documentation": "The CALLC statement is used to invoke user supplied C functions compiled and built into standard libraries.",
+            "detail": "CALLC Cfunction{(argument{,...})}\r\nor\r\nCALLC @Variable{(argument {, argument ... })}"
+         },
+         {
+            "key": "Calldotnet",
+            "icon": 14,
+            "index": 72,
+            "documentation": "The CALLdotNET command allows jBASE BASIC to call any .NET assembly and is useful when using third party applications.",
+            "detail": "CALLdotNET NameSpaceAndClassName, methodName, param SETTING ret [ON ERROR errStatment]"
+         },
+         {
+            "key": "Callj",
+            "icon": 14,
+            "index": 73,
+            "documentation": "The CALLJ statement allows a jBC program to call a Java method.",
+            "detail": "CALLJ packageAndClassName, [$]methodName, param SETTING ret [ON ERROR] statements"
+         },
+         {
+            "key": "Callonexit",
+            "icon": 3,
+            "index": 74,
+            "documentation": "The CALLONEXIT function call allows you to specify the name of a SUBROUTINE to call when the program terminates.",
+            "detail": "rc = CALLONEXIT('ErrorExit')"
+         },
+         {
+            "key": "Case",
+            "icon": 14,
+            "index": 75,
+            "documentation": "The CASE statement allows the programmer to execute a particular sequence of instructions based upon the results of a series of test expressions.",
+            "detail": "CASE expression\r\nstatement(s)\r\nCASE expression\r\nstatement(s)\r\n....."
+         },
+         {
+            "key": "Cats",
+            "icon": 3,
+            "index": 76,
+            "documentation": "The CATS function concatenates the corresponding elements in two dynamic arrays.",
+            "detail": "CATS(DynArr1, DynArr2)"
+         },
+         {
+            "key": "Chain",
+            "icon": 14,
+            "index": 77,
+            "documentation": "The CHAIN statement exits the current program and transfers process control to the program defined by the expression.\r\nProcess control will never return to the originating program.",
+            "detail": "CHAIN expression {(I}"
+         },
+         {
+            "key": "Change",
+            "icon": 14,
+            "index": 78,
+            "documentation": "The CHANGE statement operates on a variable and replaces all occurrences of one string with another.",
+            "detail": "CHANGE( variable, expression1, expression2 )"
+         },
+         {
+            "key": "Changetimestamp",
+            "icon": 3,
+            "index": 79,
+            "documentation": "Use CHANGETIMESTAMP to adjust existing timestamp to return new timestamp value.",
+            "detail": "CHANGETIMESTAMP(Timestamp, Array)"
+         },
+         {
+            "key": "Char",
+            "icon": 3,
+            "index": 80,
+            "documentation": "The CHAR function returns the  ASCII character specified by the expression.",
+            "detail": "CHAR(expression)"
+         },
+         {
+            "key": "Chars",
+            "icon": 3,
+            "index": 81,
+            "documentation": "The CHARS function accepts a dynamic array of numeric expressions and returns a dynamic array of the corresponding ASCII characters",
+            "detail": "CHARS(DynArr)"
+         },
+         {
+            "key": "Chdir",
+            "icon": 3,
+            "index": 82,
+            "documentation": "The CHDIR function allows the current working directory, as seen by the process environment, to be changed.",
+            "detail": "CHDIR(expression)"
+         },
+         {
+            "key": "Checksum",
+            "icon": 3,
+            "index": 83,
+            "documentation": "The CHECKSUM function returns a simple numeric checksum of a character string.",
+            "detail": "CHECKSUM(expression)"
+         },
+         {
+            "key": "Clear",
+            "icon": 14,
+            "index": 84,
+            "documentation": "The CLEAR statement will initialize all variables to numeric 0.",
+            "detail": "CLEAR"
+         },
+         {
+            "key": "Clearcommon",
+            "icon": 14,
+            "index": 85,
+            "documentation": "The CLEARCOMMON statement initializes all unnamed common variables to a value of zero.",
+            "detail": "CLEARCOMMON"
+         },
+         {
+            "key": "Cleardata",
+            "icon": 14,
+            "index": 86,
+            "documentation": "The CLEARDATA statement clears data that has been stacked by the DATA statement.",
+            "detail": "CLEARDATA"
+         },
+         {
+            "key": "Clearfile",
+            "icon": 14,
+            "index": 87,
+            "documentation": "The CLEARFILE statement is used to clear all the data from a file previously opened with the OPEN statement.",
+            "detail": "CLEARFILE {variable} {SETTING setvar} {ON ERROR statements}"
+         },
+         {
+            "key": "Clearinput",
+            "icon": 14,
+            "index": 88,
+            "documentation": "The CLEARINPUT statement clears the type-ahead buffer to allow the next INPUT statement to force a response from the user.",
+            "detail": "CLEARINPUT"
+         },
+         {
+            "key": "Clearselect",
+            "icon": 14,
+            "index": 89,
+            "documentation": "The CLEARSELECT statement is used to clear specific active select lists.",
+            "detail": "CLEARSELECT {ListName | ListNumber}"
+         },
+         {
+            "key": "Close",
+            "icon": 14,
+            "index": 90,
+            "documentation": "The statement is used to CLOSE a previously opened file when it is no longer needed.\r\nItem locks and file locks are released.",
+            "detail": "CLOSE variable{, variable ...}"
+         },
+         {
+            "key": "Closeseq",
+            "icon": 14,
+            "index": 91,
+            "documentation": "The statement is used to CLOSE a file previously opened for sequential access.",
+            "detail": "CLOSESEQ FileVar"
+         },
+         {
+            "key": "Col1",
+            "icon": 3,
+            "index": 92,
+            "documentation": "The function is used in conjunction with the FIELD function to determine the character position 1 position before the last field that was located.",
+            "detail": "COL1()"
+         },
+         {
+            "key": "Col2",
+            "icon": 3,
+            "index": 93,
+            "documentation": "The function is used in conjunction with the FIELD function to determine the character position 1 position after the last field that was located.",
+            "detail": "COL2()"
+         },
+         {
+            "key": "Collectdata",
+            "icon": 14,
+            "index": 94,
+            "documentation": "The COLLECTDATA statement is used to retrieve data passed from the PASSDATA clause of an EXECUTE statement.",
+            "detail": "COLLECTDATA variable"
+         },
+         {
+            "key": "Common",
+            "icon": 14,
+            "index": 95,
+            "documentation": "The COMMON statement declares a list of variables and matrices that can be shared among various programs.\r\nThere can be many common areas including a default, unnamed common area.",
+            "detail": "COMMON {/CommonName/} variable{, variable ... }"
+         },
+         {
+            "key": "Compare",
+            "icon": 3,
+            "index": 96,
+            "documentation": "The COMPARE function compares two strings and returns a value indicating whether or not they are equal.",
+            "detail": "COMPARE(expression1, expression2{, justification})"
+         },
+         {
+            "key": "Continue",
+            "icon": 14,
+            "index": 97,
+            "documentation": "The CONTINUE statement is the complimentary statement to the BREAK statement without arguments.\r\nThe statement is used within a loop to skip the remaining code in the current iteration and proceed directly to the next iteration.",
+            "detail": "CONTINUE"
+         },
+         {
+            "key": "Convert",
+            "icon": 3,
+            "index": 98,
+            "documentation": "This is the function form of the CONVERT statement.\r\nIt performs exactly the same function, but may also operate on an expression rather than being restricted to variables.",
+            "detail": "CONVERT(expression1, expression2, expression3)"
+         },
+         {
+            "key": "Convert",
+            "icon": 14,
+            "index": 99,
+            "documentation": "The CONVERT statement converts one or more characters in a string to their corresponding replacement characters.",
+            "detail": "CONVERT expression1 TO expression2 IN expression3"
+         },
+         {
+            "key": "Cos",
+            "icon": 3,
+            "index": 100,
+            "documentation": "The COS function calculates the cosine of any angle using floating point arithmetic, then rounds to the precision implied by the jBC program. This makes it very accurate.",
+            "detail": "COS(expression)"
+         },
+         {
+            "key": "Count",
+            "icon": 3,
+            "index": 101,
+            "documentation": "The COUNT function returns the number of times that one string occurs in another.",
+            "detail": "COUNT(expression1, expression2)"
+         },
+         {
+            "key": "Counts",
+            "icon": 3,
+            "index": 102,
+            "documentation": "The COUNTS function counts the number of times a substring is repeated in each element of a dynamic array.\r\nThe result is a new dynamic array whose elements are the counts corresponding to the elements in the dynamic array.",
+            "detail": "COUNTS(dynamic array, substring)"
+         },
+         {
+            "key": "Create",
+            "icon": 14,
+            "index": 103,
+            "documentation": "Use the CREATE statement after an OPENSEQ statement to create a record in a jBASE directory file or to create a UNIX or DOS file.\r\nCREATE creates the record or file if the  OPENSEQ  statement fails.",
+            "detail": "CREATE file.variable {THEN statements [ELSE statements] | ELSE statements}"
+         },
+         {
+            "key": "Crt",
+            "icon": 14,
+            "index": 104,
+            "documentation": "The CRT statement sends data directly to the terminal, even if a PRINTER ON statement is currently active.\r\nIf the optional ':' is appended, no carriage return is appended to the text.",
+            "detail": "CRT expression {, expression..} {:}"
+         },
+         {
+            "key": "Data",
+            "icon": 14,
+            "index": 105,
+            "documentation": "The DATA statement stacks the series of expressions on an input FIFO stack.\r\nTerminal input statements will then treat this data as if it were typed in at the keyboard.",
+            "detail": "DATA expression {, expression ...}"
+         },
+         {
+            "key": "Date()",
+            "icon": 3,
+            "index": 106,
+            "documentation": "The DATE() function returns the date in internal system form. This date is expressed as the number of days before or after December 31, 1967.",
+            "detail": "DATE()"
+         },
+         {
+            "key": "Dcount",
+            "icon": 3,
+            "index": 107,
+            "documentation": "The DCOUNT() function counts the number of field elements in a string that are separated by a specified delimiter.",
+            "detail": "DCOUNT(expression1, expression2)"
+         },
+         {
+            "key": "Debug",
+            "icon": 14,
+            "index": 108,
+            "documentation": "The DEBUG statement causes the executing program to enter the jBC debugger.",
+            "detail": "DEBUG"
+         },
+         {
+            "key": "Decrypt",
+            "icon": 3,
+            "index": 109,
+            "documentation": "The DECRYPT function decodes a string encrypted by the ENCRYPT function.",
+            "detail": "DECRYPT(string, key, method)"
+         },
+         {
+            "key": "Defc",
+            "icon": 14,
+            "index": 110,
+            "documentation": "The DEFC statement is used to declare an external C function to the jBC compiler and define its arguments and return types.",
+            "detail": "DEFC {FuncType} FuncName ({ArgType {, ArgType ...}})"
+         },
+         {
+            "key": "Defce",
+            "icon": 14,
+            "index": 111,
+            "documentation": "The DEFCE statement should be used, rather than the DEFC statement, for calling external C programs, which are pure ‘C’ code and do not use the jBASE library macros and functions.",
+            "detail": "DEFCE {FuncType} FuncName ({ArgType {, ArgType ...}})"
+         },
+         {
+            "key": "Deffun",
+            "icon": 14,
+            "index": 112,
+            "documentation": "The DEFFUN statement is used to declare an external jBC function to the jBC compiler and optionally define its arguments.\r\nDEFFUN is used in the program that calls the function.",
+            "detail": "DEFFUN FuncName  ({ {MAT} Argument1, {MAT} Argument2...})"
+         },
+         {
+            "key": "Del",
+            "icon": 3,
+            "index": 113,
+            "documentation": "The DEL or DELETE statement is used to remove a specified element from a dynamic array.",
+            "detail": "DEL variable<expression1{, expression2{, expression3}}>\r\nDELETE(variable,expression1{, expression2{, expression3})"
+         },
+         {
+            "key": "Delete",
+            "icon": 14,
+            "index": 114,
+            "documentation": "The DELETE statement is used to delete a record from a jBASE file.",
+            "detail": "DELETE {variable,} expression {SETTING setvar} {ON ERROR statements}"
+         },
+         {
+            "key": "Deletelist",
+            "icon": 14,
+            "index": 115,
+            "documentation": "The DELETELIST statement will delete the previously stored list named by the expression.",
+            "detail": "DELETELIST expression"
+         },
+         {
+            "key": "Deleteseq",
+            "icon": 14,
+            "index": 116,
+            "documentation": "DELETESEQ deletes an operating system file.",
+            "detail": "DELETESEQ Expression {SETTING setvar} {ON ERROR statements} {LOCKED statements} THEN | ELSE statements\r\nor\r\nDELETESEQ Expression, Filename {SETTING setvar} {ON ERROR statements} {LOCKED statements} THEN | ELSE statements"
+         },
+         {
+            "key": "Deleteu",
+            "icon": 14,
+            "index": 117,
+            "documentation": "Use the DELETEU statement to delete a record without releasing the update record lock set by a previous  READU statement.",
+            "detail": "DELETEU {variable,} expression {SETTING setvar} {ON ERROR statements}"
+         },
+         {
+            "key": "Dim",
+            "icon": 14,
+            "index": 118,
+            "documentation": "The DIM statement is used to declare arrays to the compiler before they are referenced.",
+            "detail": "DIM{ENSION} variable(number{, number... }){, variable(number {,number...}) ...}"
+         },
+         {
+            "key": "Dir",
+            "icon": 3,
+            "index": 119,
+            "documentation": "The DIR function returns information about a file.",
+            "detail": "DIR(filename)"
+         },
+         {
+            "key": "Display",
+            "icon": 14,
+            "index": 120,
+            "documentation": "The DISPLAY statement sends data directly to the terminal, even if a PRINTER ON statement is currently active.\r\nIf the optional ':' is appended, no carriage return is appended to the text.",
+            "detail": "DISPLAY expression {, expression..} {:}"
+         },
+         {
+            "key": "Div",
+            "icon": 3,
+            "index": 121,
+            "documentation": "The DIV function  calculates the value of the quotient after division of the dividend by the divisor.",
+            "detail": "DIV(dividend, divisor)"
+         },
+         {
+            "key": "Divs",
+            "icon": 3,
+            "index": 122,
+            "documentation": "The DIVS function returns a dynamic array, the content of which is derived by dividing each element of the first dynamic array argument by the corresponding element of the second dynamic array argument.",
+            "detail": "DIVS(DynArr1, DynArr2)"
+         },
+         {
+            "key": "Downcase",
+            "icon": 3,
+            "index": 123,
+            "documentation": "DOWNCASE converts all uppercase characters in an expression to lowercase characters.",
+            "detail": "DOWNCASE(expression)"
+         },
+         {
+            "key": "Dquote",
+            "icon": 3,
+            "index": 124,
+            "documentation": "The function will put double quotation mark at the beginning and end of a string",
+            "detail": "DQUOTE(Expression)"
+         },
+         {
+            "key": "Dround",
+            "icon": 3,
+            "index": 125,
+            "documentation": "The DROUND( ) function performs double-precision rounding on a value.",
+            "detail": "DROUND(expression1{, expression2})"
+         },
+         {
+            "key": "Dtx",
+            "icon": 3,
+            "index": 126,
+            "documentation": "The DTX function will return the hexadecimal representation of a numeric expression.",
+            "detail": "DTX(expression)"
+         },
+         {
+            "key": "Dyntoxml",
+            "icon": 3,
+            "index": 127,
+            "documentation": "The DYNTOXML function converts a dynamic array to XML.",
+            "detail": "DYNTOXML(array,xsl,result)"
+         },
+         {
+            "key": "Ebcdic",
+            "icon": 3,
+            "index": 128,
+            "documentation": "The EBCDIC function converts all the characters in an expression from the ASCII character set to the EBCDIC character set.",
+            "detail": "EBCDIC(expression)"
+         },
+         {
+            "key": "Echo",
+            "icon": 14,
+            "index": 129,
+            "documentation": "The ECHO statement will turn on or off the echoing of characters typed at the keyboard.",
+            "detail": "ECHO ON\r\nECHO OFF\r\nECHO expression"
+         },
+         {
+            "key": "Encrypt",
+            "icon": 3,
+            "index": 130,
+            "documentation": "The ENCRYPT function encrypts a string.",
+            "detail": "ENCRYPT(string, key, method)"
+         },
+         {
+            "key": "End",
+            "icon": 14,
+            "index": 131,
+            "documentation": "The END statement is used to terminate a program or to conclude a set of jBC statements bounded by a condition.",
+            "detail": "END"
+         },
+         {
+            "key": "End Case",
+            "icon": 14,
+            "index": 132,
+            "documentation": "The END CASE statement terminates a CASE block. There should be a corresponding END CASE for each BEGIN CASE.",
+            "detail": "END CASE"
+         },
+         {
+            "key": "End Else",
+            "icon": 14,
+            "index": 133,
+            "documentation": "The END ELSE terminates the THEN portion and begin the ELSE portion of a code block",
+            "detail": "END ELSE"
+         },
+         {
+            "key": "Enter",
+            "icon": 14,
+            "index": 134,
+            "documentation": "The ENTER statement unconditionally passes control to another executable program.",
+            "detail": "ENTER program_name\r\nENTER @variable_name"
+         },
+         {
+            "key": "Equate",
+            "icon": 14,
+            "index": 135,
+            "documentation": "EQUATE is used to declare a symbol equivalent to a literal, variable or simple expression.",
+            "detail": "EQU{ATE} symbol TO expression"
+         },
+         {
+            "key": "Eqs",
+            "icon": 3,
+            "index": 136,
+            "documentation": "The EQS function tests if elements in one dynamic array are equal to the elements of another dynamic array.",
+            "detail": "EQS(array1, array2)"
+         },
+         {
+            "key": "Ereplace",
+            "icon": 3,
+            "index": 137,
+            "documentation": "The EREPLACE function replaces a substring in an expression with another substring.",
+            "detail": "EREPLACE(expression, substring, replacement [, occurrence [, begin]])"
+         },
+         {
+            "key": "Execute",
+            "icon": 14,
+            "index": 138,
+            "documentation": "The EXECUTE or PERFORM statement allows the currently executing program to pause and execute any other UNIX/NT program, including another jBC program or a jBASE command.",
+            "detail": "EXECUTE expression {CAPTURING variable} {RETURNING|SETTING variable}\r\n{PASSLIST expression} {RTNLIST {variable}}\r\n{PASSDATA variable} {RTNDATA variable}"
+         },
+         {
+            "key": "Exit",
+            "icon": 14,
+            "index": 139,
+            "documentation": "The EXIT statement is used to halt the execution of a program and return a numeric exit code to the parent process.\r\nFor compatibility with older versions of the language the EXIT statement may be used without an expression. In this case it is synonymous with the BREAK statement.",
+            "detail": "EXIT (expression)\r\nEXIT"
+         },
+         {
+            "key": "Exp",
+            "icon": 3,
+            "index": 140,
+            "documentation": "The EXP function returns the mathematical constant e to the specified power.",
+            "detail": "EXP(expression)"
+         },
+         {
+            "key": "Extract",
+            "icon": 3,
+            "index": 141,
+            "documentation": "The EXTRACT function is an alternative method of accessing values in a dynamic array.",
+            "detail": "EXTRACT(expression1, expression2 {, expression3 {, expression4}})"
+         },
+         {
+            "key": "Fadd",
+            "icon": 3,
+            "index": 142,
+            "documentation": "The FADD function performs the floating point addition of two numeric values.",
+            "detail": "FADD(expression1, expression2)"
+         },
+         {
+            "key": "Fdiv",
+            "icon": 3,
+            "index": 143,
+            "documentation": "The FDIV function performs the floating point division of two numeric values.",
+            "detail": "FDIV(expression1, expression2)"
+         },
+         {
+            "key": "Field",
+            "icon": 3,
+            "index": 144,
+            "documentation": "The FIELD function will return a multi-character delimited field from within a string.",
+            "detail": "FIELD(string, delimiter, occurrence{, extractCount})"
+         },
+         {
+            "key": "Fields",
+            "icon": 3,
+            "index": 145,
+            "documentation": "The FIELDS function is an extension of the FIELD function.\r\nIt returns a dynamic array of multi-character delimited fields from a dynamic array of strings.",
+            "detail": "FIELDS(DynArr, Delimiter, Occurrence{, ExtractCount})"
+         },
+         {
+            "key": "Fileinfo",
+            "icon": 3,
+            "index": 146,
+            "documentation": "The FILEINFO function returns information about a specified file variable.",
+            "detail": "FILEINFO(file.variable, key)"
+         },
+         {
+            "key": "Filelock",
+            "icon": 14,
+            "index": 147,
+            "documentatin": "When the FILELOCK statement is executed, it will attempt to take an exclusive lock on the specified file. ",
+            "detail": "FILELOCK filevar {LOCKED statements} {ON ERROR statements}"
+         },
+         {
+            "key": "Fileunlock",
+            "icon": 14,
+            "index": 148,
+            "documentation": "FILEUNLOCK is used to release a specified file lock set by the FILELOCK statement.",
+            "detail": "FILEUNLOCK filevar {ON ERROR statements}"
+         },
+         {
+            "key": "Find",
+            "icon": 14,
+            "index": 149,
+            "documentation": "The FIND statement allows the location of a specified string within a dynamic array.",
+            "detail": "FIND expression1 IN Var1 {, expression2} SETTING Var2 {, Var3 {, Var4}} THEN | ELSE statement(s)"
+         },
+         {
+            "key": "Findstr",
+            "icon": 14,
+            "index": 150,
+            "documentation": "The FINDSTR statement is used to locate a string as a substring of a dynamic array element.\r\nIt is similar in operation to the FIND statement.",
+            "detail": "FINDSTR expression1 IN Var1 {, expression2} SETTING Var2 {,Var3 {, Var4}} THEN | ELSE statement(s)"
+         },
+         {
+            "key": "Fmt",
+            "icon": 3,
+            "index": 151,
+            "documentation": "Performs formatting of output data values for use with PRINT and CRT commands.",
+            "detail": "FMT(Variable, MaskExpression)"
+         },
+         {
+            "key": "Fmts",
+            "icon": 3,
+            "index": 152,
+            "documentation": "Performs formatting of the elements of a dynamic array for output. Each element of the array is independently acted upon and returned as an element in a new dynamic array.",
+            "detail": "FMTS(dynamic.array, format)"
+         },
+         {
+            "key": "Fmul",
+            "icon": 3,
+            "index": 153,
+            "documentation": "The FMUL function performs the floating point multiplication of two numeric values.",
+            "detail": "FMUL(expression1, expression2)"
+         },
+         {
+            "key": "Fold",
+            "icon": 3,
+            "index": 154,
+            "documentation": "The FOLD function re-delimits a string by replacing spaces with attribute marks at positions defined by a length parameter.",
+            "detail": "FOLD(expression1, expression2)"
+         },
+         {
+            "key": "Footing",
+            "icon": 14,
+            "index": 155,
+            "documentation": "The FOOTING statement causes all subsequent output to the terminal to be halted at the end of each output page.",
+            "detail": "FOOTING expression"
+         },
+         {
+            "key": "For",
+            "icon": 14,
+            "index": 156,
+            "documentation": "The FOR statement allows the programming of looping constructs within the program.\r\nThe loop is controlled by a counting variable and may be terminated early by expressions tested after every iteration.",
+            "detail": "FOR var = expression1 TO expression2 {STEP expression3}\r\n\r\n{WHILE | UNTIL expression4}\r\nNEXT {var}"
+         },
+         {
+            "key": "FormList",
+            "icon": 14,
+            "index": 157,
+            "documentation": "The FORMLIST statement creates an active select list from a dynamic array.",
+            "detail": "FORMLIST variable1 {TO variable2 | listnum}"
+         },
+         {
+            "key": "Fsub",
+            "icon": 3,
+            "index": 158,
+            "documentation": "The FSUB function performs the floating point subtraction of two numeric values.",
+            "detail": "FSUB(expression1, expression2)"
+         },
+         {
+            "key": "Function",
+            "icon": 14,
+            "index": 159,
+            "documentation": "Identifies a user-defined function which can be invoked by other jBC programs.\r\nArguments to the function can optionally be declared.",
+            "detail": "FUNCTION name {({MAT} variable, {MAT} variable...) }"
+         },
+         {
+            "key": "Ges",
+            "icon": 3,
+            "index": 160,
+            "documentation": "The GES function performs a comparison of corresponding elements in two dynamic arrays.",
+            "detail": "GES(DynArr1, DynArr2)"
+         },
+         {
+            "key": "Get",
+            "icon": 14,
+            "index": 161,
+            "documentation": "The GET statement reads a block of data directly from a device.",
+            "detail": "GET Var {,length} {SETTING Count} FROM Device {UNTIL TermChars} {RETURNING TermChar} {WAITING Timeout} THEN | ELSE statements"
+         },
+         {
+            "key": "Getx",
+            "icon": 14,
+            "index": 162,
+            "documentation": "The GETX statement reads a block of data (in ASCII hexadecimal format) directly from a device.",
+            "detail": "GETX Var {,length} {SETTING Count} FROM Device {UNTIL TermChars} {RETURNING TermChar} {WAITING Timeout} THEN | ELSE statements"
+         },
+         {
+            "key": "Getcwd",
+            "icon": 3,
+            "index": 163,
+            "documentation": "The GETCWD function allows a jBC program to determine the current working directory of the program.\r\nThis will normally be the directory from which the program was executed but may have been changed with the CHDIR function.",
+            "detail": "GETCWD(Var)"
+         },
+         {
+            "key": "Getenv",
+            "icon": 3,
+            "index": 164,
+            "documentation": "The GETENV function allows a jBC program to determine the value of any of the environment variables associated with it.",
+            "detail": "GETENV(expression, variable)"
+         },
+         {
+            "key": "Getlist",
+            "icon": 14,
+            "index": 165,
+            "documentation": "GETLIST allows the program to retrieve a previously stored list (perhaps created with the SAVE-LIST command), into a jBC variable.",
+            "detail": "GETLIST expression TO variable1 {SETTING variable2} THEN|ELSE statements"
+         },
+         {
+            "key": "Gosub",
+            "icon": 14,
+            "index": 166,
+            "documentation": "The GOSUB statement causes execution of a local subroutine, after which execution will continue with the next line of code.",
+            "detail": "GOSUB label[:]"
+         },
+         {
+            "key": "Goto",
+            "icon": 14,
+            "index": 167,
+            "documentation": "The GOTO statement causes program execution to jump to the code at a specified label.",
+            "detail": "GOTO label[:]\r\nGO TO label[:]\r\nGO label[:]"
+         },
+         {
+            "key": "Group",
+            "icon": 3,
+            "index": 168,
+            "documentation": "The GROUP function is equivalent to the FIELD function.",
+            "detail": "GROUP(Expression1, Expression2, Expression3, Expression4)"
+         },
+         {
+            "key": "Groupstore",
+            "icon": 14,
+            "index": 169,
+            "documentation": "The GROUPSTORE statement substitutes one group of characters with another group of characters.",
+            "detail": "GROUPSTORE from.var IN to.var USING start,replace{,delim}"
+         },
+         {
+            "key": "Heading",
+            "icon": 14,
+            "index": 170,
+            "documentation": "The HEADING statement causes all subsequent output to the terminal to be halted at the end of each page.\r\nThe statement allows an expression to be evaluated and displayed at the top of each page.\r\nIf output is currently being sent to the terminal, output is paused until a carriage return is entered at the terminal - unless the N option is specified.",
+            "detail": "HEADING {ON channel} expression"
+         },
+         {
+            "key": "Headinge",
+            "icon": 14,
+            "index": 171,
+            "documentation": "The HEADINGE statement is the same as the HEADING statement, but causes a page eject with the HEADING statement.",
+            "detail": "HEADINGE {ON channel} expression"
+         },
+         {
+            "key": "Headingn",
+            "icon": 14,
+            "index": 172,
+            "documentation": "The HEADINGN statement is the same as the HEADING statement, but suppresses the page eject.",
+            "detail": "HEADINGN {ON channel} expression"
+         },
+         {
+            "key": "Hush",
+            "icon": 14,
+            "index": 173,
+            "documentation": "The HUSH statement turns the echoing of characters typed at the keyboard on or off.",
+            "detail": "HUSH ON\r\nHUSH OFF\r\nHUSH expression"
+         },
+         {
+            "key": "Iconv",
+            "icon": 3,
+            "index": 174,
+            "documentation": "The ICONV function converts data in external form such as dates to their internal form.",
+            "detail": "ICONV(expression1, expression2)"
+         },
+         {
+            "key": "Iconvs",
+            "icon": 3,
+            "index": 175,
+            "documentation": "The ICONVS function converts each element of a dynamic array to a specified internal storage format.",
+            "detail": "ICONVS(dynamic array, conversion)"
+         },
+         {
+            "key": "If",
+            "icon": 14,
+            "index": 176,
+            "documentation": "The IF statement is used to allow other statements to be conditionally executed.",
+            "detail": "IF expression THEN|ELSE statements"
+         },
+         {
+            "key": "Ifs",
+            "icon": 3,
+            "index": 177,
+            "documentation": "The IFS function returns a dynamic array whose elements are chosen individually from one of two dynamic arrays based on the contents of a third dynamic array.",
+            "detail": "IFS (dynamic.array, true.array, false.array)"
+         },
+         {
+            "key": "In",
+            "icon": 14,
+            "index": 178,
+            "documentation": "The IN statement allows the program to receive raw data from the input device, which is normally the terminal keyboard, one character at a time.",
+            "detail": "IN Var {FOR expression THEN|ELSE statements}"
+         },
+         {
+            "key": "Include",
+            "icon": 14,
+            "index": 179,
+            "documentation": "The INCLUDE directive inserts the program/code snippet specified into the current source code.\r\nIf the optional filename is specified the code is read from that file.",
+            "detail": "INCLUDE programname\r\nINCLUDE filename programname"
+         },
+         {
+            "key": "Index",
+            "icon": 3,
+            "index": 180,
+            "documentation": "The INDEX function will return the position of a character or characters within another string.",
+            "detail": "INDEX(expression1, expression2, expression3)"
+         },
+         {
+            "key": "Indices",
+            "icon": 3,
+            "index": 181,
+            "documentation": "The INDICES function will return information on all of the indexes associated with a specified file.",
+            "detail": "INDICES(filevar { , index-name } )"
+         },
+         {
+            "key": "Inmat",
+            "icon": 3,
+            "index": 182,
+            "documentation": "The INMAT() function returns the number of dimensioned array elements.",
+            "detail": "INMAT( {array} )"
+         },
+         {
+            "key": "Input",
+            "icon": 14,
+            "index": 183,
+            "documentation": "The INPUT statement allows the program to collect data from the current input device, which will normally be the terminal keyboard but may be stacked input from the same or separate program.",
+            "detail": "INPUT {@(expression1{, expression2 )}{:} Var{{, expression3}, expression4} {:}{_} {WITH expression5} {FOR expression6 THEN|ELSE statements}"
+         },
+         {
+            "key": "Inputclear",
+            "icon": 14,
+            "index": 184,
+            "documentation": "The INPUTCLEAR statement clears the type-ahead buffer.",
+            "detail": "INPUTCLEAR"
+         },
+         {
+            "key": "Inputnull",
+            "icon": 14,
+            "index": 185,
+            "documentation": "The INPUTNULL statement allows the definition of a character that will allow a null input to be seen by the INPUT@ statement.",
+            "detail": "INPUTNULL expression"
+         },
+         {
+            "key": "Ins",
+            "icon": 14,
+            "index": 186,
+            "documentation": "The INS statement allows the insertion of elements into a dynamic array.",
+            "detail": "INS expression BEFORE Var<expression1{, expression2{, expression3}}>"
+         },
+         {
+            "key": "Insert",
+            "icon": 3,
+            "index": 187,
+            "documentation": "INSERT is the function form of the INS statement, which should be used in preference to this function.",
+            "detail": "INSERT(expression1, expression2{, expression3 {, expression4 }}; expression5)"
+         },
+         {
+            "key": "Int",
+            "icon": 3,
+            "index": 188,
+            "documentation": "The INT function truncates a numeric value into its nearest integer form.",
+            "detail": "INT(expression)"
+         },
+         {
+            "key": "Ioctl",
+            "icon": 3,
+            "index": 189,
+            "documentation": "The purpose of the IOCTL function is to allow commands to be sent to the database driver for a particular file, and then to receive a reply from that same databasedriver. ",
+            "detail": "IOCTL(Filevar, Command, Parameter)"
+         },
+         {
+            "key": "Isalpha",
+            "icon": 3,
+            "index": 190,
+            "documentation": "The ISALPHA function checks that an expression consists entirely of alphabetic characters.",
+            "detail": "ISALPHA( expression)"
+         },
+         {
+            "key": "Isalnum",
+            "icon": 3,
+            "index": 191,
+            "documentation": "The ISALNUM function checks that an expression consists entirely of alphanumeric characters.",
+            "detail": "ISALNUM( expression)"
+         },
+         {
+            "key": "Iscntrl",
+            "icon": 3,
+            "index": 192,
+            "documentation": "The ISCNTRL function checks that an expression consists entirely of control characters.",
+            "detail": "ISCNTRL( expression)"
+         },
+         {
+            "key": "Isdigit",
+            "icon": 3,
+            "index": 193,
+            "documentation": "The ISDIGIT function checks that an expression consists entirely of numeric characters.",
+            "detail": "ISDIGIT( expression)"
+         },
+         {
+            "key": "Isprint",
+            "icon": 3,
+            "index": 194,
+            "documentation": "The ISPRINT function checks that an expression consists entirely of printable characters.",
+            "detail": "ISPRINT( expression)"
+         },
+         {
+            "key": "Isspace",
+            "icon": 3,
+            "index": 195,
+            "documentation": "The ISSPACE function checks that an expression consists entirely of space characters.",
+            "detail": "ISSPACE( expression)"
+         },
+         {
+            "key": "Isupper",
+            "icon": 3,
+            "index": 196,
+            "documentation": "The ISUPPER function checks that an expression consists entirely of upper case characters.",
+            "detail": "ISUPPER( expression)"
+         },
+         {
+            "key": "Jbasecoredump",
+            "icon": 3,
+            "index": 197,
+            "documentation": "The JBASECOREDUMP function is a diagnostic tool for applications that allows a portion of the application to be dumped to an external file for later analysis.",
+            "detail": "JBASECOREDUMP(expression1, expression2)"
+         },
+         {
+            "key": "Jbasethreadcreate",
+            "icon": 3,
+            "index": 198,
+            "documentation": "The JBASETHREADCreate function starts a new thread from the current process.",
+            "detail": "JBASETHREADCreate(ProgramName, Arguments, Reserved, Handle)"
+         },
+         {
+            "key": "Jbasethreadstatus",
+            "icon": 3,
+            "index": 199,
+            "documentation": "The JBASETHREADStatus function returns the status of all running threads.",
+            "detail": "JBASETHREADStatus(ThreadList)"
+         },
+         {
+            "key": "Jqlcompile",
+            "icon": 3,
+            "index": 200,
+            "documentation": "The JQLCOMPILE function compiles a jQL statement.",
+            "detail": "JQLCOMPILE(Statement, Command, Options, Messages)"
+         },
+         {
+            "key": "Jqlexecute",
+            "icon": 3,
+            "index": 201,
+            "documentation": "The JQLEXECUTE statement executes a compiled jQL statement.",
+            "detail": "JQLEXECUTE(Statement, SelectVar)"
+         },
+         {
+            "key": "Jqlfetch",
+            "icon": 3,
+            "index": 202,
+            "documentation": "The JQLFETCH statement fetches the next result in a compiled jQL statement.",
+            "detail": "JQLFETCH(Statement, ControlVar, DataVar)"
+         },
+         {
+            "key": "Jqlgetproperty",
+            "icon": 3,
+            "index": 203,
+            "documentation": "The JQLGETPROPERTY statement gets the value of a specified property from a compiled jQL statement.",
+            "detail": "JQLGETPROPERTY(PropertyValue, Statement, Column, PropertyName)"
+         },
+         {
+            "key": "Jqlputproperty",
+            "icon": 3,
+            "index": 204,
+            "documentation": "The JQLPUTPROPERTY statement sets the value of a specified property in a compiled jQL statement.",
+            "detail": "JQLPUTPROPERTY(PropertyValue, Statement, Column, PropertyName)"
+         },
+         {
+            "key": "Keyin",
+            "icon": 3,
+            "index": 205,
+            "documentation": "The KEYIN function reads a single character from the input buffer and returns it.",
+            "detail": "KEYIN()"
+         },
+         {
+            "key": "Latin1",
+            "icon": 3,
+            "index": 206,
+            "documentation": "The LATIN1 function converts a UTF-8 byte sequence into the binary or latin1 equivalent.",
+            "detail": "LATIN1(expression)"
+         },
+         {
+            "key": "Left",
+            "icon": 3,
+            "index": 207,
+            "documentation": "The LEFT function extracts a sub-string of a specified length from the beginning of a string.",
+            "detail": "LEFT(expression, length)"
+         },
+         {
+            "key": "Len",
+            "icon": 3,
+            "index": 208,
+            "documentation": "The LEN function returns the character length of the supplied expression.",
+            "detail": "LEN(expression)"
+         },
+         {
+            "key": "Lens",
+            "icon": 3,
+            "index": 209,
+            "documentation": "The LENS function returns a dynamic array of the number of bytes in each element of a dynamic array.",
+            "detail": "LENS(dynamic.array)"
+         },
+         {
+            "key": "Lendp",
+            "icon": 3,
+            "index": 210,
+            "documentation": "The LENDP function returns a the display length of an expression.",
+            "detail": "LENDP(expression)"
+         },
+         {
+            "key": "Les",
+            "icon": 3,
+            "index": 211,
+            "documentation": "The LES function determines whether elements in one dynamic array are less than or equal to the corresponding elements in another dynamic array.",
+            "detail": "LES(array1, array2)"
+         },
+         {
+            "key": "Ln",
+            "icon": 3,
+            "index": 212,
+            "documentation": "The LN function returns the value of the natural logarithm of the supplied value.",
+            "detail": "LN(expression)"
+         },
+         {
+            "key": "Localdate",
+            "icon": 3,
+            "index": 213,
+            "documentation": "The LOCALDATE function returns an internal date using the specified Timestamp and TimeZone combination.",
+            "detail": "LOCALDATE(Timestamp, TimeZone)"
+         },
+         {
+            "key": "Localtime",
+            "icon": 3,
+            "index": 214,
+            "documentation": "The LOCALTIME function returns an internal time using the specified Timestamp and TimeZone combination.",
+            "detail": "LOCALTIME(Timestamp, TimeZone)"
+         },
+         {
+            "key": "Locate",
+            "icon": 14,
+            "index": 215,
+            "documentation": "The LOCATE statement finds the position of an element within a specified dimension of a dynamic array.",
+            "detail": "LOCATE expression1 IN expression2{<expression3{,expression4}>}, {,expression5} {BY expression6} SETTING Var THEN|ELSE statement(s)"
+         },
+         {
+            "key": "Locate",
+            "icon": 3,
+            "index": 216,
+            "documentation": "The LOCATE 'function' is the equivalent of the LOCATE statement in its traditional Pick format",
+            "detail": "LOCATE(expression1, expression2{,expression3{,expression4}}; Var; expression6) THEN|ELSE statements"
+         },
+         {
+            "key": "Lock",
+            "icon": 14,
+            "index": 217,
+            "documentation": "The LOCK statement will attempt to set an execution lock, thus requiring any other jBC program which respects that lock to wait until this program has released it.",
+            "detail": "LOCK expression {THEN|ELSE statements}"
+         },
+         {
+            "key": "Loop",
+            "icon": 14,
+            "index": 218,
+            "documentation": "The LOOP construct allows the programmer to specify loops with multiple exit conditions.",
+            "detail": "LOOP statements1 WHILE|UNTIL expression DO statements2 REPEAT"
+         },
+         {
+            "key": "Lowcase",
+            "icon": 3,
+            "index": 219,
+            "documentation": "The LOWCASE functionconverts all uppercase characters in an expression to lowercase characters. Equivalent to DOWNCASE()",
+            "detail": "LOWCASE(expression)"
+         },
+         {
+            "key": "Lower",
+            "icon": 3,
+            "index": 220,
+            "documentation": "The LOWER function lowers system delimiters in a string to the next lowest delimiter.",
+            "detail": "LOWER(expression)"
+         },
+         {
+            "key": "Maketimestamp",
+            "icon": 3,
+            "index": 221,
+            "documentation": "The MAKETIMESTAMP function generates a timestamp using a combination of internal date, time and timezone.",
+            "detail": "MAKETIMESTAMP(InternalDate, InternalTime, Timezone)"
+         },
+         {
+            "key": "Mat",
+            "icon": 14,
+            "index": 222,
+            "documentation": "The MAT command is used to either assign every element in a specified array to a single value or to assign the entire contents of one array to another.",
+            "detail": "MAT Array = expression\r\nMAT Array1 = MAT Array2"
+         },
+         {
+            "key": "Matbuild",
+            "icon": 14,
+            "index": 223,
+            "documentation": "The MATBUILD statement is used to create a dynamic array out of a dimensioned array.",
+            "detail": "MATBUILD variable FROM array{, expression1{, expression2}} {USING expression3}"
+         },
+         {
+            "key": "Match",
+            "icon": 14,
+            "index": 224,
+            "documentation": "The MATCH or MATCHES function allows pattern matching to be applied to an expression.",
+            "detail": "expression1 MATCH expression2"
+         },
+         {
+            "key": "Matches",
+            "icon": 14,
+            "index": 225,
+            "documentation": "The MATCH or MATCHES function allows pattern matching to be applied to an expression.",
+            "detail": "expression1 MATCHES expression2"
+         },
+         {
+            "key": "Matchfield",
+            "icon": 3,
+            "index": 226,
+            "documentation": "The MATCHFIELD function checks a string against a match pattern.\r\nSee also MATCHES for information about pattern matching.",
+            "detail": "MATCHFIELD(string, pattern, field)"
+         },
+         {
+            "key": "Matparse",
+            "icon": 14,
+            "index": 227,
+            "documentation": "The MATPARSE statement is used to assign the elements of a matrix from the elements of a dynamic array.",
+            "detail": "MATPARSE array{, expression1{, expression2}} FROM variable1 {USING expression3} SETTING variable2"
+         },
+         {
+            "key": "Matread",
+            "icon": 14,
+            "index": 228,
+            "documentation": "The MATREAD statement allows a record stored in a jBASE file to be read and mapped directly into a dimensioned array.",
+            "detail": "MATREAD array FROM {variable1,}expression {SETTING setvar} {ON ERROR statements} {LOCKED statements} {THEN|ELSE statements}"
+         },
+         {
+            "key": "Matreadu",
+            "icon": 14,
+            "index": 229,
+            "documentation": "The MATREADU statement allows a record stored in a jBASE file to be read and mapped directly into a dimensioned array.\r\nThe record will also be locked for update by the program.",
+            "detail": "MATREADU array FROM { variable1,}expression {SETTING setvar} {ON ERROR statements} {LOCKED statements} {THEN|ELSE statements}"
+         }, 
+         {
+            "key": "Matwrite",
+            "icon": 14,
+            "index": 230,
+            "documentation": "The MATWRITE statement transfers the entire contents of a dimensioned array to a specified record on disc.",
+            "detail": "MATWRITE array ON { variable,}expression {SETTING setvar} {ON ERROR statements}"
+         },
+         {
+            "key": "Matwriteu",
+            "icon": 14,
+            "index": 231,
+            "documentation": "The MATWRITEU statement transfers the entire contents of a dimensioned array to a specified record on file, in the same manner as the MATWRITE statement.\r\nAn existing record lock will be preserved.",
+            "detail": "MATWRITEU array ON { variable,}expression {SETTING setvar} {ON ERROR statements}"
+         },
+         {
+            "key": "Maximum",
+            "icon": 3,
+            "index": 232,
+            "documentation": "The MAXIMUM function is used to return the element of a dynamic array with the highest numerical value.",
+            "detail": "MAXIMUM(DynArr)"
+         },
+         {
+            "key": "Mod",
+            "icon": 3,
+            "index": 233,
+            "documentation": "The MOD and REM functions return the arithmetic modulo (remainder) of two numeric expressions.",
+            "detail": "MOD(expression1, expression2)"
+         },
+         {
+            "key": "Mods",
+            "icon": 3,
+            "index": 234,
+            "documentation": "The MODS function creates a dynamic array of the remainder after the integer division of the corresponding elements of two dynamic arrays.",
+            "detail": "MODS(array1, array2)"
+         },
+         {
+            "key": "Msleep",
+            "icon": 14,
+            "index": 235,
+            "documentation": "Allows the program to pause execution for a specified number of milliseconds.",
+            "detail": "MSLEEP {milliseconds}"
+         },
+         {
+            "key": "Muls",
+            "icon": 3,
+            "index": 236,
+            "documentation": "The MULS function returns a dynamic array, the content of which is derived by multiplying the corresponding elements of two dynamic arrays passed as arguments.",
+            "detail": "MULS(DynArr1, DynArr2)"
+         },
+         {
+            "key": "Neg",
+            "icon": 3,
+            "index": 237,
+            "documentation": "The NEG function is used to invert the arithmetic value of an expression.",
+            "detail": "NEG(expression)"
+         },
+         {
+            "key": "Negs",
+            "icon": 3,
+            "index": 238,
+            "documentation": "The NEGS function is used to return the negative values of all the elements in a dynamic array.",
+            "detail": "NEGS(array)"
+         },
+         {
+            "key": "Nes",
+            "icon": 3,
+            "index": 239,
+            "documentation": "The NES function determines whether elements of one dynamic array are equal to the elements of another dynamic array.",
+            "detail": "NES(array1, array2)"
+         },
+         {
+            "key": "Next",
+            "icon": 14,
+            "index": 240,
+            "documentation": "The NEXT statement terminates a FOR loop. Control is passed back to the FOR statement and the variable is incremented or decremented.",
+            "detail": "NEXT variable"
+         },
+         {
+            "key": "Nobuf",
+            "icon": 14,
+            "index": 241,
+            "documentation": "The NOBUF statement turns off buffering for a file previously opened for sequential processing.",
+            "detail": "NOBUF file.variable {THEN statements [ELSE statements] | ELSE statements}"
+         },
+         {
+            "key": "Not",
+            "icon": 3,
+            "index": 242,
+            "documentation": "The NOT function is used to invert the Boolean value of an expression.\r\nIt useful for explicitly testing for a false condition.",
+            "detail": "NOT(Expression)"
+         },
+         {
+            "key": "Nots",
+            "icon": 3,
+            "index": 243,
+            "documentation": "The NOTS function is used to return a dynamic array of the logical complements of each element of a dynamic array.",
+            "detail": "NOTS(array)"
+         },
+         {
+            "key": "Null",
+            "icon": 14,
+            "index": 244,
+            "documentation": "The NULL statement performs no function but can be useful in clarifying syntax and where the language requires a statement but the programmer does not wish to perform any actions.",
+            "detail": "NULL"
+         },
+         {
+            "key": "Num",
+            "icon": 3,
+            "index": 245,
+            "documentation": "The NUM function is used to test arguments for numeric values.",
+            "detail": "NUM(expression)"
+         },
+         {
+            "key": "Nums",
+            "icon": 3,
+            "index": 246,
+            "documentation": "The NUMS function is used to determine whether the elements of a dynamic array are numeric.",
+            "detail": "NUMS(dynamic.array)"
+         },
+         {
+            "key": "Objexcallback",
+            "icon": 14,
+            "index": 247,
+            "documentation": "The OBJEXCALLBACK statement allows communication between the subroutine and the calling OBjEX program.",
+            "detail": "OBJEXCALLBACK expression1, expression2 THEN|ELSE statements"
+         },
+         {
+            "key": "Oconv",
+            "icon": 3,
+            "index": 248,
+            "documentation": "The OCONV statement is used to convert internal representations of data to their external form.",
+            "detail": "OCONV(expression1, expression2)"
+         },
+         {
+            "key": "Oconvs",
+            "icon": 3,
+            "index": 249,
+            "documentation": "The OCONVS function is used to convert the elements of a dynamic array to a specified format for external output.",
+            "detail": "OCONVS(dynamic.array, conversion)"
+         },
+         {
+            "key": "On",
+            "icon": 3,
+            "index": 250,
+            "documentation": "The ON...GOSUB and ON...GOTO statements are used to transfer program execution to a label based upon a calculation.",
+            "detail": "ON expression GOTO label{, label...}\r\nON expression GOSUB label{, label...}"
+         },
+         {
+            "key": "Open",
+            "icon": 14,
+            "index": 251,
+            "documentation": "The OPEN statement is used to open a file or device to a descriptor variable.\r\nIf the OPEN statement fails, it executes any statements associated with an ELSE clause.\r\nIf the OPEN is successful it will execute any statements associated with a THEN clause. Note that either one or both of the THEN and ELSE clauses are required.",
+            "detail": "OPEN {expression1,}expression2 TO {variable} {SETTING setvar} THEN|ELSE statements"
+         },
+         {
+            "key": "Opendev",
+            "icon": 14,
+            "index": 252,
+            "documentation": "Opens a device (or file) for sequential writing and/or reading.",
+            "detail": "OPENDEV Device TO FileVar { LOCKED statements } THEN | ELSE statements"
+         },{
+            "key": "Openindex",
+            "icon": 14,
+            "index": 253,
+            "documentation": "The OPENINDEX statement is used to open a particular index definition for a particular file.\r\nThis index file variable can later be used with the SELECT statement.",
+            "detail": "OPENINDEX filename,indexname TO indexvar {SETTING setvar} THEN|ELSE statements"
+         },
+         {
+            "key": "Openpath",
+            "icon": 14,
+            "index": 254,
+            "documentation": "The OPENPATH statement is used to open a file (given an absolute or relative path) to a descriptor variable within jBC.\r\nSee also the OPEN statement.",
+            "detail": "OPENPATH expression1 TO {variable} {SETTING setvar} THEN|ELSE statements"
+         },
+         {
+            "key": "Openseq",
+            "icon": 14,
+            "index": 255,
+            "documentation": "Opens a file for sequential writing and/or reading.",
+            "detail": "OPENSEQ Path{,File} {READONLY} TO FileVar {SETTING setvar} {ON ERROR statements} { LOCKED statements } THEN | ELSE statements"
+         },
+         {
+            "key": "Openser",
+            "icon": 14,
+            "index": 256,
+            "documentation": "Opens a serial device for sequential writing and/or reading.",
+            "detail": "OPENSER Path,DevInfo| PIPE TO FileVar THEN | ELSE Statements"
+         },
+         {
+            "key": "Ors",
+            "icon": 3,
+            "index": 257,
+            "documentation": "The ORS function creates a dynamic array with the logical OR from the corresponding elements of two dynamic arrays.",
+            "detail": "ORS(array1, array2)"
+         },
+         {
+            "key": "Osbread",
+            "icon": 14,
+            "index": 258,
+            "documentation": "Reads an OS file from a file opened.",
+            "detail": "OSBREAD Variable FROM FileVar AT ByteExpr LENGTH LengthExpr {ON ERROR Statements}"
+         },
+         {
+            "key": "Osbwrite",
+            "icon": 14,
+            "index": 259,
+            "documentation": "Writes an OS file to an file opened.",
+            "detail": "OSBWRITE Variable ON | TO FileVar AT ByteExpr {ON ERROR Statements}"
+         },
+         {
+            "key": "Osclose",
+            "icon": 14,
+            "index": 260,
+            "documentation": "Closes a previously opened OS file.",
+            "detail": "OSCLOSE FileVar {ON ERROR Statements}"
+         },
+         {
+            "key": "Osdelete",
+            "icon": 14,
+            "index": 261,
+            "documentation": "Deletes an OS file.",
+            "detail": "OSDELETE expression {ON ERROR Statements}"
+         },
+         {
+            "key": "Osopen",
+            "icon": 14,
+            "index": 262,
+            "documentation": "The OSOPEN statment opens an OS file for processing.",
+            "detail": "OSOPEN expression {READONLY} {TO FileVar} {ON ERROR Statements} {THEN | ELSE} Statements {END}"
+         },
+         {
+            "key": "Osread",
+            "icon": 14,
+            "index": 263,
+            "documentation": "Reads an OS file.",
+            "detail": "OSREAD Variable FROM expression {ON ERROR Statements} {THEN | ELSE} Statements {END}"
+         },
+         {
+            "key": "Oswrite",
+            "icon": 14,
+            "index": 264,
+            "documentation": "Writes an OS file.",
+            "detail": "OSWRITE Variable ON |TO expression {ON ERROR Statements}"
+         },
+         {
+            "key": "Out",
+            "icon": 14,
+            "index": 265,
+            "documentation": "The OUT statement is used to send raw characters to the current output device (normally the terminal).",
+            "detail": "OUT expression"
+         },
+         {
+            "key": "Page",
+            "icon": 14,
+            "index": 266,
+            "documentation": "Prints any FOOTING statement, throws a page and prints any heading statement on the current output device.",
+            "detail": "PAGE {ON channel} {expression}"
+         },
+         {
+            "key": "Pause",
+            "icon": 14,
+            "index": 267,
+            "documentation": "The PAUSE statement allows processing to be suspended until an external event triggered by a WAKE statement from another process or a timeout occurs.",
+            "detail": "PAUSE {expression}"
+         },
+         {
+            "key": "Perform",
+            "icon": 14,
+            "index": 268,
+            "documentation": "The EXECUTE or PERFORM statement allows the currently executing program to pause and execute any other UNIX/NT program, including another jBC program or a jBASE command.",
+            "detail": "PERFORM expression {CAPTURING variable} {RETURNING|SETTING variable}\r\n{PASSLIST expression} {RTNLIST {variable}}\r\n{PASSDATA variable} {RTNDATA variable}"
+         },
+         {
+            "key": "Precision",
+            "icon": 14,
+            "index": 269,
+            "documentation": "The PRECISION statement informs jBASE as to the number of digits of precision it uses after the decimal point in numbers.",
+            "detail": "PRECISION integer"
+         },
+         {
+            "key": "Print",
+            "icon": 14,
+            "index": 270,
+            "documentation": "The PRINT statement sends data directly to the current output device, which will either be the terminal or the printer.",
+            "detail": "PRINT {ON Channel} expression {, expression...} {:}"
+         },
+         {
+            "key": "Printer Close",
+            "icon": 14,
+            "index": 271,
+            "documentation": "PRINTER CLOSE will act as PRINTER OFF but in addition will close all currently active spool jobs created by the active PRINTER ON statement.\r\nIf the optional ON channel_number is specified then only the print job created on that channel number will be closed.",
+            "detail": "PRINTER CLOSE {ON channel_number}"
+         },
+         {
+            "key": "Printer Off",
+            "icon": 14,
+            "index": 272,
+            "documentation": "PRINTER OFF will cause all subsequent output from the PRINT statement to be redirected to the terminal device.",
+            "detail": "PRINTER OFF"
+         },
+         {
+            "key": "Printer On",
+            "icon": 14,
+            "index": 273,
+            "documentation": "PRINTER ON will cause all subsequent output from the PRINT statement to be redirected to the print spooler.",
+            "detail": "PRINTER ON"
+         },
+         {
+            "key": "Printerr",
+            "icon": 14,
+            "index": 274,
+            "documentation": "Used to print standard jBASE error messages.",
+            "detail": "PRINTERR expression"
+         },
+         {
+            "key": "Procread",
+            "icon": 14,
+            "index": 275,
+            "documentation": "Used to retrieve data passed to programs from a jCL program.",
+            "detail": "PROCREAD variable THEN|ELSE statements"
+         },
+         {
+            "key": "Procwrite",
+            "icon": 14,
+            "index": 276,
+            "documentation": "Used to pass data back to the primary input buffer of a calling jCL program.",
+            "detail": "PROCWRITE expression"
+         },
+         {
+            "key": "Program",
+            "icon": 14,
+            "index": 277,
+            "documentation": "Performs no function other than to document the source code.",
+            "detail": "PROGRAM progname"
+         },
+         {
+            "key": "Prompt",
+            "icon": 14,
+            "index": 278,
+            "documentation": "Used to change the prompt character used by terminal input commands",
+            "detail": "PROMPT expression"
+         },
+         {
+            "key": "Putenv",
+            "icon": 3,
+            "index": 279,
+            "documentation": "Used to set environment variables for the current process.",
+            "detail": "PUTENV(expression)"
+         },
+         {
+            "key": "Pwr",
+            "icon": 3,
+            "index": 280,
+            "documentation": "The PWR function raises a number to the n'th power.",
+            "detail": "PWR(expression1, expression2)\r\nor\r\nexpression1 ^ expression2"
+         },
+         {
+            "key": "Quote",
+            "icon": 3,
+            "index": 281,
+            "documentation": "The function will put double quotation mark at the beginning and end of a string",
+            "detail": "QUOTE(Expression)"
+         },
+         {
+            "key": "Raise",
+            "icon": 3,
+            "index": 282,
+            "documentation": "The RAISE function raises system delimiters in a string to the next highest delimiter.",
+            "detail": "RAISE(Expression)"
+         },
+         {
+            "key": "Read",
+            "icon": 14,
+            "index": 283,
+            "documentation": "The READ statement allows a program to read a record from a previously opened file into a variable.",
+            "detail": "READ variable1 FROM { variable2,} expression {SETTING setvar} {ON ERROR statements} THEN|ELSE statements"
+         },
+         {
+            "key": "Readblk",
+            "icon": 14,
+            "index": 284,
+            "documentation": "The READBLK statement reads a block of data of a specified length from a file opened for sequential processing and assigns it to a variable.",
+            "detail": "READBLK variable FROM file.variable, blocksize {THEN statemente [ELSE statements] | ELSE statements}"
+         },
+         {
+            "key": "Readl",
+            "icon": 14,
+            "index": 285,
+            "documentation": "The READL statement allows a process to read a record from a previously opened file into a variable and takes a read-only shared lock on the record.\r\nIt respects all records locked with the READU statement but allows other processes using READL to share the same lock.",
+            "detail": "READL variable1 FROM {variable2,} expression {SETTING setvar} {ON ERROR statements} {LOCKED statements} THEN|ELSE statements"
+         },
+         {
+            "key": "Readlist",
+            "icon": 14,
+            "index": 286,
+            "documentation": "READLIST allows the program to retrieve a previously stored list (perhaps created with the SAVE-LIST command), into a jBC variable.",
+            "detail":"READLIST variable1 FROM expression {SETTING variable2} THEN|ELSE statements"
+         },
+         {
+            "key": "ReadNext",
+            "icon": 14,
+            "index": 287,
+            "documentation": "READNEXT retrieves the next element in a list variable.",
+            "detail": "READNEXT variable1, variable2 {FROM variable3} {SETTING setvar} {THEN|ELSE statements}"
+         },
+         {
+            "key": "ReadNext Key",
+            "icon": 14,
+            "index": 288,
+            "documentation": "The READNEXT statement is extended in two ways.\r\nFirstly it can accept an index variable create with an OPENINDEX statement.\r\nSecondly, you can use the KEY modifier.",
+            "detail": "READNEXT KEY index.key{,record.key{,vmcount}} {FROM select-def} THEN/ELSE"
+         },
+         {
+            "key": "Readprev Key",
+            "icon": 14,
+            "index": 289,
+            "documentation": "This statement is syntactically similar to the READNEXT KEY but it works in reverse order. ",
+            "detail": "READPREV KEY index.key{,record.key{,vmcount}} {FROM select-def} THEN/ELSE"
+         },
+         {
+            "key": "Readseq",
+            "icon": 14,
+            "index": 290,
+            "documentation": "The READ statement allows a program to read from a file opened for sequential access.",
+            "detail": "READSEQ Variable FROM FileVar {SETTING setvar} {ON ERROR statements} THEN | ELSE statements"
+         },
+         {
+            "key": "Readt",
+            "icon": 14,
+            "index": 291,
+            "documentation": "The READT statement is used to read from a range of tape devices 0-9.",
+            "detail": "READT variable {FROM expression} THEN|ELSE statements"
+         },
+         {
+            "key": "Readu",
+            "icon": 14,
+            "index": 292,
+            "documentation": "The READU statement allows a program to read a record from a previously opened file into a variable. It respects record locking and locks the specified record for update.",
+            "detail": "READU variable1 FROM {variable2,} expression {SETTING setvar} {ON ERROR statements} {LOCKED statements} THEN|ELSE statements"
+         },
+         {
+            "key": "Readv",
+            "icon": 14,
+            "index": 293,
+            "documentation": "The READV statement allows a program to read a specific field from a record in a previously opened file into a variable.",
+            "detail": "READV variable1 FROM { variable2,} expression1, expression2 {SETTING setvar} {ON ERROR statements} THEN|ELSE statements"
+         },
+         {
+            "key": "Readvu",
+            "icon": 14,
+            "index": 294,
+            "documentation": "The READVU statement allows a program to read a specific field in a record in a previously opened file into a variable.\r\nIt also respects record locking and locks the specified record for update.",
+            "detail": "READVU variable1 FROM { variable2,} expression1, expression2 {SETTING setvar} {ON ERROR statements} {LOCKED statements} THEN|ELSE statements"
+         },
+         {
+            "key": "Readxml",
+            "icon": 14,
+            "index": 295,
+            "documentation": "The READXML statement reads a record from a file using the style sheet held in DICT->@READXML to transform the data into XML format.",
+            "detail": "READXML rec FROM file, id ELSE STOP 202, id"
+         },
+         {
+            "key": "Recordlocked",
+            "icon": 3,
+            "index": 296,
+            "documentation": "The RECORDLOCKED function can be called to ascertain the status of a record lock.",
+            "detail": "RECORDLOCKED(filevar, recordkey)"
+         },
+         {
+            "key": "Regexp",
+            "icon": 3,
+            "index": 297,
+            "documentation": "The REGEXP function is a powerful function that allows pattern matching using UNIX regular expressions.\r\nREGEXP is not supported on Windows.",
+            "detail": "REGEXP(variable, expression)"
+         },
+         {
+            "key": "Release",
+            "icon": 14,
+            "index": 298,
+            "documentation": "The RELEASE statement explicitly releases record locks without updating the records using a WRITE or DELETE and it also clears all execution locks without issuing an UNLOCK.",
+            "detail": "RELEASE {{variable,} expression}"
+         },
+         {
+            "key": "Rem",
+            "icon": 3,
+            "index": 299,
+            "documentation": "The MOD and REM functions return the arithmetic modulo (remainder) of two numeric expressions.",
+            "detail": "REM(expression1, expression2)"
+         },
+         {
+            "key": "Remove",
+            "icon": 3,
+            "index": 300,
+            "documentation": "The REMOVE function will successively extract delimited strings from a dynamic array.",
+            "detail": "REMOVE variable FROM array SETTING setvar"
+         },
+         {
+            "key": "Repeat",
+            "icon": 14,
+            "index": 301,
+            "documentation": "REPEAT causes the loop to start again with the first statement following the LOOP statement.",
+            "detail": "REPEAT"
+         },
+         {
+            "key": "Replace",
+            "icon": 3,
+            "index": 302,
+            "documentation": "This is an obsolete way to assign to dynamic arrays via a function.",
+            "detail": "REPLACE(var, expression1{, expression2{, expression3}}; expression4)"
+         },
+         {
+            "key": "Return",
+            "icon": 14,
+            "index": 303,
+            "documentation": "The RETURN statement transfers program execution to the caller of a subroutine/function or to a specific label in the program.",
+            "detail": "RETURN {TO label}\r\nRETURN(expression)"
+         },
+         {
+            "key": "Rewind",
+            "icon": 14,
+            "index": 304,
+            "documentation": "The REWIND statement will issue a rewind command to the device attached to the specified channel.",
+            "detail": "REWIND {ON expression} THEN|ELSE statements"
+         },
+         {
+            "key": "Right",
+            "icon": 3,
+            "index": 305,
+            "documentation": "The RIGHT function returns a sub-string composed of the last n characters of a specified string.",
+            "detail": "RIGHT(expression, length)"
+         },
+         {
+            "key": "Rnd",
+            "icon": 3,
+            "index": 306,
+            "documentation": "The RND function allows the generation of random numbers by a program.",
+            "detail": "RND(expression)"
+         },
+         {
+            "key": "Rqm",
+            "icon": 14,
+            "index": 307,
+            "documentation": "Allows the program to pause execution for a specified time period.\r\nSynonymous with SLEEP.",
+            "detail": "RQM {expression}"
+         },
+         {
+            "key": "Rtndata",
+            "icon": 14,
+            "index": 308,
+            "documentation": "The RTNDATA statement allows a jBC program to return specific data to the RTNDATA clause of another program's EXECUTE statement.",
+            "detail": "RTNDATA expression"
+         },
+         {
+            "key": "Sadd",
+            "icon": 3,
+            "index": 309,
+            "documentation": "The SADD function performs string addition of two base 10 string numbers.",
+            "detail": "SADD(expr1, expr2)"
+         },
+         {
+            "key": "Sdiv",
+            "icon": 3,
+            "index": 310,
+            "documentation": "The SDIV function performs string division of two base 10 string numbers.\r\nThe result is rounded to 14 decimal places.",
+            "detail": "SDIV(expr1, expr2)"
+         },
+         {
+            "key": "Seek",
+            "icon": 14,
+            "index": 311,
+            "documentation": "The SEEK statement moves a file pointer by an offset specified in bytes, relative to the current position, the beginning of the file, or the end of the file.",
+            "detail": "SEEK file.variable [ , offset [ , relto] ] {THEN statements [ELSE statements] | ELSE statements}"
+         },
+         {
+            "key": "Select",
+            "icon": 14,
+            "index": 312,
+            "documentation": "The SELECT statement creates a select list of elements in a specified variable for use with the READNEXT statement.",
+            "detail": "SELECT {variable1} {TO variable2 | listnum} {SETTING setvar}"
+         },
+         {
+            "key": "Select",
+            "icon": 14,
+            "index": 313,
+            "documentation": "This form of the SELECT statement allows you to use the index data in conjunction with an index definition variable created with an OPENINDEX statement.",
+            "detail": "SELECT indexvariable {TO select-def} {ATKEY index-key{,record-key{,vmcount}}}"
+         },
+         {
+            "key": "Selectindex",
+            "icon": 14,
+            "index": 314,
+            "documentation": "This statement will create a dynamic array of record keys based on a single selection of a single index key value.\r\nIt is more efficient to use a combination of OPENINDEX and READNEXT statements rather than the SELECTINDEX.",
+            "detail": "SELECTINDEX index-name{,index-key} FROM file-var {TO select-var}"
+         },
+         {
+            "key": "Send",
+            "icon": 14,
+            "index": 315,
+            "documentation": "The SEND statement sends a block of data directly to a device.",
+            "detail": "SEND output {:} TO FileVar THEN | ELSE statements"
+         },
+         {
+            "key": "Sentence",
+            "icon": 3,
+            "index": 316,
+            "documentation": "The SENTENCE function allows a program to find out the command used to invoke it and the arguments it was given.",
+            "detail": "SENTENCE({expression})"
+         },
+         {
+            "key": "Seq",
+            "icon": 3,
+            "index": 317,
+            "documentation": "The SEQ function returns numeric ASCII value of a character.",
+            "detail": "SEQ(expression)"
+         },
+         {
+            "key": "Seqs",
+            "icon": 3,
+            "index": 318,
+            "documentation": "The SEQS function  converts a dynamic array of ASCII characters to their numeric string equivalents.",
+            "detail": "SEQS(dynamic.array)"
+         },
+         {
+            "key": "Sin",
+            "icon": 3,
+            "index": 319,
+            "documentation": "The SIN function returns the mathematical sine value of a numeric expression.",
+            "detail": "SIN(expression)"
+         },
+         {
+            "key": "Sleep",
+            "icon": 3,
+            "index": 320,
+            "documentation": "Allows the program to pause execution for a specified time period.\r\nSee also MSLEEP to sleep for a specified number of milliseconds.",
+            "detail": "SLEEP {expression}"
+         },
+         {
+            "key": "Smul",
+            "icon": 3,
+            "index": 321,
+            "documentation": "The SMUL function performs string multiplication of two base 10 string numbers.",
+            "detail": "SMUL(expr1, expr2)"
+         },
+         {
+            "key": "Sort",
+            "icon": 3,
+            "index": 322,
+            "documentation": "The SORT function sorts all elements of a dynamic array in ascending left-justified order.",
+            "detail": "SORT(expression)"
+         },
+         {
+            "key": "Soundex",
+            "icon": 3,
+            "index": 323,
+            "documentation": "The SOUNDEX function allows phonetic conversions of strings.",
+            "detail": "SOUNDEX(expression)"
+         },
+         {
+            "key": "Space",
+            "icon": 3,
+            "index": 324,
+            "documentation": "The SPACE function is a convenient way to generate a specific number of ASCII space characters.",
+            "detail": "SPACE(expression)"
+         },
+         {
+            "key": "Spaces",
+            "icon": 3,
+            "index": 325,
+            "documentation": "The SPACES function returns a dynamic array with elements composed of blank spaces.",
+            "detail": "SPACES(dynamic.array)"
+         },
+         {
+            "key": "Splice",
+            "icon": 3,
+            "index": 326,
+            "documentation": "The SPLICE function returns a dynamic array of the element by element concatenation of two dynamic arrays.",
+            "detail": "SPLICE(array1, expression, array2)"
+         },
+         {
+            "key": "Spooler",
+            "icon": 3,
+            "index": 327,
+            "documentation": "The SPOOLER function returns information from the jBASE spooler.",
+            "detail": "SPOOLER(n{, Port|User})"
+         },
+         {
+            "key": "Sqrt",
+            "icon": 3,
+            "index": 328,
+            "documentation": "The SQRT function returns the mathematical square root of a value.",
+            "detail": "SQRT(expression)"
+         },
+         {
+            "key": "Squote",
+            "icon": 3,
+            "index": 329,
+            "documentation": "The function will put single quotation mark at the beginning and end of a string.",
+            "detail": "SQUOTE(Expression)"
+         },
+         {
+            "key": "Sselect",
+            "icon": 14,
+            "index": 330,
+            "documentation": "The SSELECT statement allows the creation of numbered select list of record IDs in sorted order from a jBASE file or from a dynamic array.\r\nA select list of record IDs from a dynamic array is not in sorted order.",
+            "detail": "SSELECT [variable] [TO list.number] [ON ERROR statements]"
+         },
+         {
+            "key": "Sselectn",
+            "icon": 14,
+            "index": 331,
+            "documentation": "The SSELECTN statement allows the creation of numbered select list of record IDs from a jBASE file or dynamic array and stores the select list in a named list variable.\r\nA select list of record IDs from a dynamic array is not in sorted order.",
+            "detail": "SSELECTN [variable] [TO list.number] [ON ERROR statements]"
+         },
+         {
+            "key": "Sselectv",
+            "icon": 14,
+            "index": 332,
+            "documentation": "The SSELECTV statement allows the creation of select list of record IDs from a jBASE file or dynamic array and stores the select list in a named list variable.\r\nA select list of record IDs from a dynamic array is not in sorted order. ",
+            "detail": "SSELECTV [variable] TO list.variable [ON ERROR statements]"
+         },
+         {
+            "key": "Ssub",
+            "icon": 3,
+            "index": 333,
+            "documentation": "The SSUB function performs string subtraction of two base 10 string numbers.",
+            "detail": "SSUB(expr1, expr2)"
+         },
+         {
+            "key": "Status",
+            "icon": 3,
+            "index": 334,
+            "documentation": "Use the STATUS function after an OPENPATH statement to find the cause of a file open failure (that is, for a statement in which the ELSE clause is used).",
+            "detail": "STATUS()"
+         },
+         {
+            "key": "Status",
+            "icon": 14,
+            "index": 335,
+            "documentation": "Use the STATUS statement to determine the status of an open file.",
+            "detail": "STATUS array FROM variable THEN statements ELSE statements|ELSE statements"
+         },
+         {
+            "key": "Stop",
+            "icon": 3,
+            "index": 336,
+            "documentation": "The STOP statement is virtually identical in function to the ABORT statement except that a calling jCL program will not be terminated.",
+            "detail": "STOP {message.number{, expression ...}}"
+         },
+         {
+            "key": "Str",
+            "icon": 3,
+            "index": 337,
+            "documentation": "The STR function allows the duplication of a string a number of times.",
+            "detail": "STR(expression1, expression2)"
+         },
+         {
+            "key": "Strs",
+            "icon": 3,
+            "index": 338,
+            "documentation": "The STRS function produces a dynamic array containing the specified number of repetitions of each element of a dynamic array.",
+            "detail": "STRS(dynamic.array, repeat)"
+         },
+         {
+            "key": "Subroutine",
+            "icon": 14,
+            "index": 339,
+            "documentation": "The SUBROUTINE statement is used at the start of any program that will be called externally by the CALL statement. It also declares any parameters to the compiler.",
+            "detail": "SUB{ROUTINE} Name {({MAT} variable{,{MAT} variable...})}"
+         },
+         {
+            "key": "Subs",
+            "icon": 3,
+            "index": 340,
+            "documentation": "The SUBS function returns a dynamic array, the content of which is derived by subtracting each element of the second dynamic array argument from the corresponding element of the first dynamic array argument.",
+            "detail": "SUBS(DynArr1, DynArr2)"
+         },
+         {
+            "key": "Substrings",
+            "icon": 3,
+            "index": 341,
+            "documentation": "The SUBSTRINGS function returns a dynamic array of elements which are sub-strings of the corresponding elements in a supplied dynamic array.",
+            "detail": "SUBSTRINGS(DynArr, Start, Length)"
+         },
+         {
+            "key": "Sum",
+            "icon": 3,
+            "index": 342,
+            "documentation": "The SUM function sums numeric elements in a dynamic array.",
+            "detail": "SUM(DynaArr)"
+         },
+         {
+            "key": "System",
+            "icon": 3,
+            "index": 343,
+            "documentation": "The SYSTEM functions return information about the current user and processes",
+            "detail": "SYSTEM(integer)"
+         },
+         {
+            "key": "Swap",
+            "icon": 3,
+            "index": 344,
+            "documentation": "The SWAP function operates on a variable and replaces all occurrences of one string with another.",
+            "detail": "SWAP( variable, expression1, expression2 )"
+         },
+         {
+            "key": "Tan",
+            "icon": 3,
+            "index": 345,
+            "documentation": "The TAN function returns the mathematical tangent of an angle.",
+            "detail": "TAN(expression)"
+         },
+         {
+            "key": "Time",
+            "icon": 3,
+            "index": 346,
+            "documentation": "The TIME() function returns the current system time in internal format (as the number of seconds past midnight).",
+            "detail": "TIME()"
+         },
+         {
+            "key": "Timedate",
+            "icon": 3,
+            "index": 347,
+            "documentation": "The TIMEDATE() function returns the current time and date as a printable string.",
+            "detail": "TIMEDATE()"
+         },
+         {
+            "key": "Timeout",
+            "icon": 14,
+            "index": 348,
+            "documentation": "The TIMEOUT statement terminates a READBLK or READSEQ statement.",
+            "detail": "TIMEOUT file.variable, time"
+         },
+         {
+            "key": "Timestamp",
+            "icon": 3,
+            "index": 349,
+            "documentation": "The TIMESTAMP function returns a UTC timestamp value as decimal seconds.",
+            "detail": "TIMESTAMP()"
+         },
+         {
+            "key": "Trans",
+            "icon": 3,
+            "index": 350,
+            "documentation": "The TRANS function will return the data value of a field, given the name of the file, the record key, the field number, and an action code.",
+            "detail": "TRANS ([DICT] filename, key, field#, action.code)"
+         },
+         {
+            "key": "Transabort",
+            "icon": 14,
+            "index": 351,
+            "documentation": "This statement is used to abort the current transaction and reverse any updates to the database.",
+            "detail": "TRANSABORT {abort-text} [THEN statement | ELSE statement]"
+         },
+         {
+            "key": "Transend",
+            "icon": 14,
+            "index": 352,
+            "documentation": "This statement is used to mark the end of a successfully completed transaction.",
+            "detail": "TRANSEND {end-text} [THEN statement | ELSE statement]"
+         },
+         {
+            "key": "Transquery",
+            "icon": 14,
+            "index": 353,
+            "documentation": "This function is used to detect whether or not a transaction is active on the current process.",
+            "detail": "ROLLBACK"
+         },
+         {
+            "key": "Transtart",
+            "icon": 14,
+            "index": 354,
+            "documentation": "In transaction processing, this statement is used to mark the beginning of a transaction.",
+            "detail": "TRANSTART {SYNC}{start-text} [THEN statement | ELSE statement]"
+         },
+         {
+            "key": "Trim",
+            "icon": 3,
+            "index": 355,
+            "documentation": "The TRIM statement allows characters to be removed from a string in a number of ways.",
+            "detail": "TRIM(expression1 {, expression2{, expression3}})"
+         },
+         {
+            "key": "Trimb",
+            "icon": 3,
+            "index": 356,
+            "documentation": "The TRIMB() function is equivalent to TRIM(expression, \" \", \"T\")",
+            "detail": "TRIMB(expression)"
+         },
+         {
+            "key": "Trimbs",
+            "icon": 3,
+            "index": 357,
+            "documentation": "The TRIMBS function removes all trailing spaces and tabs from each element of a dynamic array.",
+            "detail": "TRIMBS(dynamic.array)"
+         },
+         {
+            "key": "Trimf",
+            "icon": 3,
+            "index": 358,
+            "documentation": "The TRIMF() function is equivalent to TRIM(expression, \" \", \"L\")",
+            "detail": "TRIMF(expression)"
+         },
+         {
+            "key": "Trimfs",
+            "icon": 3,
+            "index": 359,
+            "documentation": "The TRIMFS function removes all leading, trailing and redundant spaces and tabs from each element of a dynamic array.",
+            "detail": "TRIMFS(dynamic.array)"
+         },
+         {
+            "key": "Trims",
+            "icon": 3,
+            "index": 360,
+            "documentation": "The TRIMS function removes redundant spaces from each element of a dynamic array.",
+            "detail": "TRIMS(dynamic.array)"
+         },
+         {
+            "key": "Unassigned",
+            "icon": 3,
+            "index": 361,
+            "documentation": "The UNASSIGNED function allows a program to determine whether a variable has been assigned a value.",
+            "detail": "UNASSIGNED(variable)"
+         },
+         {
+            "key": "Uniquekey",
+            "icon": 3,
+            "index": 362,
+            "documentation": "The UNIQUEKEY function returns a unique 16-byte character key.",
+            "detail": "UNIQUEKEY()"
+         },
+         {
+            "key": "Unlock",
+            "icon": 3,
+            "index": 363,
+            "documentation": "The UNLOCK statement releases a previously LOCKed execution lock.",
+            "detail": "UNLOCK {expression}"
+         },
+         {
+            "key": "Until",
+            "icon": 14,
+            "index": 364,
+            "documentation": "The UNTIL statement terminates a FOR or LOOP loop when the specified expression is true. The optional DO is required in a LOOP",
+            "detail": "UNTIL expr {DO}"
+         },
+         {
+            "key": "Upcase",
+            "icon": 3,
+            "index": 365,
+            "documentation": "UPCASE converts all lowercase characters in an expression to uppercase characters.",
+            "detail": "UPCASE(expression)"
+         },
+         {
+            "key": "Utf8",
+            "icon": 3,
+            "index": 366,
+            "documentation": "The UTF8 function converts a latin1 or binary string into the UTF-8 equivalent byte sequence.",
+            "detail": "UTF8(expression)"
+         },
+         {
+            "key": "Wake",
+            "icon": 14,
+            "index": 367,
+            "documentation": "The WAKE statement is used to wake a suspended process which has executed a PAUSE statement.",
+            "detail": "WAKE PortNumber"
+         },
+         {
+            "key": "Weof",
+            "icon": 14,
+            "index": 368,
+            "documentation": "The WEOF statement allows the program to write an EOF mark on an attached tape device.",
+            "detail": "WEOF {ON expression}"
+         },
+         {
+            "key": "Weofseq",
+            "icon": 14,
+            "index": 369,
+            "documentation": "Write end of file on file opened for sequential access.",
+            "detail": "WEOFSEQ FileVar { THEN | ELSE Statements}"
+         },
+         {
+            "key": "While",
+            "icon": 14,
+            "index": 370,
+            "documentation": "The WHILE statement terminates a FOR or LOOP loop when the specified expression is true. The optional DO is required in a LOOP.",
+            "detail": "WHILE expr {DO}"
+         },
+         {
+            "key": "Write",
+            "icon": 14,
+            "index": 371,
+            "documentation": "The WRITE statement allows a program to write a record into a previously opened file.",
+            "detail": "WRITE variable1 ON|TO { variable2,} expression {SETTING setvar} {ON ERROR statements}"
+         },
+         {
+            "key": "Writeblk",
+            "icon": 14,
+            "index": 372,
+            "documentation": "The WRITEBLK statement writes a block of data to a file opened for sequential processing.",
+            "detail": "WRITEBLK expression ON file.variable {THEN statements [ELSE statements]|ELSE statements}"
+         },
+         {
+            "key": "Writelist",
+            "icon": 14,
+            "index": 373,
+            "documentation": "WRITELIST allows the program to store a list held in a jBC variable to the global list file.",
+            "detail": "WRITELIST variable ON|TO expression {SETTING setvar} {ON ERROR statements}"
+         },
+         {
+            "key": "Writeseq",
+            "icon": 14,
+            "index": 374,
+            "documentation": "Write to a file opened for sequential access.",
+            "detail": "WRITESEQ Expression {APPEND} ON|TO FileVar THEN | ELSE statements"
+         },
+         {
+            "key": "Writeseqf",
+            "icon": 14,
+            "index": 375,
+            "documentation": "Write to a file opened for sequential access and force each data line to be flushed to the file when it is written. .",
+            "detail": "WRITESEQF Expression {APPEND} ON|TO FileVar THEN | ELSE statements"
+         },
+         {
+            "key": "Writet",
+            "icon": 14,
+            "index": 376,
+            "documentation": "The WRITET statement enables data to be written to a range of tape devices between 0-9.",
+            "detail": "WRITET variable {ON|TO expression} THEN|ELSE statements"
+         },
+         {
+            "key": "Writeu",
+            "icon": 14,
+            "index": 377,
+            "documentation": "The WRITEU statement allows a program to write a record into a previously opened file. An existing record lock will be preserved.",
+            "detail": "WRITEU variable1 ON|TO { variable2,} expression {SETTING setvar} {ON ERROR statements}"
+         },
+         {
+            "key": "Writev",
+            "icon": 14,
+            "index": 378,
+            "documentation": "The WRITEV statement allows a program to write a specific field of a record in a previously opened file.",
+            "detail": "WRITEV variable1 ON|TO {variable2,} expression1, expression2 {SETTING setvar} {ON ERROR statements}"
+         },
+         {
+            "key": "Writevu",
+            "icon": 14,
+            "index": 379,
+            "documentation": "The WRITEVU statement allows a program to write a specific field on a record in a previously opened file.\r\nAn existing record lock will be preserved.",
+            "detail": "WRITEVU variable1 ON|TO { variable2,} expression1, expression2 {SETTING setvar} {ON ERROR statements}"
+         },
+         {
+            "key": "Writexml",
+            "icon": 14,
+            "index": 380,
+            "documentation": "The WRITEXML statement writes a dynamic array to a hashed file in XML format, using a style sheet from the DICT.",
+            "detail": "WRITEXML rec ON file,id ELSE STOP 201,id"
+         },
+         {
+            "key": "xlate",
+            "icon": 3,
+            "index": 381,
+            "documentation": "The XLATE function will return the data value of a field, given the name of the file, the record key, the field number, and an action code.",
+            "detail": "XLATE ([DICT] filename, key, field#, action.code)"
+         },
+         {
+            "key": "xmltodyn",
+            "icon": 3,
+            "index": 382,
+            "documentation": "The XMLTODYN function converts an XML expression to a dynamic array, using an optional XSL to transform.",
+            "detail": "XMLTODYN(XML, XSL, result)"
+         },
+         {
+            "key": "xmltoxml",
+            "icon": 3,
+            "index": 383,
+            "documentation": "The XMLTOXML function transforms an XML expression using an XSL.",
+            "detail": "XMLTOXML(XML, XSL, result)"
+         },
+         {
+            "key": "xtd",
+            "icon": 3,
+            "index": 384,
+            "documentation": "The XTD() function converts hexadecimal number into its decimal equivalent.",
+            "detail": "XTD(expression)"
+         }
+      ]
+   }
+}

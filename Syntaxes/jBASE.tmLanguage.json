@@ -1,0 +1,57 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "jBASE PickBASIC",
+	"patterns": [
+		
+		{
+			"match": "(\"([^\"]|\"\")*\")|('([^']|'')*')|(\\\\([^\\\\]|\\\\\\\\)*\\\\)",
+			"name": "string.other.quoted-or-unquoted.jbase"
+		},
+		{
+			"match": "(^[0-9]+\\s)|(^[0-9]+:\\s)|(^[\\w]+:(?!=))|(^[\\w\\.\\w]+:(?!=))",
+			"name": "string.other.quoted-or-unquoted.jbase"
+		},
+		{
+			"include": "#keywords"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.jbase",
+					"match": "(?i)(?<!\\.\\$)(include|\\$include|WORK|EQU|EQUATE|if|lock|while|for|return|loop|to|repeat|end |begin case|end case|and|or|abort|break|bscan|by|call|calling|capturing|case|chain|change|clear|CLEARCOMMON|CLEARDATA|CLEARFILE|CLEARINPUT|CLEARSELECT|CLOSE|CLOSESEQ|COMMON|COM|CONTINUE|CONVERT|CREATE|CRT|DATA|DEBUG|DEFC|DEFCE|DEFFUN|DEL|DELETE|DELETELIST|DELETESEQ|DELETEU|DIM|DIMENSION|DISPLAY|DO|ECHO|ELSE|END|ERROR|EXECUTE|EXIT|FILELOCK|FILEUNLOCK|FIND|FINDSTR|FOR|FORMLIST|FOOTING|FROM|FUNCTION|GET|GETLIST|GOSUB|GO|GOTO|GROUPSTORE|HEADING|HEADINGE|HEADINGN|HUSH|IF|INPUT|INPUTCLEAR|INPUTNULL|INS|LOCATE|LOCK|LOCKED|LOOP|MAT|MATBUILD|MATPARSE|MATREAD|MATREADU|MATWRITE|MATWRITEU|NOBUF|NEXT|NULL|OPEN|OPENDEV|OPENINDEX|OPENPATH|OPENSEQ|OPENSER|OFF|OR|OSBREAD|OSBWRITE|OSCLOSE|OSDELETE|OSOPEN|OSREAD|OSWRITE|OUT|PAGE|PASSLIST|PAUSE|PERFORM|PRECISION|PRINT|PRINTER|PRINTERR|PROCREAD|PROCWRITE|PROGRAM|PROMPT|READ|READBLK|READLIST|READNEXT|READPREV|READSEQ|READT|READU|READV|READVU|READXML|REMOVE|REPEAT|RELEASE|RESET|RETURN|RETURNING|REWIND|RTNLIST|RQM|RTNDATA|SEEK|SELECT |SELECTE|SELECTV|SELECTN|SELECTINDEX|SSELECT|SETTING|SLEEP|STATUS|STEP|STOP|SUBR|SUBROUTINE|THEN|TRANSABORT|TRANSEND|TRANSQUERY|TRANSSTART|UNLOCK|UNTIL|USING|WEOFSEQ|WITH|WHILE|WRITE|WRITEBLK|WRITELIST|WRITESEQ|WRITET|WRITEU|WRITEV|WRITEVU|WRITEXML)(?!\\.\\$)\\b"
+				},
+				{
+					"name": "constant.language.jbase",
+					"match": "(?i)(\\s)(EQ|NE|GT|LT|GE|LE)|(@[a-zA-Z.]+)(\\s)"
+				},
+				{
+					"name": "support.class.jbase",
+					"match": "(?i)(?<!\\.\\$)(KEY|ABS|ABSS|ADDS|ALPHA|ANDS|ASCII|ASSIGNED|BITAND|BITCHANGE|bitcheck|BITLOAD|BITNOT|BITOR|BITRESET|BITSET|BITTEST|BITXOR|BYTELEN|CALLONEXIT|CATS|CHANGE|CHAR|CHARS|CHDIR|CHECKSUM|COL1|COL2|COMPARE|CONVERT|COUNT|COUNTS|DATE|DCOUNT|DECRYPT|DIR|DIV|DIVS|DOWNCASE|DQUOTE|DROUND|DTX|EBCDIC|ENCRYPT|EREPLACE|EXP|EXTRACT|EQS|FADD|FDIV|FIELD|FIELDS|FILEINFO|FMT|FMTS|FMUL|FOLD|FSUB|GES|GETCWD|GETENV|GROUP|ICONV|ICONVS|IFS|INDEX|INDICES|INMAT|\\$INSERT|INSERT|INT|IOCTL|ISALPHA|ISALNUM|ISCNTRL|ISDIGIT|ISPRINT|ISSPACE|ISUPPER|JBASECOREDUMP|KEYIN|LEFT|LEN|LENS|LENDP|LES|LN|LOCALDATE|LOCALTIME|LOWCASE|LOWER|MAKETIMESTAMP|MAXIMUM|MATCH|MATCHES|MATCHFIELD|MINIMUM|MOD|MODS|MSLEEP|MULS|NEG|NEGS|NES|NOT|NOTS|NUM|OCONV|OCONVS|ORS|PUTENV|PWR|QUOTE|RAISE|RECORDLOCKED|REGEXP|REMOVE|REPLACE|REM|REMOVE|RIGHT|RND|SADD|SDIV|SENTENCE|SEQ|SEQS|SIN|SMUL|SORT|SOUNDEX|SPACE|SPACES|SPLICE|SQRT|SQUOTE|SSUB|STATUS|STR|STRS|SUBR|SUBS|SUBSTRINGS|SUM|SUMMATION|SWAP|SYSTEM|TIME|TIMEDATE|TIMEDIFF|TIMEOUT|TIMESTAMP|TRANS|TRIM|TRIMB|TRIMBS|TRIMF|TRIMFS|TRIMS|UNASSIGNED|UNIQUEKEY|UPCASE|UTF8|XTD)(?!\\.\\$)\\b"
+				},
+				{
+					"match": "(?i)(^\\*.+|^\\s+\\*.+|^!.+|^\\s+!.*|^!|^\\*|^REM$|^REM.+|^\\s+REM .+|\\;\\*.+|\\;\\s+\\*.+)",
+					"name": "comment.line.asterisk.jbase"
+				},
+				{
+					"match": "((?<=([0-9+]))\\*.+)",
+					"name": "comment.line.asterisk.jbase"
+				},				
+				{
+					"match": "((?<=([0-9+]):)\\*.+)",
+					"name": "comment.line.asterisk.jbase"
+				},				
+				{
+					"match": "((?<=([0-9+])\\s)\\*.+)",
+					"name": "comment.line.asterisk.jbase"
+				},
+				{
+					"name": "constant.language.jbase",
+					"match": "(\\+|\\-|\\*|\\\\|=|:|#)"
+				}
+			]
+		}
+	},
+	"scopeName": "source.jbase"
+}
