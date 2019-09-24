@@ -2,7 +2,7 @@
   "name": "mvbasic",
   "displayName": "MV Basic",
   "description": "MV Basic",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "publisher": "mvextensions",
   "icon": "images/mvbasic-logo.png",
   "preview": true,
