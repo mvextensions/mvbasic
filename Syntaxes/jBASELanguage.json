@@ -6,392 +6,392 @@
             "key": "$Include",
             "icon": 14,
             "index": 1,
-            "documentation": "The $INCLUDE\\$INSERT directive inserts the program/code snippet specified into the current source code.\r\nIf the optional filename is specified the code is read from that file.",
+            "documentation": "The $INCLUDE or $INSERT directive inserts the program/code snippet specified into the current source code.\r\nIf the optional filename is specified the code is read from that file.",
             "detail": "$INCLUDE programname\r\n$INCLUDE filename programname\r\n$INSERT programname\r\n$INSERT filename programname"
          },
          {
             "key": "@Am",
             "icon": 21,
             "index": 2,
-            "documentation": "Inserts an attribute mark CHAR(254)",
+            "documentation": "Inserts an attribute mark CHAR(254).",
             "detail": "@AM"
          },
          {
             "key": "@Account",
             "icon": 21,
             "index": 3,
-            "documentation": "Returns the name of the current jBASE user account",
+            "documentation": "Returns the name of the current jBASE user account.",
             "detail": "@ACCOUNT"
          },
          {
             "key": "@Application.Id",
             "icon": 21,
             "index": 4,
-            "documentation": "@ID Dataname used to reference the record-id in a query language statement",
+            "documentation": "@ID Dataname used to reference the record-id in a query language statement.",
             "detail": "@APPLICATION.ID"
          },
          {
             "key": "@Callstack",
             "icon": 21,
             "index": 5,
-            "documentation": "For DEBUG purposes - returns the callstack if used in a subroutine",
+            "documentation": "For DEBUG purposes - returns the callstack if used in a subroutine.",
             "detail": "@CALLSTACK"
          },
          {
             "key": "@Codepage",
             "icon": 21,
             "index": 6,
-            "documentation": "Returns the current JBASE_CODEPAGE setting when in I18N mode",
+            "documentation": "Returns the current JBASE_CODEPAGE setting when in I18N mode.",
             "detail": "@CODEPAGE"
          },
          {
             "key": "@Command",
             "icon": 21,
             "index": 7,
-            "documentation": "See @SENTENCE",
+            "documentation": "See @SENTENCE.",
             "detail": "@COMMAND"
          },
          {
             "key": "@CR",
             "icon": 21,
             "index": 8,
-            "documentation": "Inserts a carriage return CHAR(13)",
+            "documentation": "Inserts a carriage return CHAR(13).",
             "detail": "@CR"
          },
          {
             "key": "@Data",
             "icon": 21,
             "index": 9,
-            "documentation": "Returns the data stack or input queue",
+            "documentation": "Returns the data stack or input queue.",
             "detail": "@DATA"
          },
          {
             "key": "@Date",
             "icon": 21,
             "index": 10,
-            "documentation": "Returns the internal date – on some systems, this differs from the DATE function in that the variable is set when program execution starts, whereas the function reflects the current date",
+            "documentation": "Returns the internal date – on some systems, this differs from the DATE function in that the variable is set when program execution starts, whereas the function reflects the current date.",
             "detail": "@DATE"
          },
          {
             "key": "@Day",
             "icon": 21,
             "index": 11,
-            "documentation": "Returns the day of the month from @DATE",
+            "documentation": "Returns the day of the month from @DATE.",
             "detail": "@DAY"
          },
          {
             "key": "@Eof",
             "icon": 21,
             "index": 12,
-            "documentation": "Returns the End of File character from the TTY characteristics",
+            "documentation": "Returns the End of File character from the TTY characteristics.",
             "detail": "@EOF"
          },
          {
             "key": "@Esc",
             "icon": 21,
             "index": 13,
-            "documentation": "Inserts a escape character CHAR(27)",
+            "documentation": "Inserts a escape character CHAR(27).",
             "detail": "@ESC"
          },
          {
             "key": "@False",
             "icon": 21,
             "index": 14,
-            "documentation": "Inserts a zero",
+            "documentation": "Inserts a zero.",
             "detail": "@FALSE"
          },
          {
             "key": "@Ff",
             "icon": 21,
             "index": 15,
-            "documentation": "Inserts a form feed chacater for printing CHAR(12)",
+            "documentation": "Inserts a form feed chacater for printing CHAR(12).",
             "detail": "@FF"
          },
          {
             "key": "@Filename",
             "icon": 21,
             "index": 16,
-            "documentation": "Returns the current filename, used in I-types",
+            "documentation": "Returns the current filename, used in I-types.",
             "detail": "@FILENAME"
          },
          {
             "key": "@Fm",
             "icon": 21,
             "index": 17,
-            "documentation": "Inserts an attribute/field mark CHAR(254)",
+            "documentation": "Inserts an attribute/field mark CHAR(254).",
             "detail": "@FM"
          },
          {
             "key": "@Id",
             "icon": 21,
             "index": 18,
-            "documentation": "Returns the current Item ID, used in I-types",
+            "documentation": "Returns the current Item ID, used in I-types.",
             "detail": "@ID"
          },
          {
             "key": "@Im",
             "icon": 21,
             "index": 19,
-            "documentation": "Inserts an item mark CHAR(255)",
+            "documentation": "Inserts an item mark CHAR(255).",
             "detail": "@IM"
          },
          {
             "key": "@Level",
             "icon": 21,
             "index": 20,
-            "documentation": "Returns the EXECUTE nesting level",
+            "documentation": "Returns the EXECUTE nesting level.",
             "detail": "@LEVEL"
          },
          {
             "key": "@Lf",
             "icon": 21,
             "index": 21,
-            "documentation": "Inserts a line feed CHAR(10)",
+            "documentation": "Inserts a line feed CHAR(10).",
             "detail": "@LF"
          },
          {
             "key": "@Locale",
             "icon": 21,
             "index": 22,
-            "documentation": "Returns the current JBASE_LOCALE setting",
+            "documentation": "Returns the current JBASE_LOCALE setting.",
             "detail": "@LOCALE"
          },
          {
             "key": "@Logname",
             "icon": 21,
             "index": 23,
-            "documentation": "Returns the current operating system user name",
+            "documentation": "Returns the current operating system user name.",
             "detail": "@LOGNAME"
          },
          {
             "key": "@Lptrhigh",
             "icon": 21,
             "index": 24,
-            "documentation": "Returns the number of lines on the device to which you are printing (terminal or printer)",
+            "documentation": "Returns the number of lines on the device to which you are printing (terminal or printer).",
             "detail": "@LPTRHIGH"
          },
          {
             "key": "@Month",
             "icon": 21,
             "index": 25,
-            "documentation": "Returns the number of the current month from @DATE",
+            "documentation": "Returns the number of the current month from @DATE.",
             "detail": "@MONTH"
          },
          {
             "key": "@Parasentence",
             "icon": 21,
             "index": 26,
-            "documentation": "The last sentence or paragraph that invoked the current process",
+            "documentation": "The last sentence or paragraph that invoked the current process.",
             "detail": "@PARASENTENCE"
          },
          {
             "key": "@Path",
             "icon": 21,
             "index": 27,
-            "documentation": "Current working directory",
+            "documentation": "Current working directory.",
             "detail": "@PATH"
          },
          {
             "key": "@Pid",
             "icon": 21,
             "index": 28,
-            "documentation": "Current Process ID",
+            "documentation": "Current Process ID.",
             "detail": "@PID"
          },
          {
             "key": "@Record",
             "icon": 21,
             "index": 29,
-            "documentation": "Returns the current record, used in I-types",
+            "documentation": "Returns the current record, used in I-types.",
             "detail": "@RECORD"
          },
          {
             "key": "@Rm",
             "icon": 21,
             "index": 30,
-            "documentation": "Inserts a record mark CHAR(255)",
+            "documentation": "Inserts a record mark CHAR(255).",
             "detail": "@TM"
          },
          {
             "key": "@Selected",
             "icon": 21,
             "index": 31,
-            "documentation": "Returns the item count from the active select",
+            "documentation": "Returns the item count from the active select.",
             "detail": "@SELECTED"
          },
          {
             "key": "@Sentence",
             "icon": 21,
             "index": 32,
-            "documentation": "The last sentence or paragraph that invoked the current process",
+            "documentation": "The last sentence or paragraph that invoked the current process.",
             "detail": "@SENTENCE"
          },
          {
             "key": "@Sm",
             "icon": 21,
             "index": 33,
-            "documentation": "Inserts a subvalue mark CHAR(252)",
+            "documentation": "Inserts a subvalue mark CHAR(252).",
             "detail": "@SM"
          },
          {
             "key": "@Svm",
             "icon": 21,
             "index": 34,
-            "documentation": "Inserts a subvalue mark CHAR(252)",
+            "documentation": "Inserts a subvalue mark CHAR(252).",
             "detail": "@SVM"
          },
          {
             "key": "@Tab",
             "icon": 21,
             "index": 35,
-            "documentation": "Inserts a tab character CHAR(9)",
+            "documentation": "Inserts a tab character CHAR(9).",
             "detail": "@TAB"
          },
          {
             "key": "@Time",
             "icon": 21,
             "index": 36,
-            "documentation": "Returns the current time in internal format",
+            "documentation": "Returns the current time in internal format.",
             "detail": "@TIME"
          },
          {
             "key": "@Timezone",
             "icon": 21,
             "index": 37,
-            "documentation": "Returns the current JBASE_TIMEZONE setting",
+            "documentation": "Returns the current JBASE_TIMEZONE setting.",
             "detail": "@TIMEZONE"
          },
          {
             "key": "@Tm",
             "icon": 21,
             "index": 38,
-            "documentation": "Inserts a text mark CHAR(251)",
+            "documentation": "Inserts a text mark CHAR(251).",
             "detail": "@TM"
          },
          {
             "key": "@True",
             "icon": 21,
             "index": 39,
-            "documentation": "Inserts a one",
+            "documentation": "Inserts a one.",
             "detail": "@TRUE"
          },
          {
             "key": "@Tty",
             "icon": 21,
             "index": 40,
-            "documentation": "Returns the current terminal device",
+            "documentation": "Returns the current terminal device.",
             "detail": "@TTY"
          },
          {
             "key": "@Udtno",
             "icon": 21,
             "index": 41,
-            "documentation": "Returns the current jBASE port number",
+            "documentation": "Returns the current jBASE port number.",
             "detail": "@UDTNO"
          },
          {
             "key": "@Uid",
             "icon": 21,
             "index": 42,
-            "documentation": "Returns the operating system user ID",
+            "documentation": "Returns the operating system user ID.",
             "detail": "@UID"
          },
          {
             "key": "@User",
             "icon": 21,
             "index": 43,
-            "documentation": "Returns the operating system login name",
+            "documentation": "Returns the operating system login name.",
             "detail": "@USER"
          },
          {
             "key": "@Userno",
             "icon": 21,
             "index": 44,
-            "documentation": "Returns the jBASE port number",
+            "documentation": "Returns the jBASE port number.",
             "detail": "@USERNO"
          },
          {
             "key": "@Userstats",
             "icon": 21,
             "index": 45,
-            "documentation": "Returns the current user statistics",
+            "documentation": "Returns the current user statistics.",
             "detail": "@USERSTATS"
          },
          {
             "key": "@Vm",
             "icon": 21,
             "index": 46,
-            "documentation": "Inserts a value mark CHAR(253)",
+            "documentation": "Inserts a value mark CHAR(253).",
             "detail": "@VM"
          },
          {
             "key": "@Who",
             "icon": 21,
             "index": 47,
-            "documentation": "Returns the name of the current jBASE account name",
+            "documentation": "Returns the name of the current jBASE account name.",
             "detail": "@WHO"
          },
          {
             "key": "@Year",
             "icon": 21,
             "index": 48,
-            "documentation": "Returns the current two-digit year number",
+            "documentation": "Returns the current two-digit year number.",
             "detail": "@YEAR"
          },
          {
             "key": "Abort",
             "icon": 14,
             "index": 49,
-            "documentation": "The ABORT statement terminates the running program as well as the program that called it.",
+            "documentation": "The ABORT statement terminates the running program as well as the program that called it.\r\nThe optional message.number provided with the statement must be a numeric value, which corresponds to a record key in the jBASE error message file.\r\nA single expression or a list of expression(s) may follow the message.number.\r\nWhere more than one expression is listed, they must be delimited by use of the comma character.\r\nThe expression(s) correspond to the parameters that need to be passed to the error file record to print it.\r\nThe optional message.number and expression(s) given with the command are parameters or resultants provided as variables, literal strings, expressions, or functions.",
             "detail": "ABORT {message.number{, expression ...}}"
          },
          {
             "key": "Abs",
             "icon": 3,
             "index": 50,
-            "documentation": "The ABS function will return the mathematical absolute of the ()expression.",
+            "documentation": "The ABS function will return the mathematical absolute of the ()expression.\r\nexpression can be an expression of any form that should evaluate to a numeric.\r\nThe ABS function will then return the mathematical absolute of the expression.\r\nThis will convert any negative number into a positive result.",
             "detail": "ABS(expression)"
          },
          {
             "key": "Abss",
             "icon": 3,
             "index": 51,
-            "documentation": "The ABS function will return the absolute values of all the elements in a dynamic array.\r\nIf an element in the dynamic array is null, it returns null for that element.",
+            "documentation": "Use the ABSS function to return the absolute values of all the elements in a dynamic array.\r\nIf an element in the dynamic array is null, it returns null for that element.",
             "detail": "ABSS(dynamic array)"
          },
          {
             "key": "Adds",
             "icon": 3,
             "index": 52,
-            "documentation": "The ADDS function returns a dynamic array, the content of which is derived by adding corresponding elements from two dynamic arrays supplied as arguments.",
+            "documentation": "The ADDS function returns a dynamic array, the content of which is derived by adding corresponding elements from two dynamic arrays supplied as arguments.\r\nDynArr1 and DynArr2 represent dynamic arrays.",
             "detail": "ADDS(DynArr1, DynArr2)"
          },
          {
             "key": "Alpha",
             "icon": 3,
             "index": 53,
-            "documentation": "The ALPHA function will check that the expression consists entirely of alphabetic characters.",
+            "documentation": "The ALPHA function will check that the expression consists entirely of alphabetic characters.\r\nThe expression can return a result of any type. The ALPHA function will then return TRUE (1) if the expression consists entirely of alphabetic characters.\r\nIf any character in expression is non alphabetic then the function returns FALSE (0).",
             "detail": "ALPHA(expression)"
          },
          {
             "key": "Ands",
             "icon": 3,
             "index": 54,
-            "documentation": "Use the ANDS function to create a dynamic array of the logical AND of corresponding elements from two dynamic arrays.",
+            "documentation": "Use the ANDS function to create a dynamic array of the logical AND of corresponding elements from two dynamic arrays.\r\nEach element of the new dynamic array is the logical AND of the corresponding elements of array1 and array2.\r\nIf an element of one dynamic array has no corresponding element in the other dynamic array, it returns a false (0) for that element.\r\nIf both corresponding elements of array1 and array2 are null, it returns null for those elements.\r\nIf one element is a null value and the other is zero or an empty string, it returns false for those elements.",
             "detail": "ANDS(Array1, Array2)"
          },
          {
             "key": "Ascii",
             "icon": 3,
             "index": 55,
-            "documentation": "The ASCII function converts all the characters in the expression from the EBCDIC character set to the ASCII character set.",
+            "documentation": "The ASCII function converts all the characters in the expression from the EBCDIC character set to the ASCII character set.\r\nThe expression may return a data string of any form. The function will then assume that the characters are all members of the EBCDIC character set and translate them using a character map.\r\nThe original expression is unchanged while the returned result of the function is now the ASCII equivalent.",
             "detail": "ASCII(expression)"
          },
          {
             "key": "Assigned",
             "icon": 3,
             "index": 56,
-            "documentation": "The ASSIGNED function returns a Boolean TRUE or FALSE result depending on whether a variable has been assigned a value or not.",
+            "documentation": "The ASSIGNED function returns a Boolean TRUE or FALSE result depending on whether a variable has been assigned a value or not.\r\nASSIGNED returns TRUE if the variable named has been assigned a value before the execution of this statement.\r\nIf the variable has never been assigned a value then the function returns FALSE.",
             "detail": "ASSIGNED(variable)"
          },
          {
@@ -405,140 +405,140 @@
             "key": "Bitand",
             "icon": 3,
             "index": 58,
-            "documentation": "Use the BITAND function to perform the bitwise AND comparison of two integers specified by numeric expressions.",
+            "documentation": "Use the BITAND function to perform the bitwise AND comparison of two integers specified by numeric expressions\r\nThe bitwise AND operation compares two integers bit by bit.\r\nIt returns a bit of 1 if both bits are 1; else, it returns a bit of 0.\r\nIf either expression1 or expression2 evaluates to a null value, null is returned.\r\nNon integer values are truncated before the operation is performed.\r\nThe BITAND operation is performed on a 32-bit twos-complement word.",
             "detail": "BITAND(expression1, expression2)"
          },
          {
             "key": "Bitchange",
             "icon": 3,
             "index": 59,
-            "documentation": "BITCHANGE toggles the state of a specified bit in the local bit table, and return the original value of the bit.",
+            "documentation": "BITCHANGE toggles the state of a specified bit in the local bit table, and return the original value of the bit.\r\ntable_no specifies the position in the table of the bit to be changed.\r\nA unique table of 128 bits (numbered 1 to 128) is maintained for each process. Each bit in the table is treated as a two-state flag - the value returned will always be 0 (zero) or 1.\r\n-1 toggles (enables/disables) the BREAK key Inhibit bit.\r\n-2 toggles (enables/disables) the Command Level Restart feature.\r\n-3 toggles (enables/disables) the Break/End Restart feature.",
             "detail": "BITCHANGE(table_no)"
          },
          {
             "key": "Bitcheck",
             "icon": 3,
             "index": 60,
-            "documentation": "BITCHECK returns the current value of a specified bit from the local bit table.",
+            "documentation": "BITCHECK returns the current value of a specified bit from the local bit table.\r\ntable_no specifies the position in the table of the bit to be checked.\r\nA unique table of 128 bits (numbered 1 to 128) is maintained for each process. Each bit in the table is treated as a two-state flag - the value returned will always be 0 (zero) or 1.\r\n-1 returns the setting of the BREAK key Inhibit bit.\r\n-2 returns the setting of the Command Level Restart feature.\r\n-3 returns the setting of the Break/End Restart feature.",
             "detail": "BITCHECK(table_no)"
          },
          {
             "key": "Bitload",
             "icon": 3,
             "index": 61,
-            "documentation": "BITLOAD assigns all values in the local bit table, or retrieves all the values.",
+            "documentation": "BITLOAD assigns all values in the local bit table, or retrieves all the values.bit-string is an ASCII string of characters which represent a hexadecimal value.\r\nIt is interpreted as a bit pattern and used to assign values to the table from left to right. Assignment stops at the end of the string or when a non-hexadecimal character is found.\r\nIf the string represents less than 128 bits, the remaining bits in the table are reset to 0 (zero).\r\nIf bit-string is omitted or evaluates to null, an ASCII hex character string is returned, which defines the value of the table. Trailing zeroes in the string are truncated.",
             "detail": "BITLOAD(bit_string)"
          },
          {
             "key": "Bitnot",
             "icon": 3,
             "index": 62,
-            "documentation": "BITNOT returns the bitwise negation of an integer specified by any numeric expression.",
+            "documentation": "BITNOT returns the bitwise negation of an integer specified by any numeric expression.\r\nIf expression evaluates to the null value, null is returned.\r\nIf bit# evaluates to the null value, the BITNOT function fails and the program terminates with a run-time error message.\r\nNon integer values are truncated before the operation is performed.",
             "detail": "BITNOT(expression, bit#)"
          },
          {
             "key": "Bitor",
             "icon": 3,
             "index": 63,
-            "documentation": "BITOR performs the bitwise OR comparison of two integers specified by numeric expressions.",
-            "detail":"BITNOT(expression1, expression2)"
+            "documentation": "BITOR performs the bitwise OR comparison of two integers specified by numeric expressions.\r\nThe bitwise OR operation compares two integers bit by bit. It returns the bit 1 if the bit in either or both numbers is 1; else, it returns the bit 0.\r\nIf either expression1 or expression2 evaluates to the null value, null is returned.\r\nNon integer values are truncated before the operation is performed.",
+            "detail":"BITOR(expression1, expression2)"
          },
          {
             "key": "Bitreset",
             "icon": 3,
             "index": 64,
-            "documentation": "BITRESET resets the value of a specified bit in the local bit table to 0 and returns the value of the bit before it was changed.",
+            "documentation": "BITRESET resets the value of a specified bit in the local bit table to 0 and returns the value of the bit before it was changed.\r\ntable_no specifies the position in the table of the bit to be reset. If table_no evaluates to zero, all elements in the table are reset to 0 (zero) and the returned value is zero.\r\nA unique table of 128 bits (numbered 1 to 128) is maintained for each process.\r\nEach bit in the table is treated as a two-state flag - the value returned will always be 0 (zero) or 1.",
             "detail":"BITRESET(table_no)"
          },
          {
             "key": "Bitset",
             "icon": 3,
             "index": 65,
-            "documentation": "BITSET sets the value of a specified bit in the bit table to 1 and returns the value of the bit before it was changed.",
+            "documentation": "BITSET sets the value of a specified bit in the bit table to 1 and returns the value of the bit before it was changed.\r\ntable_no specifies the bit to be SET. If table_no evaluates to zero, all elements in the table are set to 1 (one) and the returned value is one.\r\nA unique table of 128 bits (numbered 1 to 128) is maintained for each process. Each bit in the table is treated as a two-state flag - the value returned will always be 0 (zero) or 1.",
             "detail":"BITSET(table_no)"
          },
          {
             "key": "Bittest",
             "icon": 3,
             "index": 66,
-            "documentation": "BITTEST tests the bit number of the integer specified by an expression.",
+            "documentation": "BITTEST tests the bit number of the integer specified by an expression.\r\nThe function returns 1 if the bit is set; it returns 0 if it is not; Bits are counted from right to left.\r\nThe number of the rightmost bit is 0.\r\nf expression evaluates to the null value, null is returned. If bit# evaluates to null, the BITTEST function fails and the program terminates with a run-time error message.\r\nNon integer values are truncated before the operation is performed.",
             "detail":"BITTEST(expression, bit#)"
          },
          {
             "key": "Bitxor",
             "icon": 3,
             "index": 67,
-            "documentation": "BITXOR performs the bitwise XOR comparison of two integers specified by numeric expressions.\r\nThe bitwise XOR operation compares two integers bit by bit.\r\nIt returns a bit 1 if only one of the two bits is 1; else, it returns a bit 0.",
+            "documentation": "BITXOR performs the bitwise XOR comparison of two integers specified by numeric expressions.\r\nThe bitwise XOR operation compares two integers bit by bit.\r\nIt returns a bit 1 if only one of the two bits is 1; else, it returns a bit 0.\r\nIf either expression1 or expression2 evaluates to the null value, null is returned.\r\nNon integer values are truncated before the operation is performed.",
             "detail":"BITXOR(expression1, expression2)"
          },
          {
             "key": "Break",
             "icon": 14,
             "index": 68,
-            "documentation": "The BREAK statement allows the break key to be configured.",
+            "documentation": "The BREAK statement allows the break key to be configured.\r\nWhen used with an expression, or the keywords ON or OFF the BREAK statement enables or disables the BREAK key for the current process. In UNIX terms the BREAK key is more commonly known as the interrupt sequence intr defined by the stty command.\r\nUsed as a standalone statement, BREAK will terminate the currently executing loop. The EXIT statement is functionally equivalent to the BREAK statement used without arguments.",
             "detail":"BREAK\r\nBREAK ON\r\nBREAK OFF\r\nBREAK expression"
          },
          {
             "key": "Bytelen",
             "icon": 3,
             "index": 69,
-            "documentation": "The BYTELEN function  will return the length of the expression as the number of bytes rather than the number of characters.",
+            "documentation": "The BYTELEN function  will return the length of the expression as the number of bytes rather than the number of characters.\r\nThe expression can return a result of any type.\r\nThe BYTELEN function will then return the byte count of the expression.",
             "detail":"BYTELEN(expression)"
          },
          {
             "key": "Call",
             "icon": 14,
             "index": 70,
-            "documentation": "The CALL statement transfers program execution to an external subroutine.",
+            "documentation": "The CALL statement transfers program execution to an external subroutine.\r\nThe CALL statement transfers program execution to the subroutine called subroutine.name, which can be any valid string either quoted or unquoted.\r\nThe CALL @ variant of this statement assumes that subroutine.name is a variable that contains the name of the subroutine to call.\r\nThe CALL statement may optionally pass a number of parameters to the target subroutine.\r\nThese parameters can consist of any valid expression or variable name.\r\nIf a variable name is used then the called program may return a value to the variable by changing the value of the equivalent variable in its own parameter list.",
             "detail": "CALL {@}subroutine.name {(argument {, argument ... })}"
          },
          {
             "key": "Callc",
             "icon": 14,
             "index": 71,
-            "documentation": "The CALLC statement is used to invoke user supplied C functions compiled and built into standard libraries.",
+            "documentation": "The CALLC statement is used to invoke user supplied C functions compiled and built into standard libraries.\r\nCfunction must correspond to a valid C function name in an associated C source.\r\nargument must correspond to a valid variable name\r\nVariable must correspond to a valid variable name which contains the name of the C function to invoke.\r\nThe indirect, '@', form of the statement expects the specified variable to contain the name of the 'C' function to be invoked.\r\nAll arguments to be passed to and from the calling program to the 'C' function must be of type VAR and the 'C' function coded accordingly, the 'C' function should also be coded to return a result of type VAR.\r\nRefer to the jsystem.h header file and jBASE 'C' programming for more information on the jBASE VAR type.\r\nThe 'C' functions should be coded in a separate source, then compiled and built into a shared library and made available to the calling program similar to subroutines",
             "detail": "CALLC Cfunction{(argument{,...})}\r\nor\r\nCALLC @Variable{(argument {, argument ... })}"
          },
          {
             "key": "Calldotnet",
             "icon": 14,
             "index": 72,
-            "documentation": "The CALLdotNET command allows jBASE BASIC to call any .NET assembly and is useful when using third party applications.",
+            "documentation": "The CALLdotNET command allows jBASE BASIC to call any .NET assembly and is useful when using third party applications.\r\nNameSpaceAndClassName The “full” NameSpace (e.g., myNameSpace.myClass)\r\nmethodName The name of the .NET in this class (e.g., “myMethod”)\r\nParam Any parameter (eg DynArray)",
             "detail": "CALLdotNET NameSpaceAndClassName, methodName, param SETTING ret [ON ERROR errStatment]"
          },
          {
             "key": "Callj",
             "icon": 14,
             "index": 73,
-            "documentation": "The CALLJ statement allows a jBC program to call a Java method.",
+            "documentation": "The CALLJ statement allows a jBC program to call a Java method.\r\npackageAndClassName The “full” class name (e.g., com.jbase.util.utilClass).\r\nmethodName The name of the Java method in this class (e,g., “myMethod”). If the method is static, you must include a ‘$’ before the name. This ‘$’ will be removed from the method name before calling it.\r\nparam Any parameter (eg DynArray)",
             "detail": "CALLJ packageAndClassName, [$]methodName, param SETTING ret [ON ERROR] statements"
          },
          {
             "key": "Callonexit",
             "icon": 3,
             "index": 74,
-            "documentation": "The CALLONEXIT function call allows you to specify the name of a SUBROUTINE to call when the program terminates.",
+            "documentation": "The CALLONEXIT function call allows you to specify the name of a SUBROUTINE to call when the program terminates.\r\nThe subroutine definition would look like this\r\n\r\nSUBROUTINE CALLONEXIT(parm1)\r\n\r\nYou can add parameters to the error subroutine by adding multi-values to the parameter to CALLONEXIT, which are passed to the called subroutine in the first parameter.\r\nIf you execute CALLONEXIT multiple times with the same subroutine name, it discards other calls.\r\nIf you execute CALLONEXIT multiple times with a different subroutine name, then upon exit multiple subroutines will be called in the order that CALLONEXIT was called.",
             "detail": "rc = CALLONEXIT('ErrorExit')"
          },
          {
             "key": "Case",
             "icon": 14,
             "index": 75,
-            "documentation": "The CASE statement allows the programmer to execute a particular sequence of instructions based upon the results of a series of test expressions.",
-            "detail": "CASE expression\r\nstatement(s)\r\nCASE expression\r\nstatement(s)\r\n....."
+            "documentation": "The CASE statement allows the programmer to execute a particular sequence of instructions based upon the results of a series of test expressions.\r\nThe CASE structure is bounded by the BEGIN CASE and END CASE statements.\r\nWithin this block, an arbitrary number of CASE expression statements may exist followed by any number of jBC statements.\r\nThe expression should evaluate to a TRUE or FALSE result.\r\nAt execution time, each expression is evaluated in order.\r\nIf the expression returns a TRUE result, then the statements beneath it are executed.\r\nOn completion of the associated statements, execution will resume at the first statement following the END CASE.",
+            "detail": "CASE expression\r\nstatement(s)\r\nCASE expression\r\nstatement(s)\r\n.....\r\nEND CASE"
          },
          {
             "key": "Cats",
             "icon": 3,
             "index": 76,
-            "documentation": "The CATS function concatenates the corresponding elements in two dynamic arrays.",
+            "documentation": "The CATS function concatenates the corresponding elements in two dynamic arrays.\r\nDynArr1 and DynArr2 represent dynamic arrays.\r\nIf one dynamic array supplied to the CATS function is null then the result of the CATS function is the non-null dynamic array.",
             "detail": "CATS(DynArr1, DynArr2)"
          },
          {
             "key": "Chain",
             "icon": 14,
             "index": 77,
-            "documentation": "The CHAIN statement exits the current program and transfers process control to the program defined by the expression.\r\nProcess control will never return to the originating program.",
+            "documentation": "The CHAIN statement exits the current program and transfers process control to the program defined by the expression.\r\nProcess control will never return to the originating program.\r\nThe expression should evaluate to a valid UNIX or Windows command (this may be another jBC program).\r\nThe command string may be suffixed with the (I option, which will cause any COMMON variables in the current program to be inherited by the new program (providing it is a jBC program).",
             "detail": "CHAIN expression {(I}"
          },
          {
@@ -941,18 +941,18 @@
             "detail": "ENTER program_name\r\nENTER @variable_name"
          },
          {
-            "key": "Equate",
-            "icon": 14,
-            "index": 135,
-            "documentation": "EQUATE is used to declare a symbol equivalent to a literal, variable or simple expression.",
-            "detail": "EQU{ATE} symbol TO expression"
-         },
-         {
             "key": "Eqs",
             "icon": 3,
-            "index": 136,
+            "index": 135,
             "documentation": "The EQS function tests if elements in one dynamic array are equal to the elements of another dynamic array.",
             "detail": "EQS(array1, array2)"
+         },
+         {
+            "key": "Equate",
+            "icon": 14,
+            "index": 136,
+            "documentation": "EQUATE is used to declare a symbol equivalent to a literal, variable or simple expression.",
+            "detail": "EQU{ATE} symbol TO expression"
          },
          {
             "key": "Ereplace",
@@ -1028,7 +1028,7 @@
             "key": "Filelock",
             "icon": 14,
             "index": 147,
-            "documentatin": "When the FILELOCK statement is executed, it will attempt to take an exclusive lock on the specified file. ",
+            "documentatin": "When the FILELOCK statement is executed, it will attempt to take an exclusive lock on the specified file.",
             "detail": "FILELOCK filevar {LOCKED statements} {ON ERROR statements}"
          },
          {
@@ -1217,7 +1217,7 @@
             "key": "Iconv",
             "icon": 3,
             "index": 174,
-            "documentation": "The ICONV function converts data in external form such as dates to their internal form.",
+            "documentation": "The ICONV function converts data in external form such as dates to their internal form.\r\nexpression1 evaluates to the data that the conversion is to be performed upon.\r\nexpression2 should evaluate to the conversion code that is to be performed against the data.\r\nIf the conversion code used assumes a numeric value and a non-numeric value is passed then the original value in expression1 is returned unless the emulation option 'iconv_nonnumeric_return_null' is set.",
             "detail": "ICONV(expression1, expression2)"
          },
          {
@@ -1322,22 +1322,22 @@
             "key": "Ioctl",
             "icon": 3,
             "index": 189,
-            "documentation": "The purpose of the IOCTL function is to allow commands to be sent to the database driver for a particular file, and then to receive a reply from that same databasedriver. ",
+            "documentation": "The purpose of the IOCTL function is to allow commands to be sent to the database driver for a particular file, and then to receive a reply from that same databasedriver.",
             "detail": "IOCTL(Filevar, Command, Parameter)"
-         },
-         {
-            "key": "Isalpha",
-            "icon": 3,
-            "index": 190,
-            "documentation": "The ISALPHA function checks that an expression consists entirely of alphabetic characters.",
-            "detail": "ISALPHA( expression)"
          },
          {
             "key": "Isalnum",
             "icon": 3,
-            "index": 191,
+            "index": 190,
             "documentation": "The ISALNUM function checks that an expression consists entirely of alphanumeric characters.",
             "detail": "ISALNUM( expression)"
+         },
+         {
+            "key": "Isalpha",
+            "icon": 3,
+            "index": 191,
+            "documentation": "The ISALPHA function checks that an expression consists entirely of alphabetic characters.",
+            "detail": "ISALPHA( expression)"
          },
          {
             "key": "Iscntrl",
@@ -1532,7 +1532,7 @@
             "key": "Lowcase",
             "icon": 3,
             "index": 219,
-            "documentation": "The LOWCASE functionconverts all uppercase characters in an expression to lowercase characters. Equivalent to DOWNCASE()",
+            "documentation": "The LOWCASE function converts all uppercase characters in an expression to lowercase characters. Equivalent to DOWNCASE()",
             "detail": "LOWCASE(expression)"
          },
          {
@@ -1735,7 +1735,7 @@
             "key": "Oconv",
             "icon": 3,
             "index": 248,
-            "documentation": "The OCONV statement is used to convert internal representations of data to their external form.",
+            "documentation": "The OCONV function is used to convert internal representations of data to their external form.",
             "detail": "OCONV(expression1, expression2)"
          },
          {
@@ -2021,15 +2021,15 @@
             "key": "Readprev Key",
             "icon": 14,
             "index": 289,
-            "documentation": "This statement is syntactically similar to the READNEXT KEY but it works in reverse order. ",
+            "documentation": "This statement is syntactically similar to the READNEXT KEY but it works in reverse order.",
             "detail": "READPREV KEY index.key{,record.key{,vmcount}} {FROM select-def} THEN/ELSE"
          },
          {
             "key": "Readseq",
             "icon": 14,
             "index": 290,
-            "documentation": "The READ statement allows a program to read from a file opened for sequential access.",
-            "detail": "READSEQ Variable FROM FileVar {SETTING setvar} {ON ERROR statements} THEN | ELSE statements"
+            "documentation": "The READSEQ statement allows a program to read from a file opened for sequential access.",
+            "detail": "READSEQ Variable FROM FileVar {SETTING setvar} {ON ERROR statements} THEN | ELSE statements\r\nVariable: specifies the variable to contain next record from sequential file.\r\nFileVar: specifies the file descriptor of the file opened for sequential access.\r\nSETTING: if specified and the read fails, setvar will be set to one of the values in the 'Incremental File Errors' table below.\r\nON ERROR: statements are executed upon any error condition, i.e. the READSEQ fails (this is usually used in conjuction with the SETTING clause)\r\nStatements: conditional jBC statements"
          },
          {
             "key": "Readt",
@@ -2042,7 +2042,7 @@
             "key": "Readu",
             "icon": 14,
             "index": 292,
-            "documentation": "The READU statement allows a program to read a record from a previously opened file into a variable. It respects record locking and locks the specified record for update.",
+            "documentation": "The READU statement allows a program to read a record from a previously opened file into a variable.\r\nIt respects record locking and locks the specified record for update.",
             "detail": "READU variable1 FROM {variable2,} expression {SETTING setvar} {ON ERROR statements} {LOCKED statements} THEN|ELSE statements"
          },
          {
@@ -2322,7 +2322,7 @@
             "key": "Sselectv",
             "icon": 14,
             "index": 332,
-            "documentation": "The SSELECTV statement allows the creation of select list of record IDs from a jBASE file or dynamic array and stores the select list in a named list variable.\r\nA select list of record IDs from a dynamic array is not in sorted order. ",
+            "documentation": "The SSELECTV statement allows the creation of select list of record IDs from a jBASE file or dynamic array and stores the select list in a named list variable.\r\nA select list of record IDs from a dynamic array is not in sorted order.",
             "detail": "SSELECTV [variable] TO list.variable [ON ERROR statements]"
          },
          {
@@ -2396,18 +2396,18 @@
             "detail": "SUM(DynaArr)"
          },
          {
-            "key": "System",
-            "icon": 3,
-            "index": 343,
-            "documentation": "The SYSTEM functions return information about the current user and processes",
-            "detail": "SYSTEM(integer)"
-         },
-         {
             "key": "Swap",
             "icon": 3,
-            "index": 344,
+            "index": 343,
             "documentation": "The SWAP function operates on a variable and replaces all occurrences of one string with another.",
             "detail": "SWAP( variable, expression1, expression2 )"
+         },
+         {
+            "key": "System",
+            "icon": 3,
+            "index": 344,
+            "documentation": "The SYSTEM functions return information about the current user and processes",
+            "detail": "SYSTEM(integer)"
          },
          {
             "key": "Tan",
@@ -2518,7 +2518,7 @@
             "key": "Trims",
             "icon": 3,
             "index": 360,
-            "documentation": "The TRIMS function removes redundant spaces from each element of a dynamic array.",
+            "documentation": "The TRIMS function removes redundant spaces and tabs from each element of a dynamic array.",
             "detail": "TRIMS(dynamic.array)"
          },
          {
@@ -2537,7 +2537,7 @@
          },
          {
             "key": "Unlock",
-            "icon": 3,
+            "icon": 14,
             "index": 363,
             "documentation": "The UNLOCK statement releases a previously LOCKed execution lock.",
             "detail": "UNLOCK {expression}"
@@ -2662,28 +2662,28 @@
             "detail": "WRITEXML rec ON file,id ELSE STOP 201,id"
          },
          {
-            "key": "xlate",
+            "key": "Xlate",
             "icon": 3,
             "index": 381,
             "documentation": "The XLATE function will return the data value of a field, given the name of the file, the record key, the field number, and an action code.",
             "detail": "XLATE ([DICT] filename, key, field#, action.code)"
          },
          {
-            "key": "xmltodyn",
+            "key": "Xmltodyn",
             "icon": 3,
             "index": 382,
             "documentation": "The XMLTODYN function converts an XML expression to a dynamic array, using an optional XSL to transform.",
             "detail": "XMLTODYN(XML, XSL, result)"
          },
          {
-            "key": "xmltoxml",
+            "key": "Xmltoxml",
             "icon": 3,
             "index": 383,
             "documentation": "The XMLTOXML function transforms an XML expression using an XSL.",
             "detail": "XMLTOXML(XML, XSL, result)"
          },
          {
-            "key": "xtd",
+            "key": "Xtd",
             "icon": 3,
             "index": 384,
             "documentation": "The XTD() function converts hexadecimal number into its decimal equivalent.",
