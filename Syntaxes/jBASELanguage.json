@@ -664,98 +664,98 @@
             "key": "Collectdata",
             "icon": 14,
             "index": 95,
-            "documentation": "The COLLECTDATA statement is used to retrieve data passed from the PASSDATA clause of an EXECUTE statement.",
+            "documentation": "The COLLECTDATA statement is used to retrieve data passed from the PASSDATA clause of an EXECUTE statement.\r\nvariable is the name of the variable which is to store the retrieved data.\r\nThe COLLECTDATA statement can be used in any program which is EXECUTEd (or PERFORMed) by another program where the calling program uses a PASSDATA clause.\r\nThe EXECUTEd program uses a COLLECTDATA statement to retrieve the passed data.\r\nIf a PASSDATA clause is not in effect, variable will be assigned a value of null.",
             "detail": "COLLECTDATA variable"
          },
          {
             "key": "Common",
             "icon": 14,
             "index": 96,
-            "documentation": "The COMMON statement declares a list of variables and matrices that can be shared among various programs.\r\nThere can be many common areas including a default, unnamed common area.",
+            "documentation": "The COMMON statement declares a list of variables and matrices that can be shared among various programs.\r\nThere can be many common areas including a default, unnamed common area.\r\nThe list of variables should not have been declared or referenced previously in the program file.\r\nThe compiler will detect any bad declarations and display suitable warning or error messages.\r\nIf the common area declared with the statement is to be named then the first entry in the list should be a string, delimited by the / character.",
             "detail": "COMMON {/CommonName/} variable{, variable ... }"
          },
          {
             "key": "Compare",
             "icon": 3,
             "index": 97,
-            "documentation": "The COMPARE function compares two strings and returns a value indicating whether or not they are equal.",
+            "documentation": "The COMPARE function compares two strings and returns a value indicating whether or not they are equal.\r\nexpression1 is the first string for comparison\r\nexpression2 is the second string for comparison\r\njustification specifies how the strings are to be compared.\r\n\"L\" indicates a left justified comparison.\r\n\"R\" indicates a right justified comparison.\r\nThe default is left justification.",
             "detail": "COMPARE(expression1, expression2{, justification})"
          },
          {
             "key": "Continue",
             "icon": 14,
             "index": 98,
-            "documentation": "The CONTINUE statement is the complimentary statement to the BREAK statement without arguments.\r\nThe statement is used within a loop to skip the remaining code in the current iteration and proceed directly to the next iteration.",
+            "documentation": "The CONTINUE statement is the complimentary statement to the BREAK statement without arguments.\r\nThe statement is used within a loop to skip the remaining code in the current iteration and proceed directly to the next iteration.\r\nSee also: BREAK, EXIT\r\nThe compiler will issue a warning message and ignore the statement if it is found outside an iterative loop such as FOR...NEXT, LOOP...REPEAT.",
             "detail": "CONTINUE"
          },
          {
             "key": "Convert",
             "icon": 3,
             "index": 99,
-            "documentation": "This is the function form of the CONVERT statement.\r\nIt performs exactly the same function, but may also operate on an expression rather than being restricted to variables.",
+            "documentation": "This is the function form of the CONVERT statement.\r\nIt performs exactly the same function, but may also operate on an expression rather than being restricted to variables.\r\nexpression1 is the string to which the conversion will apply.\r\nexpression2 is the list of all characters to translate in expression1.\r\nexpression3 is the list of characters that will be converted to.\r\n\r\nFor Prime, Universe and Unidata emulations:\r\nexpression1 is the list of all characters to translate in expression1.\r\nexpression2 is the list of characters that will be converted to.\r\nexpression3 is the string to which the conversion will apply.",
             "detail": "CONVERT(expression1, expression2, expression3)"
          },
          {
             "key": "Convert",
             "icon": 14,
             "index": 100,
-            "documentation": "The CONVERT statement converts one or more characters in a string to their corresponding replacement characters.",
+            "documentation": "The CONVERT statement converts one or more characters in a string to their corresponding replacement characters.\r\nexpression1 is the list of all characters to translate in expression3.\r\nexpression2 is the list of characters that will be converted to.\r\nexpression3 is the string to which the conversion will apply.",
             "detail": "CONVERT expression1 TO expression2 IN expression3"
          },
          {
             "key": "Cos",
             "icon": 3,
             "index": 101,
-            "documentation": "The COS function calculates the cosine of any angle using floating point arithmetic, then rounds to the precision implied by the jBC program. This makes it very accurate.",
+            "documentation": "The COS function calculates the cosine of any angle using floating point arithmetic, then rounds to the precision implied by the jBC program. This makes it very accurate.\r\nThe expression must evaluate to a numeric result or a runtime error will occur.\r\nThe expression must evaluate to a numeric result or a runtime error will occur.",
             "detail": "COS(expression)"
          },
          {
             "key": "Count",
             "icon": 3,
             "index": 102,
-            "documentation": "The COUNT function returns the number of times that one string occurs in another.",
+            "documentation": "The COUNT function returns the number of times that one string occurs in another.\r\nBoth expression1 and expression2 may evaluate to any data type but logically they will evaluate to character strings.\r\nThe count is made on overlapping occurrences as a pattern match from each character in expression1.\r\nThis means that the string jjj occurs 3 times in the string jjjjj.",
             "detail": "COUNT(expression1, expression2)"
          },
          {
             "key": "Counts",
             "icon": 3,
             "index": 103,
-            "documentation": "The COUNTS function counts the number of times a substring is repeated in each element of a dynamic array.\r\nThe result is a new dynamic array whose elements are the counts corresponding to the elements in the dynamic array.",
+            "documentation": "The COUNTS function counts the number of times a substring is repeated in each element of a dynamic array.\r\nThe result is a new dynamic array whose elements are the counts corresponding to the elements in the dynamic array.\r\ndynamic.array specifies the dynamic array whose elements are to be searched.\r\nsubstring is an expression that evaluates to the substring to be counted. substring can be a character string, a constant, or a variable. Each character in an element is matched to substring only once.\r\nTherefore, when substring is longer than one character and a match is found, the search continues with the character following the matched substring.\r\bNo part of the matched element is recounted toward another match.\r\nIf substring does not appear in an element, a 0 value is returned. If substring is an empty string, the number of characters in the element is returned.\r\nIf substring is null, the COUNTS function fails and the program terminates with a run-time error message.\r\nIf any element in dynamic.array is null, null is returned.",
             "detail": "COUNTS(dynamic array, substring)"
          },
          {
             "key": "Create",
             "icon": 14,
             "index": 104,
-            "documentation": "Use the CREATE statement after an OPENSEQ statement to create a record in a jBASE directory file or to create a UNIX or DOS file.\r\nCREATE creates the record or file if the  OPENSEQ  statement fails.",
+            "documentation": "Use the CREATE statement after an OPENSEQ statement to create a record in a jBASE directory file or to create a UNIX or DOS file.\r\nCREATE creates the record or file if the OPENSEQ statement fails.\r\nAn OPENSEQ statement for the specified file.variable must be executed before the CREATE statement to associate the pathname or record ID of the file to be created with the file.variable.\r\nIf file.variable is null, the CREATE statement fails and the program enters the debugger.\r\nUse the CREATE statement when OPENSEQ cannot find a record or file to open and the next operation is to be a READSEQ or READBLK.\r\nIf the first file operation is a WRITESEQ, WRITESEQ creates the record or file if it does not exist.\r\nIf the record or file is created, it executes the THEN statements; if no record or file is created, it executes the ELSE statements.",
             "detail": "CREATE file.variable {THEN statements [ELSE statements] | ELSE statements}"
          },
          {
             "key": "Crt",
             "icon": 14,
             "index": 105,
-            "documentation": "The CRT statement sends data directly to the terminal, even if a PRINTER ON statement is currently active.\r\nIf the optional ':' is appended, no carriage return is appended to the text.",
+            "documentation": "The CRT statement sends data directly to the terminal, even if a PRINTER ON statement is currently active.\r\n\r\nAn expression can evaluate to any data type.\r\nThe CRT statement will convert the result to a string type for printing.\r\nExpressions separated by commas will be sent to the screen separated by a tab character.\r\nThe CRT statement will append a newline sequence to the final expression unless it is terminated with a colon \":\" character.",
             "detail": "CRT expression {, expression..} {:}"
          },
          {
             "key": "Data",
             "icon": 14,
             "index": 106,
-            "documentation": "The DATA statement stacks the series of expressions on an input FIFO stack.\r\nTerminal input statements will then treat this data as if it were typed in at the keyboard.",
+            "documentation": "The DATA statement stacks the series of expressions on an input FIFO stack.\r\nTerminal input statements will then treat this data as if it were typed in at the keyboard\r\nThe expression may evaluate to any data type.\r\nEach comma separated expression will be viewed as one line of terminal input.\r\nThe DATA statement cannot be used to send input to the jBC IN statement in that the IN statement reads from a different location than the INPUT statement.\r\nThe INPUT statement reads from stdin and IN reads from the 'raw' device (normally the keyboard). ",
             "detail": "DATA expression {, expression ...}"
          },
          {
             "key": "Date()",
             "icon": 3,
             "index": 107,
-            "documentation": "The DATE() function returns the date in internal system form. This date is expressed as the number of days before or after December 31, 1967.",
+            "documentation": "The DATE() function returns the date in internal system form. This date is expressed as the number of days before or after December 31, 1967.\r\nThe system and your own programs should manipulate date fields in internal form.\r\nThey can then be converted to a readable format of your choice using the OCONV() function and the date conversion codes.\r\nSee also: TIMEDATE()",
             "detail": "DATE()"
          },
          {
             "key": "Dcount",
             "icon": 3,
             "index": 108,
-            "documentation": "The DCOUNT() function counts the number of field elements in a string that are separated by a specified delimiter.",
+            "documentation": "The DCOUNT() function counts the number of field elements in a string that are separated by a specified delimiter.\r\nexpression1 evaluates to a string in which fields are to be counted.\r\nexpression2 evaluates to the delimiter string that will be used to count the fields.\r\nThe delimiter string may consist of more than 1 character.\r\nIf expression1 is a NULL string, then the function will return a value of 0.\r\nThe delimiter string may consist of any character, including system delimiters such as field marks or value marks.\r\nSee also COUNT.",
             "detail": "DCOUNT(expression1, expression2)"
          },
          {
@@ -769,42 +769,42 @@
             "key": "Decrypt",
             "icon": 3,
             "index": 110,
-            "documentation": "The DECRYPT function decodes a string encrypted by the ENCRYPT function.",
+            "documentation": "The DECRYPT function decodes a string encrypted by the ENCRYPT function.\r\nstring specifies the string to be decrypted.\r\nkey is the value used to decrypt the string. It's use depends on method.\r\nmethod is a number which indicates the decryption mechanism to use:\r\n0\t\r\nGeneral purpose encryption scheme.\r\n\tThis method will decrypt the string using the key value supplied.\r\n1\tSimple ROT13 algorithm.\r\n\tkey not used.\r\n2\tXOR MOD11 algorithm.\r\n\tThe first character of key is used as a seed value.\r\nSee also ENCRYPT.",
             "detail": "DECRYPT(string, key, method)"
          },
          {
             "key": "Defc",
             "icon": 14,
             "index": 111,
-            "documentation": "The DEFC statement is used to declare an external C function to the jBC compiler and define its arguments and return types.",
+            "documentation": "The DEFC statement is used to declare an external C function to the jBC compiler and define its arguments and return types.\r\nFuncType and ArgType are selected from one of INT, FLOAT or VAR.\r\nFuncType specifies the type of result that the function will return.\r\nIf FuncType is omitted then INT will be assumed.\r\nThe optional list of ArgTypes specifies the argument types that the C function will expect.\r\nThe compiler must know this in advance as it will automatically perform type conversions on these arguments.",
             "detail": "DEFC {FuncType} FuncName ({ArgType {, ArgType ...}})"
          },
          {
             "key": "Defce",
             "icon": 14,
             "index": 112,
-            "documentation": "The DEFCE statement should be used, rather than the DEFC statement, for calling external C programs, which are pure ‘C’ code and do not use the jBASE library macros and functions.",
+            "documentation": "The DEFCE statement should be used, rather than the DEFC statement, for calling external C programs, which are pure ‘C’ code and do not use the jBASE library macros and functions.\r\nThe arguments passed can only be of type INT, FLOAT and STRING.",
             "detail": "DEFCE {FuncType} FuncName ({ArgType {, ArgType ...}})"
          },
          {
             "key": "Deffun",
             "icon": 14,
             "index": 113,
-            "documentation": "The DEFFUN statement is used to declare an external jBC function to the jBC compiler and optionally define its arguments.\r\nDEFFUN is used in the program that calls the function.",
+            "documentation": "The DEFFUN statement is used to declare an external jBC function to the jBC compiler and optionally define its arguments.\r\nDEFFUN is used in the program that calls the function.\r\nFuncName is the name used to define the function.\r\nIt must be the same as the source file name.\r\nArgument specifies a value that is passed to the function by the calling program.\r\nTo pass an array, the keyword MAT must be used before the argument name.\r\nThese parameters are entirely optional (as indicated in the Command Syntax), but can be specified for clarity.\r\nNote that if the arguments are not initialized somewhere in the program you will receive a compiler warning.\r\nThe DEFFUN statement identifies a user-written function to the jBC compiler.\r\nIt must be present in each program that calls the function, before the function is called.\r\nA hidden argument is passed to the function so that a value can be returned to the calling program.\r\nThe return value is set in the function using the  RETURN (value) statement.\r\nIf the RETURN statement specifies no value then an empty string is returned by the function.",
             "detail": "DEFFUN FuncName  ({ {MAT} Argument1, {MAT} Argument2...})"
          },
          {
             "key": "Del",
             "icon": 3,
             "index": 114,
-            "documentation": "The DEL or DELETE statement is used to remove a specified element from a dynamic array.",
+            "documentation": "The DEL statement or legacy DELETE function is used to remove a specified element from a dynamic array.\r\nThe variable can be any previously assigned variable or matrix element.\r\nThe expressions must evaluate to a numeric value or a runtime error will occur.\r\nexpression1 specifies the field in the array to operate upon and must be present.\r\nexpression2 specifies the multivalue within the field to operate upon and is an optional parameter.\r\nexpression3 is optionally present when expression2 has been included.\r\nIt specifies which subvalue to delete within the specified multivalue.",
             "detail": "DEL variable<expression1{, expression2{, expression3}}>\r\nDELETE(variable,expression1{, expression2{, expression3})"
          },
          {
             "key": "Delete",
             "icon": 14,
             "index": 115,
-            "documentation": "The DELETE statement is used to delete a record from a jBASE file.",
+            "documentation": "The DELETE statement is used to delete a record from a jBASE file.\r\nIf specified, variable should have been the subject of a previous OPEN statement.\r\nIf variable is omitted then the default file variable is assumed.\r\nThe expression should evaluate to the name of a record stored in the open file.",
             "detail": "DELETE {variable,} expression {SETTING setvar} {ON ERROR statements}"
          },
          {
@@ -845,14 +845,14 @@
          {
             "key": "Display",
             "icon": 14,
-            "index": 12q,
+            "index": 121,
             "documentation": "The DISPLAY statement sends data directly to the terminal, even if a PRINTER ON statement is currently active.\r\nIf the optional ':' is appended, no carriage return is appended to the text.",
             "detail": "DISPLAY expression {, expression..} {:}"
          },
          {
             "key": "Div",
             "icon": 3,
-            "index": 12w,
+            "index": 122,
             "documentation": "The DIV function  calculates the value of the quotient after division of the dividend by the divisor.",
             "detail": "DIV(dividend, divisor)"
          },
