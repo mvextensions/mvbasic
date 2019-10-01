@@ -811,119 +811,119 @@
             "key": "Deletelist",
             "icon": 14,
             "index": 116,
-            "documentation": "The DELETELIST statement will delete the previously stored list named by the expression.",
+            "documentation": "The DELETELIST statement will delete the previously stored list named by the expression.\r\nThe expression should evaluate to the name of a list that has been stored either with the WRITELIST statement or the SAVE-LIST command from the shell.",
             "detail": "DELETELIST expression"
          },
          {
             "key": "Deleteseq",
             "icon": 14,
             "index": 117,
-            "documentation": "DELETESEQ deletes an operating system file.",
+            "documentation": "DELETESEQ deletes an operating system file./r/nExpression specifies the explicit path of an operating system file to delete./r/nExpression, Filename Filename is a file that resides in the directory path specified by Expression/r/nStatements conditional jBC statements",
             "detail": "DELETESEQ Expression {SETTING setvar} {ON ERROR statements} {LOCKED statements} THEN | ELSE statements\r\nor\r\nDELETESEQ Expression, Filename {SETTING setvar} {ON ERROR statements} {LOCKED statements} THEN | ELSE statements"
          },
          {
             "key": "Deleteu",
             "icon": 14,
             "index": 118,
-            "documentation": "Use the DELETEU statement to delete a record without releasing the update record lock set by a previous  READU statement.",
+            "documentation": "Use the DELETEU statement to delete a record without releasing the update record lock set by a previous READU statement.If no file variable is specified in the DELETEU statement, the statement applies to the default file.",
             "detail": "DELETEU {variable,} expression {SETTING setvar} {ON ERROR statements}"
          },
          {
             "key": "Dim",
             "icon": 14,
             "index": 119,
-            "documentation": "The DIM statement is used to declare arrays to the compiler before they are referenced.",
+            "documentation": "The DIM statement is used to declare arrays to the compiler before they are referenced./r/nThe variable may be any valid variable name that has not already been used or declared. The numbers define the size of each dimension and must be either constants or the subject of an EQUATE statement./r/nA number of arrays may be declared by a single DIM statement by separating their declarations with a comma./r/nThe array must be declared before it is referenced in the program source (compilation as opposed to execution). The compiler will display an error message if a variable is used as a dimensioned array before it has been declared./r/nThe array variable may not be used as a normal variable or dynamic array before being dimensioned and the compiler will detect this as an error./r/nA dimension size may not be specified as 1 as this has no logical meaning. The compiler will detect this as a warning./r/nWhen arrays are referenced directly as in A = Array(7), the compiler will optimize the reference as if it was a single undimensioned variable./r/nIf the emulation option 'resize_array=true' is set, then the array may be dimensioned with a variable. It can also be resized (i.e. redimensioned).",
             "detail": "DIM{ENSION} variable(number{, number... }){, variable(number {,number...}) ...}"
          },
          {
             "key": "Dir",
             "icon": 3,
             "index": 120,
-            "documentation": "The DIR function returns information about a file.",
+            "documentation": "The DIR function returns information about a file.The filename is a string argument representing the path and filename of a file.\r\nThis function returns a dynamic array with four attributes./r/nAttribute/tDescription/r/n1/tFile size in Bytes/r/n2/tLast modified date (in internal format)/r/n3/tLast modified time (in internal format)/r/n4/t'D' if the filename is a directory, blank if the filename is a file",
             "detail": "DIR(filename)"
          },
          {
             "key": "Display",
             "icon": 14,
             "index": 121,
-            "documentation": "The DISPLAY statement sends data directly to the terminal, even if a PRINTER ON statement is currently active.\r\nIf the optional ':' is appended, no carriage return is appended to the text.",
+            "documentation": "The DISPLAY statement sends data directly to the terminal, even if a PRINTER ON statement is currently active./r/nAn expression can evaluate to any data type./r/nThe CRT statement will convert the result to a string type for printing./r/nExpressions separated by commas will be sent to the screen separated by a tab character./r/nThe CRT statement will append a newline sequence to the final expression unless it is terminated with a colon \":\" character./r/nAs the expression can be any valid expression, it may have  output formatting applied to it./r/nA jBC program is normally executed using buffered output mode./r/nThis means that data is not flushed to the terminal screen unless a newline sequence is printed or terminal input is requested and makes it very efficient./r/nHowever you can force output to be flushed to the terminal by printing a null character 'CHAR(0)'./r/nThis has the same effect as a newline sequence but without affecting screen output.",
             "detail": "DISPLAY expression {, expression..} {:}"
          },
          {
             "key": "Div",
             "icon": 3,
             "index": 122,
-            "documentation": "The DIV function  calculates the value of the quotient after division of the dividend by the divisor.",
+            "documentation": "The DIV function  calculates the value of the quotient after division of the dividend by the divisor./r/nThe dividend and divisor expressions can evaluate to any numeric value./r/nThe only exception is that the divisor cannot be zero./r/nIf either dividend or divisor evaluates to null, it returns null.",
             "detail": "DIV(dividend, divisor)"
          },
          {
             "key": "Divs",
             "icon": 3,
             "index": 123,
-            "documentation": "The DIVS function returns a dynamic array, the content of which is derived by dividing each element of the first dynamic array argument by the corresponding element of the second dynamic array argument.",
+            "documentation": "The DIVS function returns a dynamic array, the content of which is derived by dividing each element of the first dynamic array argument by the corresponding element of the second dynamic array argument./r/nDynArr1 and DynArr2 represent dynamic arrays./r/nNull elements of argument arrays are treated as zero./r/nOtherwise, a non-numeric element in an argument array will cause a run-time error./r/nIf a zero value element in DynArr2 has a corresponding element in DynArr1, then a run-time error will occur./r/nIf a zero value element in DynArr2 does not have a corresponding element in DynArr1, then the corresponding element in the result array will be zero.",
             "detail": "DIVS(DynArr1, DynArr2)"
          },
          {
             "key": "Downcase",
             "icon": 3,
             "index": 124,
-            "documentation": "DOWNCASE converts all uppercase characters in an expression to lowercase characters.",
+            "documentation": "DOWNCASE converts all uppercase characters in an expression to lowercase characters./r/nexpression in a string containing alphabetic characters.\r\nNon-alphabetic characters are ignored.\r\nThe function LOWCASE is synonymous with DOWNCASE.",
             "detail": "DOWNCASE(expression)"
          },
          {
             "key": "Dquote",
             "icon": 3,
             "index": 125,
-            "documentation": "The function will put double quotation mark at the beginning and end of a string",
+            "documentation": "The function will put double quotation mark at the beginning and end of a string.\r\nexpression may be any expression that is valid in the JBC language.",
             "detail": "DQUOTE(Expression)"
          },
          {
             "key": "Dround",
             "icon": 3,
             "index": 126,
-            "documentation": "The DROUND( ) function performs double-precision rounding on a value.",
+            "documentation": "The DROUND( ) function performs double-precision rounding on a value./r/nexpression1 is the value to round./r/nexpression2 is the optional precision./r/nDouble-precision rounding uses 2 words to store a number./r/nIf a precision is not specified as the second expression, DROUND() uses whatever precision is set at the time of the calculation./r/nIf no PRECISION statement was issued then the default precision of 4 is used./r/nThe specified precision (either with the PRECISION statement or with the optional precision parameter) to be greater than or equal to the rounding digit, otherwise the calculation will truncate the value to the whatever precision is 'active' at the time of the calculation.",
             "detail": "DROUND(expression1{, expression2})"
          },
          {
             "key": "Dtx",
             "icon": 3,
             "index": 127,
-            "documentation": "The DTX function will return the hexadecimal representation of a numeric expression.",
+            "documentation": "The DTX function will return the hexadecimal representation of a numeric expression.\r\nexpression must evaluate to a decimal numeric value or a runtime error will occur.",
             "detail": "DTX(expression)"
          },
          {
             "key": "Dyntoxml",
             "icon": 3,
             "index": 128,
-            "documentation": "The DYNTOXML function converts a dynamic array to XML.",
+            "documentation": "The DYNTOXML function converts a dynamic array to XML./r/nConvert an array to XML using the optional xsl to transform/r/nTakes the contents of the dynamic array and returns a generic XML representation of that array or an error",
             "detail": "DYNTOXML(array,xsl,result)"
          },
          {
             "key": "Ebcdic",
             "icon": 3,
             "index": 129,
-            "documentation": "The EBCDIC function converts all the characters in an expression from the ASCII character set to the EBCDIC character set.",
+            "documentation": "The EBCDIC function converts all the characters in an expression from the ASCII character set to the EBCDIC character set./r/nexpression may contain a data string of any form./r/nThe function will convert it to a character string, assuming that the characters are all members of the ASCII set and translate them using a character map./r/nThe original expression is unchanged while the result of the function is now the EBCDIC equivalent.",
             "detail": "EBCDIC(expression)"
          },
          {
             "key": "Echo",
             "icon": 14,
             "index": 130,
-            "documentation": "The ECHO statement will turn on or off the echoing of characters typed at the keyboard.",
+            "documentation": "The ECHO statement will turn on or off the echoing of characters typed at the keyboard./r/nThe statement may be used with the keywords ON and OFF to specify echoing or not./r/nIf used with an expression, then the expression should evaluate to a Boolean TRUE or FALSE result./r/nIf TRUE then echoing will be turned on, and if FALSE, echoing will be turned off./r/nThe SYSTEM function can be used to determine the current state of character echoing./r/nIf echoing is enabled then SYSTEM(24) will return Boolean TRUE and if disabled it will return Boolean FALSE.",
             "detail": "ECHO ON\r\nECHO OFF\r\nECHO expression"
          },
          {
             "key": "Encrypt",
             "icon": 3,
             "index": 131,
-            "documentation": "The ENCRYPT function encrypts a string.",
+            "documentation": "The ENCRYPT function encrypts a string.\r\nstring specifies the string to be encrypt.\r\nkey is the value used to encrypt the string. It's use depends on method.\r\nmethod is a number which indicates the encryption mechanism to use:\r\n0\t\r\nGeneral purpose encryption scheme.\r\n\tThis method will encrypt the string using the key value supplied.\r\n1\tSimple ROT13 algorithm.\r\n\tkey not used.\r\n2\tXOR MOD11 algorithm.\r\n\tThe first character of key is used as a seed value.\r\nSee also DECRYPT.",
             "detail": "ENCRYPT(string, key, method)"
          },
          {
             "key": "End",
             "icon": 14,
             "index": 132,
-            "documentation": "The END statement is used to terminate a program or to conclude a set of jBC statements bounded by a condition.",
+            "documentation": "The END statement is used to terminate a program or to conclude a set of jBC statements bounded by a condition.\r\nThe END statement is not required in a jBC program.\r\nIf the compiler encounters an END statement that is not the conclusion to a conditional block, then no statements can follow it.",
             "detail": "END"
          },
          {
@@ -944,56 +944,56 @@
             "key": "Enter",
             "icon": 14,
             "index": 135,
-            "documentation": "The ENTER statement unconditionally passes control to another executable program.",
+            "documentation": "The ENTER statement unconditionally passes control to another executable program.\r\nprogram_name is the name of the program to be executed.\r\nThe use of single or double quotes to surround program_name is optional.\r\n@ specifies that the program name is contained in a named variable.\r\nvariable_name is the name of the variable which contains the program name.\r\nThe jBC COMMON data area can be passed to another jBC program by specifying the \"(I\" option after the program name.\r\nNote that the program must be compiled with 'enter_keeps_common_data = true' set in the '$JBCRELEASEDIR/config/Config_EMULATE' file (under the appropriate emulation section).\r\nThe COMMON data area can only be passed to another jBC program.\r\nENTER can be used to execute any type of program.\r\nIf the program which contains the ENTER command (the current program) was called from a jCL program, and the program to be executed (the target program) is another jBC program, control will return to the original jCL program when the target program terminates.\r\nIf the target program is a jCL program, control will return to the command shell when the jCL program terminates.",
             "detail": "ENTER program_name\r\nENTER @variable_name"
          },
          {
             "key": "Eqs",
             "icon": 3,
             "index": 136,
-            "documentation": "The EQS function tests if elements in one dynamic array are equal to the elements of another dynamic array.",
+            "documentation": "The EQS function tests if elements in one dynamic array are equal to the elements of another dynamic array.\r\nThis function compares each element of array 1 with the corresponding element of array 2 and returns a one if the two elements are equal in the corresponding element of a dynamic array.\r\nIt returns a zero if the two elements are not equal.\r\nIt returns zero if an element of one dynamic array does not have a corresponding element in the other dynamic array.\r\nIf either element of a corresponsing pair is null, it returns null for that element.",
             "detail": "EQS(array1, array2)"
          },
          {
             "key": "Equate",
             "icon": 14,
             "index": 137,
-            "documentation": "EQUATE is used to declare a symbol equivalent to a literal, variable or simple expression.",
+            "documentation": "EQUATE is used to declare a symbol equivalent to a literal, variable or simple expression.\r\nsymbol is the name of the symbol to use.\r\nCan be any name that would be valid for a variable.\r\nexpression can be a literal, a variable or a simple expression.",
             "detail": "EQU{ATE} symbol TO expression"
          },
          {
             "key": "Ereplace",
             "icon": 3,
             "index": 138,
-            "documentation": "The EREPLACE function replaces a substring in an expression with another substring.",
+            "documentation": "The EREPLACE function replaces a substring in an expression with another substring.\r\noccurrence specifies the number of occurrences of substring to replace.\r\nTo replace all occurrences, specify occurrence as a number less than 1. begin specifies the first occurrence to replace.\r\nIf begin is omitted or less than one, it defaults to one.\r\nIf substring is an empty string, replacement is prefixed to expression.\r\nIf replacement is an empty string, it removes all occurrences of substring.\r\nIf expression evaluates to null, it returns null.\r\nIf substring, replacement, occurrence, or begin evaluates to null, the EREPLACE function fails and the program terminates with a run-time error message.\r\nThe EREPLACE function behaves like the CHANGE function except when substring evaluates to an empty string.",
             "detail": "EREPLACE(expression, substring, replacement [, occurrence [, begin]])"
          },
          {
             "key": "Execute",
             "icon": 14,
             "index": 139,
-            "documentation": "The EXECUTE or PERFORM statement allows the currently executing program to pause and execute any other UNIX/NT program, including another jBC program or a jBASE command.",
+            "documentation": "The EXECUTE or PERFORM statement allows the currently executing program to pause and execute any other UNIX/NT program, including another jBC program or a jBASE command.\r\nThe PERFORMed expression can be formed from any jBASE construct.\r\nThe system will not verify that the command exists before executing it.\r\nThe command is executed by a new Bourne Shell (sh) by default.\r\nThe shell type can be changed by preceding the command with a CHAR(255) (or equivalently, @IM) concatenated with either \"k\", \"c\", or \"s\" to signify the Korn shell, C shell or Bourne Shell.\r\nVariables used to pass data to the executed program should have been assigned a value before they are used.\r\nAny variable name may be used to receive data.\r\n\r\nCAPTURING variable\r\nThe capturing clause will capture any output that the executing program would normally send to the terminal screen and place it in the variable specified. Every newline normally sent to the terminal is replaced with a field mark in the variable.\r\nRETURNING variable or SETTING variable\r\nThe returning and setting clauses are identical. Both clauses will capture the output associated with any error messages the executing program issues. The first field of the variable will be set to the exit code of the program.\r\nPASSLIST variable\r\nThe PASSLIST clause allows jBASE programs to exchange lists or dynamic arrays between them. The variable should contain the list that the program wishes to pass to the jBASE program it is executing. The program to be executed should be able to process lists, otherwise the list will just be ignored. If the variable name is not specified then the clause will pass the default select list to the executing program.\r\nRTNLIST variable\r\nIf the program executed sets up a list then the RTNLIST clause may be used to place that list into a specified variable. If the variable is omitted then the list is placed in the default list variable.\r\nPASSDATA variable\r\nThe data in the specified variable is passed to another jBC program. The executing jBC program should retrieve the data using the COLLECTDATA statement.\r\nRTNDATA variable\r\nThe RTNDATA statement returns any data passed from an executing jBC program in the specified variable. The executing jBC program should use the RTNDATA statement to pass data back to the calling program.\r\nThe clauses may be specified in any order within the statement but only one of each clause may exist.",
             "detail": "EXECUTE expression {CAPTURING variable} {RETURNING|SETTING variable}\r\n{PASSLIST expression} {RTNLIST {variable}}\r\n{PASSDATA variable} {RTNDATA variable}"
          },
          {
             "key": "Exit",
             "icon": 14,
             "index": 140,
-            "documentation": "The EXIT statement is used to halt the execution of a program and return a numeric exit code to the parent process.\r\nFor compatibility with older versions of the language the EXIT statement may be used without an expression. In this case it is synonymous with the BREAK statement.",
+            "documentation": "The EXIT statement is used to halt the execution of a program and return a numeric exit code to the parent process.\r\nFor compatibility with older versions of the language the EXIT statement may be used without an expression. In this case it is synonymous with the BREAK statement.\r\nAny expression provided must be parenthesized and must evaluate to a numeric result.\r\nThe numeric result is used as the UNIX or Windows exit code, which is returned to the parent process by the C function exit().\r\nIf the expression does not evaluate to a numeric then the program will enter the debugger with a suitable error message.",
             "detail": "EXIT (expression)\r\nEXIT"
          },
          {
             "key": "Exp",
             "icon": 3,
             "index": 141,
-            "documentation": "The EXP function returns the mathematical constant e to the specified power.",
+            "documentation": "The EXP function returns the mathematical constant e to the specified power.\r\nThe expression may consist of any form of jBC expression but should evaluate to a numeric argument or a runtime error will occur and the program will enter the debugger.\r\nThe function will return a value that is accurate to as many decimal places as are specified by the PRECISION of the program.",
             "detail": "EXP(expression)"
          },
          {
             "key": "Extract",
             "icon": 3,
             "index": 142,
-            "documentation": "The EXTRACT function is an alternative method of accessing values in a dynamic array.",
+            "documentation": "The EXTRACT function is an alternative method of accessing values in a dynamic array.\r\nexpression1 specifies the dynamic array to work with and will normally be a previously assigned variable.\r\nexpressions 2 through 4 should all return a numeric value or a runtime error will occur and the program will enter the debugger.\r\nexpression2 specifies the field to extract,\r\nexpression3 the value to extract and expression4 the sub-value to extract.",
             "detail": "EXTRACT(expression1, expression2 {, expression3 {, expression4}})"
          },
          {
