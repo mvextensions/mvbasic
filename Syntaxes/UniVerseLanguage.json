@@ -141,7 +141,7 @@
          "Keywords": "@Abort.Code",
          "Icon": 12,
          "Index": 19,
-         "Documentation": "A numeric value indicating the type of condition that\ncaused the ON.ABORT paragraph to execute. The\nvalues are:\n1 � An ABORT statement was executed.\n2 � An abort was requested after pressing the Break\nkey followed by option A.\n3 � An internal or fatal error occurred.\n4 � An AUTO.LOGOUT event occurred.",
+         "Documentation": "A numeric value indicating the type of condition that\ncaused the ON.ABORT paragraph to execute. The\nvalues are:\n1 An ABORT statement was executed.\n2 An abort was requested after pressing the Break\nkey followed by option A.\n3 An internal or fatal error occurred.\n4 An AUTO.LOGOUT event occurred.",
          "Detail": "@ABORT.CODE"
       },
       {
@@ -733,7 +733,7 @@
          "Keywords": "@Tty ",
          "Icon": 21,
          "Index": 96,
-         "Documentation": "Terminal device name. If the process is a phantom,\n@TTY returns the value �phantom�. If the process is a\nUniVerse API, it returns �uvcs�.\nNote: In PI/Open flavor, @TTY returns an empty string\nfor PHANTOM processes.",
+         "Documentation": "Terminal device name. If the process is a phantom,\n@TTY returns the value 'phantom'. If the process is a\nUniVerse API, it returns 'uvcs'.\nNote: In PI/Open flavor, @TTY returns an empty string\nfor PHANTOM processes.",
          "Detail": "@TTY"
       },
       {
@@ -838,7 +838,7 @@
          "Icon": 14,
          "Index": 110,
          "Documentation": "Terminates all programs and returns to the UniVerse command level.",
-         "Detail": "ABORT [expression �]"
+         "Detail": "ABORT [expression]"
       },
       {
          "Type": "UniVerse Basic",
@@ -846,7 +846,7 @@
          "Icon": 14,
          "Index": 111,
          "Documentation": "Terminates all programs and returns to the UniVerse command level. Behaves as if $OPTIONS STOP.MSG were in force.",
-         "Detail": "ABORTE [expression �]"
+         "Detail": "ABORTE [expression]"
       },
       {
          "Type": "UniVerse Basic",
@@ -854,7 +854,7 @@
          "Icon": 14,
          "Index": 112,
          "Documentation": "Terminates all programs and returns to the UniVerse command level. Behaves as if $OPTIONS-STOP.MSG were in force.",
-         "Detail": "ABORTM [expression �]"
+         "Detail": "ABORTM [expression ]"
       },
       {
          "Type": "UniVerse Basic",
@@ -918,7 +918,7 @@
          "Icon": 3,
          "Index": 121,
          "Documentation": "Adds a parameter to the request.",
-         "Detail": "addRequestParameter(request_handle, parameter_name, parameter_value,�content_handling)"
+         "Detail": "addRequestParameter(request_handle, parameter_name, parameter_value,content_handling)"
       },
       {
          "Type": "UniVerse Basic",
@@ -997,7 +997,7 @@
          "Keywords": "analyzeCertificate",
          "Icon": 3,
          "Index": 131,
-         "Documentation": "Decodes a certificate and inputs plain text into the result\nparameter. The result parameter then contains such\ninformation as the subject name, location, institute, issuer,\npublic key, other extensions and the issuer�s signature.",
+         "Documentation": "Decodes a certificate and inputs plain text into the result\nparameter. The result parameter then contains such\ninformation as the subject name, location, institute, issuer,\npublic key, other extensions and the issuers signature.",
          "Detail": "analyzeCertificate(cert, format, result, p12pass)"
       },
       {
@@ -1358,7 +1358,7 @@
          "Icon": 14,
          "Index": 182,
          "Documentation": "Enables or disables the command editor in PI/Open.",
-         "Detail": "COMMAND.EDITOR [{ON | OFF} [INSERT | OVERLAY] [VERBS | ALL] �prompt�}]\nCOMMAND.EDITOR [OFF]"
+         "Detail": "COMMAND.EDITOR [{ON | OFF} [INSERT | OVERLAY] [VERBS | ALL] 'prompt'}]\nCOMMAND.EDITOR [OFF]"
       },
       {
          "Type": "UniVerse Basic",
@@ -1446,7 +1446,7 @@
          "Icon": 14,
          "Index": 196,
          "Documentation": "Creates a record in a UniVerse type 1 or type 19 file or establishes a path.",
-         "Detail": "CREATE file.variable {THEN statements [ELSE statements] | ELSE�statements}"
+         "Detail": "CREATE file.variable {THEN statements [ELSE statements] | ELSE statements}"
       },
       {
          "Type": "UniVerse Basic",
@@ -1462,7 +1462,7 @@
          "Icon": 3,
          "Index": 198,
          "Documentation": "Generates a PKCS #10 certificate request from a private\nkey in PKCS #8 form and a set of user specified data. The\nrequest can be sent to a CA or used as a parameter to the\ncreateCertificate() function to obtain an X.509 public key\ncertificate.",
-         "Detail": "createCertRequest(key, inFormat, keyLoc, algorithm, digest, passPhrase,�subjectData, outFile, outFormat)"
+         "Detail": "createCertRequest(key, inFormat, keyLoc, algorithm, digest, passPhrase,subjectData, outFile, outFormat)"
       },
       {
          "Type": "UniVerse Basic",
@@ -1486,7 +1486,7 @@
          "Icon": 3,
          "Index": 201,
          "Documentation": "Creates a security context and returns a handle to the context.",
-         "Detail": "createSecurityContext(context, �protocol version:[rule],...�)"
+         "Detail": "createSecurityContext(context, protocol version:[rule],...)"
       },
       {
          "Type": "UniVerse Basic",
@@ -1502,7 +1502,7 @@
          "Icon": 14,
          "Index": 204,
          "Documentation": "Stores values to be used in subsequent requests for data input.",
-         "Detail": "DATA expression [,expression �]"
+         "Detail": "DATA expression [,expression ]"
       },
       {
          "Type": "UniVerse Basic",
@@ -1518,7 +1518,7 @@
          "Icon": 3,
          "Index": 207,
          "Documentation": "Create an XML document from UniVerse data using UniVerse BASIC.",
-         "Detail": "DBTOXML(xml_document, doc_location, u2xmap_file, u2xmap_location,�condition, status)"
+         "Detail": "DBTOXML(xml_document, doc_location, u2xmap_file, u2xmap_location,condition, status)"
       },
       {
          "Type": "UniVerse Basic",
@@ -1550,7 +1550,7 @@
          "Icon": 3,
          "Index": 213,
          "Documentation": "Defines a user-written function.",
-         "Detail": "DEFFUN function [([MAT] argument [, [MAT] argument �] )] [CALLING call.ID] "
+         "Detail": "DEFFUN function [([MAT] argument [, [MAT] argument ] )] [CALLING call.ID] "
       },
       {
          "Type": "UniVerse Basic",
@@ -1622,7 +1622,7 @@
          "Icon": 3,
          "Index": 224,
          "Documentation": "Declares the name, dimensionality, and size constraints of an array variable.",
-         "Detail": "DIM[ENSION] matrix (rows, columns) [, matrix (rows, columns) �]\nDIM[ENSION] vector (subscript) [, vector (subscript) �]"
+         "Detail": "DIM[ENSION] matrix (rows, columns) [, matrix (rows, columns) ]\nDIM[ENSION] vector (subscript) [, vector (subscript) ]"
       },
       {
          "Type": "UniVerse Basic",
@@ -1630,7 +1630,7 @@
          "Icon": 14,
          "Index": 225,
          "Documentation": "Turn off decryption on field or fields specified.",
-         "Detail": "DISABLEDEC <filename> [, <multilevel-filename>], {ALL |<field_list>}�[ON ERROR <statements>]"
+         "Detail": "DISABLEDEC <filename> [, <multilevel-filename>], {ALL |<field_list>} [ON ERROR <statements>]"
       },
       {
          "Type": "UniVerse Basic",
@@ -1702,7 +1702,7 @@
          "Icon": 14,
          "Index": 236,
          "Documentation": "Activate decryption on a file or fields specified.",
-         "Detail": "ENABLEDEC <filename> [, <multilevel-filename>], { ALL |<field_list>}�[ON ERROR <statements>]"
+         "Detail": "ENABLEDEC <filename> [, <multilevel-filename>], { ALL |<field_list>} [ON ERROR <statements>]"
       },
       {
          "Type": "UniVerse Basic",
@@ -1718,7 +1718,7 @@
          "Icon": 3,
          "Index": 238,
          "Documentation": "Performs symmetric encryption operations. You can call various block and stream symmetric ciphers through this function.",
-         "Detail": "ENCRYPT (algorithm, action, data, dataLoc,key, keyLoc, keyAction, salt,�IV, result, resultLoc, signAlg)"
+         "Detail": "ENCRYPT (algorithm, action, data, dataLoc,key, keyLoc, keyAction, salt, IV, result, resultLoc, signAlg)"
       },
       {
          "Type": "UniVerse Basic",
@@ -1782,7 +1782,7 @@
          "Icon": 3,
          "Index": 248,
          "Documentation": "EQUATE is used to declare a symbol equivalent to a literal, variable or simple expression.",
-         "Detail": "EQU[ATE] symbol TO expression [,symbol TO expression �]\nEQU[ATE] symbol LIT[ERALLY] string [,symbol LIT string �]"
+         "Detail": "EQU[ATE] symbol TO expression [,symbol TO expression ]\nEQU[ATE] symbol LIT[ERALLY] string [,symbol LIT string ]"
       },
       {
          "Type": "UniVerse Basic",
@@ -1798,7 +1798,7 @@
          "Icon": 14,
          "Index": 251,
          "Documentation": "Prints a formatted error message from the ERRMSG file.",
-         "Detail": "ERRMSG message.ID [,message.ID �]"
+         "Detail": "ERRMSG message.ID [,message.ID ]"
       },
       {
          "Type": "UniVerse Basic",
@@ -1838,7 +1838,7 @@
          "Icon": 3,
          "Index": 258,
          "Documentation": "Extracts the contents of a specified field, value, or subvalue from a dynamic array.",
-         "Detail": "EXTRACT (dynamic.array, field#[,value# [,subvalue#]] )�variable < field# [ ,value# [,subvalue#]] >"
+         "Detail": "EXTRACT (dynamic.array, field#[,value# [,subvalue#]] ) variable < field# [ ,value# [,subvalue#]] >"
       },
       {
          "Type": "UniVerse Basic",
@@ -1901,7 +1901,7 @@
          "Keywords": "Fileinfo",
          "Icon": 3,
          "Index": 267,
-         "Documentation": "Returns information about the specified file�s configuration.",
+         "Documentation": "Returns information about the specified files configuration.",
          "Detail": "FILEINFO (file.variable , key )"
       },
       {
@@ -1910,7 +1910,7 @@
          "Icon": 14,
          "Index": 268,
          "Documentation": "Sets a file update lock on an entire file to prevent other users from updating the\nfile until this program releases it.",
-         "Detail": "FILELOCK [file.variable] [, lock.type]�[ON ERROR statements] [LOCKED statements]"
+         "Detail": "FILELOCK [file.variable] [, lock.type] [ON ERROR statements] [LOCKED statements]"
       },
       {
          "Type": "UniVerse Basic",
@@ -1926,7 +1926,7 @@
          "Icon": 14,
          "Index": 270,
          "Documentation": "Locates a given occurrence of an element within a dynamic array.",
-         "Detail": "FINDelement IN dynamic.array [,occurrence] SETTING fmc [,vmc [,smc]]�{THEN statements [ELSE statements] | ELSE statements}"
+         "Detail": "FIND element IN dynamic.array [,occurrence] SETTING fmc [,vmc [,smc]] {THEN statements [ELSE statements] | ELSE statements}"
       },
       {
          "Type": "UniVerse Basic",
@@ -1934,7 +1934,7 @@
          "Icon": 14,
          "Index": 271,
          "Documentation": "Locates a given occurrence of a substring.",
-         "Detail": "FINDSTRsubstring IN dynamic.array [,occurrence] SETTING fmc [,vmc [,smc]]�{THEN statements [ELSE statements] | ELSE statements}"
+         "Detail": "FINDSTR substring IN dynamic.array [,occurrence] SETTING fmc [,vmc [,smc]] {THEN statements [ELSE statements] | ELSE statements}"
       },
       {
          "Type": "UniVerse Basic",
@@ -2046,7 +2046,7 @@
          "Icon": 3,
          "Index": 286,
          "Documentation": "Identifies a user-written function.",
-         "Detail": "FUNCTION [name] [( [MAT] variable [, [MAT] variable �] )]"
+         "Detail": "FUNCTION [name] [( [MAT] variable [, [MAT] variable ] )]"
       },
       {
          "Type": "UniVerse Basic",
@@ -2054,7 +2054,7 @@
          "Icon": 3,
          "Index": 287,
          "Documentation": "Generates a public key cryptography key pair and encrypts the\nprivate key.",
-         "Detail": "generateKey(privKey, pubKey, format, keyLoc, algorithm, keyLength,�passPhrase, paramFile)"
+         "Detail": "generateKey(privKey, pubKey, format, keyLoc, algorithm, keyLength,passPhrase, paramFile)"
       },
       {
          "Type": "UniVerse Basic",
@@ -2070,7 +2070,7 @@
          "Icon": 14,
          "Index": 289,
          "Documentation": "Reads a block of data from an input stream associated with a device, such as a serial line or terminal.",
-         "Detail": "GET[X] read.var[, length] [SETTING read.count] FROM device [UNTIL eop.char.list ] [RETURNING last.char.read ]�[WAITING seconds ] [THEN statements ] [ELSE statements]"
+         "Detail": "GET[X] read.var[, length] [SETTING read.count] FROM device [UNTIL eop.char.list ] [RETURNING last.char.read ] [WAITING seconds ] [THEN statements ] [ELSE statements]"
       },
       {
          "Type": "UniVerse Basic",
@@ -2110,7 +2110,7 @@
          "Icon": 14,
          "Index": 294,
          "Documentation": "Activates a saved select list so it can be used by a READNEXT statement.",
-         "Detail": "GETLIST listname [TO list.number] [SETTING variable]�{THEN statements [ELSE statements] | ELSE statements}"
+         "Detail": "GETLIST listname [TO list.number] [SETTING variable] {THEN statements [ELSE statements] | ELSE statements}"
       },
       {
          "Type": "UniVerse Basic",
@@ -2374,7 +2374,7 @@
          "Icon": 14,
          "Index": 331,
          "Documentation": "Clears the type-ahead buffer.",
-         "Detail": "INPUTCLEAR�"
+         "Detail": "INPUTCLEAR"
       },
       {
          "Type": "UniVerse Basic",
@@ -2402,11 +2402,11 @@
       },
       {
          "Type": "UniVerse Basic",
-         "Keywords": "Inptuif ",
+         "Keywords": "Inputif ",
          "Icon": 3,
          "Index": 336,
          "Documentation": "Assigns the contents of the type-ahead buffer to a variable.",
-         "Detail": "INPUTIF @ (col, row) [, | :] variable [,length] [:] [format] [_]�[THEN statements] [ELSE statements]"
+         "Detail": "INPUTIF @ (col, row) [, | :] variable [,length] [:] [format] [_] [THEN statements] [ELSE statements]"
       },
       {
          "Type": "UniVerse Basic",
@@ -2422,7 +2422,7 @@
          "Icon": 14,
          "Index": 338,
          "Documentation": "Branches to a program label or subroutine on a TRAP key.",
-         "Detail": "INPUTTRAP [trap.chars] {GOTO | GOSUB} label [ ,label �]"
+         "Detail": "INPUTTRAP [trap.chars] {GOTO | GOSUB} label [ ,label ]"
       },
       {
          "Type": "UniVerse Basic",
@@ -2478,7 +2478,7 @@
          "Icon": 3,
          "Index": 346,
          "Documentation": "Assigns specific editing functions to the keys on the keyboard to be used with the INPUT statement.",
-         "Detail": "KEYEDIT (function, key) [, (function, key)] �"
+         "Detail": "KEYEDIT (function, key) [, (function, key)] "
       },
       {
          "Type": "UniVerse Basic",
@@ -2486,7 +2486,7 @@
          "Icon": 3,
          "Index": 347,
          "Documentation": "Specifies exit traps for the keys assigned editing functions by the KEYEDIT statement.",
-         "Detail": "KEYEXIT (value, key) [, (value, key)] �"
+         "Detail": "KEYEXIT (value, key) [, (value, key)] "
       },
       {
          "Type": "UniVerse Basic",
@@ -2502,7 +2502,7 @@
          "Icon": 3,
          "Index": 349,
          "Documentation": "Specifies traps for the keys assigned specific functions by the KEYEDIT statement.",
-         "Detail": "KEYTRAP (value, key) [, (value, key)] �"
+         "Detail": "KEYTRAP (value, key) [, (value, key)] "
       },
       {
          "Type": "UniVerse Basic",
@@ -2590,7 +2590,7 @@
          "Icon": 14,
          "Index": 361,
          "Documentation": "Searches a dynamic array for a particular value or string, and returns the index of its position.",
-         "Detail": "LOCATE expression IN dynamic.array [< field# [, value#] >] [, start] [BY seq] SETTING variable�{THEN statements [ELSE statements] | ELSE statements}"
+         "Detail": "LOCATE expression IN dynamic.array [< field# [, value#] >] [, start] [BY seq] SETTING variable {THEN statements [ELSE statements] | ELSE statements}"
       },
       {
          "Type": "UniVerse Basic",
@@ -2878,7 +2878,7 @@
          "Icon": 14,
          "Index": 403,
          "Documentation": "Transfers program control to a specified internal subroutine or to a specified\nstatement, under specified conditions.",
-         "Detail": "ON expression GOSUB statement.label [:] [,statement.label [:]� ]"
+         "Detail": "ON expression GOSUB statement.label [:] [,statement.label [:] ]"
       },
       {
          "Type": "UniVerse Basic",
@@ -3966,7 +3966,7 @@
          "Icon": 3,
          "Index": 558,
          "Documentation": "Returns the value of an external subroutine.",
-         "Detail": "SUBR (name, [argument [,argument �]] )"
+         "Detail": "SUBR (name, [argument [,argument ]] )"
       },
       {
          "Type": "UniVerse Basic",
@@ -3974,7 +3974,7 @@
          "Icon": 3,
          "Index": 559,
          "Documentation": "The SUBROUTINE statement is used at the start of any program that will be called externally by the CALL statement. It also declares any parameters to the compiler.",
-         "Detail": "SUBROUTINE [name] [([MAT] variable [, [MAT] variable �] )]"
+         "Detail": "SUBROUTINE [name] [([MAT] variable [, [MAT] variable ] )]"
       },
       {
          "Type": "UniVerse Basic",
