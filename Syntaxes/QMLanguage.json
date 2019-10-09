@@ -1,0 +1,4122 @@
+{
+   "Language": {
+      "Type": "QM Basic",
+      "Keywords": [
+         {
+            "key": "$Include",
+            "icon": 14,
+            "index": 1,
+            "documentation": "The $INCLUDE directive is used to direct the compiler to include text from another record. Include records may be in either directory or hashed files.",
+            "detail": "INCLUDE programname\r\n$INCLUDE filename programname\r\nINCLUDE programname\r\n$INCLUDE filename programname\r\n$INSERT programname\r\n$INSERT filename programname"
+         },
+         {
+            "key": "@Am",
+            "icon": 21,
+            "index": 2,
+            "documentation": "Attribute mark (synonym for @FM)",
+            "detail": "@AM"
+         },
+         {
+            "key": "@Abort.code",
+            "icon": 21,
+            "index": 3,
+            "documentation": "A value indicating the cause of execution of the last abort. This variable is particularly useful within ON.ABORT paragraphs or programs invoked from them. Values are:\r\n0  No abort has occurred\r\n1  A QMBasic ABORT statement or the ABORT command has been used\r\n2  The Abort option has been selected after the break key was pressed\r\n3  An internal error has been detected\r\n\r\nThe value of @ABORT.CODE is initially zero and is reset to zero only by the EXECUTE statement",
+            "detail": "@ABORT.CODE"
+         },
+         {
+            "key": "@Abort.message",
+            "icon": 21,
+            "index": 4,
+            "documentation": "Contains the text of any message associated with the most recent abort event.",
+            "detail": "@ABORT.MESSAGE"
+         },
+         {
+            "key": "@Acall.fno",
+            "icon": 21,
+            "index": 5,
+            "documentation": "The field number associated with a CALL correlative in an A or S-type dictionary item.",
+            "detail": "@ACALL.FNO"
+         },
+         {
+            "key": "@Account",
+            "icon": 21,
+            "index": 6,
+            "documentation": "Returns the name of the current jBASE user account",
+            "detail": "@ACCOUNT"
+         },
+         {
+            "key": "@Ans",
+            "icon": 21,
+            "index": 7,
+            "documentation": "Contains the result of the last virtual attribute expression evaluated. This variable can be updated, usually only in C-type dictionary items.",
+            "detail": "@ANS"
+         },
+         {
+            "key": "@Bpv",
+            "icon": 21,
+            "index": 8,
+            "documentation": "Previous value of breakpoint item when using X breakpoint control option.",
+            "detail": "@BPV"
+         },
+         {
+            "key": "@Build.Time",
+            "icon": 21,
+            "index": 9,
+            "documentation": "Date/time at which the program was compiled as an epoch value.",
+            "detail": "@BUILD.TIME"
+         },
+         {
+            "key": "@Command",
+            "icon": 21,
+            "index": 10,
+            "documentation": "he last command entered at the command prompt or initiated using the QMBasic EXECUTE statement.\r\nThis variable is stacked across an EXECUTE and reverts to its previous value on completion of the executed command.\r\nIf multiple commands are executed in a single  EXECUTE statement, the @COMMAND variable will be updated at each command.",
+            "detail": "@COMMAND"
+         },
+         {
+            "key": "@Command.stack",
+            "icon": 21,
+            "index": 11,
+            "documentation": "This variable holds the history of commands executed at the command prompt as a field mark delimited dynamic array. The most recent command is field 1.",
+            "detail": "@COMMAND.STACK"
+         },
+         {
+            "key": "@Conv",
+            "icon": 21,
+            "index": 12,
+            "documentation": "Extended information for user defined conversion codes.",
+            "detail": "@CONV"
+         },
+         {
+            "key": "@Crthigh",
+            "icon": 21,
+            "index": 13,
+            "documentation": "Contains the number of lines per page of the display.",
+            "detail": "@CRTHIGH"
+         },
+         {
+            "key": "@Crtwide",
+            "icon": 21,
+            "index": 14,
+            "documentation": "Contains the column width of the display.",
+            "detail": "@CRTWIDE"
+         },
+         {
+            "key": "@Data",
+            "icon": 21,
+            "index": 15,
+            "documentation": "Data from REFORMAT command.",
+            "detail": "@DATA"
+         },
+         {
+            "key": "@Data.pending",
+            "icon": 21,
+            "index": 16,
+            "documentation": "Contains the data on the DATA queue, if any. Each item, including the last, is followed by an item mark character.",
+            "detail": "@DATA.PENDING"
+         },
+         {
+            "key": "@Date",
+            "icon": 21,
+            "index": 17,
+            "documentation": "The internal format date value (days since 31 December 1967) at which the last command started execution.\r\nAny changes made to this variable will also be reflected in the values of the @DAY, @MONTH, @YEAR and @YEAR4 variables.",
+            "detail": "@DATE"
+         },
+         {
+            "key": "@Day",
+            "icon": 21,
+            "index": 18,
+            "documentation": "The day of the month at which the last command started execution as a two digit value.\r\nChanging @DATE will also change this value.",
+            "detail": "@DAY"
+         },
+         {
+            "key": "@Dictrecs",
+            "icon": 21,
+            "index": 19,
+            "documentation": "The query processor sets this variable to an item mark delimited copy of the dictionary records that were used to construct the display clause elements of the query (including any item with the BREAK.SUP prefix).\r\nFor dictionary records that contain object code (C/I types and A/S types with correlatives), the object code is omitted. Field 1, value 2 of each element contains the item name.\r\nThis variable can be of use in post-processing query processor output.",
+            "detail": "@DICTRECS"
+         },
+         {
+            "key": "@Drive",
+            "icon": 21,
+            "index": 20,
+            "documentation": "The drive letter of the QMSYS directory (Windows only, null on other platforms).",
+            "detail": "@DRIVE"
+         },
+         {
+            "key": "@Ds",
+            "icon": 21,
+            "index": 21,
+            "documentation": "Contains the operating system specific directory delimiter character, \\ on Windows, \/ on other platforms.",
+            "detail": "@DS"
+         },
+         {
+            "key": "@Exception",
+            "icon": 21,
+            "index": 22,
+            "documentation": "Contains the name of the last exception thrown by the QMBasic THROW statement.\r\nThis variable can be modified by applications.",
+            "detail": "@EXCEPTION"
+         },
+         {
+            "key": "@Exception.Data",
+            "icon": 21,
+            "index": 23,
+            "documentation": "Contains any qualifying data associated with the last exception thrown by the QMBasic THROW statement.\r\nThis variable can be modified by applications.",
+            "detail": "@EXCEPTION.DATA"
+         },
+         {
+            "key": "@Exception.Origin",
+            "icon": 21,
+            "index": 24,
+            "documentation": "Contains the program name and line number at which the last exception was thrown separated by a field mark.\r\nIf the program has no cross-reference tables, the line number will be -1.\r\nThis variable can be modified by applications.",
+            "detail": "@EXCEPTION.ORIGIN"
+         },
+         {
+            "key": "@Exception.Stack",
+            "icon": 21,
+            "index": 25,
+            "documentation": "Dynamic array containing a full stack dump in the form created by SYSTEM(1002) at the point of throwing an exception for which the SAVE.STACK option of the CATCH clause was used.\r\nThis variable can be modified by applications.",
+            "detail": "@EXCEPTION.STACK"
+         },
+         {
+            "key":"@False",
+            "icon": 21,
+            "index": 26,
+            "documentation": "Boolean value.\r\nUsed as a number, this evaluates to zero.",
+            "detail": "@FALSE"
+         },
+         {
+            "key": "@File.Name",
+            "icon": 21,
+            "index": 27,
+            "documentation": "The name of the file referenced in the most recent query processor command.\r\nThis variable may be updated by a QMBasic program.",
+            "detail": "@FILE.NAME"
+         },
+         {
+            "key": "@Filename",
+            "icon": 21,
+            "index": 28,
+            "documentation": "Synonym for @FILE.NAME",
+            "detail": "@FILENAME"
+         },
+         {
+            "key": "@Fm",
+            "icon": 21,
+            "index": 29,
+            "documentation": "Field mark",
+            "detail": "@FM"
+         },
+         {
+            "key": "@Fmt",
+            "icon": 21,
+            "index": 30,
+            "documentation": "The query processor sets this variable to a field mark delimited list of the width and justification codes for each item in the display clause of the query (including any item with the BREAK.SUP prefix).\r\nThis variable can be of use in post-processing query processor output.",
+            "detail": "@FMT"
+         },
+         {
+            "key": "@Gid",
+            "icon": 21,
+            "index": 31,
+            "documentation": "User's group id number for all platforms except Windows. Same as SYSTEM(29).",
+            "detail": "@GID"
+         },
+         {
+            "key": "@Hostname",
+            "icon": 21,
+            "index": 32,
+            "documentation": "The name of the server computer system. Same as SYSTEM(1015).",
+            "detail": "@HOSTNAME"
+         },
+         {
+            "key": "@Id",
+            "icon": 21,
+            "index": 33,
+            "documentation": "The record id of the record being processed by a query processor command or an I-type function.\r\nThis variable may be updated by a QMBasic program.",
+            "detail": "@ID"
+         },
+         {
+            "key": "@Im",
+            "icon": 21,
+            "index": 34,
+            "documentation": "Item mark.",
+            "detail": "@Im"
+         },
+         {
+            "key": "@Ip.Addr",
+            "icon": 21,
+            "index": 35,
+            "documentation": "The IP address associated with a network user. Same as SYSTEM(42).",
+            "detail": "@IP.ADDR"
+         },
+         {
+            "key": "@Itype.Mode",
+            "icon": 21,
+            "index": 36,
+            "documentation": "This variable can be used to determine the mode of execution of an I-type. It has three possible values:\r\n0 Normal\r\n 1 Evaluation of the old index value when updating or deleting a record from a file with an alternate key index.\r\n2 Evaluation of the new index value when updating or adding a record to a file with an alternate key index.",
+            "detail": "@ITYPE.MODE"
+         },
+         {
+            "key": "@Level",
+            "icon": 21,
+            "index": 37,
+            "documentation": "The current command processor depth (EXECUTE level).\r\nThe initial command processor is level one, each EXECUTE level increments this by one, decrementing on return from that level.",
+            "detail": "@LEVEL"
+         },
+         {
+            "key": "@Line",
+            "icon": 21,
+            "index": 38,
+            "documentation": "The current source line number in the module being compiled, possibly useful in error messages. See also @WHERE.",
+            "detail": "@LINE"
+         },
+         {
+            "key": "@Logname",
+            "icon": 21,
+            "index": 39,
+            "documentation": "User's login name.\r\nOn Windows, this is converted to uppercase.",
+            "detail": "@LOGNAME"
+         },
+         {
+            "key": "@Lptrhigh",
+            "icon": 21,
+            "index": 40,
+            "documentation": "Contains the number of lines per page of print unit zero.\r\nDepending on the current setting of the PRINTER flag, this may refer to the display or to the printer.",
+            "detail": "@LPTRHIGH"
+         },
+         {
+            "key": "@Lptrwide",
+            "icon": 21,
+            "index": 41,
+            "documentation": "Contains the width of print unit zero.\r\nDepending on the current setting of the PRINTER flag, this may refer to the display or to the printer.",
+            "detail": "@LPTRWIDE"
+         },
+         {
+            "key": "@Mbutton",
+            "icon": 21,
+            "index": 42,
+            "documentation": "The button number related to the most recent mouse click trapped by KEYCODE() or KEYCODEV().",
+            "detail": "@MBUTTON"
+         },
+         {
+            "key": "@Mcol",
+            "icon": 21,
+            "index": 43,
+            "documentation": "The screen column number related to the most recent mouse click trapped by KEYCODE() or KEYCODEV().",
+            "detail": "@MCOL"
+         },
+         {
+            "key": "@Month",
+            "icon": 21,
+            "index": 44,
+            "documentation": "The month in which the last command started execution as a two digit value.\r\nChanging @DATE will also change this value.",
+            "detail": "@MONTH"
+         },
+         {
+            "key": "@Mrow",
+            "icon": 21,
+            "index": 45,
+            "documentation": "The screen row number related to the most recent mouse click trapped by KEYCODE() or KEYCODEV().",
+            "detail": "@MROw"
+         },
+         {
+            "key": "@Nb",
+            "icon": 21,
+            "index": 46,
+            "documentation": "Break number level. Set to zero on detail lines and one upwards on break lines.\r\nA value of 255 represents the grand total line.",
+            "detail": "@NB"
+         },
+         {
+            "key": "@Ni",
+            "icon": 21,
+            "index": 47,
+            "documentation": "Item counter. Used in I-types, this holds the number of records retrieved by the query processor command.\r\nThis variable can be updated, primarily for interaction with I-type dictionary items.",
+            "detail": "@NB"
+         },
+         {
+            "key": "@Null",
+            "icon": 21,
+            "index": 48,
+            "documentation": "SQL style null data constant for compatibility with data collections that may be converted to JSON string format.",
+            "detail": "@NULL"
+         },
+         {
+            "key": "@Option",
+            "icon": 21,
+            "index": 49,
+            "documentation": "Contains a copy of field 4 of the V-type VOC entry when a verb starts execution. Use of this variable enables related commands to be handled by a single program.",
+            "detail": "@OPTION"
+         },
+         {
+            "key": "@Parasentence",
+            "icon": 21,
+            "index": 50,
+            "documentation": "The sentence that invoked the most recent paragraph or sentence.\r\nOn entering a command at the keyboard, this variable will be set to the same value as @COMMAND.\r\nIf the command is a paragraph or sentence which invokes a further paragraph or sentence, the value will be updated to be the command which started this new paragraph or sentence.",
+            "detail": "@PARASENTENCE"
+         },
+         {
+            "key": "@Path",
+            "icon": 21,
+            "index": 51,
+            "documentation": "The pathname of the current account.",
+            "detail": "@PATH"
+         },
+         {
+            "key": "@Pib",
+            "icon": 21,
+            "index": 52,
+            "documentation": "The PROC primary input buffer.\r\nThis variable can be modified by applications.",
+            "detail": "@PID"
+         },
+         {
+            "key": "@Pob",
+            "icon": 21,
+            "index": 53,
+            "documentation": "The PROC primary output buffer.\r\nThis variable can be modified by applications.",
+            "detail": "@POB"
+         },
+         {
+            "key": "@Pstat",
+            "icon": 21,
+            "index": 54,
+            "documentation": "May be set by an application to contain diagnostic text that will be included in the output of the PSTAT command.",
+            "detail": "@PSTAT"
+         },
+         {
+            "key": "@Qm.Group",
+            "icon": 21,
+            "index": 55,
+            "documentation": "The QM user group to which the user running this session belongs, a null string if none.",
+            "detail": "@QM.GROUP"
+         },
+         {
+            "key": "@Qmsys",
+            "icon": 21,
+            "index": 56,
+            "documentation": "The pathname of the system account.",
+            "detail": "@QMSYS"
+         },
+         {
+            "key": "@Record",
+            "icon": 21,
+            "index": 57,
+            "documentation": "The data of the record being processed by an I-type function.\r\nThis variable may be updated by a QMBasic program",
+            "detail": "@RECORD"
+         },
+         {
+            "key": "@Selected",
+            "icon": 21,
+            "index": 58,
+            "documentation": "Contains the total record count for the most recent SELECT or SSELECT operation.\r\nNote that a QMBasic SELECT operation against a dynamic file processes the file one group at a time and this variable will show the record count for the group being processed.\r\nNote also that processing items from the select list does not decrement this value.\r\nTo find the current state of a select list, use the SELECTINFO() function.",
+            "detail": "@SELECTED"
+         },
+         {
+            "key": "@Sentence",
+            "icon": 21,
+            "index": 59,
+            "documentation": "The currently active sentence. This is different from @COMMAND if the command runs a paragraph, sentence or menu.",
+            "detail": "@SENTENCE"
+         },
+         {
+            "key": "@Seqno",
+            "icon": 21,
+            "index": 60,
+            "documentation": "Hold file sequence number for most recent print job using uniquely sequenced file numbers.",
+            "detail": "@SEQNO"
+         },
+         {
+            "key": "@Sib",
+            "icon": 21,
+            "index": 61,
+            "documentation": "The PROC secondary input buffer.\r\nThis variable can be modified by applications.",
+            "detail": "@SIB"
+         },
+         {
+            "key": "@Sm",
+            "icon": 21,
+            "index": 62,
+            "documentation": "Subvalue mark.",
+            "detail": "@SM"
+         },
+         {
+            "key": "@Sob",
+            "icon": 21,
+            "index": 63,
+            "documentation": "The PROC secondary output buffer.\r\nThis variable can be modified by applications.",
+            "detail": "@SOB"
+         },
+         {
+            "key": "@Socket",
+            "icon": 21,
+            "index": 64,
+            "documentation": "Socket file variable in a phantom process started with socket inheritability enabled.\r\nThis variable can be modified by applications.",
+            "detail": "@SOCKET"
+         },
+         {
+            "key": "@Stdfil",
+            "icon": 21,
+            "index": 65,
+            "documentation": "Default file variable.",
+            "detail": "@STDFIL"
+         },
+         {
+            "key": "@Svm",
+            "icon": 21,
+            "index": 66,
+            "documentation": "Subvalue mark (synonym for @SM).",
+            "detail": "@SVM"
+         },
+         {
+            "key": "@System.Return.Code",
+            "icon": 21,
+            "index": 67,
+            "documentation": "A status value returned from most commands.",
+            "detail": "@SYSTEM.RETURN.CODE"
+         },
+         {
+            "key": "@Sys.Bell",
+            "icon": 21,
+            "index": 68,
+            "documentation": "This variable is available to QMBasic programs and initially contains the ASCII BEL character (character 7) which, when sent to the display, causes the audible warning to sound.\r\nThe BELL OFF command changes @SYS.BELL to a null string and BELL ON reverts to the default character.\r\nThus use of @SYS.BELL in QMBasic programs results in an audible alarm which can be disabled by the user.",
+            "detail": "@SYS.BELL"
+         },
+         {
+            "key": "@Term.Type",
+            "icon": 21,
+            "index": 69,
+            "documentation": "Terminal type.",
+            "detail": "@TERM.TYPE"
+         },
+         {
+            "key": "@Time",
+            "icon": 21,
+            "index": 70,
+            "documentation": "The internal format time value (seconds since midnight) at which the last command started execution.\r\nThis value may be updated by a QMBasic program.",
+            "detail": "@TIME"
+         },
+         {
+            "key": "@Tm",
+            "icon": 21,
+            "index": 71,
+            "documentation": "Inserts a text mark CHAR(251)",
+            "detail": "@TM"
+         },
+         {
+            "key": "@Transaction.Id",
+            "icon": 21,
+            "index": 72,
+            "documentation": "The unique id number for the currently active transaction.\r\nZero if no transaction is active.\r\nSame as SYSTEM(1007).",
+            "detail": "@TRANSACTION.ID"
+         },
+         {
+            "key": "@Transaction.Level",
+            "icon": 21,
+            "index": 73,
+            "documentation": "The transaction depth.\r\nZero when no transaction is active, incremented for each active transaction, decremented when a transaction terminates.\r\nSame as SYSTEM(1008).",
+            "detail": "@TRANSACTION.LEVEL"
+         },
+         {
+            "key": "@Trigger.Return.Code",
+            "icon": 21,
+            "index": 74,
+            "documentation": "A status value returned set by trigger functions that return a STATUS() value of ER$TRIGGER.",
+            "detail": "@TRIGGER.RETURN.CODE"
+         },
+         {
+            "key": "@True",
+            "icon": 21,
+            "index": 75,
+            "documentation": "Boolean value.\r\nUsed as a number, this evaluates to one.",
+            "detail": "@TRUE"
+         },
+         {
+            "key": "@Tty",
+            "icon": 21,
+            "index": 76,
+            "documentation": "Terminal device name. This variable is provided for compatibility with other systems. It contains one of the following values:\r\nconsole QMConsole interactive session on Windows\r\n\/dev\/... QMConsole interactive session on other platforms\r\ntelnet Telnet session\r\nphantom Phantom process\r\nport Serial port connection\r\nstartup Process started from STARTUP configuration parameter\r\nvbsrvr QMClient process\r\nOther process types may be added in future.",
+            "detail": "@TTY"
+         },
+         {
+            "key": "@Uid",
+            "icon": 21,
+            "index": 77,
+            "documentation": "User's user id number for all platforms except Windows.\r\nSame as SYSTEM(27).",
+            "detail": "@UID"
+         },
+         {
+            "key": "@User",
+            "icon": 21,
+            "index": 78,
+            "documentation": "Synonym for @LOGNAME.",
+            "detail": "@USER"
+         },
+         {
+            "key": "@User0",
+            "icon": 21,
+            "index": 79,
+            "documentation": "These variables are initially set to zero and may be updated by QMBasic programs to provide status information, etc.\r\nQM places no rules on the use of these variables and does not update them at any time.",
+            "detail": "@USER0"
+         },
+         {
+            "key": "@User1",
+            "icon": 21,
+            "index": 80,
+            "documentation": "These variables are initially set to zero and may be updated by QMBasic programs to provide status information, etc.\r\nQM places no rules on the use of these variables and does not update them at any time.",
+            "detail": "@USER1"
+         },
+         {
+            "key": "@User2",
+            "icon": 21,
+            "index": 81,
+            "documentation": "These variables are initially set to zero and may be updated by QMBasic programs to provide status information, etc.\r\nQM places no rules on the use of these variables and does not update them at any time.",
+            "detail": "@USER2"
+         },
+         {
+            "key": "@User3",
+            "icon": 21,
+            "index": 82,
+            "documentation": "These variables are initially set to zero and may be updated by QMBasic programs to provide status information, etc.\r\nQM places no rules on the use of these variables and does not update them at any time.",
+            "detail": "@USER3"
+         },
+         {
+            "key": "@User4",
+            "icon": 21,
+            "index": 83,
+            "documentation": "These variables are initially set to zero and may be updated by QMBasic programs to provide status information, etc.\r\nQM places no rules on the use of these variables and does not update them at any time.",
+            "detail": "@USER4"
+         },
+         {
+            "key": "@Userno",
+            "icon": 21,
+            "index": 84,
+            "documentation": "User number.",
+            "detail": "@USERNO"
+         },
+         {
+            "key": "@User.No",
+            "icon": 21,
+            "index": 85,
+            "documentation": "Synonym for @USERNO.",
+            "detail": "@USER.NO"
+         },
+         {
+            "key": "@User.Return.Code",
+            "icon": 21,
+            "index": 86,
+            "documentation": "This variable is initially set to zero and may be updated by QMBasic programs to provide status information, etc.\r\nQM places no rules on the use of this variable and does not update it at any time.",
+            "detail": "@USER.RETURN.CODE"
+         },
+         {
+            "key": "@Vm",
+            "icon": 21,
+            "index": 87,
+            "documentation": "Value mark.",
+            "detail": "@VM"
+         },
+         {
+            "key": "@Voc",
+            "icon": 21,
+            "index": 88,
+            "documentation": "This @VOC variable can be used as the file variable for the VOC in place of opening it explicitly within user written application code.",
+            "detail": "@VOC"
+         },
+         {
+            "key": "@Where",
+            "icon": 21,
+            "index": 89,
+            "documentation": "The current source line number in the module being compiled together with line numbers in nested include records in the form \"21.4.3\".\r\nPossibly useful in error messages.\r\nSee also @LINE.",
+            "detail": "@WHERE"
+         },
+         {
+            "key": "@Who",
+            "icon": 21,
+            "index": 90,
+            "documentation": "User's account name.",
+            "detail": "@WHO"
+         },
+         {
+            "key": "@Year",
+            "icon": 21,
+            "index": 91,
+            "documentation": "The last two digits of the year in which the last command started execution.\r\nChanging @DATE will also change this value.",
+            "detail": "@YEAR"
+         },
+         {
+            "key": "@Year4",
+            "icon": 21,
+            "index": 92,
+            "documentation": "The four digit year number in which the last command started execution.\r\nChanging @DATE will also change this value.",
+            "detail": "@YEAR4"
+         },
+         {
+            "key": "Abort",
+            "icon": 14,
+            "index": 93,
+            "documentation": "The ABORT statement terminates the current program, returning to the command prompt.\r\nABORTE and ABORTM provide compatibility with other multivalue database products.",
+            "detail": "ABORT {message}"
+         },
+         {
+            "key": "Abs",
+            "icon": 3,
+            "index": 94,
+            "documentation": "The ABS() function returns the absolute (positive) value of a numeric expression.",
+            "detail": "ABS(expr)"
+         },
+         {
+            "key": "Abss",
+            "icon": 3,
+            "index": 95,
+            "documentation": "The ABSS() function is similar to ABS() but operates on successive elements of a dynamic array, returning a similarly structured dynamic array of results. ",
+            "detail": "ABSS(dynamic array)"
+         },
+         {
+            "key": "Accept.Socket.Connection",
+            "icon": 3,
+            "index": 96,
+            "documentation": "The ACCEPT.SOCKET.CONNECTION() function opens a data socket on a server to handle an incoming stream connection.",
+            "detail": "ACCEPT.SOCKET.CONNECTION(srvr.skt, timeout)"
+         },
+         {
+            "key": "Account.Path",
+            "icon": 3,
+            "index": 97,
+            "documentation": "The ACCOUNT.PATH() function returns the pathname corresponding to the supplied account name.",
+            "detail": "ACCOUNT.PATH(account)"
+         },
+         {
+            "key": "Acos",
+            "icon": 3,
+            "index": 98,
+            "documentation": "The ACOS() function returns the arc-cosine (inverse cosine) of a value.",
+            "detail": "ACOS(expr)"
+         },
+         {
+            "key": "Alpha",
+            "icon": 3,
+            "index": 99,
+            "documentation": "The ALPHA() function tests whether a string contains only alphabetic characters.",
+            "detail": "ALPHA(string)"
+         },
+         {
+            "key": "Ands",
+            "icon": 3,
+            "index": 100,
+            "documentation": "The ANDS() function performs a logical AND operation on successive elements of a dynamic array, returning a similarly structured dynamic array of results.",
+            "detail": "ANDS(expr1, expr2)"
+         },
+         {
+            "key": "Arg",
+            "icon": 3,
+            "index": 101,
+            "documentation": "The ARG() function returns and argument value based on its position in the argument list.\r\nIt is intended for use with subroutines declared with the VAR.ARGS option.",
+            "detail": "ARG(n)"
+         },
+         {
+            "key": "Arg.Count",
+            "icon": 3,
+            "index": 102,
+            "documentation": "The ARG.COUNT() function returns the number of arguments passed into the current subroutine.\r\nIt is intended for use with subroutines declared with the VAR.ARGS option.",
+            "detail": "ARG.COUNT()"
+         }, 
+         {
+            "key": "Arg.Present",
+            "icon": 3,
+            "index": 103,
+            "documentation": "The ARG.PRESENT() function tests whether an argument variable was passed by the caller of a subroutine or function declared with the VAR.ARGS option.",
+            "detail": "ARG.PRESENT(var)"
+         },
+         {
+            "key": "Ascii",
+            "icon": 3,
+            "index": 104,
+            "documentation": "The ASCII() function converts an EBCDIC string to ASCII.",
+            "detail": "ASCII(expr)"
+         },
+         {
+            "key": "Asin",
+            "icon": 3,
+            "index": 105,
+            "documentation": "The ASIN() function returns the arc-sine (inverse sine) of a value.",
+            "detail": "ASIN(expr)"
+         },
+         {
+            "key": "Assigned",
+            "icon": 3,
+            "index": 106,
+            "documentation": "The ASSIGNED() function tests whether a variable is assigned.",
+            "detail": "ASSIGNED(var)"
+         },
+         {
+            "key": "Atan",
+            "icon": 3,
+            "index": 107,
+            "documentation": "The ATAN() function returns the arc-tangent (inverse tangent) of a value.",
+            "detail": "ATAN(expr)"
+         },
+         {
+            "key": "Begin Case",
+            "icon": 14,
+            "index": 108,
+            "documentation": "The CASE statement provides conditional execution dependant on the result of expression evaluation.",
+            "detail": "BEGIN CASE\r\n\tCASE expr\r\n\t\tstatement(s)\r\n\tCASE expr\r\n\t\tstatement(s)\r\nEND CASE"
+         },
+         {
+            "key": "Begin Transaction",
+            "icon": 14,
+            "index": 109,
+            "documentation": "The BEGIN TRANSACTION statement marks the start of a new transaction.",
+            "detail": "BEGIN TRANSACTION\r\n\t{statements}\r\n\tCOMMIT / ROLLBACK\r\n\t...\r\nEND TRANSACTION"
+         },
+         {
+            "key": "Bindkey",
+            "icon": 3,
+            "index": 110,
+            "documentation": "The BINDKEY() function sets, removes, queries, saves or restores key bindings.",
+            "detail": "BINDKEY(key.string, action)"
+         },
+         {
+            "key": "Bitand",
+            "icon": 3,
+            "index": 111,
+            "documentation": "The BITAND() function forms the bitwise logical AND of two integer values.",
+            "detail": "BITAND(expr1, expr2)"
+         },
+         {
+            "key": "Bitnot",
+            "icon": 3,
+            "index": 112,
+            "documentation": "The BITNOT() function forms the bitwise logical NOT of an integer value.",
+            "detail": "BITNOT(expr)"
+         },
+         {
+            "key": "Bitor",
+            "icon": 3,
+            "index": 113,
+            "documentation": "The BITOR() function forms the bitwise logical OR of two integer values.",
+            "detail":"BITOR(expr1, expr2)"
+         },
+         {
+            "key": "Bitreset",
+            "icon": 3,
+            "index": 114,
+            "documentation": "The BITRESET() function turns off a specified bit in an integer value.",
+            "detail":"BITRESET(expr, bit)"
+         },
+         {
+            "key": "Bitset",
+            "icon": 3,
+            "index": 115,
+            "documentation": "The BITSET() function turns on a specified bit in an integer value.",
+            "detail":"BITSET(expr, bit)"
+         },
+         {
+            "key": "Bittest",
+            "icon": 3,
+            "index": 116,
+            "documentation": "The BITTEST() function tests the state of a specified bit in an integer value.",
+            "detail":"BITTEST(expr, bit)"
+         },
+         {
+            "key": "Bitxor",
+            "icon": 3,
+            "index": 117,
+            "documentation": "The BITXOR() function forms the bitwise logical exclusive-OR of two integer values.",
+            "detail":"BITXOR(expr1, expr2)"
+         },
+         {
+            "key": "Bool",
+            "icon": 14,
+            "index": 118,
+            "documentation": "The BOOL() function converts a value to Boolean form.",
+            "detail":"BOOL(expr)"
+         },
+         {
+            "key": "Break",
+            "icon": 14,
+            "index": 119,
+            "documentation": "The BREAK statement allows the action of the break key to be changed during program execution.",
+            "detail":"BREAK {KEY} OFF\r\nBREAK {KEY} ON\r\nBREAK {KEY} CLEAR\r\nBREAK {KEY} RESET\r\nBREAK {KEY} expr"
+         },
+         {
+            "key": "Break.Count",
+            "icon": 3,
+            "index": 120,
+            "documentation": "The BREAK.COUNT() function returns the current value of the break inhibit counter.",
+            "detail":"BREAK.COUNT()"
+         },
+         {
+            "key": "Call",
+            "icon": 14,
+            "index": 121,
+            "documentation": "The CALL statement calls a catalogued subroutine. The ENTER statement is a synonym for CALL unless the PICK.ENTER option of the $MODE directive is used.",
+            "detail": "CALL name {(arg.list)}\r\nCALL @var {(arg.list)}\r\nCALL \"file name\" {(arg.list)}"
+         },
+         {
+            "key": "Catalogued",
+            "icon": 14,
+            "index": 122,
+            "documentation": "The CATALOGUED() function determines whether a subroutine can be found using the search process described for the CALL statement.",
+            "detail": "CATALOGUED(name)"
+         },
+         {
+            "key": "Cats",
+            "icon": 3,
+            "index": 123,
+            "documentation": "The CATS() function concatenates corresponding elements of a dynamic array.",
+            "detail": "CATS(string1, string2)"
+         },
+         {
+            "key": "Caught",
+            "icon": 3,
+            "index": 124,
+            "documentation": "The CAUGHT() function allows an application to test whether there is a handler established for a named exception.",
+            "detail": "CAUGHT(exception, modes)"
+         },
+         {
+            "key": "Ceil",
+            "icon": 3,
+            "index": 125,
+            "documentation": "The CEIL() function returns the smallest integer not less than the argument value. ",
+            "detail": "CEIL(value)"
+         },
+         {
+            "key": "Chain",
+            "icon": 14,
+            "index": 126,
+            "documentation": "The CHAIN statement terminates the current program and executes a command.",
+            "detail": "CHAIN expr"
+         },
+         {
+            "key": "Change",
+            "icon": 14,
+            "index": 127,
+            "documentation": "The CHANGE() function replaces occurrences of a substring within a string by another substring.\r\nThe synonym SWAP() can be used.",
+            "detail": "CHANGE(string, old, new{, occurrence{, start}})"
+         },
+         {
+            "key": "Char",
+            "icon": 3,
+            "index": 128,
+            "documentation": "The CHAR() function returns the character with a given ASCII value.",
+            "detail": "CHAR(seq)"
+         },
+         {
+            "key": "Checksum",
+            "icon": 3,
+            "index": 129,
+            "documentation": "The CHECKSUM() function returns a checksum value for supplied data.",
+            "detail": "CHECKSUM(data {, mode})"
+         },
+         {
+            "key": "Child",
+            "icon": 3,
+            "index": 130,
+            "documentation": "The CHILD() function tests whether a phantom process started from the current session is still running.",
+            "detail": "CHILD(userno)"
+         },
+         {
+            "key": "Class",
+            "icon": 3,
+            "index": 131,
+            "documentation": "The CLASS statement declares a class module.",
+            "detail": "CLASS name {MAX.ARGS limit} {INHERITS class.list}"
+         },
+         {
+            "key": "Clear",
+            "icon": 14,
+            "index": 132,
+            "documentation": "The CLEAR statement sets all local variables to zero.",
+            "detail": "CLEAR"
+         },
+         {
+            "key": "Clearcommon",
+            "icon": 14,
+            "index": 133,
+            "documentation": "The CLEARCOMMON statement sets all variables in the unnamed common area to zero.\r\nUsed with a common block name, it clears the named common.",
+            "detail": "CLEARCOMMON {name}\r\nCLEAR COMMON {name}"
+         },
+         {
+            "key": "Cleardata",
+            "icon": 14,
+            "index": 134,
+            "documentation": "The CLEARDATA statement clears any data stored by previous DATA statements or DATA verbs and not yet processed by INPUT statements.",
+            "detail": "CLEARDATA"
+         },
+         {
+            "key": "Clearfile",
+            "icon": 14,
+            "index": 135,
+            "documentation": "The CLEARFILE statement clears a file previously opened using the OPEN statement, deleting all records.",
+            "detail": "CLEARFILE file.var {ON ERROR statement(s)}"
+         },
+         {
+            "key": "Clearinput",
+            "icon": 14,
+            "index": 136,
+            "documentation": "The CLEARINPUT statement clears any keyboard data that has been entered but not yet processed by INPUT or KEYIN() statements.",
+            "detail": "CLEARINPUT\r\nCLEAR INPUT"
+         },
+         {
+            "key": "Clearselect",
+            "icon": 14,
+            "index": 137,
+            "documentation": "The CLEARSELECT statement clears one or all select lists.",
+            "detail": "CLEARSELECT {list.no}\r\nCLEARSELECT ALL\r\nCLEARSELECT var"
+         },
+         {
+            "key": "Close",
+            "icon": 14,
+            "index": 138,
+            "documentation": "The CLOSE statement closes a file previously opened using the OPEN or OPENPATH statement.",
+            "detail": "CLOSE file.var {ON ERROR statement(s)}"
+         },
+         {
+            "key": "Close.Socket",
+            "icon": 14,
+            "index": 139,
+            "documentation": "The CLOSE.SOCKET statement closes a socket.",
+            "detail": "CLOSE.SOCKET skt"
+         },
+         {
+            "key": "Closeseq",
+            "icon": 14,
+            "index": 140,
+            "documentation": "The CLOSESEQ statement closes an item previously opened using OPENSEQ.",
+            "detail": "CLOSESEQ file.var {ON ERROR statement(s)}"
+         },
+         {
+            "key": "Col1",
+            "icon": 3,
+            "index": 141,
+            "documentation": "The COL1() function returns the character position immediately preceding the substring extracted by the last FIELD() or LAST() function.",
+            "detail": "COL1()"
+         },
+         {
+            "key": "Col2",
+            "icon": 3,
+            "index": 142,
+            "documentation": "The COL2() function returns the character position immediately following the substring extracted by the last FIELD() or LAST() function.",
+            "detail": "COL2()"
+         },
+         {
+            "key": "Collection",
+            "icon": 3,
+            "index": 143,
+            "documentation": "The COLLECTION() function creates a data collection variable.",
+            "detail": "COLLECTION()\r\nCOLLECTION(var)"
+         },
+         {
+            "key": "Commit",
+            "icon": 14,
+            "index": 144,
+            "documentation": "The BEGIN TRANSACTION statement starts a new transaction.\r\nAll updates until a corresponding END TRANSACTION are cached and only applied to the database when a COMMIT statement is executed.",
+            "detail": "COMMIT"
+         },
+         {
+            "key": "Common",
+            "icon": 14,
+            "index": 145,
+            "documentation": "The COMMON statement declares variables in a common block.",
+            "detail": "COMMON {/name/} var1 {,var2...}"
+         },
+         {
+            "key": "Compare",
+            "icon": 3,
+            "index": 146,
+            "documentation": "The COMPARE() function compares two strings using the same rules as the LOCATE statement.",
+            "detail": "COMPARE(expression1, expression2{, justification})"
+         },
+         {
+            "key": "Compares",
+            "icon": 3,
+            "index": 147,
+            "documentation": "The COMPARES() function is similar to the COMPARE() function but operates on a multivalued list of strings.",
+            "detail": "COMPARES(string1, string2 {, justification})"
+         },
+         {
+            "key": "Config",
+            "icon": 3,
+            "index": 148,
+            "documentation": "The CONFIG() function returns the value of a configuration parameter.",
+            "detail": "CONFIG(param)"
+         },
+         {
+            "key": "Connect.Port",
+            "icon": 3,
+            "index": 149,
+            "documentation": "The CONNECT.PORT() function converts a phantom process into an interactive session, using a serial port as its terminal device.",
+            "detail": "CONNECT.PORT(port, baud, parity, bits, stop)"
+         },
+         {
+            "key": "Continue",
+            "icon": 14,
+            "index": 150,
+            "documentation": "The CONTINUE statement continues execution of the next cycle of a LOOP/REPEAT or FOR/NEXT structure.",
+            "detail": "CONTINUE"
+         },
+         {
+            "key": "Convert",
+            "icon": 3,
+            "index": 151,
+            "documentation": "The CONVERT() function replaces selected characters by others in a string.\r\nThe CONVERT() function leaves the source string unchanged and returns the modified value.",
+            "detail": "CONVERT(from.chars, to.string, source.string)"
+         },
+         {
+            "key": "Convert",
+            "icon": 14,
+            "index": 152,
+            "documentation": "The CONVERT statement replaces selected characters by others in a string.\r\nThe CONVERT statement performs this conversion in-situ.",
+            "detail": "CONVERT from.chars TO to.string IN var"
+         },
+         {
+            "key": "Cos",
+            "icon": 3,
+            "index": 153,
+            "documentation": "The COS() function returns the cosine of a value.",
+            "detail": "COS(expr)"
+         },
+         {
+            "key": "Count",
+            "icon": 3,
+            "index": 154,
+            "documentation": "The COUNT() function counts occurrences of a substring within a string. ",
+            "detail": "COUNT(string, substring)"
+         },
+         {
+            "key": "Counts",
+            "icon": 3,
+            "index": 155,
+            "documentation": "The COUNTS() function is similar to COUNT() but operates on successive elements of a dynamic array, returning a similarly structured dynamic array of results.",
+            "detail": "COUNTS(string, substring)"
+         },
+         {
+            "key": "Create",
+            "icon": 14,
+            "index": 156,
+            "documentation": "The CREATE statement creates an empty sequential file record after a previous OPENSEQ has reported that the record did not exist.",
+            "detail": "CREATE file.var\r\n{ON ERROR statement(s)}\r\n{THEN statement(s)}\r\n{ELSE statement(s)}"
+         },
+         {
+            "key": "Create.File",
+            "icon": 14,
+            "index": 157,
+            "documentation": "The CREATE.FILE statement creates the operating system representation of a directory or dynamic hash file.",
+            "detail": "CREATE.FILE path {DIRECTORY | DYNAMIC}\r\n{GROUP.SIZE grpsz}\r\n{BIG.REC.SIZE bigrec}\r\n{MIN.MODULUS minmod}\r\n{SPLIT.LOAD split}\r\n{MERGE.LOAD merge}\r\n{VERSION ver}\r\n{ON ERROR statement(s)}"
+         },
+         {
+            "key": "Create.Server.Socket",
+            "icon": 3,
+            "index": 158,
+            "documentation": "The CREATE.SERVER.SOCKET() function creates a server socket on which a program may wait for incoming connections.",
+            "detail": "CREATE.SERVER.SOCKET(addr, port, flags)"
+         },
+         {
+            "key": "Crop",
+            "icon": 3,
+            "index": 159,
+            "documentation": "The CROP() function removes redundant mark characters from a string.",
+            "detail": "CROP(string)"
+         },
+         {
+            "key": "Crt",
+            "icon": 14,
+            "index": 160,
+            "documentation": "The CRT statement sends data to the display. ",
+            "detail": "CRT {print.list}"
+         },
+         {
+            "key": "Csvdq",
+            "icon": 3,
+            "index": 161,
+            "documentation": "The CSVDQ() function de-quotes a CSV (comma separated variable) string.",
+            "detail": "CSVDQ(string {, delimiter})"
+         },
+         {
+            "key": "Csv.Mode",
+            "icon": 3,
+            "index": 162,
+            "documentation": "The CSV.MODE statement sets the conversion mode for CSV (comma separated variable) construction.",
+            "detail": "CSV.MODE mode {, delim}"
+         },
+         {
+            "key": "Data",
+            "icon": 14,
+            "index": 163,
+            "documentation": "The DATA statement adds one or more items to the input data queue",
+            "detail": "DATA expr{, expr...}"
+         },
+         {
+            "key": "Date()",
+            "icon": 3,
+            "index": 164,
+            "documentation": "The DATE() function returns the internal value of the current date.",
+            "detail": "DATE()"
+         },
+         {
+            "key": "Dcount",
+            "icon": 3,
+            "index": 165,
+            "documentation": "The DCOUNT() function counts delimited substrings within a string.",
+            "detail": "DCOUNT(string, delimiter)"
+         },
+         {
+            "key": "Debug",
+            "icon": 14,
+            "index": 166,
+            "documentation": "The DEBUG statement enters the interactive debugger.",
+            "detail": "DEBUG"
+         },
+         {
+            "key": "Decrypt",
+            "icon": 3,
+            "index": 167,
+            "documentation": "The DECRYPT() function decrypts data that has been encrypted for secure storage or transmission.",
+            "detail": "DECRYPT(data, key)"
+         },
+         {
+            "key": "Deffun",
+            "icon": 14,
+            "index": 168,
+            "documentation": "The DEFFUN statement defines a function.",
+            "detail": "DEFFUN name {(arg1 {, arg2 ...})} {CALLING \"func\" | expr} {VAR.ARGS} {KEY key}\r\nDEFFUN name {(arg1 {, arg2 ...})} LOCAL\r\nDEFFUN name {(arg1 {, arg2 ...})} EXTERNAL {CALLING \"libname\"}\r\nDEFFUN name {(arg1 {, arg2 ...})} EXTERNAL {CALLING \"libname:funcname\"}"
+         },
+         {
+            "key": "Del",
+            "icon": 14,
+            "index": 169,
+            "documentation": "The DEL statement and DELETE() function delete a field, value or subvalue from a dynamic array. Used with a data collection, the DEL statement deletes an element.",
+            "detail": "DEL dyn.array<field {, value {, subvalue}}>\r\nDELETE(dyn.array, field {, value {, subvalue}})\r\nDEL collection{path}"
+         },
+         {
+            "key": "Delete",
+            "icon": 14,
+            "index": 170,
+            "documentation": "The DELETE statement deletes a record from an open file.",
+            "detail": "DELETE file.var, record.id {ON ERROR statement(s)}"
+         },
+         {
+            "key": "Deletelist",
+            "icon": 14,
+            "index": 171,
+            "documentation": "The DELETELIST statement deletes a select list from the $SAVEDLISTS file.",
+            "detail": "DELETELIST name"
+         },
+         {
+            "key": "Deleteseq",
+            "icon": 14,
+            "index": 172,
+            "documentation": "The DELETESEQ statement deletes an operating system file.",
+            "detail": "DELETESEQ filename, id {NO.MAP} {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}\r\nor\r\nDELETESEQ pathname {NO.MAP} {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Deleteu",
+            "icon": 14,
+            "index": 173,
+            "documentation": "The DELETEU statement is similar to the DELETE statment but preserves locks.",
+            "detail": "DELETEU file.var, record.id {ON ERROR statement(s)}"
+         },
+         {
+            "key": "Dfpart",
+            "icon": 3,
+            "index": 174,
+            "documentation": "The DFPART() function returns a file variable that references an individual part of a distributed file.",
+            "detail": "DFPART(dist.file, part)"
+         },
+         {
+            "key": "Digest",
+            "icon": 3,
+            "index": 175,
+            "documentation": "The DIGEST() function returns the message digest string for a supplied string or file.",
+            "detail": "DIGEST(string, is.file, mode)"
+         },
+         {
+            "key": "Dimension",
+            "icon": 14,
+            "index": 176,
+            "documentation": "The DIMENSION statement is used to set the dimensions of a matrix.\r\nThe short form DIM may be used in place of DIMENSION.\r\nThe REDIMENSION or REDIM statement is identical except where the matrix is a subroutine argument.",
+            "detail": "DIMENSION mat(rows {, cols})\r\nREDIMENSION mat(rows {, cols})\r\nDIMENSION var"
+         },
+         {
+            "key": "Dir",
+            "icon": 3,
+            "index": 177,
+            "documentation": "The DIR() function returns the contents of an operating system directory.",
+            "detail": "DIR(pathname)"
+         },
+         {
+            "key": "Disinherit",
+            "icon": 14,
+            "index": 178,
+            "documentation": "The DISINHERIT statement used in a class module removes an inherited object.",
+            "detail": "DISINHERIT object"
+         },
+         {
+            "key": "Display",
+            "icon": 14,
+            "index": 179,
+            "documentation": "The DISPLAY statement sends data to the display. The synonym CRT can be used in place of DISPLAY.",
+            "detail": "DISPLAY {print.list}"
+         },
+         {
+            "key": "Display.Width",
+            "icon": 3,
+            "index": 180,
+            "documentation": "The DISPLAY.WIDTH() function returns the number of character positions required to display a string.",
+            "detail": "DISPLAY.WIDTH(string)"
+         },
+         {
+            "key": "Display.Widths",
+            "icon": 3,
+            "index": 181,
+            "documentation": "The DISPLAY.WIDTHS() function is similar to DISPLAY.WIDTH() but operates on successive elements of a dynamic array, returning a similarly structured dynamic array of results.",
+            "detail": "DISPLAY.WIDTHS(dyn.array)"
+         },
+         {
+            "key": "Disable.Key",
+            "icon": 14,
+            "index": 182,
+            "documentation": "The DISABLE.KEY statement is used to disable access to a secure encryption key previously enabled with ENABLE.KEY.",
+            "detail": "DISABLE.KEY keyname"
+         },
+         {
+            "key": "Div",
+            "icon": 3,
+            "index": 183,
+            "documentation": "The DIV() function returns the quotient from a division operation.",
+            "detail": "DIV(dividend, divisor)"
+         },
+         {
+            "key": "Downcase",
+            "icon": 3,
+            "index": 184,
+            "documentation": "The DOWNCASE() function returns a string with all letters converted to lower case.",
+            "detail": "DOWNCASE(string)"
+         },
+         {
+            "key": "Dparse",
+            "icon": 14,
+            "index": 185,
+            "documentation": "The DPARSE statement splits the elements of a delimited string into other variables.",
+            "detail": "DPARSE string, delimiter, var1, var2,..."
+         },
+         {
+            "key": "Dparse.Csv",
+            "icon": 14,
+            "index": 186,
+            "documentation": "DPARSE.CSV is similar to DPARSE but unquotes strings according to the rules in the CSV standard.",
+            "detail": "DPARSE.CSV string, delimiter, var1, var2,..."
+         },
+         {
+            "key": "Dquote",
+            "icon": 3,
+            "index": 187,
+            "documentation": "The DQUOTE() function returns a copy of its argument string enclosed in double quotes.",
+            "detail": "DQUOTE(expr)"
+         },
+         {
+            "key": "Dquotes",
+            "icon": 3,
+            "index": 188,
+            "documentation": "The DQUOTES() functions is similar to the DQUOTE() function but operates on successive elements of a dynamic array, returning a similarly structured dynamic array of results.",
+            "detail": "DQUOTES(expr)"
+         },
+         {
+            "key": "Dtx",
+            "icon": 3,
+            "index": 189,
+            "documentation": "The DTX() function converts a number to hexadecimal.",
+            "detail": "DTX(expr {, min.width})"
+         },
+         {
+            "key": "Ebcdic",
+            "icon": 3,
+            "index": 190,
+            "documentation": "The EBCDIC() function converts an ASCII string to EBCDIC.",
+            "detail": "EBCDIC(expr)"
+         },
+         {
+            "key": "Echar",
+            "icon": 3,
+            "index": 191,
+            "documentation": "The ECHAR() function returns the ECS character with a given code point value.",
+            "detail": "ECHAR(seq)"
+         },
+         {
+            "key": "Echars",
+            "icon": 3,
+            "index": 192,
+            "documentation": "The ECHARS() function is similar to ECHAR() but operates on successive elements of a dynamic array, returning a similarly structured dynamic array of results.",
+            "detail": "ECHAR(dyn.arr)"
+         },
+         {
+            "key": "Echo",
+            "icon": 14,
+            "index": 193,
+            "documentation": "The ECHO statement enables or disables echoing of keyboard input.",
+            "detail": "ECHO OFF\r\nECHO ON\r\nECHO expr"
+         },
+         {
+            "key": "Element.Exists",
+            "icon": 3,
+            "index": 194,
+            "documentation": "The ELEMENT.EXISTS() function tests whether an element exists in a data collection.",
+            "detail": "ELEMENT.EXISTS(var{path})"
+         },
+         {
+            "key": "Enable.Key",
+            "icon": 14,
+            "index": 195,
+            "documentation": "The ENABLE.KEY statement is used to enter the password for a secure encryption key.",
+            "detail": "ENABLE.KEY keyname, password {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Encrypt",
+            "icon": 3,
+            "index": 196,
+            "documentation": "The ENCRYPT() function encrypts data for secure storage or transmission.",
+            "detail": "ENCRYPT(data, key)"
+         },
+         {
+            "key": "Encryptx",
+            "icon": 3,
+            "index": 197,
+            "documentation": "The ENCRYPTX() function encrypts data for secure storage or transmission.\r\nThe function uses a random initialisation vector that it included in the returned encrypted string.\r\nThis results in greater security.",
+            "detail": "ENCRYPTX(data, key)"
+         },
+         {
+            "key": "End",
+            "icon": 14,
+            "index": 198,
+            "documentation": "The END statement terminates a program, subroutine or a block of statements conditioned by the THEN, ELSE, LOCKED or ON ERROR keywords.",
+            "detail": "END"
+         },
+         {
+            "key": "End Transaction",
+            "icon": 14,
+            "index": 199,
+            "documentation": "The END TRANSACTION statement marks the end of a transaction. There should be a corresponding BEGIN TRANSACTION.",
+            "detail": "END TRANSACTION"
+         },
+         {
+            "key": "Enter",
+            "icon": 14,
+            "index": 200,
+            "documentation": "The ENTER statement is a synonym for CALL unless the PICK.ENTER option of the $MODE directive is used.",
+            "detail": "ENTER name {(arg.list)}\r\nENTER @var {(arg.list)}\r\nENTER \"file name\" {(arg.list)}"
+         },
+         {
+            "key": "Enter.Package",
+            "icon": 3,
+            "index": 201,
+            "documentation": "The ENTER.PACKAGE() function attempts to enter a licensed software package.",
+            "detail": "ENTER.PACKAGE(package.name)"
+         },
+         {
+            "key": "Enumerate",
+            "icon": 3,
+            "index": 202,
+            "documentation": "The ENUMERATE() function identifies the elements in a data collection.",
+            "detail": "ENUMERATE(var)"
+         },
+         {
+            "key": "Env",
+            "icon": 3,
+            "index": 203,
+            "documentation": "The ENV() function retrieves an operating system environment variable.",
+            "detail": "ENV(var.name)"
+         },
+         {
+            "key": "Epoch",
+            "icon": 3,
+            "index": 204,
+            "documentation": "The EPOCH() function returns the internal value of the current date and time in epoch format.",
+            "detail": "EPOCH()"
+         },
+         {
+            "key": "Eqs",
+            "icon": 3,
+            "index": 205,
+            "documentation": "The EQS() function processes two dynamic arrays, returning a similarly structured result array indicating whether corresponding elements are equal.",
+            "detail": "EQS(expr1, expr2)"
+         },
+         {
+            "key": "Equate",
+            "icon": 14,
+            "index": 206,
+            "documentation": "The EQUATE statement, often abbreviated to EQU, defines a symbolic name to represent a QMBasic expression.",
+            "detail": "EQUATE name LITERALLY \"string\"\r\nEQUATE name TO expression"
+         },
+         {
+            "key": "Ereplace",
+            "icon": 3,
+            "index": 207,
+            "documentation": "The EREPLACE() function replaces occurrences of a substring within a string by another substring.",
+            "detail": "EREPLACE(string, old, new{, occurrence{, start}})"
+         },
+         {
+            "key": "Errmsg",
+            "icon": 3,
+            "index": 208,
+            "documentation": "The ERRMSG statement displays a Pick style message from the ERRMSG file.",
+            "detail": "ERRMSG msg.id {, arg...}"
+         },
+         {
+            "key": "Evaluate",
+            "icon": 3,
+            "index": 209,
+            "documentation": "The EVALUATE statement evaluates an I-type expression, trapping errors.",
+            "detail": "EVALUATE var FROM i.type {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Execute",
+            "icon": 14,
+            "index": 210,
+            "documentation": "The EXECUTE statement enables a QMBasic program to execute any command. The synonym PERFORM can be used in place of EXECUTE.",
+            "detail": "EXECUTE expr {TRAPPING ABORTS}\r\n{CAPTURING var}\r\n{NO.TTY}\r\n{PASSLIST {src.list }}\r\n{RTNLIST tgt.list }\r\n{SILENT}\r\n{STACKLIST}\r\n{SETTING status.var} or {RETURNING status.var}"
+         },
+         {
+            "key": "Exit",
+            "icon": 14,
+            "index": 211,
+            "documentation": "The EXIT statement terminates execution of  a LOOP/REPEAT or FOR/NEXT structure.",
+            "detail": "EXIT"
+         },
+         {
+            "key": "Exit.Package",
+            "icon": 3,
+            "index": 212,
+            "documentation": "The EXIT.PACKAGE() function exits from a software package.",
+            "detail": "EXIT.PACKAGE(package.name)"
+         },
+         {
+            "key": "Exp",
+            "icon": 3,
+            "index": 213,
+            "documentation": "The EXP() function returns the exponential (the natural anti-log) of a value.",
+            "detail": "EXP(expr)"
+         },
+         {
+            "key": "Expand",
+            "icon": 3,
+            "index": 214,
+            "documentation": "The EXPAND() function merges a data collection with a linked item.",
+            "detail": "EXPAND(link.item)\r\nEXPAND(link.item, fvar)"
+         },
+         {
+            "key": "Extract",
+            "icon": 3,
+            "index": 215,
+            "documentation": "The EXTRACT() function extracts a field, value or subvalue from a dynamic array.",
+            "detail": "EXTRACT(dyn.array, field {, value {, subvalue}})"
+         },
+         {
+            "key": "Fcontrol",
+            "icon": 3,
+            "index": 216,
+            "documentation": "The FCONTROL() function performs control actions on an open file.",
+            "detail": "FCONTROL(fvar, action {, qualifier})"
+         },
+         {
+            "key": "Field",
+            "icon": 3,
+            "index": 217,
+            "documentation": "The FIELD() function returns one or more delimited substrings from a string.",
+            "detail": "FIELD(string, delimiter, occurrence {, count})"
+         },
+         {
+            "key": "Fields",
+            "icon": 3,
+            "index": 218,
+            "documentation": "The FIELDS() function is similar to FIELD() but operates on a multivalued string, returning a similarly structured dynamic array of results.",
+            "detail": "FIELDS(dyn.arr, delimiter, occurrence {, count})"
+         },
+         {
+            "key": "Fieldstore",
+            "icon": 3,
+            "index": 219,
+            "documentation": "The FIELDSTORE() function provides delimited substring assignment. It is closely related to the GROUPSTORE statement.",
+            "detail": "FIELDSTORE(string, delimiter, i, n, rep.string)"
+         },
+         {
+            "key": "File",
+            "icon": 3,
+            "index": 220,
+            "documentation": "The FILE statement provides a way to reference data in files using field names defined in the dictionary.\r\nThis statement is provided for compatibility with other systems and its use is discouraged.",
+            "detail": "FILE name, ..."
+         },
+         {
+            "key": "File.Event",
+            "icon": 3,
+            "index": 221,
+            "documentation": "The FILE.EVENT() function creates a file event monitoring variable (Windows only).",
+            "detail": "FILE.EVENT(path, event)"
+         },
+         {
+            "key": "Fileinfo",
+            "icon": 3,
+            "index": 222,
+            "documentation": "The FILEINFO() function returns information about an open file.",
+            "detail": "FILEINFO(file.var, key)"
+         },
+         {
+            "key": "Filelock",
+            "icon": 14,
+            "index": 223,
+            "documentatin": "The FILELOCK statement sets a file lock on a file.",
+            "detail": "FILELOCK file.var {ON ERROR statement(s)} {LOCKED statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Fileunlock",
+            "icon": 14,
+            "index": 224,
+            "documentation": "The FILEUNLOCK statement releases a file lock previously obtained using the FILELOCK statement.",
+            "detail": "FILEUNLOCK file.var {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Find",
+            "icon": 14,
+            "index": 225,
+            "documentation": "The FIND statement searches a dynamic array for a given string in any position.",
+            "detail": "FIND string IN dyn.array {, occurrence} {SETTING field{, value {, subvalue}}} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Findstr",
+            "icon": 14,
+            "index": 226,
+            "documentation": "The FINDSTR statement searches a dynamic array for a given substring in any position.",
+            "detail": "FINDSTR string IN dyn.array {, occurrence} {SETTING field{, value {, subvalue}}} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Fix",
+            "icon": 3,
+            "index": 227,
+            "documentation": "The FIX() function returns a string representation of a floating point value with a specified precision and optional truncation.",
+            "detail": "FIX(expr {, prec{, truncate}})"
+         },
+         {
+            "key": "Floor",
+            "icon": 3,
+            "index": 228,
+            "documentation": "The FLOOR() function returns the largest integer not greater than the argument value.",
+            "detail": "FLOOR(value)"
+         },
+         {
+            "key": "Flush",
+            "icon": 14,
+            "index": 229,
+            "documentation": "The FLUSH statement flushes the internal buffers for a directory file record previously opened for sequential access.",
+            "detail": "FLUSH file.var {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Flush.Dh.Cache",
+            "icon": 14,
+            "index": 230,
+            "documentation": "The FLUSH.DH.CACHE statement flushes the dynamic file cache.",
+            "detail": "FLUSH.DH.CACHE {LOCAL | NO.WAIT}"
+         },
+         {
+            "key": "Fmt",
+            "icon": 3,
+            "index": 231,
+            "documentation": "The FMT() function performs data formatting according to a format template.\r\nIt is typically used to convert data for display or printing. ",
+            "detail": "FMT(expr, fmt.spec)"
+         },
+         {
+            "key": "Fmtdw",
+            "icon": 3,
+            "index": 232,
+            "documentation": "The FMTDW() function performs data formatting according to a format template based on display width.",
+            "detail": "FMTDW(expr, fmt.spec)"
+         },
+         {
+            "key": "Fmtdws",
+            "icon": 3,
+            "index": 233,
+            "documentation": "The FMTDWS() function is identical to FMTDW() except that it works on each element of a dynamic array in turn, returning the result in a similarly delimited dynamic array.",
+            "detail": "FMTDWS(expr, fmt.spec)"
+         },
+         {
+            "key": "Fmts",
+            "icon": 3,
+            "index": 234,
+            "documentation": "The FMTS() function is identical to FMT() except that it works on each element of a dynamic array in turn, returning the result in a similarly delimited dynamic array.",
+            "detail": "FMTS(expr, fmt.spec)"
+         },
+         {
+            "key": "Fold",
+            "icon": 3,
+            "index": 235,
+            "documentation": "The FOLD() function breaks a string into field mark delimited sections no longer than a given width, placing breaks on spaces where possible.",
+            "detail": "FOLD(string, width {, delim})"
+         },
+         {
+            "key": "Folddw",
+            "icon": 3,
+            "index": 236,
+            "documentation": "The FOLDDW() function breaks a string into field mark delimited sections no longer than a given display width, placing breaks on spaces where possible.",
+            "detail": "FOLDDW(string, width {, delim})"
+         },
+         {
+            "key": "Folddws",
+            "icon": 3,
+            "index": 237,
+            "documentation": "The FOLDDWS() function is similar to FOLDDW() but works on each field, value or subvalue of string separately, returning a similarly structured dynamic array of folded strings",
+            "detail": "FOLDDWS(string, width {, delim})"
+         },
+         {
+            "key": "Folds",
+            "icon": 3,
+            "index": 238,
+            "documentation": "The FOLDS() function is similar to FOLD() but works on each field, value or subvalue of string separately, returning a similarly structured dynamic array of folded strings.",
+            "detail": "FOLDS(string, width {, delim})"
+         },
+         {
+            "key": "Footing",
+            "icon": 14,
+            "index": 239,
+            "documentation": "The FOOTING statement defines text to be printed or displayed at the foot of each page of output.",
+            "detail": "FOOTING {ON print.unit} text"
+         },
+         {
+            "key": "For",
+            "icon": 14,
+            "index": 240,
+            "documentation": "The FOR statement defines the start of a group of statements to be executed with an iterative control variable.",
+            "detail": "FOR var = start.expr TO limit.expr {STEP step.expr} {WHILE expr} {UNTIL expr} ...statement(s)... NEXT {var}\r\nFOR var = value1, value2, value3... {WHILE expr} {UNTIL expr} ...statement(s)... NEXT {var}\r\nFOR EACH var IN string {DELIMITER delim} {WHILE expr} {UNTIL expr} ...statement(s)... NEXT {var}"
+         },
+         {
+            "key": "Formcsv",
+            "icon": 3,
+            "index": 241,
+            "documentation": "The FORMCSV() function transforms a string to a CSV standard compliant item.",
+            "detail": "FORMCSV(string)"
+         },
+         {
+            "key": "FormList",
+            "icon": 14,
+            "index": 242,
+            "documentation": "The FORMLIST statement creates a numbered select list from a dynamic array.",
+            "detail": "FORMLIST dyn.array {TO list.no}"
+         },
+         {
+            "key": "FormListv",
+            "icon": 14,
+            "index": 243,
+            "documentation": "The FORMLISTV statement is similar to FORMLIST but creates a select list variable.",
+            "detail": "FORMLISTV dyn.array TO var"
+         },
+         {
+            "key": "Function",
+            "icon": 14,
+            "index": 244,
+            "documentation": "The FUNCTION statement introduces a user written function and arguments.",
+            "detail": "FUNCTION name{(arg1 {, arg2...}) {VAR.ARGS}}"
+         },         
+         {
+            "key": "Ges",
+            "icon": 3,
+            "index": 245,
+            "documentation": "The GES() function processes two dynamic arrays, returning a similarly structured result array indicating whether elements of the first array are greater than or equal to corresponding elements of the second array.",
+            "detail": "GES(expr1, expr2)"
+         },
+         {
+            "key": "Get",
+            "icon": 14,
+            "index":246,
+            "documentation": "Synonym for PUBLIC function",
+            "detail": "GET var, mat(rows, cols), ...\r\nGET SUBROUTINE name{(arg1, arg2)} {VAR.ARGS} ...statements... END\r\nGET FUNCTION name{(arg1, arg2)} {VAR.ARGS} ...statements... END"
+         },
+         {
+            "key": "Get(Arg.)",
+            "icon": 14,
+            "index":247,
+            "documentation": "The GET(ARG.) statement fetches command line arguments.",
+            "detail": "GET(ARG. {, argno}) var  {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Get.Messages",
+            "icon": 3,
+            "index": 248,
+            "documentation": "The GET.MESSAGES() function returns any messages currently queued for display.",
+            "detail": "GET.MESSAGES()"
+         },
+         {
+            "key": "Get.Port.Params",
+            "icon": 3,
+            "index": 249,
+            "documentation": "The GET.PORT.PARAMS() function retrieves the communications parameters for a serial port.",
+            "detail": "GET.PORT.PARAMS(fvar)"
+         },
+         {
+            "key": "Getlist",
+            "icon": 14,
+            "index": 250,
+            "documentation": "The GETLIST statement restores a select list from the $SAVEDLISTS file.",
+            "detail": "GETLIST name {TO list.no} {SETTING count.var} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Getlistv",
+            "icon": 14,
+            "index": 251,
+            "documentation": "The GETLISTV statement is similar to the GETLIST() but creates a select list variable.",
+            "detail": "GETLISTV name TO list.var {SETTING count.var} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Getlocks",
+            "icon": 14,
+            "index": 252,
+            "documentation": "The GETLOCKS() function returns information about file and record locks.",
+            "detail": "GETLOCKS(file, user)"
+         },
+         {
+            "key": "Getnls",
+            "icon": 3,
+            "index":253,
+            "documentation": "The GETNLS() function returns the value of a national language support parameter.",
+            "detail": "GETNLS(key)"
+         },
+         {
+            "key": "Getpu",
+            "icon": 3,
+            "index":254,
+            "documentation": "The GETPU() function gets the characteristics of a print unit.",
+            "detail": "The GETPU() function gets the characteristics of a print unit."
+         },
+         {
+            "key": "Getrem",
+            "icon": 3,
+            "index":255,
+            "documentation": "The GETREM() function returns the remove pointer position into a string.",
+            "detail": "GETREM(string)"
+         },
+         {
+            "key": "Gosub",
+            "icon": 14,
+            "index": 256,
+            "documentation": "The GOSUB statement calls an internal subroutine.",
+            "detail": "GOSUB label{:}\r\nGOSUB label{:}(args)"
+         },
+         {
+            "key": "Goto",
+            "icon": 14,
+            "index": 257,
+            "documentation": "The GOTO statement continues program execution at a given label.",
+            "detail": "GOTO label{:}\r\nGO {TO} label{:}"
+         },
+         {
+            "key": "Groupstore",
+            "icon": 14,
+            "index": 258,
+            "documentation": "The GROUPSTORE statement inserts, deletes or replaces elements of a delimited string. It is closely related to the FIELDSTORE() function.",
+            "detail": "GROUPSTORE rep.string IN string USING i, n {, delimiter}"
+         },
+         {
+            "key": "Gts",
+            "icon": 3,
+            "index":259,
+            "documentation": "The GTS() function processes two dynamic arrays, returning a similarly structured result array indicating whether elements of the first array are greater than corresponding elements of the second array.",
+            "detail": "GTS(expr1, expr2)"
+         },
+         {
+            "key": "Heading",
+            "icon": 14,
+            "index": 260,
+            "documentation": "The HEADING statement defines text to be printed or displayed at the top of each page of output.",
+            "detail": "HEADING {NO.EJECT}  {ON print.unit} text"
+         },
+         {
+            "key": "Hush",
+            "icon": 14,
+            "index": 261,
+            "documentation": "The HUSH statement enables or disables display output.",
+            "detail": "HUSH OFF {SETTING var}\r\nHUSH ON {SETTING var}\r\nHUSH expr {SETTING var}"
+         },
+         {
+            "key": "Iconv",
+            "icon": 3,
+            "index": 262,
+            "documentation": "The ICONV() function performs input conversion. Data is converted from its external representation to the internal form.\r\nThis function is typically used to convert data entered at the keyboard.",
+            "detail": "ICONV(expr, conv.spec)"
+         },
+         {
+            "key": "Iconvs",
+            "icon": 3,
+            "index": 263,
+            "documentation": "The ICONVS() function is identical to ICONV() except that it works on each element of a dynamic array, returning the result in a similarly delimited dynamic array.",
+            "detail": "ICONVS(expr, conv.spec)"
+         },
+         {
+            "key": "Idiv",
+            "icon": 3,
+            "index": 264,
+            "documentation": "The IDIV() function divides one integer by another and returns an integer result.",
+            "detail": "IDIV(dividend, divisor)"
+         },
+         {
+            "key": "If",
+            "icon": 14,
+            "index": 265,
+            "documentation": "The IF statement provides conditional execution of one or more statements.",
+            "detail": "IF expr {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Ifs",
+            "icon": 3,
+            "index": 266,
+            "documentation": "The IFS() function returns a dynamic array constructed from elements chosen from two other dynamic arrays depending on the content of a third dynamic array",
+            "detail": "IFS(control.array, true.array, false.array)"
+         },
+         {
+            "key": "In",
+            "icon": 14,
+            "index": 267,
+            "documentation": "The IN statement reads a single character from the terminal with an optional timeout.",
+            "detail": "IN var  {FOR timeout {THEN statement(s)} {ELSE statement(s)}}"
+         },
+         {
+            "key": "Include",
+            "icon": 14,
+            "index": 268,
+            "documentation": "The INCLUDE directive is used to direct the compiler to include text from another record. Include records may be in either directory or hashed files.",
+            "detail": "INCLUDE { filename } record.id"
+         },
+         {
+            "key": "Index",
+            "icon": 3,
+            "index": 269,
+            "documentation": "The INDEX() function returns the position of a specified occurrence of a substring within a string.",
+            "detail": "INDEX(string, substring {, occurrence})"
+         },
+         {
+            "key": "Indexs",
+            "icon": 3,
+            "index": 270,
+            "documentation": "The INDEXS() function is similar to INDEX() but operates on each element of a dynamic array element separately, locating the required occurrence of substring and returning a similarly structured dynamic array of results.",
+            "detail": "INDEXS(dyn.arr, substring {, occurrence})"
+         },
+         {
+            "key": "Indices",
+            "icon": 3,
+            "index": 271,
+            "documentation": "The INDICES() function returns information about alternate key indices.",
+            "detail": "INDICES(file.var)        To retrieve a list of indices\r\nINDICES(file.var, index.name)        To retrieve information for a specific index"
+         },
+         {
+            "key": "Inherit",
+            "icon": 14,
+            "index": 272,
+            "documentation": "The INHERIT statement used in a class module makes the public variables, functions and subroutines of another object visible as part of this object.",
+            "detail": "INHERIT object"
+         },
+         {
+            "key": "Inmat",
+            "icon": 3,
+            "index": 273,
+            "documentation": "The INMAT() function provides qualifying information after certain statements are executed.",
+            "detail": "INMAT({mat})"
+         },
+         {
+            "key": "Input",
+            "icon": 14,
+            "index": 274,
+            "documentation": "The INPUT statement enables entry of data from the keyboard or from previously stored DATA statements.",
+            "detail": "INPUT var {= default}{, length {, fill}} {_} {:} {modes} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Input @",
+            "icon": 14,
+            "index": 275,
+            "documentation": "The INPUT @ statement enables entry of data from the keyboard at a specific screen position or from previously stored DATA statements.",
+            "detail": "INPUT @(x, y) {,} {:} var {, length {, fill}} {_} {:} {format} {modes} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Inputclear",
+            "icon": 14,
+            "index": 276,
+            "documentation": "The INPUTCLEAR statement clears any keyboard data that has been entered but not yet processed by INPUT or KEYIN() statements.",
+            "detail": "INPUTCLEAR"
+         },
+         {
+            "key": "Inputcsv",
+            "icon": 14,
+            "index": 277,
+            "documentation": "The INPUTCSV statement enables entry of CSV format data from the keyboard or from previously stored DATA statements.",
+            "detail": "INPUTCSV var1, var2, ..."
+         },
+         {
+            "key": "Inputerr",
+            "icon": 14,
+            "index": 278,
+            "documentation": "The INPUTERR statement displays an error message which is removed from the screen when the next input is entered.\r\nThe synonym PRINTERR can be used in place of INPUTERR.",
+            "detail": "INPUTERR expr"
+         },
+         {
+            "key": "Inputfield",
+            "icon": 14,
+            "index": 279,
+            "documentation": "The INPUTFIELD statement enables entry of data from the keyboard at a specific screen position or from previously stored DATA statements.",
+            "detail": "INPUTFIELD @(x, y) {,} {:} var, length {, fill} {_} {:} {format} {modes} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Inputfieldv",
+            "icon": 14,
+            "index": 280,
+            "documentation": "The INPUTFIELDV statement enables entry of data from the keyboard at a specific screen position or from previously stored DATA statements.",
+            "detail": "INPUTFIELDV @(x, y) {,} {:} var, length {, fill} {_} {:} {format} {modes} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Inputnull",
+            "icon": 14,
+            "index": 281,
+            "documentation": "The INPUTNULL statement sets a special character to cause INPUT @ and INPUTFIELD to return a null string.",
+            "detail": "INPUTNULL expr"
+         },
+         {
+            "key": "Inputtrap",
+            "icon": 14,
+            "index": 282,
+            "documentation": "The INPUTTRAP statement defines special actions for INPUT @ and INPUTFIELD.",
+            "detail": "INPUTTRAP expr GOTO label1 {, label2...}\r\nINPUTTRAP expr GOSUB label1 {, label2...}"
+         },
+         {
+            "key": "Ins",
+            "icon": 14,
+            "index": 283,
+            "documentation": "The INS statement inserts a field, value or subvalue into a dynamic array.\r\nUsed with a data collection, the INS statement inserts a name/value pair.",
+            "detail": "INS string BEFORE dyn.array<field {, value {, subvalue}}>\r\nINS item AS collection{path}"
+         },
+         {
+            "key": "Insert",
+            "icon": 3,
+            "index": 284,
+            "documentation": "The INSERT() function inserts a field, value or subvalue into a dynamic array. ",
+            "detail": "INSERT(dyn.array, field {, value {, subvalue}} , string)"
+         },
+         {
+            "key": "Int",
+            "icon": 3,
+            "index": 285,
+            "documentation": "The INT() function returns the integer part of a value.",
+            "detail": "INT(expr)"
+         },
+         {
+            "key": "Ioctl",
+            "icon": 3,
+            "index": 286,
+            "documentation": "The purpose of the IOCTL function is to allow commands to be sent to the database driver for a particular file, and then to receive a reply from that same databasedriver. ",
+            "detail": "IOCTL(Filevar, Command, Parameter)"
+         },
+         {
+            "key": "Is.Alnum",
+            "icon": 3,
+            "index": 287,
+            "documentation": "The IS.ALNUM() function tests whether a character is defined as being either a letter or a digit.",
+            "detail": "IS.ALNUM(char)"
+         },
+         {
+            "key": "Is.Alpha",
+            "icon": 3,
+            "index": 288,
+            "documentation": "The IS.ALPHA() function tests whether a character is defined as being a letter.",
+            "detail": "IS.ALPHA(char)"
+         },
+         {
+            "key": "Is.Digit",
+            "icon": 3,
+            "index": 289,
+            "documentation": "The IS.DIGIT() function tests whether a character is defined as being a digit.",
+            "detail": "IS.DIGIT(char)"
+         },
+         {
+            "key": "Is.Ecs",
+            "icon": 3,
+            "index": 290,
+            "documentation": "The IS.ECS() function tests whether a character string contains ECS characters.",
+            "detail": "IS.ECS(string)"
+         },
+         {
+            "key": "Is.Graph",
+            "icon": 3,
+            "index": 291,
+            "documentation": "The IS.GRAPH() function tests whether a character is defined as being a graphical (printing) character.\r\nNote that the space is not included.",
+            "detail": "IS.GRAPH(char)"
+         },
+         {
+            "key": "Is.Mark",
+            "icon": 3,
+            "index": 292,
+            "documentation": "The IS.MARK() function tests whether a character is defined as being a mark character (251- 255).\r\nThe position of these in the character set and their meaning cannot be changed in user defined character maps.",
+            "detail": "IS.MARK(char)"
+         },
+         {
+            "key": "Is.Null",
+            "icon": 3,
+            "index": 293,
+            "documentation": "The IS.NULL() function tests whether a data item holds the SQL style null value.",
+            "detail": "IS.NULL(var)"
+         },
+         {
+            "key": "Is.Space",
+            "icon": 3,
+            "index": 294,
+            "documentation": "The IS.SPACE() function tests whether a character is defined as being whitespace.\r\nUnicode defines several code points as being spaces of various types.",
+            "detail": "IS.SPACE(char)"
+         },
+         {
+            "key": "Is.User.Char",
+            "icon": 3,
+            "index": 295,
+            "documentation": "The IS.USER.CHAR() function tests whether a character has the user defined attribute set.",
+            "detail": "IS.USER.CHAR(char)"
+         },
+         {
+            "key": "Is.Wide",
+            "icon": 3,
+            "index": 296,
+            "documentation": "The IS.WIDE() function tests whether a character requires two display positions.",
+            "detail": "IS.WIDE(char)"
+         },
+         {
+            "key": "Is.Widestr",
+            "icon": 3,
+            "index": 297,
+            "documentation": "The IS.WIDESTR() function determines whether a string contains any wide characters.",
+            "detail": "IS.WIDESTR(string)"
+         },
+         {
+            "key": "Itype",
+            "icon": 3,
+            "index": 298,
+            "documentation": "The ITYPE() function executes a compiled I or C-type dictionary record or an A or S-type with a correlative.",
+            "detail": "ITYPE(itype)"
+         },
+         {
+            "key": "Jbuild",
+            "icon": 3,
+            "index": 299,
+            "documentation": "The JBUILD() function constructs a JSON string from a data collection.",
+            "detail": "JBUILD(var)\r\nJBUILD(var, mode)"
+         },
+         {
+            "key": "Jparse",
+            "icon": 3,
+            "index": 300,
+            "documentation": "The JPARSE() function parses a JSON string into a data collection.",
+            "detail": "JPARSE(var)"
+         },
+         {
+            "key": "Keep.Select",
+            "icon": 14,
+            "index": 301,
+            "documentation": "The KEEP.SELECT statement indicates that the default select list should be retained on return to the command processor.",
+            "detail": "KEEP.SELECT"
+         },
+         {
+            "key": "Keycode",
+            "icon": 3,
+            "index": 302,
+            "documentation": "The KEYCODE() function reads a single keystroke from the keyboard.",
+            "detail": "KEYCODE({timeout})"
+         },
+         {
+            "key": "Keycodev",
+            "icon": 3,
+            "index": 303,
+            "documentation": "The KEYCODEV() function is similar to KEYCODE() but returns the code point value of the key rather than the character corresponding to the key.",
+            "detail": "KEYCODEV({timeout})"
+         },
+         {
+            "key": "Keyedit",
+            "icon": 14,
+            "index": 304,
+            "documentation": "The KEYEDIT statement defines editing keys for use with INPUT @.",
+            "detail": "KEYEDIT (action, key), (action, key), ..."
+         }, {
+            "key": "Keyexit",
+            "icon": 14,
+            "index": 305,
+            "documentation": "The KEYEXIT statement defines exit keys for use with INPUT @.",
+            "detail": "KEYEXIT (action, key), (action, key), ..."
+         },
+         {
+            "key": "Keyin",
+            "icon": 3,
+            "index": 306,
+            "documentation": "The KEYIN() function read a single keystroke from the keyboard.",
+            "detail": "KEYIN({timeout})"
+         },
+         {
+            "key": "Keyinc",
+            "icon": 3,
+            "index": 307,
+            "documentation": "The KEYINC() function read a single keystroke from the keyboard.",
+            "detail": "KEYINC({timeout})"
+         },
+         {
+            "key": "Keyincv",
+            "icon": 3,
+            "index": 308,
+            "documentation": "The KEYINCV() function reads a single keystroke from the keyboard",
+            "detail": "KEYINCV({timeout})"
+         },
+         {
+            "key": "Keyinr",
+            "icon": 3,
+            "index": 309,
+            "documentation": "The KEYINR() function is a synonym for the KEYIN() function",
+            "detail": "KEYINR({timeout})"
+         },
+         {
+            "key": "Keyinv",
+            "icon": 3,
+            "index": 310,
+            "documentation": "The KEYINV() function reads a single keystroke from the keyboard",
+            "detail": "KEYINV({timeout})"
+         },
+         {
+            "key": "Keyready",
+            "icon": 3,
+            "index": 311,
+            "documentation": "The KEYREADY() function tests for data entered at the keyboard.",
+            "detail": "KEYREADY()"
+         },
+         {
+            "key": "Keytrap",
+            "icon": 14,
+            "index": 312,
+            "documentation": "The KEYTRAP statement defines trap keys for use with INPUT @.",
+            "detail": "KEYTRAP (action, key), (action, key), ..."
+         },
+         {
+            "key": "Last",
+            "icon": 3,
+            "index": 313,
+            "documentation": "The LAST() function returns the final element of a string delimited by a specified character.",
+            "detail": "LAST(string, delimiter)"
+         },
+         {
+            "key": "Lasts",
+            "icon": 3,
+            "index": 314,
+            "documentation": "The LASTS() function is similar to LAST() but operates on a multivalued string, returning a similarly structured dynamic array of results.",
+            "detail": "LASTS(dyn.arr, delimiter)"
+         },
+         {
+            "key": "Left",
+            "icon": 3,
+            "index": 315,
+            "documentation": "The LEFT() function returns the leading part of a string.",
+            "detail": "LEFT(string, len)"
+         },
+         {
+            "key": "Len",
+            "icon": 3,
+            "index": 316,
+            "documentation": "The LEN() function returns the length of a string.",
+            "detail": "LEN(string)"
+         },
+         {
+            "key": "Lens",
+            "icon": 3,
+            "index": 317,
+            "documentation": "The LENS() function is similar to LEN() but operates on successive elements of a dynamic array, returning a similarly structured dynamic array of results.",
+            "detail": "LENS(dyn.arr)"
+         },
+         {
+            "key": "Les",
+            "icon": 3,
+            "index": 318,
+            "documentation": "The LES() function processes two dynamic arrays, returning a similarly structured result array indicating whether elements of the first array are less than or equal to corresponding elements of the second array.",
+            "detail": "LES(expr1, expr2)"
+         },
+         {
+            "key": "ListIndex",
+            "icon": 3,
+            "index": 319,
+            "documentation": "The LISTINDEX() function returns the position of an item in a delimited list.",
+            "detail": "LISTINDEX(list, delimiter, item)"
+         },
+         {
+            "key": "Ln",
+            "icon": 3,
+            "index": 320,
+            "documentation": "The LN() function returns the natural log of a value.",
+            "detail": "LN(expr)"
+         },
+         {
+            "key": "Local",
+            "icon": 14,
+            "index": 321,
+            "documentation": "The LOCAL statement introduces an internal function or subroutine that may have private local variables.",
+            "detail": "LOCAL {FUNCTION | SUBROUTINE} name{(args)}\r\nPRIVATE vars\r\n...statements...\r\nEND"
+         },
+         {
+            "key": "Locate",
+            "icon": 14,
+            "index": 322,
+            "documentation": "The LOCATE statement searches a dynamic array for a given field, value or subvalue.",
+            "detail": "LOCATE string IN dyn.array<field {,value {, subvalue}}> {BY order} {SETTING var} {THEN statement(s)} {ELSE statement(s)}\r\nLOCATE string IN dyn.array{<field {,value }>} {, start}  {BY order} SETTING var {THEN statement(s)} {ELSE statement(s)}\r\nLOCATE(string, dyn.array{, field {, value {, start }}}; var {; order}) {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Locate",
+            "icon": 3,
+            "index": 323,
+            "documentation": "The LOCATE() function provides similar capabilities to the LOCATE statment and is particularly suited to use in dictionary I-type items.",
+            "detail": "LOCATE(string, dyn.array, field {,value {, subvalue }} {; order})"
+         },
+         {
+            "key": "Lock",
+            "icon": 14,
+            "index": 324,
+            "documentation": "The LOCK statement obtains one of 64 system wide task locks.",
+            "detail": "LOCK lock.num {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Logmsg",
+            "icon": 14,
+            "index": 325,
+            "documentation": "The LOGMSG statement adds a line to the system error log.",
+            "detail": "LOGMSG text"
+         },
+         {
+            "key": "Loop",
+            "icon": 14,
+            "index": 326,
+            "documentation": "The LOOP statement introduces a sequence of statements to be executed repeatedly.",
+            "detail": "LOOP {statement(s)} {WHILE expr} {UNTIL expr} {statement(s)} REPEAT"
+         },
+         {
+            "key": "Lower",
+            "icon": 3,
+            "index": 327,
+            "documentation": "The LOWER function lowers system delimiters in a string to the next lowest delimiter.",
+            "detail": "LOWER(expression)"
+         },
+         {
+            "key": "Lts",
+            "icon": 3,
+            "index": 328,
+            "documentation": "The LTS() function processes two dynamic arrays, returning a similarly structured result array indicating whether elements of the first array are less than corresponding elements of the second array.",
+            "detail": "LTS(expr1, expr2)"
+         },
+         {
+            "key": "Mark.Mapping",
+            "icon": 14,
+            "index": 329,
+            "documentation": "The MARK.MAPPING statement determines how field marks are handled when reading or writing from a directory file.",
+            "detail": "MARK.MAPPING file.var, OFF\r\nMARK.MAPPING file.var, ON\r\nMARK.MAPPING file.var, expr"
+         },
+         {
+            "key": "Mat",
+            "icon": 14,
+            "index": 330,
+            "documentation": "The MAT statement assigns a value to all elements of a matrix, copies one matrix to another, or tests for equivalent matrices.",
+            "detail": "MAT matrix = expr\r\nMAT matrix2 = MAT matrix1\r\nIF MAT matrix1 = MAT matrix2 THEN ..."
+         },
+         {
+            "key": "Mat",
+            "icon": 3,
+            "index": 331,
+            "documentation": "The MAT() function creates an array for insertion into a data collection.",
+            "detail": "MAT()\r\nMAT(array {, elements})"
+         },
+         {
+            "key": "Matbuild",
+            "icon": 14,
+            "index": 332,
+            "documentation": "The MATBUILD statement constructs a dynamic array from the elements of a matrix.",
+            "detail": "MATBUILD var  FROM mat {, start.expr {, end.expr} {USING delimiter}"
+         },
+         {
+            "key": "Matchess",
+            "icon": 3,
+            "index": 333,
+            "documentation": "The MATCHESS() function compares each element of a dynamic array with a pattern template, returning an equivalently structured dynamic array of True/False values.\r\nNote the spelling of this function name with the trailing S to \"pluralise\" the name in common with other multivalue function names.",
+            "detail": "MATCHESS(dyn.arr, pattern)"
+         },
+         {
+            "key": "Matchfield",
+            "icon": 3,
+            "index": 334,
+            "documentation": "The MATCHFIELD() function extracts a portion of a string that matches a pattern element.",
+            "detail": "MATCHFIELD(string, pattern, element)"
+         },
+         {
+            "key": "Matchfields",
+            "icon": 3,
+            "index": 335,
+            "documentation": "The MATCHFIELDS() function performs the MATCHFIELD() operation on each element of a dynamic array.",
+            "detail": "MATCHFIELDS(dyn.arr, pattern, element)"
+         },
+         {
+            "key": "Matparse",
+            "icon": 14,
+            "index": 336,
+            "documentation": "The MATPARSE statement breaks a delimited string into component substrings, assigning each to an element of a matrix.",
+            "detail": "MATPARSE mat FROM string {, delimiter} {SETTING var}\r\nMATPARSE mat FROM string {USING delimiter} {SETTING var}"
+         },
+         {
+            "key": "Matread",
+            "icon": 14,
+            "index": 337,
+            "documentation": "The MATREAD statement reads a record from a file, assigning each field to an element of a matrix.",
+            "detail": "MATREAD mat {ENCODING name} FROM file.var, record.id {ON ERROR statement(s)} {LOCKED statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Matreadcsv",
+            "icon": 14,
+            "index": 338,
+            "documentation": "The MATREADCSV statement reads a CSV format line of text from a directory file record previously opened for sequential access and parses it into the elements of a dimensioned matrix.",
+            "detail": "MATREADCSV matrix {ENCODING name} FROM file.var {DELIMITER delim} {THEN statement(s)} {ELSE statement(s)}"
+         }, 
+         {
+            "key": "Matreadl",
+            "icon": 14,
+            "index": 339,
+            "documentation": "The MATREADL statement is similar to MATREAD but sets a read lock on the record.",
+            "detail": "MATREADL mat {ENCODING name} FROM file.var, record.id {ON ERROR statement(s)} {LOCKED statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Matreadu",
+            "icon": 14,
+            "index": 340,
+            "documentation": "The MATREADU statement is similar to MATREAD but sets a update lock on the record.",
+            "detail": "MATREADU mat {ENCODING name} FROM file.var, record.id {ON ERROR statement(s)} {LOCKED statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Matstr",
+            "icon": 3,
+            "index": 341,
+            "documentation": "The MATSTR() function builds a dynamic array from a matrix.",
+            "detail": "MATSTR(array)"
+         },
+         {
+            "key": "Matwrite",
+            "icon": 14,
+            "index": 342,
+            "documentation": "The MATWRITE statement builds a record from successive elements of a matrix and writes this to a file.",
+            "detail": "MATWRITE mat {ENCODING name} TO file.var, record.id {ON ERROR statement(s)}"
+         },
+         {
+            "key": "Matwritecsv",
+            "icon": 14,
+            "index": 343,
+            "documentation": "The MATWRITECSV statement builds a CSV from successive elements of a matrix and writes this to a file opened for sequential processing.",
+            "detail": "MATWRITECSV mat {ENCODING name} TO file.var {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Matwriteu",
+            "icon": 14,
+            "index": 344,
+            "documentation": "The MATWRITEU statement is similar to the MATWRITE statement but preserves any lock on the record being written.",
+            "detail": "MATWRITEU mat {ENCODING name} TO file.var, record.id {ON ERROR statement(s)}"
+         },
+         {
+            "key": "Max",
+            "icon": 3,
+            "index": 345,
+            "documentation": "The MAX() function returns the greater of two values.",
+            "detail": "MAX(a, b)"
+         },
+         {
+            "key": "Maximum",
+            "icon": 3,
+            "index": 346,
+            "documentation": "The MAXIMUM() function returns the greatest value in a dynamic array.",
+            "detail": "MAXIMUM(dyn.array)"
+         },
+         {
+            "key": "Md5",
+            "icon": 3,
+            "index": 347,
+            "documentation": "The MD5() function returns the 32 digit hexadecimal message digest value for a given string.",
+            "detail": "MD5(string)"
+         },
+         {
+            "key": "Mergelist",
+            "icon": 3,
+            "index": 348,
+            "documentation": "The MERGELIST() function combines two field mark delimited sorted lists, returning the intersection, union or difference as a result list.",
+            "detail": "MERGELIST(list1, list2, modes)"
+         },
+         {
+            "key": "Min",
+            "icon": 3,
+            "index": 349,
+            "documentation": "The MIN() function returns the lesser of two values.",
+            "detail": "MIN(a, b)"
+         },
+         {
+            "key": "Minimum",
+            "icon": 3,
+            "index": 350,
+            "documentation": "The MINIMUM() function returns the lowest value in a dynamic array.",
+            "detail": "MINIMUM(dyn.array)"
+         },
+         {
+            "key": "Mod",
+            "icon": 3,
+            "index": 351,
+            "documentation": "The MOD() function returns the modulus value of one value divided by another.",
+            "detail": "MOD(dividend, divisor)"
+         },
+         {
+            "key": "Mods",
+            "icon": 3,
+            "index": 352,
+            "documentation": "The MODS() function is similar to MOD() but operates on successive elements of two dynamic arrays, returning a similarly structured dynamic array of results.",
+            "detail": "MODS(dyn.array1, dyn.array2)"
+         },
+         {
+            "key": "Mouse",
+            "icon": 14,
+            "index": 353,
+            "documentation": "The MOUSE statement enables or disables mouse input.",
+            "detail": "MOUSE ON {SETTING var}\r\nMOUSE OFF {SETTING var}\r\nMOUSE expr {SETTING var}"
+         },
+         {
+            "key": "Mvdate",
+            "icon": 3,
+            "index": 354,
+            "documentation": "The MVDATE() function returns the multivalue style date value (days since 31 December 1967) for a supplied epoch value using the currently selected time zone.",
+            "detail": "MVDATE(epoch.value)"
+         },
+         {
+            "key": "Mvdate.Time",
+            "icon": 3,
+            "index": 355,
+            "documentation": "The MVDATE.TIME() function returns the multivalue style date and time values (days since 31 December 1967 and seconds since midnight) for a supplied epoch value using the currently selected time zone.",
+            "detail": "MVDATE.TIME(epoch.value)"
+         },
+         {
+            "key": "Mvepoch",
+            "icon": 3,
+            "index": 356,
+            "documentation": "The MVEPOCH() function returns the epoch value corresponding to a multivalue style date and time combination (days since 31 December 1967 and seconds since midnight) using the currently selected time zone.",
+            "detail": "MVEPOCH(time.string)\r\nMVEPOCH(date, time)"
+         },
+         {
+            "key": "Mvtime",
+            "icon": 3,
+            "index": 357,
+            "documentation": "The MVTIME() function returns the multivalue style time value (seconds since midnight) for a supplied epoch value using the currently selected time zone.",
+            "detail": "MVTIME(epoch.value)"
+         },
+         {
+            "key": "Nap",
+            "icon": 14,
+            "index": 358,
+            "documentation": "The NAP statement causes the program in which it is executed to pause for a given number of milliseconds.",
+            "detail": "NAP time"
+         },
+         {
+            "key": "Neg",
+            "icon": 3,
+            "index": 359,
+            "documentation": "The NEG() function returns the arithmetic inverse of a value.",
+            "detail": "NEG(expr)"
+         },
+         {
+            "key": "Negs",
+            "icon": 3,
+            "index": 360,
+            "documentation": "The NEGS() function is similar to NEG() but operates on successive elements of a dynamic array, returning a similarly structured dynamic array of results",
+            "detail": "NEGS(dyn.arr)"
+         },
+         {
+            "key": "Nes",
+            "icon": 3,
+            "index": 361,
+            "documentation": "The NES() function processes two dynamic arrays, returning a similarly structured result array indicating whether corresponding elements are not equal.",
+            "detail": "NES(expr1, expr2)"
+         },
+         {
+            "key": "Next",
+            "icon": 14,
+            "index": 362,
+            "documentation": "The NEXT statement terminates a FOR loop. Control is passed back to the FOR statement and the variable is incremented or decremented.",
+            "detail": "NEXT variable"
+         },
+         {
+            "key": "Nobuf",
+            "icon": 14,
+            "index": 363,
+            "documentation": "The NOBUF statement turns off buffering for a record opened using OPENSEQ.",
+            "detail": "NOBUF file.var {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Not",
+            "icon": 3,
+            "index": 364,
+            "documentation": "The NOT() function returns the logical inverse of its argument.",
+            "detail": "NOT(expr)"
+         },
+         {
+            "key": "Nots",
+            "icon": 3,
+            "index": 365,
+            "documentation": "The NOTS() function is similar to NOT() but operates on successive elements of a dynamic array, returning a similarly structured dynamic array of results.",
+            "detail": "NOTS(dyn.arr)"
+         },
+         {
+            "key": "Ns",
+            "icon": 3,
+            "index": 366,
+            "documentation": "The NS() function returns a dynamic array containing ascending subvalue position numbers corresponding to a supplied dynamic array. ",
+            "detail": "NS(string)"
+         },
+         {
+            "key": "Null",
+            "icon": 14,
+            "index": 367,
+            "documentation": "The NULL statement performs no action.",
+            "detail": "NULL"
+         },
+         {
+            "key": "Num",
+            "icon": 3,
+            "index": 368,
+            "documentation": "The NUM() function tests whether a string can be converted to a number.",
+            "detail": "NUM(string)"
+         },
+         {
+            "key": "Nums",
+            "icon": 3,
+            "index": 369,
+            "documentation": "The NUMS() function is similar to NUM() but operates on successive elements of a dynamic array, returning a similarly structured dynamic array of results.",
+            "detail": "NUMS(dyn.arr)"
+         },
+         {
+            "key": "Nv",
+            "icon": 3,
+            "index": 370,
+            "documentation": "The NV() function returns a dynamic array containing ascending value position numbers corresponding to a supplied dynamic array. ",
+            "detail": "NV(string {, repeat})"
+         },
+         {
+            "key": "Object",
+            "icon": 3,
+            "index": 371,
+            "documentation": "The OBJECT() function instantiates an object for object oriented programming.",
+            "detail": "OBJECT(cat.name, {args...})\r\nOBJECT(obj.var)"
+         },
+         {
+            "key": "Objinfo",
+            "icon": 3,
+            "index": 372,
+            "documentation": "The OBJINFO() function returns information about an object variable.",
+            "detail": "OBJINFO(var, key)"
+         },
+         {
+            "key": "Oconv",
+            "icon": 3,
+            "index": 373,
+            "documentation": "The OCONV() function performs output conversion.\r\nData is converted from its internal representation to the external form.\r\nThis function is typically used to convert data for display or printing.",
+            "detail": "OCONV(expr, conv.spec)"
+         },
+         {
+            "key": "Oconvs",
+            "icon": 3,
+            "index": 374,
+            "documentation": "The OCONVS() function is identical to OCONV() except that it works on each element of a dynamic array, returning the result in a similarly delimited dynamic array.",
+            "detail": "OCONVS(dyn.arr, conv.spec)"
+         },
+         {
+            "key": "On Gosub",
+            "icon": 3,
+            "index": 375,
+            "documentation": "The ON GOSUB statement enters one of a list of internal subroutines depending on the value of an expression.",
+            "detail": "ON expr GOSUB label1{:}, label2{:}, label3{:}"
+         },
+         {
+            "key": "On Goto",
+            "icon": 3,
+            "index": 376,
+            "documentation": "The ON GOTO statement jumps to one of a list of labels depending on the value of an expression.",
+            "detail": "ON expr GOTO label1{:}, label2{:}, label3{:}\r\nON expr GO {TO} label1{:}, label2{:}, label3{:}"
+         },
+         {
+            "key": "Open",
+            "icon": 14,
+            "index": 377,
+            "documentation": "The OPEN statement opens a directory file or dynamic file, associating it with a file variable.",
+            "detail": "OPEN {dict.expr,} filename.expr {options} TO file.var {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Openpath",
+            "icon": 14,
+            "index": 378,
+            "documentation": "The OPENPATH statement opens a directory file or dynamic file by pathname, associating it with a file variable.",
+            "detail": "OPENPATH pathname {options} TO file.var {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Opentemp",
+            "icon": 14,
+            "index": 379,
+            "documentation": "The OPENTEMP statement creates and opens a temporary dynamic file by pathname, associating it with a file variable.",
+            "detail": "OPENTEMP {pathname} {options} TO file.var {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Open.Socket",
+            "icon": 14,
+            "index": 380,
+            "documentation": "The OPEN.SOCKET() function opens a data socket for an outgoing connection.",
+            "detail": "OPEN.SOCKET(addr, port, flags {, timeout})"
+         },
+         {
+            "key": "Option",
+            "icon": 3,
+            "index": 381,
+            "documentation": "The OPTION() function returns or changes the setting of an option flag.",
+            "detail": "OPTION(optno)\r\nOPTION(optno, value)"
+         },
+         {
+            "key": "Ors",
+            "icon": 3,
+            "index": 382,
+            "documentation": "The ORS() function performs a logical OR operation on successive elements of a dynamic array, returning a similarly structured dynamic array of results.",
+            "detail": "ORS(expr1, expr2)"
+         },
+         {
+            "key": "Os.Error",
+            "icon": 3,
+            "index": 383,
+            "documentation": "The OS.ERROR() function returns the error number associated with the last recorded operating system level error.",
+            "detail": "OS.ERROR()"
+         },
+         {
+            "key": "Os.Execute",
+            "icon": 14,
+            "index": 384,
+            "documentation": "The OS.EXECUTE statement executes an operating system command.",
+            "detail": "OS.EXECUTE expr {CAPTURING var} {SILENT}"
+         },
+         {
+            "key": "Osdelete",
+            "icon": 14,
+            "index": 385,
+            "documentation": "The OSDELETE deletes an operating system file or directory by pathname.",
+            "detail": "OSDELETE path"
+         },
+         {
+            "key": "Ospath",
+            "icon": 3,
+            "index": 386,
+            "documentation": "The OSPATH() function performs actions on operating system files.",
+            "detail": "OSPATH(path, key)\r\nOSPATH(path, key, qualifier)"
+         },
+         {
+            "key": "Osread",
+            "icon": 14,
+            "index": 387,
+            "documentation": "The OSREAD statement reads an operating system file by pathname.",
+            "detail": "OSREAD var FROM path {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Osrename",
+            "icon": 3,
+            "index": 388,
+            "documentation": "The OSRENAME() function renames an operating system file or directory.",
+            "detail": "OSRENAME(old.name, new.name)"
+         },
+         {
+            "key": "Oswrite",
+            "icon": 14,
+            "index": 389,
+            "documentation": "The OSWRITE statement writes an operating system file by pathname.",
+            "detail": "OSWRITE expr TO path {ON ERROR statement(s)}"
+         },
+         {
+            "key": "Outerjoin",
+            "icon": 3,
+            "index": 390,
+            "documentation": "The OUTERJOIN() function returns the record ids of records in a file where a field holds a specified value.",
+            "detail": "OUTERJOIN({DICT} file.name, field.name, value)"
+         },
+         {
+            "key": "Page",
+            "icon": 14,
+            "index": 391,
+            "documentation": "The PAGE statement advances a print unit to a new page.",
+            "detail": "PAGE {ON print.unit} {page.no}"
+         },
+         {
+            "key": "Parse",
+            "icon": 3,
+            "index": 392,
+            "documentation": "The PARSE() function matches a string against a pattern, inserting a delimiter between each pattern element.",
+            "detail": "PARSE(string, pattern, delimiter)"
+         },
+         {
+            "key": "Pause",
+            "icon": 14,
+            "index": 393,
+            "documentation": "The PAUSE statement pauses execution until awoken by another process.",
+            "detail": "PAUSE {timeout}"
+         },
+         {
+            "key": "Pdump",
+            "icon": 3,
+            "index": 394,
+            "documentation": "The PDUMP statement causes an immediate process dump of the process in which it is used.",
+            "detail": "PDUMP"
+         },
+         {
+            "key": "Perform",
+            "icon": 14,
+            "index": 395,
+            "documentation": "The EXECUTE or PERFORM statement allows the currently executing program to pause and execute any other UNIX/NT program, including another jBC program or a jBASE command.",
+            "detail": "PERFORM expr {TRAPPING ABORTS}\r\n{CAPTURING var}\r\n{NO.TTY}\r\n{PASSLIST {src.list }}\r\n{RTNLIST tgt.list }\r\n{SILENT}\r\n{STACKLIST}\r\n{SETTING status.var} or {RETURNING status.var}"
+         },
+         {
+            "key": "Phantom",
+            "icon": 3,
+            "index": 396,
+            "documentation": "The PHANTOM statement starts a phantom process from a QMBasic program without the overheads of using EXECUTE.",
+            "detail": "PHANTOM command {options} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Pool.Idle",
+            "icon": 14,
+            "index": 397,
+            "documentation": "The POOL.IDLE statement moves a phantom process into the idle state when using connection pooling.",
+            "detail": "POOL.IDLE"
+         },
+         {
+            "key": "Precision",
+            "icon": 14,
+            "index": 398,
+            "documentation": "The PRECISION statement sets the maximum number of decimal places to appear when converting numeric values to strings.",
+            "detail": "PRECISION expr\r\nPRECISION INHERIT"
+         },
+         {
+            "key": "Print",
+            "icon": 14,
+            "index": 399,
+            "documentation": "The PRINT statement outputs data to a print unit.",
+            "detail": "PRINT {NO.ENCODING} {ON print.unit} {print.list}"
+         },
+         {
+            "key": "Printcsv",
+            "icon": 14,
+            "index": 400,
+            "documentation": "The PRINTCSV statement outputs CSV format data to a print unit.",
+            "detail": "PRINTCSV {ON print.unit} var1, var2, ..."
+         },
+         {
+            "key": "Printer Close",
+            "icon": 14,
+            "index": 401,
+            "documentation": "The PRINTER CLOSE statement closes one or all print units.",
+            "detail": "PRINTER CLOSE {ON print.unit}"
+         },
+         {
+            "key": "Printer Display",
+            "icon": 14,
+            "index": 402,
+            "documentation": "The PRINTER DISPLAY statement directs output sent to a print unit to the display.",
+            "detail": "PRINTER DISPLAY {ON print.unit} {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Printer File",
+            "icon": 14,
+            "index": 403,
+            "documentation": "The PRINTER FILE statement directs printer output to a named record in a directory file.",
+            "detail": "PRINTER FILE {ON print.unit} file.name, record.name {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Printer Name",
+            "icon": 14,
+            "index": 404,
+            "documentation": "The PRINTER NAME statement associates a named printer device with a print unit.",
+            "detail": "PRINTER NAME {ON print.unit} printer.name {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Printer Off",
+            "icon": 14,
+            "index": 405,
+            "documentation": "The PRINTER ON and OFF statements determine whether output from PRINT statements to the default print unit (unit 0) is directed to the display or to the printer.",
+            "detail": "PRINTER OFF"
+         },
+         {
+            "key": "Printer On",
+            "icon": 14,
+            "index": 406,
+            "documentation": "The PRINTER ON and OFF statements determine whether output from PRINT statements to the default print unit (unit 0) is directed to the display or to the printer.",
+            "detail": "PRINTER ON"
+         },
+         {
+            "key": "Printer Reset",
+            "icon": 14,
+            "index": 407,
+            "documentation": "The PRINTER RESET statement resets the default print unit and display output..",
+            "detail": "PRINTER RESET"
+         },
+         {
+            "key": "Printer Settting",
+            "icon": 14,
+            "index": 408,
+            "documentation": "The PRINTER SETTING statement sets a control parameter for a print unit.\r\nThis statement is obsolete.\r\nThe SETPU statement should be used in its place.",
+            "detail": "PRINTER SETTING {ON print.unit} param, new.value"
+         },
+         {
+            "key": "Printer.Settting",
+            "icon": 3,
+            "index": 409,
+            "documentation": "The PRINTER.SETTING() function sets or retrieves a control parameter for a print unit.\r\nThis function is obsolete.\r\nThe SETPU statement or GETPU() function should be used in its place.",
+            "detail": "PRINTER SETTING {ON print.unit} param, new.value"
+         },
+         {
+            "key": "Private",
+            "icon": 14,
+            "index": 410,
+            "documentation": "The PRIVATE statement defines private variables in a local subroutine or in a class module.",
+            "detail": "PRIVATE var, mat(rows, cols)"
+         },
+         {
+            "key": "Procread",
+            "icon": 14,
+            "index": 411,
+            "documentation": "The PROCREAD statement reads data from the PROC primary input buffer.",
+            "detail": "PROCREAD var {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Procwrite",
+            "icon": 14,
+            "index": 412,
+            "documentation": "The PROCWRITE statement writes data to the PROC primary input buffer.",
+            "detail": "PROCWRITE expr"
+         },
+         {
+            "key": "Program",
+            "icon": 14,
+            "index": 413,
+            "documentation": "The PROGRAM statement introduces a program.",
+            "detail": "PROGRAM name"
+         },
+         {
+            "key": "Prompt",
+            "icon": 14,
+            "index": 414,
+            "documentation": "The PROMPT statement sets the character to be used as the prompt in INPUT statements.",
+            "detail": "PROMPT expr"
+         },
+         {
+            "key": "Pterm",
+            "icon": 3,
+            "index": 415,
+            "documentation": "The PTERM() function sets, clears or queries a terminal setting.",
+            "detail": "PTERM(action, value)"
+         },
+         {
+            "key": "Public",
+            "icon": 14,
+            "index": 416,
+            "documentation": "The PUBLIC statement defines public property variables, subroutines and functions in a class module.",
+            "detail": "PUBLIC var, mat(rows, cols), ...\r\nPUBLIC SUBROUTINE name{(arg1, arg2)} {VAR.ARGS} ...statements... END\r\nPUBLIC FUNCTION name{(arg1, arg2)} {VAR.ARGS} ...statements... END"
+         },
+         {
+            "key": "Put",
+            "icon": 14,
+            "index": 417,
+            "documentation": "Synonym for PUBLIC ",
+            "detail": "PUT var, mat(rows, cols), ...\r\nPUT SUBROUTINE name{(arg1, arg2)} {VAR.ARGS} ...statements... END\r\nPUT FUNCTION name{(arg1, arg2)} {VAR.ARGS} ...statements... END"
+         },
+         {
+            "key": "Pwr",
+            "icon": 3,
+            "index": 418,
+            "documentation": "The PWR() function returns the value of a number raised to a given power.",
+            "detail": "PWR(expr, pwr.expr)"
+         },
+         {
+            "key": "Quote",
+            "icon": 3,
+            "index": 419,
+            "documentation": "The QUOTE() function returns a copy of its argument string enclosed in double quotes. The DQUOTE() synonym is identical.",
+            "detail": "QUOTE(expr)"
+         },
+         {
+            "key": "Raise",
+            "icon": 3,
+            "index": 420,
+            "documentation": "The RAISE() function converts mark characters in a string to the next higher level mark.",
+            "detail": "RAISE(string)"
+         },
+         {
+            "key": "Randomize",
+            "icon": 14,
+            "index": 421,
+            "documentation": "The RANDOMIZE statement initialises the random number generator.\r\nSee also RND()",
+            "detail": "RANDOMIZE expr"
+         },
+         {
+            "key": "Rdiv",
+            "icon": 3,
+            "index": 422,
+            "documentation": "The RDIV() function returns the rounded integer result of dividing two values",
+            "detail": "RDIV(dividend, divisor)"
+         },
+         {
+            "key": "Read",
+            "icon": 14,
+            "index": 423,
+            "documentation": "The READ statement reads a record from a previously opened file.",
+            "detail": "READ var {ENCODING name} FROM file.var, record.id {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Read.Socket",
+            "icon": 3,
+            "index": 424,
+            "documentation": "The READ.SOCKET() function reads data from a socket.",
+            "detail": "READ.SOCKET(skt, max.len, flags, timeout)"
+         },
+         {
+            "key": "Readblk",
+            "icon": 14,
+            "index": 425,
+            "documentation": "The READBLK statement reads a given number of bytes from the current file position in a record previously opened using OPENSEQ.",
+            "detail": "READBLK var {ENCODING name} FROM file.var, bytes {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Readcsv",
+            "icon": 14,
+            "index": 426,
+            "documentation": "The READCSV statement reads a CSV format line of text from a directory file record previously opened for sequential access and parses it into multiple variables.",
+            "detail": "READCSV {ENCODING name} FROM file.var {DELIMITER delim} TO var1, var2,... {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Readl",
+            "icon": 14,
+            "index": 427,
+            "documentation": "The READL statement reads a record from a previously opened file, setting a read lock.",
+            "detail": "READL var {ENCODING name} FROM file.var, record.id {ON ERROR statement(s)} {LOCKED statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Readlist",
+            "icon": 14,
+            "index": 428,
+            "documentation": "The READLIST statement reads a select list into a dynamic array.",
+            "detail":"READLIST var {FROM list.no} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "ReadNext",
+            "icon": 14,
+            "index": 429,
+            "documentation": "The READNEXT statement returns the next item from an active select list.",
+            "detail": "READNEXT var {, val.pos {, subval.pos}} {FROM list.no} {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Readseq",
+            "icon": 14,
+            "index": 430,
+            "documentation": "The READSEQ statement reads the next field (line of text)from a directory file record previously opened for sequential access.",
+            "detail": "READSEQ var {ENCODING name} FROM file.var {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Readu",
+            "icon": 14,
+            "index": 431,
+            "documentation": "The READU statement reads a record from a previously opened file, setting an update lock.",
+            "detail": "READU var {ENCODING name} FROM file.var, record.id {ON ERROR statement(s)} {LOCKED statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Readv",
+            "icon": 14,
+            "index": 432,
+            "documentation": "The READV statement reads a specific field from a record of a previously opened file.",
+            "detail": "READV var {ENCODING name} FROM file.var, record.id, field.expr {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Readvl",
+            "icon": 14,
+            "index": 433,
+            "documentation": "The READVL statement reads a specific field from a record of a previously opened file, setting a read lock.",
+            "detail": "READVL var {ENCODING name} FROM file.var, record.id, field.expr {ON ERROR statement(s)} {LOCKED statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Readvu",
+            "icon": 14,
+            "index": 434,
+            "documentation": "The READVU statement is similar to the READVL statement but sets an update lock.",
+            "detail": "READVU var {ENCODING name} FROM file.var, record.id, field.expr {ON ERROR statement(s)} {LOCKED statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Recordlocked",
+            "icon": 3,
+            "index": 435,
+            "documentation": "The RECORDLOCKED() function indicates whether a given record is locked.",
+            "detail": "RECORDLOCKED(file.var, record.id)"
+         },
+         {
+            "key": "Recordlockl",
+            "icon": 14,
+            "index": 436,
+            "documentation": "The RECORDLOCKL statement sets a read lock on a record.",
+            "detail": "RECORDLOCKL file.var, record.id {ON ERROR statement(s)} {LOCKED statement(s)}"
+         },
+         {
+            "key": "Recordlocku",
+            "icon": 3,
+            "index": 437,
+            "documentation": "The RECORDLOCKU statement is similar to the RECORDLOCKL statment but sets an update lock.",
+            "detail": "RECORDLOCKU file.var, record.id {ON ERROR statement(s)} {LOCKED statement(s)}"
+         },
+         {
+            "key": "Redim",
+            "icon": 14,
+            "index": 438,
+            "documentation": "The REDIM statement is identical to the DIM statement except where the matrix is a subroutine argument.",
+            "detail": "REDIM mat(rows {, cols})"
+         },
+         {
+            "key": "Redimension",
+            "icon": 14,
+            "index": 439,
+            "documentation": "The REDIMENSION statement is identical to the DIMENSION statement except where the matrix is a subroutine argument.",
+            "detail": "REDIMENSION mat(rows {, cols})"
+         },
+         {
+            "key": "Regex",
+            "icon": 3,
+            "index": 440,
+            "documentation": "The REGEX() function tests whether a string matches a regular expression.\r\nThis function is not available on Windows systems.",
+            "detail": "REGEX(str, regex{, modes})"
+         },
+         {
+            "key": "Release",
+            "icon": 14,
+            "index": 441,
+            "documentation": "The RELEASE statement releases read, update or file locks.",
+            "detail": "RELEASE {file.var{, record.id}} {ON ERROR statement(s)}"
+         },
+         {
+            "key": "Rem",
+            "icon": 3,
+            "index": 442,
+            "documentation": "The REM() function returns the remainder when one value is divided by another.",
+            "detail": "REM(dividend, divisor)"
+         },
+         {
+            "key": "Remark",
+            "icon": 14,
+            "index": 443,
+            "documentation": "The REMARK statement, which may be abbreviated to REM, enters comment text into a program.",
+            "detail": "REMARK text"
+         },
+         {
+            "key": "Remove",
+            "icon": 3,
+            "index": 444,
+            "documentation": "The REMOVE function removes characters from a dynamic array up to the next mark character.",
+            "detail": "REMOVE(dyn.array, var)"
+         },
+         {
+            "key": "Remove",
+            "icon": 14,
+            "index": 445,
+            "documentation": "The REMOVE statement removes characters from a dynamic array up to the next mark character.",
+            "detail": "REMOVE string FROM dyn.array SETTING var"
+         },
+         {
+            "key": "Removef",
+            "icon": 3,
+            "index": 446,
+            "documentation": "The REMOVEF() function extracts data from a delimited character string.",
+            "detail": "REMOVEF(string{, delimiter{, count}})"
+         },
+         {
+            "key": "Remove.Break.Handler",
+            "icon": 14,
+            "index": 447,
+            "documentation": "The REMOVE.BREAK.HANDLER statement allows a program to remove a handler subroutine established using SET.BREAK.HANDLER.",
+            "detail": "REMOVE.BREAK.HANDLER"
+         },
+         {
+            "key": "Repeat",
+            "icon": 14,
+            "index": 448,
+            "documentation": "REPEAT causes the loop to start again with the first statement following the LOOP statement.",
+            "detail": "REPEAT"
+         },
+         {
+            "key": "Replace",
+            "icon": 3,
+            "index": 449,
+            "documentation": "The REPLACE() function replaces a field, value or subvalue of a dynamic array, returning the result.",
+            "detail": "REPLACE(dyn.array, field {, value {, subvalue}} , string)"
+         },
+         {
+            "key": "Restore.Screen",
+            "icon": 14,
+            "index": 450,
+            "documentation": "The RESTORE.SCREEN statement restores a rectangular portion of the display screen image previously saved using SAVE.SCREEN().",
+            "detail": "RESTORE.SCREEN image, restore.state"
+         },
+         {
+            "key": "Return",
+            "icon": 14,
+            "index": 451,
+            "documentation": "The RETURN statement returns from an internal subroutine entered by GOSUB or an external subroutine entered by CALL.",
+            "detail": "RETURN {expr}\r\nRETURN TO label{:}\r\nRETURN FROM PROGRAM"
+         },
+         {
+            "key": "Reuse",
+            "icon": 3,
+            "index": 452,
+            "documentation": "The REUSE() function determines how arithmetic operators applied to numeric arrays handle unequal numbers of fields, values or subvalues.\r\nsIt can also be used with arguments to the multivalue functions.",
+            "detail": "REUSE(dyn.array)"
+         },
+         {
+            "key": "Right",
+            "icon": 3,
+            "index": 453,
+            "documentation": "The RIGHT() function returns the trailing part of a string.",
+            "detail": "RIGHT(string, len)"
+         },
+         {
+            "key": "Rmvd",
+            "icon": 3,
+            "index": 454,
+            "documentation": "The RMVD() function extracts characters from a dynamic array up to the next delimiter character.\r\nIt is closely related to REMOVE().",
+            "detail": "RMVD(dyn.array, var)"
+         },
+         {
+            "key": "Rnd",
+            "icon": 3,
+            "index": 455,
+            "documentation": "The RND() function returns a random number.",
+            "detail": "RND(expr)"
+         },
+         {
+            "key": "Rounddown",
+            "icon": 3,
+            "index": 450,
+            "documentation": "The ROUNDDOWN() function returns an integer value rounded towards zero in a given increment.",
+            "detail": "ROUNDDOWN(value, increment)"
+         },
+         {
+            "key": "Roundup",
+            "icon": 3,
+            "index": 456,
+            "documentation": "The ROUNDUP() function returns an integer value rounded away from zero in a given increment.",
+            "detail": "ROUNDUP(value, increment)"
+         },
+         {
+            "key": "Rollback",
+            "icon": 14,
+            "index": 457,
+            "documentation": "The ROLLBACK statement discards any cached updates and continues at the statement following the END TRANSACTION.\r\nA roll-back is implied if the program executes the END TRANSACTION directly.",
+            "detail": "ROLLBACK"
+         },
+         {
+            "key": "Rqm",
+            "icon": 14,
+            "index": 458,
+            "documentation": "The RQM may be used in place of SLEEP.",
+            "detail": "RQM {time}"
+         },
+         {
+            "key": "Rtrans",
+            "icon": 3,
+            "index": 459,
+            "documentation": "The RTRANS() function is similar tothe TRANS() function but has a slight difference for closer compatibility with some other environments.\r\nThe RTRANS() function does not lower the mark characters.\r\nThis makes it impossible to distinguish between the results of retrieving a multivalued field from a single record and retrieving a single valued field from multiple records.",
+            "detail": "RTRANS({DICT} file.name, record.id, field, action)"
+         },
+         {
+            "key": "Sadd",
+            "icon": 3,
+            "index": 460,
+            "documentation": "The SADD() function performs addition on numeric strings of any length.",
+            "detail": "SADD(a, b)"
+         },
+         {
+            "key": "Save.Screen",
+            "icon": 3,
+            "index": 461,
+            "documentation": "The SAVE.SCREEN() function saves a rectangular portion of the display screen image.",
+            "detail": "SAVE.SCREEN(col, line, width, height)"
+         },
+         {
+            "key": "Savelist",
+            "icon": 14,
+            "index": 462,
+            "documentation": "The SAVELIST statement saves an active select list to the $SAVEDLISTS file.",
+            "detail": "SAVELIST name {FROM list} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Scmp",
+            "icon": 3,
+            "index": 463,
+            "documentation": "The SCMP() function performs comparison of two integer numeric strings of any length.",
+            "detail": "SCMP(a, b)"
+         },
+         {
+            "key": "Sdiv",
+            "icon": 3,
+            "index": 464,
+            "documentation": "The SDIV function performs division on numeric strings of any length.",
+            "detail": "SDIV(a, b {, r{, dp}})"
+         },
+         {
+            "key": "Seek",
+            "icon": 14,
+            "index": 465,
+            "documentation": "The SEEK statement sets the current read / write position in a directory file record previously opened for sequential access.",
+            "detail": "SEEK file.var {, offset{, relto }} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Select",
+            "icon": 14,
+            "index": 466,
+            "documentation": "The SELECT statement creates a select list containing all record keys from a file.",
+            "detail": "SELECT var {TO list.no} {ON ERROR statement(s)}\r\nSELECTN var {TO list.no} {ON ERROR statement(s)}\r\nSELECTV var {TO list.var} {ON ERROR statement(s)}"
+         },
+         {
+            "key": "Select.Socket",
+            "icon": 3,
+            "index": 467,
+            "documentation": "The SELECT.SOCKET() function monitors multiple sockets for events.",
+            "detail": "SELECT.SOCKET(skt.array, timeout)"
+         },
+         {
+            "key": "Selecte",
+            "icon": 14,
+            "index": 468,
+            "documentation": "The SELECTE statement transfers select list 0 to a select list variable.",
+            "detail": "SELECTE TO list.var"
+         },
+         {
+            "key": "Selectindex",
+            "icon": 14,
+            "index": 469,
+            "documentation": "The SELECTINDEX statement creates a numbered select list from an alternate key index entry.",
+            "detail": "SELECTINDEX index.name {, value} FROM file.var {TO list.no}"
+         },
+         {
+            "key": "Selectinfo",
+            "icon": 3,
+            "index": 470,
+            "documentation": "The SELECTINFO() function returns information about a select list.",
+            "detail": "SELECTINFO(list.no, key)\r\nSELECTINFO(var, key)"
+         },
+         {
+            "key": "Selectindexv",
+            "icon": 14,
+            "index": 470,
+            "documentation": "The SELECTINDEXV statement is similar to the SELECTINDEX statement but creates a select list variable.",
+            "detail": "SELECTINDEXV index.name {, value} FROM file.var TO list.var"
+         },
+         {
+            "key": "Selectleft",
+            "icon": 14,
+            "index": 471,
+            "documentation": "The SELECTLEFT statement creates a numbered select list from the entry in an alternate key index to the left of the last entry processed. ",
+            "detail": "SELECTLEFT index.name FROM file.var {SETTING key} {TO list.no}"
+         },
+         {
+            "key": "Selectleftv",
+            "icon": 14,
+            "index": 472,
+            "documentation": "The SELECTLEFTV is similar to the SELECTLEFT statement but create a select list variable. ",
+            "detail": "SELECTLEFTV index.name FROM file.var {SETTING key} TO list.var"
+         },
+         {
+            "key": "Selectright",
+            "icon": 14,
+            "index": 473,
+            "documentation": "The SELECTRIGHT statement creates a numbered select list from the entry in an alternate key index to the right of the last entry processed. ",
+            "detail": "SELECTRIGHT index.name FROM file.var {SETTING key} {TO list.no}"
+         },
+         {
+            "key": "Selectrightv",
+            "icon": 14,
+            "index": 474,
+            "documentation": "The SELECTRIGHTV is similar to the SELECTRIGHT statement but create a select list variable. ",
+            "detail": "SELECTRIGHTV index.name FROM file.var {SETTING key} TO list.var"
+         },
+         {
+            "key": "Sentence",
+            "icon": 3,
+            "index": 475,
+            "documentation": "The SENTENCE() function returns command line that started the current program.\r\nThe SENTENCE() function is an alternative to the use of the @SENTENCE variable.",
+            "detail": "SENTENCE()"
+         },
+         {
+            "key": "Seq",
+            "icon": 3,
+            "index": 476,
+            "documentation": "The SEQ() function returns the character set position value of a character.\r\nIt is the inverse of the CHAR() or ECHAR() functions.",
+            "detail": "SEQ(char)"
+         },
+         {
+            "key": "Seqs",
+            "icon": 3,
+            "index": 477,
+            "documentation": "The SEQS() function takes a dynamic array of char and returns a similarly structured dynamic array in which each element contains the ASCII value of the character in the corresponding element of char.",
+            "detail": "SEQS(dyn.arr)"
+         },
+         {
+            "key": "Server.Addr",
+            "icon": 3,
+            "index": 478,
+            "documentation": "The SERVER.ADDR() function returns the IP address for a given server name.",
+            "detail": "SERVER.ADDR(server.name)"
+         },
+         {
+            "key": "Server.Window",
+            "icon": 3,
+            "index": 479,
+            "documentation": "The SERVER.WINDOW() function, available only in Windows QMConsole sessions, opens an asynchronous application window.",
+            "detail": "SERVER.WINDOW(program {, parameters})"
+         },
+         {
+            "key": "Set.Arg",
+            "icon": 14,
+            "index": 480,
+            "documentation": "The SET.ARG statement updates a subroutine argument value based on its position in the argument list. It is intended for use with subroutines declared with the VAR.ARGS option.",
+            "detail": "SET.ARG n, value"
+         },
+         {
+            "key": "Set.Break.Handler",
+            "icon": 14,
+            "index": 481,
+            "documentation": "The SET.BREAK.HANDLER statement allows a program to establish a handler subroutine that will be called if the user presses the break key.",
+            "detail": "SET.BREAK.HANDLER name"
+         },
+         {
+            "key": "Set.Ecs.Map",
+            "icon": 3,
+            "index": 482,
+            "documentation": "The SET.ECS.MAP() function selects a given ECS character map.",
+            "detail": "SET.ECS.MAP(name)"
+         },
+         {
+            "key": "Set.Exit.Status",
+            "icon": 14,
+            "index": 483,
+            "documentation": "The SET.EXIT.STATUS statement sets the final exit status returned by QM to the operating system.",
+            "detail": "SET.EXIT.STATUS value"
+         },
+         {
+            "key": "Set.Port.Params",
+            "icon": 3,
+            "index": 484,
+            "documentation": "The SET.PORT.PARAMS() function sets the communications parameters for a serial port.",
+            "detail": "SET.PORT.PARAMS(fvar, params)"
+         },
+         {
+            "key": "Set.Socket.Mode",
+            "icon": 3,
+            "index": 485,
+            "documentation": "The SET.SOCKET.MODE() function sets parameters for an open socket.",
+            "detail": "SET.SOCKET.MODE(skt, key, value)"
+         },
+         {
+            "key": "Set.Status",
+            "icon": 14,
+            "index": 486,
+            "documentation": "The SET.STATUS statement sets a value for return by the STATUS() function.",
+            "detail": "SET.STATUS expr"
+         },
+         {
+            "key": "Set.Timezone",
+            "icon": 14,
+            "index": 487,
+            "documentation": "The SET.TIMEZONE statement sets the time zone for use by the epoch conversion code.",
+            "detail": "SET.TIMEZONE zone"
+         },
+         {
+            "key": "Setleft",
+            "icon": 14,
+            "index": 488,
+            "documentation": "The SETLEFT statement sets the scanning position of an alternate key index at the extreme left of the data.",
+            "detail": "SETLEFT index.name FROM file.var"
+         },
+         {
+            "key": "Setnls",
+            "icon": 14,
+            "index": 489,
+            "documentation": "The SETNLS statement sets the value of a national language support parameter.",
+            "detail": "SETNLS key,  value"
+         },
+         {
+            "key": "Setpu",
+            "icon": 14,
+            "index": 490,
+            "documentation": "The SETPU statement sets the characteristics of a print unit.",
+            "detail": "SETPU key, unit, value"
+         },
+         {
+            "key": "Setrem",
+            "icon": 14,
+            "index": 491,
+            "documentation": "The SETREM statement sets the remove pointer of a string.",
+            "detail": "SETREM offset ON string"
+         },
+         {
+            "key": "Setright",
+            "icon": 14,
+            "index": 492,
+            "documentation": "The SETRIGHT statement sets the scanning position of an alternate key index at the extreme right of the data.",
+            "detail": "SETRIGHT index.name FROM file.var"
+         },
+          {
+            "key": "Shared",
+            "icon": 14,
+            "index": 493,
+            "documentation": "The SHARED statement declares persistent variables to be shared across all instances of a QMBasic class module.",
+            "detail": "SHARED {PRIVATE | PUBLIC} {var1 {,var2...}"
+         },
+         {
+            "key": "Shift",
+            "icon": 3,
+            "index": 494,
+            "documentation": "The SHIFT() function performs a logical bit-shift operation on an integer value.",
+            "detail": "SHIFT(value, shift.len)"
+         },
+         {
+            "key": "Signal",
+            "icon": 3,
+            "index": 495,
+            "documentation": "The SIGNAL() function raises a cross-process application signal.",
+            "detail": "SIGNAL(user.no)"
+         },
+         {
+            "key": "Sin",
+            "icon": 3,
+            "index": 496,
+            "documentation": "The SIN() function returns the sine of a value.",
+            "detail": "SIN(expr)"
+         },
+         {
+            "key": "Sleep",
+            "icon": 3,
+            "index": 497,
+            "documentation": "The SLEEP statement causes the program in which it is executed to pause for a given number of seconds or until a specific time.\r\nThe synonym RQM may be used in place of SLEEP.",
+            "detail": "SLEEP {time}"
+         },
+         {
+            "key": "Smul",
+            "icon": 3,
+            "index": 498,
+            "documentation": "The SMUL() function perform multiplication on numeric strings of any length.",
+            "detail": "SMUL(a, b)"
+         },
+         {
+            "key": "Socket.Info",
+            "icon": 3,
+            "index": 499,
+            "documentation": "The SOCKET.INFO() function returns information about an open socket.",
+            "detail": "SOCKET.INFO(skt, key)"
+         },
+         {
+            "key": "Sort",
+            "icon": 3,
+            "index": 500,
+            "documentation": "The SORT() function creates a sort variable.",
+            "detail": "SORT(key.count, {MAT} flags)"
+         },
+         {
+            "key": "Sortadd",
+            "icon": 3,
+            "index": 501,
+            "documentation": "The SORTADD statement adds data to the sort system.",
+            "detail": "SORTADD sortvar, {MAT} keys {, data}"
+         },
+         {
+            "key": "Sortclear",
+            "icon": 3,
+            "index": 502,
+            "documentation": "The SORTCLEAR statement terminates a sort session, discarding all data.",
+            "detail": "SORTCLEAR sortvar"
+         },
+         {
+            "key": "Sortdata",
+            "icon": 3,
+            "index": 503,
+            "documentation": "The SORTDATA() function returns the data elements from a sort.",
+            "detail": "SORTDATA(sort.var, {max.items})"
+         },
+         {
+            "key": "Sortnext",
+            "icon": 3,
+            "index": 504,
+            "documentation": "The SORTNEXT() function retrieves the next entry from a sort.",
+            "detail": "SORTNEXT(sort.var, {{MAT} keys})"
+         },
+         {
+            "key": "Sort.Compare",
+            "icon": 3,
+            "index": 505,
+            "documentation": "The SORT.COMPARE() function compares two items using a specified set of comparison rules.",
+            "detail": "SORT.COMPARE(string1, string2, mode {, no.case})"
+         },
+         {
+            "key": "Soundex",
+            "icon": 3,
+            "index": 506,
+            "documentation": "The SOUNDEX() function returns a four character string determined by the phonetic content of a string.",
+            "detail": "SOUNDEX(string)"
+         },
+         {
+            "key": "Soundexs",
+            "icon": 3,
+            "index": 507,
+            "documentation": "The SOUNDEXS() function is similar to SOUNDEX() but operates on successive elements of a dynamic array, returning a similarly structured dynamic array of results.",
+            "detail": "SOUNDEXS(dyn.arr)"
+         },
+         {
+            "key": "Space",
+            "icon": 3,
+            "index": 508,
+            "documentation": "The SPACE() function returns a string consisting of a given number of spaces.",
+            "detail": "SPACE(count)"
+         },
+         {
+            "key": "Spaces",
+            "icon": 3,
+            "index": 509,
+            "documentation": "The SPACES() function is similar to SPACE() but operates on successive elements of a dynamic array, returning a similarly structured dynamic array of results.",
+            "detail": "SPACES(dyn.arr)"
+         },
+         {
+            "key": "Splice",
+            "icon": 3,
+            "index": 510,
+            "documentation": "The SPLICE() function concatenates corresponding elements of a dynamic array, inserting a string between each pair of items.",
+            "detail": "SPLICE(array1, string, array2)"
+         },
+         {
+            "key": "Sqrt",
+            "icon": 3,
+            "index": 511,
+            "documentation": "The SQRT() function returns the square root of a value.",
+            "detail": "SQRT(expr)"
+         },
+         {
+            "key": "Squote",
+            "icon": 3,
+            "index": 512,
+            "documentation": "The SQUOTE() function returns a copy of its argument string enclosed in single quotes.",
+            "detail": "SQUOTE(expr)"
+         },
+         {
+            "key": "Squotes",
+            "icon": 3,
+            "index": 513,
+            "documentation": "The SQUOTES() function is similar to the SQUOTE() function but operates on successive elements of a dynamic array, returning a similarly structured dynamic array of results.",
+            "detail": "SQUOTES(dyn.arr)"
+         },
+         {
+            "key": "Sselect",
+            "icon": 14,
+            "index": 514,
+            "documentation": "The SSELECT statement creates a select list containing all record keys from a file sorted into order.",
+            "detail": "SSELECT file.var {TO list.no} {modes} {ON ERROR statement(s)}"
+         },
+         {
+            "key": "Sselectn",
+            "icon": 14,
+            "index": 515,
+            "documentation": "The SSELECT statement creates a numbered select list containing all record keys from a file sorted into order.",
+            "detail": "SSELECTN file.var {TO list.no} {modes} {ON ERROR statement(s)}"
+         },
+         {
+            "key": "Sselectv",
+            "icon": 14,
+            "index": 516,
+            "documentation": "The SSELECTV statement constructs the list in the same way as SSELECT but stores it in a select list variable which can be processed by a subsequent use of READNEXT.\r\nIf the TO clause is omitted, the default select list (numbered list 0) is used.",
+            "detail": "SSELECTV file.var {TO list.var} {modes} {ON ERROR statement(s)}"
+         },
+         {
+            "key": "Ssub",
+            "icon": 3,
+            "index": 517,
+            "documentation": "The SSUB() functions perform subtraction on numeric strings of any length.",
+            "detail": "SSUB(a, b)"
+         },
+         {
+            "key": "Status",
+            "icon": 3,
+            "index": 518,
+            "documentation": "The STATUS() function returns information following execution of certain other statements.\r\nIn many cases, this information gives details of an error condition.",
+            "detail": "STATUS()"
+         },
+         {
+            "key": "Status",
+            "icon": 14,
+            "index": 519,
+            "documentation": "The STATUS statement returns a dynamic array containing a variety of information about an open file.",
+            "detail": "STATUS var FROM file.var THEN statement(s) ELSE statement(s)"
+         },
+         {
+            "key": "Stop",
+            "icon": 3,
+            "index": 520,
+            "documentation": "The STOP statement terminates the current program.",
+            "detail": "STOP {message}"
+         },
+         {
+            "key": "Stope",
+            "icon": 3,
+            "index": 520,
+            "documentation": "The STOPE statement provides STOP compatibility with other multivalue database products.",
+            "detail": "STOPE {message}"
+         },
+         {
+            "key": "Stopm",
+            "icon": 3,
+            "index": 520,
+            "documentation": "The STOPM statement provides STOP compatibility with other multivalue database products.",
+            "detail": "STOPM {message}"
+         },
+         {
+            "key": "Str",
+            "icon": 3,
+            "index": 521,
+            "documentation": "The STR() function returns a string made up of a given number of repeated occurrences of another string.",
+            "detail": "STR(string {, count})"
+         },
+         {
+            "key": "Strs",
+            "icon": 3,
+            "index": 522,
+            "documentation": "The STRS() function is similar to STR() but operates on successive elements of a dynamic array, returning a similarly structured dynamic array of results.",
+            "detail": "STR(dyn.arr {, count})"
+         },
+         {
+            "key": "Subr",
+            "icon": 3,
+            "index": 523,
+            "documentation": "The SUBR() function calls a subroutine as a function in an expression. It is normally only used in dictionary I-type items.",
+            "detail": "SUBR(name {,arg1 {, arg2...})"
+         },
+         {
+            "key": "Subroutine",
+            "icon": 14,
+            "index": 524,
+            "documentation": "The SUBROUTINE statement introduces a subroutine.\r\nThe abbreviation SUB may be used.",
+            "detail": "SUBROUTINE name{(arg1 {, arg2...}) {VAR.ARGS}}"
+         },
+         {
+            "key": "Substitute",
+            "icon": 3,
+            "index": 525,
+            "documentation": "The SUBSTITUTE() function performs substring replacement on successive elements of a dynamic array, returning a similarly structured dynamic array of results.",
+            "detail": "SUBSTITUTE(dyn.array, old.list, new.list {, delimiter})"
+         },
+         {
+            "key": "Substrdw",
+            "icon": 3,
+            "index": 526,
+            "documentation": "The SUBSTRDW() function extracts a substring based on its display width.",
+            "detail": "SUBSTRDW(string, start, length)"
+         },
+         {
+            "key": "Substrdws",
+            "icon": 3,
+            "index": 527,
+            "documentation": "The SUBSTRDWS() function is similar to the SUBSTRDW() function but operates on successive elements of a dynamic array, returning a similarly structured dynamic array of results.",
+            "detail": "SUBSTRDWS(string, start, length)"
+         },
+         {
+            "key": "Substrings",
+            "icon": 3,
+            "index": 528,
+            "documentation": "The SUBSTRINGS() function performs substring extraction on successive elements of a dynamic array, returning a similarly structured dynamic array of results.",
+            "detail": "SUBSTRINGS(dyn.array, start, length)"
+         },
+         {
+            "key": "Sum",
+            "icon": 3,
+            "index": 529,
+            "documentation": "The SUM() function eliminates the lowest level of a dynamic array by adding the elements to form an item of the next highest level.",
+            "detail": "SUM(expr)"
+         },
+         {
+            "key": "Summation",
+            "icon": 3,
+            "index": 530,
+            "documentation": "The SUMMATION() function returns the total value of all elements of a numeric array.",
+            "detail": "SUMMATION(expr)"
+         },
+         {
+            "key": "Swap",
+            "icon": 3,
+            "index": 531,
+            "documentation": "The CHANGE() function replaces occurrences of a substring within a string by another substring.\r\nThe synonym SWAP() can be used.",
+            "detail": "SWAP(string, old, new{, occurrence{, start}})"
+         },
+         {
+            "key": "Swapcase",
+            "icon": 3,
+            "index": 532,
+            "documentation": "The SWAPCASE() function inverts the case of all alphabetic characters in a string.",
+            "detail": "SWAPCASE(string)"
+         },
+         {
+            "key": "Swapmarks",
+            "icon": 3,
+            "index": 533,
+            "documentation": "The SWAPMARKS() function interchanges the mark characters with the Unicode characters that they have displaced in a string.",
+            "detail": "SWAPMARKS(string)"
+         },
+         {
+            "key": "Sysmsg",
+            "icon": 3,
+            "index": 534,
+            "documentation": "The SYSMSG() function returns a message text from the MESSAGES file.",
+            "detail": "SYSMSG(key {, args...})"
+         },
+         {
+            "key": "System",
+            "icon": 3,
+            "index": 535,
+            "documentation": "The SYSTEM() function returns information regarding the status of various aspects of the system.",
+            "detail": "SYSTEM(key)"
+         },
+         {
+            "key": "Tan",
+            "icon": 3,
+            "index": 536,
+            "documentation": "The TAN() function returns the tangent of a value.",
+            "detail": "TAN(expr)"
+         },
+         {
+            "key": "Tclread",
+            "icon": 14,
+            "index": 537,
+            "documentation": "The TCLREAD statement retrieves the sentence that started the current program.",
+            "detail": "TCLREAD var"
+         },
+         {
+            "key": "Terminfo",
+            "icon": 3,
+            "index": 538,
+            "documentation": "The TERMINFO() function returns information from the terminfo database.",
+            "detail": "TERMINFO()\r\nTERMINFO(cap.name)"
+         },
+         {
+            "key": "Terminfo.Ex",
+            "icon": 3,
+            "index": 539,
+            "documentation": "The TERMINFO.EX() function returns extended data from the terminfo database.",
+            "detail": "TERMINFO.EX()\r\nTERMINFO.EX(cap.name)"
+         },
+         {
+            "key": "Testlock",
+            "icon": 3,
+            "index": 540,
+            "documentation": "The TESTLOCK() function returns the state of a task lock.",
+            "detail": "TESTLOCK(lock.num)"
+         },
+         {
+            "key": "Throw",
+            "icon": 14,
+            "index": 541,
+            "documentation": "The THROW statement throws an exception that can be caught in a TRY / CATCH construct.",
+            "detail": "THROW exception {, data}"
+         },
+         {
+            "key": "Time",
+            "icon": 3,
+            "index": 542,
+            "documentation": "The TIME() function returns the current time as the number of seconds since midnight.",
+            "detail": "TIME()"
+         },
+         {
+            "key": "Timedate",
+            "icon": 3,
+            "index": 543,
+            "documentation": "The TIMEDATE() function returns the current time and date as a string.",
+            "detail": "TIMEDATE()"
+         },
+         {
+            "key": "Timeout",
+            "icon": 14,
+            "index": 544,
+            "documentation": "The TIMEOUT statement sets a timeout for READBLK and READSEQ.",
+            "detail": "TIMEOUT file.var, interval"
+         },
+         {
+            "key": "Trans",
+            "icon": 3,
+            "index": 545,
+            "documentation": "The TRANS() function returns a field or the entire record from a named data file.\r\nIt is normally only used in dictionary I-type items. The synonym XLATE() may be used.",
+            "detail": "TRANS({DICT} file.name, record.id, field, action)"
+         },
+         {
+            "key": "Transaction Abort",
+            "icon": 14,
+            "index": 546,
+            "documentation": "The TRANSACTION ABORT statement terminates the transaction, discarding any cached updates.\r\nExecution continues at the statement following the TRANSACTION ABORT.",
+            "detail": "TRANSACTION ABORT"
+         },
+         {
+            "key": "Transaction Commit",
+            "icon": 14,
+            "index": 547,
+            "documentation": "This statement is used to mark the end of a successfully completed transaction.",
+            "detail": "TRANSACTION COMMIT THEN {statements} ELSE {statements}"
+         },
+         {
+            "key": "Transaction Start",
+            "icon": 14,
+            "index": 548,
+            "documentation": "The TRANSACTION START statement starts a new transaction.\r\nAll updates within the transaction are cached and only applied to the database when the TRANSACTION COMMIT statement is executed.",
+            "detail": "TRANSACTION START THEN {statements} ELSE {statements}"
+         },
+         {
+            "key": "Transliterate",
+            "icon": 3,
+            "index": 549,
+            "documentation": "The TRANSLITERATE() function returns a transliterated version of a character string containing only 8 bit characters.",
+            "detail": "TRANSLITERATE(string)"
+         },
+         {
+            "key": "Trim",
+            "icon": 3,
+            "index": 550,
+            "documentation": "The TRIM() function removes excess characters from a string.",
+            "detail": "TRIM(string)\r\nTRIM(string, character{, mode})"
+         },
+         {
+            "key": "Trimb",
+            "icon": 3,
+            "index": 551,
+            "documentation": "The TRIMB() function removes excess spaces from the back of a string.",
+            "detail": "TRIMB(string)"
+         },
+         {
+            "key": "Trimbs",
+            "icon": 3,
+            "index": 552,
+            "documentation": "The TRIMBS() function is similar to TRIMB() but operates on each element of a dynamic array and returns an equivalently structured dynamic array of trimmed strings.",
+            "detail": "TRIMBS(dyn.arr)"
+         },
+         {
+            "key": "Trimf",
+            "icon": 3,
+            "index": 553,
+            "documentation": "The TRIMF() function removes excess spaces from the front of a string.",
+            "detail": "TRIMF(string)"
+         },
+         {
+            "key": "Trimfs",
+            "icon": 3,
+            "index": 554,
+            "documentation": "The TRIMFS() function is similar to TRIMF() but operates on each element of a dynamic array and returns an equivalently structured dynamic array of trimmed strings.",
+            "detail": "TRIMFS(dyn.arr)"
+         },
+         {
+            "key": "Trims",
+            "icon": 3,
+            "index": 555,
+            "documentation": "The TRIMS() function removes excess characters from strings in a dynamic array, operating on each element in turn and returning an equivalently structured dynamic array of trimmed strings.",
+            "detail": "TRIMS(string)\r\nTRIMS(string, character{, mode})"
+         },
+         {
+            "key": "Trimw",
+            "icon": 3,
+            "index": 556,
+            "documentation": "The TRIMW() function removes excess whitespace characters from a string.",
+            "detail": "TRIMW(string)"
+         },
+         {
+            "key": "Trimws",
+            "icon": 3,
+            "index": 557,
+            "documentation": "The TRIMWS() function is similar to TRIMW() but operates on each element of a dynamic array and returns an equivalently structured dynamic array of trimmed strings.",
+            "detail": "TRIMWS(dyn.arr)"
+         },
+         {
+            "key": "Try",
+            "icon": 14,
+            "index": 558,
+            "documentation": "The TRY/CATCH construct allows creation of exception handlers in a manner broadly similar to that of some other programming languages.",
+            "detail": "TRY {statement}\r\n{statements}\r\nCATCH exception {qualifiers}{, exception {qualifiers}...}\r\n{statements}\r\nCATCH exception {qualifiers}{, exception {qualifiers}...}\r\n{statements}\r\nEND"
+         },
+         {
+            "key": "Ttyget",
+            "icon": 3,
+            "index": 559,
+            "documentation": "The TTYGET() function returns a dynamic array containing the current terminal settings.",
+            "detail": "TTYGET()"
+         },
+         {
+            "key": "Ttyset",
+            "icon": 3,
+            "index": 560,
+            "documentation": "The TTYSET statement sets the terminal modes.",
+            "detail": "TTYSET var"
+         },
+         {
+            "key": "Unassigned",
+            "icon": 3,
+            "index": 561,
+            "documentation": "The UNASSIGNED() function tests whether a variable is unassigned.",
+            "detail": "UNASSIGNED(var)"
+         },
+         {
+            "key": "Unlock",
+            "icon": 14,
+            "index": 562,
+            "documentation": "The UNLOCK statement releases one of 64 system wide task locks.",
+            "detail": "UNLOCK {lock.num} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Until",
+            "icon": 14,
+            "index": 563,
+            "documentation": "The UNTIL statement is used in conjunction with the FOR / NEXT or LOOP / REPEAT constructs to determine whether execution of the loop should continue.",
+            "detail": "UNTIL expr"
+         },
+         {
+            "key": "Upcase",
+            "icon": 3,
+            "index": 564,
+            "documentation": "The UPCASE() function returns a string with all letters converted to upper case.",
+            "detail": "UPCASE(string)"
+         },
+         {
+            "key": "Vartype",
+            "icon": 3,
+            "index": 565,
+            "documentation": "The VARTYPE() function returns a value indicating the data type associated with a variable.",
+            "detail": "VARTYPE(variable)"
+         },
+         {
+            "key": "Vocpath",
+            "icon": 3,
+            "index": 566,
+            "documentation": "The VOCPATH() function returns the pathname for a file referenced via the VOC.",
+            "detail": "VOCPATH(filename {, dict.flag})"
+         },
+         {
+            "key": "Void",
+            "icon": 14,
+            "index": 567,
+            "documentation": "The VOID statement discards the result of an associated expression.",
+            "detail": "VOID expr"
+         },
+         {
+            "key": "Vslice",
+            "icon": 3,
+            "index": 568,
+            "documentation": "The VSLICE() function returns a string formed by extracting a given value or subvalue position from a dynamic array.",
+            "detail": "VSLICE(string, vpos)\r\nVSLICE(string, vpos, svpos)"
+         },
+         {
+            "key": "Wait.File.Event",
+            "icon": 3,
+            "index": 569,
+            "documentation": "The WAIT.FILE.EVENT() function waits for a file monitoring event (Windows only).",
+            "detail": "WAIT.FILE.EVENT(event, timeout)"
+         },
+         {
+            "key": "Wake",
+            "icon": 14,
+            "index": 570,
+            "documentation": "The WAKE statement awakens another process that has executed a PAUSE.",
+            "detail": "WAKE user.no"
+         },
+         {
+            "key": "Weofseq",
+            "icon": 14,
+            "index": 571,
+            "documentation": "The WEOFSEQ statement truncates a record open for sequential access at the current position.",
+            "detail": "WEOFSEQ file.var {ON ERROR statement(s)}"
+         },
+         {
+            "key": "While",
+            "icon": 14,
+            "index": 572,
+            "documentation": "The WHILE statement is used in conjunction with the FOR / NEXT or LOOP / REPEAT constructs to determine whether execution of the loop should continue.",
+            "detail": "WHILE expr"
+         },
+         {
+            "key": "Write",
+            "icon": 14,
+            "index": 573,
+            "documentation": "The WRITE statement writes a record to a previously opened file.",
+            "detail": "WRITE var {ENCODING name} TO file.var, record.id {ON ERROR statement(s)}\r\nWRITE var {ENCODING name} TO file.var CREATING.SEQKEY id.var {ON ERROR statement(s)}"
+         },
+         {
+            "key": "Write.Socket",
+            "icon": 14,
+            "index": 574,
+            "documentation": "The WRITE.SOCKET() function writes data to a socket.",
+            "detail": "WRITE.SOCKET(skt, data, flags, timeout)"
+         },
+         {
+            "key": "Writeblk",
+            "icon": 14,
+            "index": 575,
+            "documentation": "The WRITEBLK statement writes data at the current file position in a record previously opened using OPENSEQ.",
+            "detail": "WRITEBLK var {ENCODING name} TO file.var {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Writecsv",
+            "icon": 14,
+            "index": 576,
+            "documentation": "The WRITECSV statement writes data at the current file position in a record previously opened using OPENSEQ.\r\nThe data to be written is assembled from one or more variables and written in CSV format.",
+            "detail": "WRITECSV var1, var2, ... {ENCODING name} TO file.var {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Writelist",
+            "icon": 14,
+            "index": 577,
+            "documentation": "The WRITELIST statement writes a dynamic array to the $SAVEDLISTS file.",
+            "detail": "WRITELIST ids TO list.name"
+         },
+         {
+            "key": "Writeseq",
+            "icon": 14,
+            "index": 578,
+            "documentation": "The WRITESEQ statement writes a string array to a directory file record previously opened for sequential access.",
+            "detail": "WRITESEQ var {ENCODING name} TO file.var {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Writeseqf",
+            "icon": 14,
+            "index": 579,
+            "documentation": "The WRITESEQF statement is identical to the WRIRESEQ statement except that it force writes the data to disk",
+            "detail": "WRITESEQF var {ENCODING name} TO file.var {ON ERROR statement(s)} {THEN statement(s)} {ELSE statement(s)}"
+         },
+         {
+            "key": "Writeu",
+            "icon": 14,
+            "index": 580,
+            "documentation": "The WRITEU statement is identical to the WRITE statement but preserves any lock on the record.",
+            "detail": "WRITEU var {ENCODING name} TO file.var, record.id {ON ERROR statement(s)}\r\nWRITEU var {ENCODING name} TO file.var CREATING.SEQKEY id.var {ON ERROR statement(s)}"
+         },
+         {
+            "key": "Writev",
+            "icon": 14,
+            "index": 581,
+            "documentation": "The WRITEV statement writes a specific field to a record of a previously opened file.",
+            "detail": "WRITEV var {ENCODING name} TO file.var, record.id, field.expr {ON ERROR statement(s)}"
+         },
+         {
+            "key": "Writevu",
+            "icon": 14,
+            "index": 582,
+            "documentation": "The WRITEVU statement is identical to the WRITEV statement but preserves any lock on the record.",
+            "detail": "WRITEVU var {ENCODING name} TO file.var, record.id, field.expr {ON ERROR statement(s)}"
+         },
+         {
+            "key": "Xlate",
+            "icon": 3,
+            "index": 583,
+            "documentation": "The XLATE() function returns a field or the entire record from a named data file. It is normally only used in dictionary I-type items. ",
+            "detail": "XLATE({DICT} file.name, record.id, field, action)"
+         },
+         {
+            "key": "Xtd",
+            "icon": 3,
+            "index": 584,
+            "documentation": "The XTD() function converts a string of hexadecimal characters to a number.",
+            "detail": "XTD(expr)"
+         }
+      ]
+   }
+}
