@@ -1000,42 +1000,42 @@
             "key": "Fadd",
             "icon": 3,
             "index": 143,
-            "documentation": "The FADD function performs the floating point addition of two numeric values.",
+            "documentation": "The FADD function performs the floating point addition of two numeric values.\r\nBoth expression1 and expression 2 must evaluate to non-null numeric values.\r\nIf either of the arguments is not numeric, a runtime 'non-numeric' error will occur.",
             "detail": "FADD(expression1, expression2)"
          },
          {
             "key": "Fdiv",
             "icon": 3,
             "index": 144,
-            "documentation": "The FDIV function performs the floating point division of two numeric values.",
+            "documentation": "The FDIV function performs the floating point division of two numeric values.\r\nBoth expression1 and expression 2 must evaluate to non-null numeric values.\r\nIf either of the arguments evaluates to null then a run time 'non-numeric' error will occur.\r\nIf the second argument evaluates to zero then a run time 'divide by zero' error will occur.\r\nThe calculation is not subject to the PRECISION setting.",
             "detail": "FDIV(expression1, expression2)"
          },
          {
             "key": "Field",
             "icon": 3,
             "index": 145,
-            "documentation": "The FIELD function will return a multi-character delimited field from within a string.",
+            "documentation": "The FIELD function will return a multi-character delimited field from within a string.\r\nstring specifies the string from which the field(s) are to be extracted.\r\ndelimiter specifies the character or characters that delimit the fields within the dynamic array.\r\noccurrence should evaluate to an integer of value 1 or higher.\r\n\tIt specifies the delimiter used as the starting point for the extraction.\r\nextractCount is an integer that specifies the number of fields to extract.\r\n\tIf omitted, 1 is assumed.\r\nIf the emulation option 'jbase_field' is set, then the field delimiter may consist of more than a single character, allowing fields to be delimited by complex codes.\r\nIf extractCount is greater than 1 then only the first character of  delimiter is used, regardless of the setting of jbase_field.",
             "detail": "FIELD(string, delimiter, occurrence{, extractCount})"
          },
          {
             "key": "Fields",
             "icon": 3,
             "index": 146,
-            "documentation": "The FIELDS function is an extension of the FIELD function.\r\nIt returns a dynamic array of multi-character delimited fields from a dynamic array of strings.",
+            "documentation": "The FIELDS function is an extension of the FIELD function.\r\nIt returns a dynamic array of multi-character delimited fields from a dynamic array of strings.\r\nDynArr should evaluate to a dynamic array.\r\nDelimiter specifies the character or characters that delimit the fields within the dynamic array.\r\nOccurrence should evaluate to an integer of value 1 or higher.\r\n\tIt specifies the delimiter used as the starting point for the extraction.\r\nExtractCount is an integer that specifies the number of fields to extract.\r\n\tIf omitted, 1 is assumed.\r\nIf the emulation option 'jbase_field' is set, then the field delimiter may consist of more than a single character, allowing fields to be delimited by complex codes.\r\nIf extractCount is greater than 1 then only the first character of  delimiter is used, regardless of the setting of jbase_field.",
             "detail": "FIELDS(DynArr, Delimiter, Occurrence{, ExtractCount})"
          },
          {
             "key": "Fileinfo",
             "icon": 3,
             "index": 147,
-            "documentation": "The FILEINFO function returns information about a specified file variable.",
+            "documentation": "The FILEINFO function returns information about a specified file variable.\r\nThis function is currently limited to return values to determine if the file variable is a valid file descriptor variable",
             "detail": "FILEINFO(file.variable, key)"
          },
          {
             "key": "Filelock",
             "icon": 14,
             "index": 148,
-            "documentatin": "When the FILELOCK statement is executed, it will attempt to take an exclusive lock on the specified file.",
+            "documentatin": "When the FILELOCK statement is executed, it will attempt to take an exclusive lock on the specified file.\r\nWhen the FILELOCK statement is executed, it will attempt to take an exclusive lock on the entire file.\r\nIf there are any locks currently outstanding on the file, then the statement will block until there are no more locks on the file.\r\nThe use of the LOCKED clause allows the application to perform an unblocked operation.\r\nWhen the FILELOCK statement is blocked waiting for a lock, other processes may continue to perform database operations on that file, including the removal of record locks and also the taking of record locks.\r\nOnce the FILELOCK is taken, it will block ALL database access to the file whether or not the access involves record locks. i.e. a READ will block once a FILELOCK has been executed, as will READU, READL, WRITE, CLEARFILE and so on.\r\nThe lock continues until either the file is closed, the program terminates or a FILEUNLOCK statement is executed",
             "detail": "FILELOCK filevar {LOCKED statements} {ON ERROR statements}"
          },
          {
@@ -1049,154 +1049,154 @@
             "key": "Find",
             "icon": 14,
             "index": 150,
-            "documentation": "The FIND statement allows the location of a specified string within a dynamic array.",
+            "documentation": "The FIND statement allows the location of a specified string within a dynamic array.\r\nexpression1 evaluates to the string to compare every element of the dynamic array with.\r\nVar1 is the dynamic array that will be searched.\r\nThe FIND command will normally find the first occurrence of expression1 unless expression2 is specified.\r\nIf specified then expression2 will cause a specific occurrence of expression1 to located.\r\nThe three variables Var2, Var3, Var4 are used to record the Field, Value and Sub-Value positions in which expression1 was found.\r\nIf expression1 is found in any element of Var1 then Vars 2, 3 and 4 are set to the position in which it was found and any THEN clause of the statement is executed. If expression1 is not found within any element of the dynamic array then Vars 2, 3 and 4 are undefined and the ELSE clause of the statement is executed.\r\nThe statement may omit either the THEN clause or the ELSE clause but may not omit both.",
             "detail": "FIND expression1 IN Var1 {, expression2} SETTING Var2 {, Var3 {, Var4}} THEN | ELSE statement(s)"
          },
          {
             "key": "Findstr",
             "icon": 14,
             "index": 151,
-            "documentation": "The FINDSTR statement is used to locate a string as a substring of a dynamic array element.\r\nIt is similar in operation to the FIND statement.",
+            "documentation": "The FINDSTR statement is used to locate a string as a substring of a dynamic array element.\r\nIt is similar in operation to the FIND statement.\r\neexpression1 evaluates to the string to search every element of the dynamic array with.\r\nVar1 is the actual dynamic array that will be searched.\r\nFINDSTR will normally locate the first occurrence of expression1 unless expression2 is specified.\r\nIf specified then expression2 will cause a specific occurrence of expression1 to be located.\r\nThe three variables Var2, Var3, Var4 are used to record the Field, Value and Sub-Value positions in which expression1 was found.\r\nIf expression1 is found as a substring of any element of Var1 then Vars 2, 3 and 4 are set to the position in which it was found and the THEN clause of the statement is executed if it is present.\r\nIf expression1 is not found within any element of the dynamic array then Vars 2,3 and 4 are undefined and the ELSE clause of the statement is executed.\r\nThe statement may omit either the THEN clause or the ELSE clause but may not omit both.",
             "detail": "FINDSTR expression1 IN Var1 {, expression2} SETTING Var2 {,Var3 {, Var4}} THEN | ELSE statement(s)"
          },
          {
             "key": "Fmt",
             "icon": 3,
             "index": 152,
-            "documentation": "Performs formatting of output data values for use with PRINT and CRT commands.",
+            "documentation": "Performs formatting of output data values for use with PRINT and CRT commands.\r\nMaskExpression -> Numeric Mask Codes: [j][n][m][Z][,][c][$][Fill Character][Length]",
             "detail": "FMT(Variable, MaskExpression)"
          },
          {
             "key": "Fmts",
             "icon": 3,
             "index": 153,
-            "documentation": "Performs formatting of the elements of a dynamic array for output. Each element of the array is independently acted upon and returned as an element in a new dynamic array.",
+            "documentation": "Performs formatting of the elements of a dynamic array for output. Each element of the array is independently acted upon and returned as an element in a new dynamic array.\r\nformat is an expression that evaluates to a string of formatting codes. The Syntax of the format expression is:\r\n[width] [background/fill] justification [edit] [mask]\r\nThe format expression specifies the width of the output field, the placement of background or fill characters, line justification, editing specifications, and format masking.\r\nIf dynamic.array evaluates to null, it returns null.\r\nIf format evaluates to null, the FMTS function fails and the program enters the debugger.",
             "detail": "FMTS(dynamic.array, format)"
          },
          {
             "key": "Fmul",
             "icon": 3,
             "index": 154,
-            "documentation": "The FMUL function performs the floating point multiplication of two numeric values.",
+            "documentation": "The FMUL function performs the floating point multiplication of two numeric values.\r\nBoth expression1 and expression 2 must evaluate to non-null numeric value.\r\nIf either of the arguments evaluates to null then a run time 'non-numeric' error will occur.\r\nThe calculation is not subject to the PRECISION setting.",
             "detail": "FMUL(expression1, expression2)"
          },
          {
             "key": "Fold",
             "icon": 3,
             "index": 155,
-            "documentation": "The FOLD function re-delimits a string by replacing spaces with attribute marks at positions defined by a length parameter.",
+            "documentation": "The FOLD function re-delimits a string by replacing spaces with attribute marks at positions defined by a length parameter.\r\nexpression1 evaluates a string to be re-delimited.\r\nexpression2 evaluates to a positive integer that represents the maximum number of characters between delimiters in the resultant string.\r\nThe FOLD function creates a number of sub-strings such that the length of each sub-string does not exceed the length value in expression2.\r\nSpaces are converted to attribute marks except when in enclosed in sub-strings.\r\nExtraneous spaces are removed.",
             "detail": "FOLD(expression1, expression2)"
          },
          {
             "key": "Footing",
             "icon": 14,
             "index": 156,
-            "documentation": "The FOOTING statement causes all subsequent output to the terminal to be halted at the end of each output page.",
+            "documentation": "The FOOTING statement causes all subsequent output to the terminal to be halted at the end of each output page.\r\nThe expression should evaluate to a string that will be printed at the bottom of every page of output.\r\nThe string may contain a number of special characters that are interpreted and replaced in the string before it is printed.",
             "detail": "FOOTING expression"
          },
          {
             "key": "For",
             "icon": 14,
             "index": 157,
-            "documentation": "The FOR statement allows the programming of looping constructs within the program.\r\nThe loop is controlled by a counting variable and may be terminated early by expressions tested after every iteration.",
+            "documentation": "The FOR statement allows the programming of looping constructs within the program.\r\nThe loop is controlled by a counting variable and may be terminated early by expressions tested after every iteration.\r\nvar is the counting variable used to control the loop.\r\nThe first time the loop is entered var is assigned the value of expression1, which must evaluate to a numeric value.\r\nAfter every iteration of the loop var is automatically incremented by 1.\r\nexpression2 must also evaluate to a numeric value as it causes the loop to terminate when the value of var is greater than the value of this expression.\r\nexpression2 is evaluated at the start of every iteration of the loop and compared with the value of expression1.\r\nIf the STEP expression3 clause is included within the statement, var will automatically be incremented by the value of expression3 after each iteration of the loop. expression3 is evaluated at the start of each iteration. expression3 may be negative, in which case the loop will terminate when var is less than expression2.\r\nThe statement may optionally include either a WHILE or UNTIL clause (not both), which will be evaluated before each iteration of the loop.\r\nWhen the WHILE clause is specified, the loop will only continue with the next iteration if expression4 evaluates to Boolean TRUE.\r\nWhen the UNTIL clause is specified the loop will only continue with the next iteration if expression4 evaluates to Boolean FALSE.\r\nBecause expression2 and expression3 must be evaluated upon each iteration of the loop, complex expressions should only be coded here if they may change within each iteration.\r\nIf the values they yield will not change then the value of these expressions should be assigned to a variable before coding the loop statement.\r\nExpressions 3 and 4 should then be replaced with these variables.\r\nThis can offer large performance increases where complex expressions are being used.",
             "detail": "FOR var = expression1 TO expression2 {STEP expression3}\r\n\r\n{WHILE | UNTIL expression4}\r\nNEXT {var}"
          },
          {
             "key": "FormList",
             "icon": 14,
             "index": 158,
-            "documentation": "The FORMLIST statement creates an active select list from a dynamic array.",
+            "documentation": "The FORMLIST statement creates an active select list from a dynamic array.\r\nvariable1 specifies the dynamic array from which the active select list is to be created\r\nIf variable2 is specified then the newly created list will be placed in the variable.\r\nAlternatively, a select list number in the range 0 to 10 can be specified with listnum.\r\nIf neither variable2 nor listnum is specified then the default list variable will be assumed.",
             "detail": "FORMLIST variable1 {TO variable2 | listnum}"
          },
          {
             "key": "Fsub",
             "icon": 3,
             "index": 159,
-            "documentation": "The FSUB function performs the floating point subtraction of two numeric values.",
+            "documentation": "The FSUB function performs the floating point subtraction of two numeric values.\r\nBoth expression1 and expression 2 must evaluate to non-null numeric values.\r\nIf either of the arguments evaluates to null then a run time 'non-numeric' error will occur.",
             "detail": "FSUB(expression1, expression2)"
          },
          {
             "key": "Function",
             "icon": 14,
             "index": 160,
-            "documentation": "Identifies a user-defined function which can be invoked by other jBC programs.\r\nArguments to the function can optionally be declared.",
+            "documentation": "Identifies a user-defined function which can be invoked by other jBC programs.\r\nArguments to the function can optionally be declared.\r\nname is the name by which the function is invoked.\r\nvariable is an expression used to pass values between the calling program and the function.\r\nThe FUNCTION statement is used to identify user-written source code functions.\r\nEach function must be coded in separate records and the record Id must match that of the Function Name, which in turn should match the reference in the calling program.\r\nThe optional comma separated variable list can be a number of expressions that pass values between the calling programs and the function.\r\nTo pass an array the variable name must be preceded by the MAT keyword.\r\nWhen a user-written function is called, the calling program must specify the same number of variables as are specified in the FUNCTION statement.\r\nAn extra 'hidden' variable is used to return a value from the user-written function.\r\nThe value to be returned can be specified within the Function by the RETURN (value) statement.\r\nIf the RETURN statement is used without a value then by default an empty string is returned.\r\nThe calling program must specify a DEFFUN or DEFB statement to describe the function to be called and the function source must be cataloged and locatable similar to subroutines.",
             "detail": "FUNCTION name {({MAT} variable, {MAT} variable...) }"
          },
          {
             "key": "Ges",
             "icon": 3,
             "index": 161,
-            "documentation": "The GES function performs a comparison of corresponding elements in two dynamic arrays.",
+            "documentation": "The GES function performs a comparison of corresponding elements in two dynamic arrays.\r\nThe GES function compares corresponding elements in the two dynamic arrays.\r\nIf an element from the first dynamic array is greater than or equal to the corresponding element in the second dynamic array ,then a 1 is placed in the corresponding element of the resultant dynamic array.\r\nIf an element from the first dynamic array is less than the corresponding element in the second dynamic array, then a 0 is placed in the corresponding element of the resultant dynamic array.",
             "detail": "GES(DynArr1, DynArr2)"
          },
          {
             "key": "Get",
             "icon": 14,
             "index": 162,
-            "documentation": "The GET statement reads a block of data directly from a device.",
+            "documentation": "The GET statement reads a block of data directly from a device.\r\nVar is the variable in which to place the input (from the previously open Device).\r\nIf length is specified, it limits the number of characters read from the input device.\r\nIf the optional Count option is used, it returns the number of characters actually read from the device.\r\nDevice is the file variable associated with the result from a successful OPENSEQ or OPENSER command.\r\nTermChars specifies one or more characters that will terminate input.\r\nTermChar The actual character that terminated input.\r\nTimeout is the number of seconds to wait for input.\r\nIf no input is present when the timeout period expires, the ELSE clause (if specified) is executed.\r\nThe GET statement does no pre-or post-processing of the input data stream - nor does it handle any terminal echo characteristics.\r\nIt is assumed that if this is desired the application - or device drive - will handle it.\r\nIf the length and timeout expressions are not specified, the default input length is one (1) character.\r\nIf no length is specified, but TermChars are, there is no limit to the number of characters input.\r\nThe GET syntax requires that either a THEN or ELSE clause, or both, be specified.\r\nIf the data is received without error, the THEN clause is executed.\r\nIf the data cannot be received (or a timeout occurs), the ELSE clause is executed.",
             "detail": "GET Var {,length} {SETTING Count} FROM Device {UNTIL TermChars} {RETURNING TermChar} {WAITING Timeout} THEN | ELSE statements"
          },
          {
             "key": "Getx",
             "icon": 14,
             "index": 163,
-            "documentation": "The GETX statement reads a block of data (in ASCII hexadecimal format) directly from a device.",
+            "documentation": "The GETX statement reads a block of data (in ASCII hexadecimal format) directly from a device.\r\nVar is the variable in which to place the input (from the previously open Device).\r\nIf length is specified, it limits the number of characters read from the input device.\r\nIf the optional Count option is used, it returns the number of characters actually read from the device.\r\nDevice is the file variable associated with the result from a successful OPENSEQ or OPENSER command.\r\nTermChars specifies one or more characters that will terminate input.\r\nTermChar The actual character that terminated input.\r\nTimeout is the number of seconds to wait for input.\r\nIf no input is present when the timeout period expires, the ELSE clause (if specified) is executed.\r\nThe GETX statement does no pre-or post-processing of the input data stream - nor does it handle any terminal echo characteristics.\r\nIt is assumed that if this is desired the application - or device drive - will handle it.\r\nIf the length and timeout expressions are not specified, the default input length is one (1) character.\r\nIf no length is specified, but TermChars are, there is no limit to the number of characters input.\r\nThe GETX syntax requires that either a THEN or ELSE clause, or both, be specified.\r\nIf the data is received without error, the THEN clause is executed.\r\nIf the data cannot be received (or a timeout occurs), the ELSE clause is executed.\r\nGETX will convert all input into ASCII hexadecimal format after input.",
             "detail": "GETX Var {,length} {SETTING Count} FROM Device {UNTIL TermChars} {RETURNING TermChar} {WAITING Timeout} THEN | ELSE statements"
          },
          {
             "key": "Getcwd",
             "icon": 3,
             "index": 164,
-            "documentation": "The GETCWD function allows a jBC program to determine the current working directory of the program.\r\nThis will normally be the directory from which the program was executed but may have been changed with the CHDIR function.",
+            "documentation": "The GETCWD function allows a jBC program to determine the current working directory of the program.\r\nThis will normally be the directory from which the program was executed but may have been changed with the CHDIR function.\r\nWhen executed the Var will be set to the name of the current working directory.\r\nThe function itself returns a Boolean TRUE or FALSE value indicating whether the command was successful or not.\r\nRefer to your UNIX or Windows documentation (sh is a good place to start), for more information on the concept of the current working directory.",
             "detail": "GETCWD(Var)"
          },
          {
             "key": "Getenv",
             "icon": 3,
             "index": 165,
-            "documentation": "The GETENV function allows a jBC program to determine the value of any of the environment variables associated with it.",
+            "documentation": "The GETENV function allows a jBC program to determine the value of any of the environment variables associated with it.\r\nThe expression should evaluate to the name of the environment variable whose value is to be returned.\r\nThe function will then assign the value of the environment variable to variable.\r\nThe function itself returns a Boolean TRUE or FALSE value indicating the success or failure of the function.",
             "detail": "GETENV(expression, variable)"
          },
          {
             "key": "Getlist",
             "icon": 14,
             "index": 166,
-            "documentation": "GETLIST allows the program to retrieve a previously stored list (perhaps created with the SAVE-LIST command), into a jBC variable.",
+            "documentation": "GETLIST allows the program to retrieve a previously stored list (perhaps created with the SAVE-LIST command), into a jBC variable.\r\nvariable1 is the variable into which the list will be read. expression should evaluate to the name of a previously stored list to retrieve, or null.\r\nIf expression evaluates to null, the current default external select list (generated by a previous SELECT command for example) will be retrieved.\r\nIf specified, variable2 will be set to the number of elements in the list.\r\nIf the statement succeeds in retrieving the list, then the statements associated with any THEN clause will be executed.\r\nIf the statement fails to find the list, then the statements associated with any ELSE clause will be executed.\r\nThe GETLIST statement is identical in function to the READLIST statement.",
             "detail": "GETLIST expression TO variable1 {SETTING variable2} THEN|ELSE statements"
          },
          {
             "key": "Gosub",
             "icon": 14,
             "index": 167,
-            "documentation": "The GOSUB statement causes execution of a local subroutine, after which execution will continue with the next line of code.",
+            "documentation": "The GOSUB statement causes execution of a local subroutine, after which execution will continue with the next line of code.\r\nThe label should refer to an existent label within the current source code.\r\nThis label denotes the start of a local subroutine.\r\nLabels can be numeric or alphanumeric but an alphanumeric label must be terminated with a colon when used to denote the start of a local subroutine.\r\nNumeric labels can be terminated with a colon but it is not mandatory.\r\nThe use of the colon in the GOSUB statement is optional.",
             "detail": "GOSUB label[:]"
          },
          {
             "key": "Goto",
             "icon": 14,
             "index": 168,
-            "documentation": "The GOTO statement causes program execution to jump to the code at a specified label.",
+            "documentation": "The GOTO statement causes program execution to jump to the code at a specified label.\r\nThe label should refer to an existing label within the current source code.\r\nLabels can be numeric or alphanumeric but alphanumeric labels must be terminated with a colon.\r\nNumeric labels can be terminated with a colon but it is not mandatory.\r\nThe use of the colon in the GOTO statement is optional.\r\n\r\nThe use of the GOTO command is not recommended as it obscures the readability of code and therefore is a hindrance to maintainability.\r\nAll programs written using the GOTO construct can be written using structured statements such as LOOP and FOR.\r\nOpinions on this are divided but the consensus is that GOTO should be avoided.\r\nOne possibly acceptable use of the GOTO statement is to transfer execution to an error handler upon detection of a fatal error that will cause the program to terminate.",
             "detail": "GOTO label[:]\r\nGO TO label[:]\r\nGO label[:]"
          },
          {
             "key": "Group",
             "icon": 3,
             "index": 169,
-            "documentation": "The GROUP function is equivalent to the FIELD function.",
+            "documentation": "The GROUP function is equivalent to the FIELD function.\r\nExpression1 evaluates to the string containing fields to be extracted.\r\nExpression2 evaluates to the character(s) delimiting each field within Expression1.\r\nExpression3 should evaluate to a numeric value specifying the number of the first field to extract from Expression1.\r\nExpression4 evaluates to a numeric value specifying the number of fields to extract as a group.\r\nExpression2 may evaluate to more than a single character allowing fields to be delimited with complex expressions.",
             "detail": "GROUP(Expression1, Expression2, Expression3, Expression4)"
          },
          {
             "key": "Groupstore",
             "icon": 14,
             "index": 170,
-            "documentation": "The GROUPSTORE statement substitutes one group of characters with another group of characters.",
+            "documentation": "The GROUPSTORE statement substitutes one group of characters with another group of characters.\r\nfrom.var The string which will be inserted into the 'to.var' variable.\r\nto.var The string which will be amended.\r\nstart The starting group number in 'to.var' which will be replaced.\r\n\tIf 'start' is less than 0 , then the absolute value of 'start' is used. If 'start' is zero, then it defaults to 1.\r\n\tIf 'start' exceeds the number of groups in 'to.var' then delimiters will be added as necessary.\r\nreplace The number of groups in 'to.var' that will be replaced.\r\n\tIf 'replace' is greater than 0, then 'replace' groups of 'from.var' will replace 'replace' groups in 'from.var'\r\n\tIf 'replace' is 0 , then all of 'from.var' will be inserted.\r\n\tIf 'replace' is less than 0, the absolute value of 'replace' is used.\r\ndelim This optionally specifies the delimiting character to use, with an attribute mark (CHAR(254)) as a default.\r\n\tIf the string is more than one character, only the first character is used.",
             "detail": "GROUPSTORE from.var IN to.var USING start,replace{,delim}"
          },
          {
             "key": "Heading",
             "icon": 14,
             "index": 171,
-            "documentation": "The HEADING statement causes all subsequent output to the terminal to be halted at the end of each page.\r\nThe statement allows an expression to be evaluated and displayed at the top of each page.\r\nIf output is currently being sent to the terminal, output is paused until a carriage return is entered at the terminal - unless the N option is specified.",
+            "documentation": "The HEADING statement causes all subsequent output to the terminal to be halted at the end of each page.\r\nThe statement allows an expression to be evaluated and displayed at the top of each page.\r\nIf output is currently being sent to the terminal, output is paused until a carriage return is entered at the terminal - unless the N option is specified.\r\nThe expression should evaluate to a string that will be printed at the top of every page of output.\r\nThe string may contain a number of special characters that are interpreted and replaced in the string before it is printed.\r\nIf ON channel is specified then it is assumed that a PRINTER ON statement is in force and the heading will be sent to the spooler channel number assigned from a SP-ASSIGN statement.\r\nIf output is being directed to the printer (a PRINTER ON statement is in force), output sent to the terminal with the CRT statement will not be paged.\r\nIf output is being sent to the terminal, all output will be paged unless the N option is specified.\r\nThe second and subsequent HEADING statements cause a page throw in the output to the terminal or the printer. However if the HEADING expression is preceded by an attribute mark then the page throw does not occur and the new heading is used at the next 'natural' page break or PAGE statement.\r\nThe emulation option 'defer_header_output' can also be used to obtain this behavior without using the attribute mark.",
             "detail": "HEADING {ON channel} expression"
          },
          {
@@ -1217,7 +1217,7 @@
             "key": "Hush",
             "icon": 14,
             "index": 174,
-            "documentation": "The HUSH statement turns the echoing of characters typed at the keyboard on or off.",
+            "documentation": "The HUSH statement turns the echoing of characters typed at the keyboard on or off.\r\nON suppresses input and output\r\nOFF resumes input and output\r\nINPUT suppresses input only\r\nexpression must evaluate to one of the above values\r\nHUSH acts as a toggle.\r\nIf it is used without a qualifier, it changes the current state.\r\nIt is not recommended that the statement be used to shut off output display unless it is really necessary.\r\nWhen HUSH ON is used, all output is suppressed including error messages and requests for information.",
             "detail": "HUSH ON\r\nHUSH OFF\r\nHUSH expression"
          },
          {
