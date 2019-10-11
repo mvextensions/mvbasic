@@ -1231,28 +1231,28 @@
             "key": "Iconvs",
             "icon": 3,
             "index": 176,
-            "documentation": "The ICONVS function converts each element of a dynamic array to a specified internal storage format.",
+            "documentation": "The ICONVS function converts each element of a dynamic array to a specified internal storage format.\r\nconversion is an expression that evaluates to one or more valid conversion codes, separated by value marks (ASCII 253).\r\nEach element of dynamic.array is converted to the internal format specified by conversion and is returned in a dynamic array.\r\nIf multiple codes are used, they are applied from left to right. The first conversion code converts the value of each element of dynamic.array.\r\nThe second conversion code converts the value of each element of the output of the first conversion, and so on.\r\nIf dynamic.array evaluates to null, it returns null.\r\nIf an element of dynamic.array is null, it returns null for that element.\r\nIf conversion evaluates to null, the ICONV function fails and the program terminates with a run-time error message.\r\nThe STATUS function will reflect the result of the conversion.",
             "detail": "ICONVS(dynamic array, conversion)"
          },
          {
             "key": "If",
             "icon": 14,
             "index": 177,
-            "documentation": "The IF statement is used to allow other statements to be conditionally executed.",
+            "documentation": "The IF statement is used to allow other statements to be conditionally executed.\r\nThe expression will be evaluated to a value of Boolean TRUE or FALSE.\r\nIf the expression is TRUE then the statements defined by the THEN clause will be executed (if present).\r\nIf the expression is FALSE then the statements defined by the ELSE clause are executed.\r\nThe THEN and ELSE clauses may take two different forms, being either single and multiple line statements.",
             "detail": "IF expression THEN|ELSE statements"
          },
          {
             "key": "Ifs",
             "icon": 3,
             "index": 178,
-            "documentation": "The IFS function returns a dynamic array whose elements are chosen individually from one of two dynamic arrays based on the contents of a third dynamic array.",
+            "documentation": "The IFS function returns a dynamic array whose elements are chosen individually from one of two dynamic arrays based on the contents of a third dynamic array.\r\nIFS evaluates each element of the dynamic array.\r\nIf the element evaluates to true, it returns the corresponding element from true.array to the same element of a new dynamic array.\r\nIf the element evaluated to false, it returns the corresponding element from false.array.\r\nIf there is no corresponding element in the correct response array, it returns an empty string for that element.\r\nIf an element is null, the element evaluates to false.",
             "detail": "IFS (dynamic.array, true.array, false.array)"
          },
          {
             "key": "In",
             "icon": 14,
             "index": 179,
-            "documentation": "The IN statement allows the program to receive raw data from the input device, which is normally the terminal keyboard, one character at a time.",
+            "documentation": "The IN statement allows the program to receive raw data from the input device, which is normally the terminal keyboard, one character at a time.\r\nVar will be assigned the numeric value (0 - 255 decimal) of the next character received from the input device.\r\nThe statement will normally wait indefinitely (block) for a character from the keyboard.\r\nSpecifying the FOR clause to the IN statement allows the statement to stop waiting for keyboard after a specified amount of time.\r\nThe expression should evaluate to a numeric value, which will be taken as the number of deci-seconds (tenths of a second) to wait before abandoning the input.\r\nThe FOR clause must have either or both of the THEN or ELSE clauses.\r\nIf a character is received from the input device before the time-out period then Var is assigned its numeric value and the THEN clause is executed (if present).\r\nIf the input statement times out before a character is received then Var is unaltered and the ELSE clause is executed (if present).",
             "detail": "IN Var {FOR expression THEN|ELSE statements}"
          },
          {
@@ -1266,28 +1266,28 @@
             "key": "Index",
             "icon": 3,
             "index": 181,
-            "documentation": "The INDEX function will return the position of a character or characters within another string.",
+            "documentation": "The INDEX function will return the position of a character or characters within another string.\r\nexpression1 evaluates to the string to be searched.\r\nexpression2 evaluates to the string or character that will be searched for within expression1.\r\nexpression3 should evaluate to a numeric value and specifies which occurrence of expression2 should be searched for within expression1.\r\nIf the specified occurrence of expression2 cannot be found in expression1 then 0 is returned.",
             "detail": "INDEX(expression1, expression2, expression3)"
          },
          {
             "key": "Indices",
             "icon": 3,
             "index": 182,
-            "documentation": "The INDICES function will return information on all of the indexes associated with a specified file.",
+            "documentation": "The INDICES function will return information on all of the indexes associated with a specified file.\r\nThis function has a dual purpose.\r\nIn its first invocation whereby a single parameter is passed, assumed to be a file descriptor, will return a dynamic array of all the index names associated with the file.\r\nIn its second invocation two parameters are passed, the first being a file variable again and the second the name of an index.\r\nIn this case the return value from the function will be a dynamic array containing information about the specified index.",
             "detail": "INDICES(filevar { , index-name } )"
          },
          {
             "key": "Inmat",
             "icon": 3,
             "index": 183,
-            "documentation": "The INMAT() function returns the number of dimensioned array elements.",
+            "documentation": "The INMAT() function returns the number of dimensioned array elements.\r\nThe INMAT() function, used without the 'array' argument, returns the number of dimensioned array elements from the most recent MATREAD, MATREADU or MATPARSE statement.\r\nIf the number of array elements exceeds the number of elements specified in the corresponding DIM statement, the INMAT() function will return zero.\r\nWhen the INMAT() function is used with the 'array' argument, it returns the current number of elements to which 'array' was dimensioned.\r\nIn some multi-value dialects the INMAT() function is also used to return the modulo of a file after the execution of an OPEN statement.\r\nThis is inconsistent with its primary purpose and has not been implemented in jBASE.\r\nTo achieve this functionality use the IOCTL() function with the JIOCTL_COMMAND_FILESTATUS command.",
             "detail": "INMAT( {array} )"
          },
          {
             "key": "Input",
             "icon": 14,
             "index": 184,
-            "documentation": "The INPUT statement allows the program to collect data from the current input device, which will normally be the terminal keyboard but may be stacked input from the same or separate program.",
+            "documentation": "The INPUT statement allows the program to collect data from the current input device, which will normally be the terminal keyboard but may be stacked input from the same or separate program.\r\n@(expression1, expression2) allows the screen cursor to be positioned to the specified column and row before the input prompt is sent to the screen.\r\nThe syntax for this is exactly the same as for the @() function described elsewhere.\r\nVar is the variable in which the input data is to be stored.\r\nexpression3, when specified, should evaluate to a numeric value.\r\nThis will cause input to be terminated with an automatic newline sequence after exactly this number of characters has been input.\r\nIf the _ option is specified with expression4 then the automatic newline sequence is not specified but any subsequent input characters are belled to the terminal and thrown away.\r\nexpression4, when specified, should evaluate to a sequence of 1 to 3 characters.\r\nThe first character will be printed 'expression3' times to define the field on the terminal screen.\r\nAt the end of the input, if less than 'expression3' characters were input, then the rest of the field is padded with the second character if it was supplied.\r\nIf the third character is supplied then the cursor will be positioned after the last character input rather than at the end of the input field.\r\nThe : option, when specified, suppress the echoing of the newline sequence to the terminal.\r\nThis will leave the cursor positioned after the last input character on the terminal screen.\r\nWITH expression5 allows the default input delimiter (the newline sequence) to be changed.\r\nWhen specified, expression5, should evaluate to a string of up to 256 characters, each of which may delimit the input field.\r\nIf this clause is used then the newline sequence is removed as a delimiter and must be specified explicitly within expression5 as CHAR(10).\r\nThe FOR clause allows the INPUT statement to time out after a specified waiting period instead of blocking as normal.\r\nExpression6 should evaluate to a numeric value, which will be taken as the number of deci-seconds (tenths of a second) to wait before timing out.\r\nThe time-out value is used as the time between each keystroke and should a time-out occur,\r\nVar will hold the characters that were input until the time-out.\r\nThe FOR clause requires either or both of the THEN and ELSE clauses.\r\nIf no time-out occurs the THEN clause is taken.\r\nIf a time-out does occur the ELSE clause is taken.",
             "detail": "INPUT {@(expression1{, expression2 )}{:} Var{{, expression3}, expression4} {:}{_} {WITH expression5} {FOR expression6 THEN|ELSE statements}"
          },
          {
