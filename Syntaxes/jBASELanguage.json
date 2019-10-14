@@ -1294,154 +1294,154 @@
             "key": "Inputclear",
             "icon": 14,
             "index": 185,
-            "documentation": "The INPUTCLEAR statement clears the type-ahead buffer.",
+            "documentation": "The INPUTCLEAR statement clears the type-ahead buffer.\r\nINPUTCLEAR only clears the type-ahead buffer.\r\nIt does not clear data stacked with the DATA statement.\r\nThe INPUTCLEAR statement is synonymous with CLEARINPUT.",
             "detail": "INPUTCLEAR"
          },
          {
             "key": "Inputnull",
             "icon": 14,
             "index": 186,
-            "documentation": "The INPUTNULL statement allows the definition of a character that will allow a null input to be seen by the INPUT@ statement.",
+            "documentation": "The INPUTNULL statement allows the definition of a character that will allow a null input to be seen by the INPUT@ statement.\r\nThe expression should evaluate to a single character.\r\nSubsequently, any INPUT@ statement that sees only this character input before the new-line sequence will NULL the variable in which input is being stored.\r\nIf expression evaluates to the NULL string \" then the default character of _ is used to define a NULL input sequence.\r\nThe INPUT statement does not default to accepting the _ character as a NULL input, the programmer must explicitly allow this with the statement:\r\n\tINPUTNULL \"",
             "detail": "INPUTNULL expression"
          },
          {
             "key": "Ins",
             "icon": 14,
             "index": 187,
-            "documentation": "The INS statement allows the insertion of elements into a dynamic array.",
+            "documentation": "The INS statement allows the insertion of elements into a dynamic array.\r\nexpression evaluates to the element to be inserted in the dynamic array.\r\nexpression1, expression2 and expression3 should all evaluate to numeric values and specify the Field, Value and Sub-Value before which the new element is to be inserted.\r\nSpecifying a negative value to any of expressions 1 through 3 will cause the element to be appended as the last Field, Value or Sub-Value rather than at a specific position.\r\nOnly one of the expressions may be negative, otherwise the first negative value is used correctly but the others are treated as the value 1.\r\nThe statement will insert NULL Fields, Values or Sub-Values accordingly if any of the specified insertion points exceeds the number currently existing.",
             "detail": "INS expression BEFORE Var<expression1{, expression2{, expression3}}>"
          },
          {
             "key": "Insert",
             "icon": 3,
             "index": 188,
-            "documentation": "INSERT is the function form of the INS statement, which should be used in preference to this function.",
+            "documentation": "INSERT is the function form of the INS statement, which should be used in preference to this function.\r\nexpression1 evaluates to a dynamic array in which to insert a new element and will normally be a variable.\r\nexpression2, expression3 and expression4 should evaluate to numeric values and specify the Field, Value and Sub-Value before which the new element will be inserted.\r\nexpression5 evaluates to the new element to be inserted in expression1.",
             "detail": "INSERT(expression1, expression2{, expression3 {, expression4 }}; expression5)"
          },
          {
             "key": "Int",
             "icon": 3,
             "index": 189,
-            "documentation": "The INT function truncates a numeric value into its nearest integer form.",
+            "documentation": "The INT function truncates a numeric value into its nearest integer form.\r\nexpression should evaluate to a numeric value.\r\nThe function will then return the integer portion of the value.\r\nThe function works by truncating the fractional part of the numeric value rather than by standard mathematical rounding techniques.\r\nTherefore INT(9.001) and INT(9.999) will both return the value 9.",
             "detail": "INT(expression)"
          },
          {
             "key": "Ioctl",
             "icon": 3,
             "index": 190,
-            "documentation": "The purpose of the IOCTL function is to allow commands to be sent to the database driver for a particular file, and then to receive a reply from that same databasedriver.",
+            "documentation": "The purpose of the IOCTL function is to allow commands to be sent to the database driver for a particular file, and then to receive a reply from that same databasedriver.\r\nFilevar\tIs a variable that has had a file opened against it using the OPEN statement.\r\n\tHowever, if you want to use the default file variable, use -1 in this position.\r\nCommand\tCan be any numeric value (or variable containing a numeric).\r\n\tHowever, it is up to the database driver to support that particular command number.\r\nStatus\tProvide a jBC variable here.\r\n\tThe use of this variable depends upon the command parameter, and will be described later for each command supported.\r\n\tThe return value is 0 for failure, or 1 for success.\r\n\tA value of -1 generally shows the command has not been recognized.",
             "detail": "IOCTL(Filevar, Command, Parameter)"
          },
          {
             "key": "Isalnum",
             "icon": 3,
             "index": 191,
-            "documentation": "The ISALNUM function checks that an expression consists entirely of alphanumeric characters.",
+            "documentation": "The ISALNUM function checks that an expression consists entirely of alphanumeric characters.\r\nexpression can return a result of any type.\r\nThe ISALNUM function will then return TRUE (1) if the expression consists of entirely alphanumeric characters.\r\nThe function will return FALSE (0) if any character in the expression is not alphanumeric.\r\nWhen the ISALNUM function is used in International Mode the properties of each character are determined according to the Unicode Standard.",
             "detail": "ISALNUM( expression)"
          },
          {
             "key": "Isalpha",
             "icon": 3,
             "index": 192,
-            "documentation": "The ISALPHA function checks that an expression consists entirely of alphabetic characters.",
+            "documentation": "The ISALPHA function checks that an expression consists entirely of alphabetic characters.\r\nexpression can return a result of any type.\r\nThe ISALPHA function will then return TRUE (1) if the expression consists of entirely alphabetic characters.\r\nThe function will return FALSE (0) if any character in the expression is not alphabetic.\r\nWhen the ISALPHA function is used in International Mode the properties of each character are determined according to the Unicode Standard.",
             "detail": "ISALPHA( expression)"
          },
          {
             "key": "Iscntrl",
             "icon": 3,
             "index": 193,
-            "documentation": "The ISCNTRL function checks that an expression consists entirely of control characters.",
+            "documentation": "The ISCNTRL function checks that an expression consists entirely of control characters.\r\nexpression can return a result of any type.\r\nThe ISCNTRL function will then return TRUE (1) if the expression consists of entirely control characters.\r\nThe function will return FALSE (0) if any character in the expression is not a control character.\r\nWhen the ISCNTRL function is used in International Mode the properties of each character are determined according to the Unicode Standard.",
             "detail": "ISCNTRL( expression)"
          },
          {
             "key": "Isdigit",
             "icon": 3,
             "index": 194,
-            "documentation": "The ISDIGIT function checks that an expression consists entirely of numeric characters.",
+            "documentation": "The ISDIGIT function checks that an expression consists entirely of numeric characters.\r\nexpression can return a result of any type.\r\nThe ISDIGIT function will then return TRUE (1) if the expression consists entirely of numeric characters.\r\nThe function will return FALSE (0) if any character in the expression is not numeric.\r\nWhen the ISDIGIT function is used in International Mode the properties of each character are determined according to the Unicode Standard.",
             "detail": "ISDIGIT( expression)"
          },
          {
             "key": "Isprint",
             "icon": 3,
             "index": 195,
-            "documentation": "The ISPRINT function checks that an expression consists entirely of printable characters.",
+            "documentation": "The ISPRINT function checks that an expression consists entirely of printable characters.\r\nexpression can return a result of any type.\r\nThe ISPRINT function will then return TRUE (1) if the expression consists of entirely printable characters.\r\nThe function will return FALSE (0) if any character in the expression is not printable.\r\nWhen the ISPRINT function is used in International Mode the properties of each character are determined according to the Unicode Standard.",
             "detail": "ISPRINT( expression)"
          },
          {
             "key": "Isspace",
             "icon": 3,
             "index": 196,
-            "documentation": "The ISSPACE function checks that an expression consists entirely of space characters.",
+            "documentation": "The ISSPACE function checks that an expression consists entirely of space characters.\r\nexpression can return a result of any type.\r\nThe ISSPACE function will then return TRUE (1) if the expression consists of entirely space type characters.\r\nThe function will return FALSE (0) if any character in the expression is not a space.\r\nWhen the ISSPACE function is used in International Mode the properties of each character are determined according to the Unicode Standard.",
             "detail": "ISSPACE( expression)"
          },
          {
             "key": "Isupper",
             "icon": 3,
             "index": 197,
-            "documentation": "The ISUPPER function checks that an expression consists entirely of upper case characters.",
+            "documentation": "The ISUPPER function checks that an expression consists entirely of upper case characters.\r\nexpression can return a result of any type.\r\nThe ISUPPER function will then return TRUE (1) if the expression consists of entirely upper case characters.\r\nThe function will return FALSE (0) if any character in the expression is not upper case.\r\nWhen the ISUPPER function is used in International Mode the properties of each character are determined according to the Unicode Standard.",
             "detail": "ISUPPER( expression)"
          },
          {
             "key": "Jbasecoredump",
             "icon": 3,
             "index": 198,
-            "documentation": "The JBASECOREDUMP function is a diagnostic tool for applications that allows a portion of the application to be dumped to an external file for later analysis.",
+            "documentation": "The JBASECOREDUMP function is a diagnostic tool for applications that allows a portion of the application to be dumped to an external file for later analysis.\r\nThe first expression provides the name of the operating system file to output the core dump to.\r\nYou can supply \"\" instead of a file name and jBASE allocates a filename of:\r\n\t/JBASECOREDUMP_nnnn_mmmmm\r\nwhere nnn is the port number and mmmmmm is the process id.\r\nThe second expression is not used at present.\r\nFuture versions will allow extra information to be selectively dumped.\r\nA null string is always returned from the function.",
             "detail": "JBASECOREDUMP(expression1, expression2)"
          },
          {
             "key": "Jbasethreadcreate",
             "icon": 3,
             "index": 199,
-            "documentation": "The JBASETHREADCreate function starts a new thread from the current process.",
+            "documentation": "The JBASETHREADCreate function starts a new thread from the current process.\r\nProgramName\tName of program to execute\r\nArguments\tCommand line arguments\r\nReserved\tThis internal string parameter is required and must always be set to \"\" (null)\r\nHandle\tThis variable will contain the returned thread handle",
             "detail": "JBASETHREADCreate(ProgramName, Arguments, Reserved, Handle)"
          },
          {
             "key": "Jbasethreadstatus",
             "icon": 3,
             "index": 200,
-            "documentation": "The JBASETHREADStatus function returns the status of all running threads.",
+            "documentation": "The JBASETHREADStatus function returns the status of all running threads.\r\nThreadList\tA list of all active thread handles in this process, with one attribute per thread.",
             "detail": "JBASETHREADStatus(ThreadList)"
          },
          {
             "key": "Jqlcompile",
             "icon": 3,
             "index": 201,
-            "documentation": "The JQLCOMPILE function compiles a jQL statement.",
+            "documentation": "The JQLCOMPILE function compiles a jQL statement.\r\nStatement\tis the variable, which will receive the compiled statement, used by a majority of functions to execute and work on the result set etc.\r\nCommand\tis the actual jQL query that you want to compile (such as SELECT or something similar).\r\n\tUse RETRIEVE to obtain data records as the verb rather than an existing jQL verb.\r\n\tThis will ensure that the right options are set internally. \r\n\tn addition, use any word that is not a jQL reserved word as the verb and it will work in the same way as RETRIEVE:\r\n\timplement a PLOT command that passes the entire command line into JQLCOMPILE and the results will be the same as if the first word were replaced with RETRIEVE.\r\nOption:\tyou must specify JQLOPT_USE_SELECT to supply a select list to the JQLEXECUTE function; the compile builds a different execution plan if using select lists.\r\nMessages:\tIf the statement fails to compile, this dynamic array is in the STOP format, therefore STOP messages can be programmed and printed.\r\n\tProvides a history of compilation for troubleshooting purposes;\r\n\tReturns -1 if there is a problem found in the statement and 0 for no problem",
             "detail": "JQLCOMPILE(Statement, Command, Options, Messages)"
          },
          {
             "key": "Jqlexecute",
             "icon": 3,
             "index": 202,
-            "documentation": "The JQLEXECUTE statement executes a compiled jQL statement.",
+            "documentation": "The JQLEXECUTE statement executes a compiled jQL statement.\r\nStatement\tis the valid result of a call to a JQLCOMPILE statement\r\nSelectVar\tis a valid select list used to limit the statement to a predefined set of items.-",
             "detail": "JQLEXECUTE(Statement, SelectVar)"
          },
          {
             "key": "Jqlfetch",
             "icon": 3,
             "index": 203,
-            "documentation": "The JQLFETCH statement fetches the next result in a compiled jQL statement.",
+            "documentation": "The JQLFETCH statement fetches the next result in a compiled jQL statement.\r\nStatement\tis the result of a valid call to a JQLCOMPILE statement, followed by a valid call to a  JQLEXECUTE statement.\r\nControlVar\twill receive the ‘control break’ elements of any query.\r\nDataVar\twill receive the actual screen data on a LIST statement for instance.\r\n\tThe format is one attribute per column.\r\n\tApplies Attribute 7 Conversions (or attribute 3 in Prime-style DICTS) to the data.\r\n\tIf the property STMT_PROPERTY_FORMAT is set then each attribute is also formatted according to the width and justification of the attribute definition and any override caused by the use of FMT, of DISPLAY.LIKE on the command line\r\nNOTE that column headers may also affect the formatting for that column.\r\nThis function is called until there is no more output (multiple).",
             "detail": "JQLFETCH(Statement, ControlVar, DataVar)"
          },
          {
             "key": "Jqlgetproperty",
             "icon": 3,
             "index": 204,
-            "documentation": "The JQLGETPROPERTY statement gets the value of a specified property from a compiled jQL statement.",
+            "documentation": "The JQLGETPROPERTY statement gets the value of a specified property from a compiled jQL statement.\r\nPropertyValue\treceives the requested property value from the system or '' if the property is not set.\r\nStatement\tis the result of a valid JQLCOMPILE statement.\r\nColumn\tspecifies that you want the value of the property for a specific column (otherwise 0 for the whole statement).\r\nPropertyName\trefers to the equated values defined by including the file JQLINTERFACE.h.\r\n\tThis function returns -1 if there is a problem with the parameters or the programmer.\r\nThese properties answer questions such as 'Was LPTR mode asked for?' and 'How many columns are there?'\r\nNote: Properties are valid after the compile; this is the main reason for separating the compile and execute into two functions.\r\nAfter compiling, it is possible examine the properties and set properties before executing.",
             "detail": "JQLGETPROPERTY(PropertyValue, Statement, Column, PropertyName)"
          },
          {
             "key": "Jqlputproperty",
             "icon": 3,
             "index": 205,
-            "documentation": "The JQLPUTPROPERTY statement sets the value of a specified property in a compiled jQL statement.",
+            "documentation": "The JQLPUTPROPERTY statement sets the value of a specified property in a compiled jQL statement.\r\nPropertyValue\tis the value to which you want to set the specified property.\r\nStatement\tis the result of a valid JQLCOMPILE statement.\r\nNOTE:\tSome properties may require  JQLEXECUTE first.\r\nColumn\tholds 0 for a general property of the statement, or a column number if it is something that can be set for a specific column.\r\nPropertyName\trefers to the equated values defined by including the file JQLINTERFACE.h.\r\nThis function returns -1 if it locates a problem in the statement and zero for no problem.\r\nNote: Properties are valid after the compile; this is the main reason for separating the compile and execute into two functions. After compiling, it is possible examine the properties and set properties before executing.",
             "detail": "JQLPUTPROPERTY(PropertyValue, Statement, Column, PropertyName)"
          },
          {
             "key": "Keyin",
             "icon": 3,
             "index": 206,
-            "documentation": "The KEYIN function reads a single character from the input buffer and returns it.",
+            "documentation": "The KEYIN function reads a single character from the input buffer and returns it.\r\nKEYIN uses raw keyboard input, therefore all special character handling e.g. backspace is disabled.\r\nSystem special character handling such as processing of interrupts is unchanged.",
             "detail": "KEYIN()"
          },
          {
