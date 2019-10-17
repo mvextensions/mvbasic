@@ -1672,21 +1672,21 @@
             "key": "Neg",
             "icon": 3,
             "index": 239,
-            "documentation": "The NEG function is used to invert the arithmetic value of an expression.",
+            "documentation": "The NEG function is used to invert the arithmetic value of an expression.expression may evaluate to any numeric value.",
             "detail": "NEG(expression)"
          },
          {
             "key": "Negs",
             "icon": 3,
             "index": 240,
-            "documentation": "The NEGS function is used to return the negative values of all the elements in a dynamic array.",
+            "documentation": "The NEGS function is used to return the negative values of all the elements in a dynamic array.\r\nIf the value of the element is negative, the returned value is positive.\r\nIf array evaluates to null, null is returned.\r\nIf any element is null, null is returned for that element.",
             "detail": "NEGS(array)"
          },
          {
             "key": "Nes",
             "icon": 3,
             "index": 241,
-            "documentation": "The NES function determines whether elements of one dynamic array are equal to the elements of another dynamic array.",
+            "documentation": "The NES function determines whether elements of one dynamic array are equal to the elements of another dynamic array.\r\nEach element of array1 is compared with the corresponding element of array2.\r\nIf the two elements are equal, a 0 is returned in the corresponding element of a new dynamic array.\r\nIf the two elements are not equal, a 1 is returned.\r\nIf an element of one dynamic array has no corresponding element in the other dynamic array, a 1 is returned.\r\nIf either of a corresponding pair of elements is null, null is returned for that element.",
             "detail": "NES(array1, array2)"
          },
          {
@@ -1700,21 +1700,21 @@
             "key": "Nobuf",
             "icon": 14,
             "index": 243,
-            "documentation": "The NOBUF statement turns off buffering for a file previously opened for sequential processing.",
+            "documentation": "The NOBUF statement turns off buffering for a file previously opened for sequential processing.\r\njBASE can buffer for sequential input and output operations.\r\nThe NOBUF statement turns off this behavior and causes all writes to the file to be performed immediately.\r\nThe NOBUF statement should be used in conjunction with a successful OPENSEQ statement and before any input or output is performed on the record.\r\nIf the NOBUF operation is successful, it executes the THEN statements otherwise, executes the ELSE statements.\r\nIf file.variable is not a valid file descriptor then NOBUF statement fails and the program enters the debugger.",
             "detail": "NOBUF file.variable {THEN statements [ELSE statements] | ELSE statements}"
          },
          {
             "key": "Not",
             "icon": 3,
             "index": 244,
-            "documentation": "The NOT function is used to invert the Boolean value of an expression.\r\nIt useful for explicitly testing for a false condition.",
+            "documentation": "The NOT function is used to invert the Boolean value of an expression.\r\nIt useful for explicitly testing for a false condition.\r\nexpression may evaluate to any Boolean result.\r\nThe NOT function will return Boolean TRUE if the expression returned a Boolean FALSE.\r\nIt will return Boolean FALSE of the expression returned a Boolean TRUE.\r\nThe NOT function is useful for explicitly testing for the false condition of some test and can clarify the logic of such a test.",
             "detail": "NOT(Expression)"
          },
          {
             "key": "Nots",
             "icon": 3,
             "index": 245,
-            "documentation": "The NOTS function is used to return a dynamic array of the logical complements of each element of a dynamic array.",
+            "documentation": "The NOTS function is used to return a dynamic array of the logical complements of each element of a dynamic array.\r\nIf the value of the element is true, the NOTS function returns a value of false (0) in the corresponding element of the returned array.\r\nIf the value of the element is false, the NOTS function returns a value of true (1) in the corresponding element of the returned array.r\nA numeric expression that evaluates to 0 has a logical value of false.\r\nA numeric expression that evaluates to anything else, other than the null value, is a logical true.\r\nAn empty string is logically false.\r\nAll other string expressions, including strings, which consist of an empty string, spaces, or the number 0 and spaces, are logically true.\r\nIf any element in array is null, it returns null for that element.",
             "detail": "NOTS(array)"
          },
          {
@@ -1728,146 +1728,146 @@
             "key": "Num",
             "icon": 3,
             "index": 247,
-            "documentation": "The NUM function is used to test arguments for numeric values.",
+            "documentation": "The NUM function is used to test arguments for numeric values.\r\nexpression may evaluate to any data type.\r\nIf every character in expression is found to be numeric then NUM returns a value of Boolean TRUE.\r\nIf any character in expression is found not to be numeric then a value of Boolean FALSE is returned.\r\nNote that to execute user code migrated from older systems correctly, the NUM function will accept both a null string and the single characters \".\", \"+\", and \"-\" as being numeric.The aforementioned single characters will not be considered numeric if 'dot_not_numeric' is set to 'true' in the Config_EMULATE file.\r\nCHAR(0) is also considered numeric, therefore NUM(CHAR(0)) returns TRUE.\r\nIf running jBC in ros emulation, the \".\" , \"+\" and \"-\" characters would not be considered numeric.",
             "detail": "NUM(expression)"
          },
          {
             "key": "Nums",
             "icon": 3,
             "index": 248,
-            "documentation": "The NUMS function is used to determine whether the elements of a dynamic array are numeric.",
+            "documentation": "The NUMS function is used to determine whether the elements of a dynamic array are numeric.\r\nIf an element is numeric, a numeric string, or an empty string, it evaluates to true, and returns a value of 1 to the corresponding element in a new dynamic array.\r\nIf the element is a nonnumeric string, it evaluates to false, and returns a value of 0.\r\nThe NUMS of a numeric element with a decimal point ( . ) evaluates to true; the NUMS of a numeric element with a comma ( , ) or dollar sign ( $ ) evaluates to false.\r\nIf dynamic.array evaluates to null, it returns null.\r\nIf an element of dynamic.array is null, it returns null for that element.\r\nWhen using the NUMS function in International Mode, the statement will use the Unicode Standard to determine whether an expression is numeric.",
             "detail": "NUMS(dynamic.array)"
          },
          {
             "key": "Objexcallback",
             "icon": 14,
             "index": 249,
-            "documentation": "The OBJEXCALLBACK statement allows communication between the subroutine and the calling OBjEX program.",
+            "documentation": "The OBJEXCALLBACK statement allows communication between the subroutine and the calling OBjEX program.\r\nexpression1 and expression2 can contain any data.\r\nThey are passed back to the OBjEX program where they are defined as variants.\r\nIf the subroutine containing the OBJEXCALLBACK statement is not called from an OBjEX program (using the Call Method) then the ELSE clause will be taken.\r\nThe OBJEXCALLBACK statement is designed to allow jBC subroutines to temporarily return to the calling environment to handle exception conditions or prompt for additional information.\r\nAfter servicing this event the code should return control to the jBC program to ensure that the proper clean-up operations are eventually made.\r\nThe two parameters can be used to pass data between the jBC and OBjEX environments in both directions.\r\nThey are defined as Variants in the OBjEX environment and as normal variables in the jBC environment.",
             "detail": "OBJEXCALLBACK expression1, expression2 THEN|ELSE statements"
          },
          {
             "key": "Oconv",
             "icon": 3,
             "index": 250,
-            "documentation": "The OCONV function is used to convert internal representations of data to their external form.",
+            "documentation": "The OCONV function is used to convert internal representations of data to their external form.\r\nexpression1 may evaluate to any data type but must be be relevant to the conversion code.\r\nexpression2 should evaluate to a conversion code from the list below.\r\nAlternatively, expression2 may evaluate to a user exit known to the jBC language or supplied by the user (see external interfaces documentation).\r\nOCONV will return the result of the conversion of expression1 by expression2.\r\nIt is also possible to create customized conversion codes that can be used in a jBASE application.",
             "detail": "OCONV(expression1, expression2)"
          },
          {
             "key": "Oconvs",
             "icon": 3,
             "index": 251,
-            "documentation": "The OCONVS function is used to convert the elements of a dynamic array to a specified format for external output.",
+            "documentation": "The OCONVS function is used to convert the elements of a dynamic array to a specified format for external output.\r\nConverts the elements to the external output format specified by conversion and returned in a dynamic array conversion must evaluate to one or more conversion codes separated by value marks (ASCII 253).\r\nIf multiple codes are used, they are applied from left to right as follows: the left-most conversion code is applied to the element, the next conversion code to the right is then applied to the result of the first conversion, and so on.\r\nIf dynamic.array evaluates to null, it returns null.\r\nIf any element of dynamic.array is null, it returns null for that element.\r\nIf conversion evaluates to null, the OCONVS function fails and the program terminates with a run-time error message.\r\nThe STATUS function reflects the result of the conversion.",
             "detail": "OCONVS(dynamic.array, conversion)"
          },
          {
             "key": "On",
             "icon": 3,
             "index": 252,
-            "documentation": "The ON...GOSUB and ON...GOTO statements are used to transfer program execution to a label based upon a calculation.",
+            "documentation": "The ON...GOSUB and ON...GOTO statements are used to transfer program execution to a label based upon a calculation.\r\nexpression should evaluate to an integer numeric value. Labels should be defined somewhere in the current source file.\r\nON GOTO will transfer execution to the labeled source code line in the program.\r\nON GOSUB will transfer execution to the labeled subroutine within the source code.\r\nThe value of expression is used as an index to the list of labels supplied.\r\nIf the expression evaluates to 1 then the first label will be jumped to, 2 then the second label will be used and so on.\r\nIf the program was compiled when the emulation included the setting 'generic_pick = true', then no validations are performed on the index.\r\nTherefore, if the index is out of range, this instruction will take no action and report no error.\r\nIf the program was compiled for other emulations then the index will be range checked.\r\nIf the index is found to be less than 1 it is assumed to be 1 and a warning message is issued.\r\nIf the index is found to be too big, then the last label in the list will be used to transfer execution and a warning message issued.",
             "detail": "ON expression GOTO label{, label...}\r\nON expression GOSUB label{, label...}"
          },
          {
             "key": "Open",
             "icon": 14,
             "index": 253,
-            "documentation": "The OPEN statement is used to open a file or device to a descriptor variable.\r\nIf the OPEN statement fails, it executes any statements associated with an ELSE clause.\r\nIf the OPEN is successful it will execute any statements associated with a THEN clause. Note that either one or both of the THEN and ELSE clauses are required.",
+            "documentation": "The OPEN statement is used to open a file or device to a descriptor variable.\r\nThe combination of expression1 and expression2 should evaluate to a valid file name of a file type that has been installed in the jBASE system.\r\nIf the file has a dictionary section and this is to be opened by the statement then this may be specified by the literal string \"DICT\" being specified in expression1.\r\nIf specified, the variable will be used to hold the descriptor for the file.\r\nIt should then be used to access the file via READ and WRITE.\r\nIf no file descriptor variable is supplied, then the file will be opened to the default file descriptor.\r\nSpecific data sections of a multi level file may specified by separating the section name from the file name by a \",\" char in expression2.\r\nIf the OPEN statement fails it will execute any statements associated with an ELSE clause.\r\nIf the OPEN is successful it will execute any statements associated with a THEN clause.\r\nNote that the syntax requires either one or both of the THEN and ELSE clauses.\r\nIf the SETTING clause is specified and the open fails, setvar will be set to an Incremental File Error code.\r\nThe OPEN statement uses the environment variable JEDIFILEPATH to search for the file named.\r\nIf this is not defined then the current working directory is used, followed by the home directory of the current process.\r\nSee the documentation on environment variables for more details.\r\nThe file that is the subject of the OPEN statement can be of any type known to the jBASE system.\r\nIts type will be determined and correctly opened transparently to the application, which need not be aware of the file type.\r\nThere is no limit to the number of files that may be opened by a jBC program.",
             "detail": "OPEN {expression1,}expression2 TO {variable} {SETTING setvar} THEN|ELSE statements"
          },
          {
             "key": "Opendev",
             "icon": 14,
             "index": 254,
-            "documentation": "Opens a device (or file) for sequential writing and/or reading.",
+            "documentation": "Opens a device (or file) for sequential writing and/or reading.\r\nDevice specifies the target device or file \r\nFileVar contains the file descriptor of the file when the open was successful\r\nStatements conditional jBC statements\r\nIf the device does not exist or cannot be opened then the ELSE clause is executed.\r\nOnce open, a lock is taken on the device.\r\nIf the lock cannot be taken then the LOCKED clause is executed,if it exists, otherwise the ELSE clause is executed.\r\nThe specified device can be a regular file, pipe or special device file.\r\nLocks are only taken on regular file types.\r\nOnce open the file pointer is set to the first line of sequential data.",
             "detail": "OPENDEV Device TO FileVar { LOCKED statements } THEN | ELSE statements"
          },{
             "key": "Openindex",
             "icon": 14,
             "index": 255,
-            "documentation": "The OPENINDEX statement is used to open a particular index definition for a particular file.\r\nThis index file variable can later be used with the SELECT statement.",
+            "documentation": "The OPENINDEX statement is used to open a particular index definition for a particular file.\r\nThis index file variable can later be used with the SELECT statement.\r\nfilename should correspond to a valid file which has at least one index.\r\nindexname should correspond to an index created for the filename.\r\nindexvar is the variable that holds the descriptor for the index.\r\nIf the OPEN statement fails it will execute any statements associated with an ELSE clause.\r\nIf the OPEN is successful it will execute any statements associated with a THEN clause.\r\nNote that the syntax requires either one or both of the THEN and ELSE clauses.\r\nIf the SETTING clause is specified and the open fails, setvar will be set to an Incremental File Error code.",
             "detail": "OPENINDEX filename,indexname TO indexvar {SETTING setvar} THEN|ELSE statements"
          },
          {
             "key": "Openpath",
             "icon": 14,
             "index": 256,
-            "documentation": "The OPENPATH statement is used to open a file (given an absolute or relative path) to a descriptor variable within jBC.\r\nSee also the OPEN statement.",
+            "documentation": "The OPENPATH statement is used to open a file (given an absolute or relative path) to a descriptor variable within jBC.\r\nSee also the OPEN statement.\r\nExpression1 should be an absolute or relative path to the file including the name of the file to be opened.\r\nIf specified, variable will be used to hold the descriptor for the file.\r\nIt should then be used to access the file via READ and WRITE.\r\nIf no file descriptor variable is supplied, then the file will be opened to the default file descriptor.\r\nIf the OPENPATH statement fails it will execute any statements associated with an ELSE clause.\r\nIf the OPENPATH is successful it will execute any statements associated with a THEN clause.\r\nNote that the syntax requires either one or both of the THEN and ELSE clauses.\r\nIf the SETTING clause is specified and the open fails, setvar will be set to an Incremental File Error code.\r\nThe path specified may be either a relative or absolute path and must include the name of the jBASE file being opened.\r\nThe file that is the subject of the OPENPATH statement can be of any type known to the jBASE system.\r\nIts type will be determined and correctly opened transparently to the application, which need not be aware of the file type.\r\nThere is no limit to the number of files that may be opened by a jBC program.",
             "detail": "OPENPATH expression1 TO {variable} {SETTING setvar} THEN|ELSE statements"
          },
          {
             "key": "Openseq",
             "icon": 14,
             "index": 257,
-            "documentation": "Opens a file for sequential writing and/or reading.",
+            "documentation": "Opens a file for sequential writing and/or reading.\r\nPath specifies the relative or absolute path of the target directory or file\r\nFile specifies additional path information of the target file\r\nFileVar contains the file descriptor of the file when the open was successful\r\nStatements conditional jBC statements\r\nIf the SETTING clause is specified and the read fails, setvar will be set to an Incremental File Error code.\r\nIf ON ERROR is specified, the statements following the ON ERROR clause will be executed for any of the above Incremental File Errors except error 128.\r\nIf the file does not exist or cannot be opened then the ELSE clause is executed.\r\nHowever if JBCEMULATE is set for Sequoia (use value \"seq\") emulation then OPENSEQ will create the file if it does not exist.\r\nThis behavior can also be achieved by specifying \"openseq_creates = true\" in Config_EMULATE for the emulation being used.\r\nAlternatively, the CREATE statement can be used, which eliminates the need for the 'openseq_creates = true' Config_EMULATE option.\r\nOnce open a lock is taken on the file.\r\nIf the lock cannot be taken then the LOCKED clause is executed, if it exists, otherwise the ELSE clause is executed.\r\nIf READONLY is specified then the process takes a read lock on the file otherwise a write lock is taken.\r\nThe specified file can be a regular, pipe or special device file.\r\nLocks are only taken on regular file types.\r\nOnce open the file pointer is set to the first line of sequential data.",
             "detail": "OPENSEQ Path{,File} {READONLY} TO FileVar {SETTING setvar} {ON ERROR statements} { LOCKED statements } THEN | ELSE statements"
          },
          {
             "key": "Openser",
             "icon": 14,
             "index": 258,
-            "documentation": "Opens a serial device for sequential writing and/or reading.",
+            "documentation": "Opens a serial device for sequential writing and/or reading.\r\nPath is the pathname of the required device.\r\nDevInfo consists of Baud, Flow and Parity codes.\r\nPIPE specifies the file is to be opened to a PIPE for reading.",
             "detail": "OPENSER Path,DevInfo| PIPE TO FileVar THEN | ELSE Statements"
          },
          {
             "key": "Ors",
             "icon": 3,
             "index": 259,
-            "documentation": "The ORS function creates a dynamic array with the logical OR from the corresponding elements of two dynamic arrays.",
+            "documentation": "The ORS function creates a dynamic array with the logical OR from the corresponding elements of two dynamic arrays.\r\nEach element of the new dynamic array is the logical OR of the corresponding elements of array1 and array2.\r\nIf an element of one dynamic array has no corresponding element in the other dynamic array, it assumes a false for the missing element.\r\nIf both corresponding elements of array1 and array2 are null, it returns null for those elements.\r\nIf one element is the null value and the other is 0 or an empty string, it returns null.\r\nIf one element is the null value and the other is any value other than 0 or an empty string, it returns true.",
             "detail": "ORS(array1, array2)"
          },
          {
             "key": "Osbread",
             "icon": 14,
             "index": 260,
-            "documentation": "Reads an OS file from a file opened.",
+            "documentation": "Reads an OS file from a file opened.\r\nVariable specifies the variable to contain the data from the read.\r\nFileVar specifies the file descriptor of the file opened (via OSOPEN).\r\nAT ByteExpr Specifies a location in the file from which to begin reading data.\r\nIf ByteExpr is 0, the read begins at the beginning of the file.\r\nLENGTH LengthExpr Specifies a length of data to read from the file, starting at ByteExpr.\r\nLengthExpr cannot be longer than the maximum string length determined by your system configuration.\r\nON ERROR Statements Conditional jBC statements to execute if a fatal error occurs (if the file is not open, or if the file is a read-only file).\r\nIf an ON ERROR clause is not specified, the program terminates under such fatal error conditions.\r\nThe jBC OSBREAD command reads data from a file starting at a specified byte location (ByteExpr) for a certain length of bytes (LengthExpr), and assigns the data to a variable.\r\nOSBREAD performs an operating system block read on a UNIX or Windows file.\r\njBC uses the ASCII 0 character (CHAR(0)) as a string-end delimiter.\r\nTherefore, ASCII 0 cannot be used in any string variable within jBC.\r\nOSBREAD converts CHAR(0) to CHAR(128) when reading a block of characters.\r\njBC begins reading from the file at the offset specified by ByteExpr.\r\nAfter successful execution of OSBREAD against a file, the file pointer remains at the next byte after the data read.\r\nReminder - The file must be opened using the OSOPEN command before using OSBREAD.",
             "detail": "OSBREAD Variable FROM FileVar AT ByteExpr LENGTH LengthExpr {ON ERROR Statements}"
          },
          {
             "key": "Osbwrite",
             "icon": 14,
             "index": 261,
-            "documentation": "Writes an OS file to an file opened.",
+            "documentation": "Writes an OS file to an file opened.\r\nVariable Specifies the variable to contain the data from the read.\r\nFileVar Specifies the file descriptor of the file opened (via OSOPEN).\r\nAT ByteExpr Specifies a location in the file from which to begin writing data.\r\nIf ByteExpr is 0, the write begins at the beginning of the file.\r\nON ERROR Statements Conditional jBC statements to execute if the OSBWRITE statement fails with a fatal error because the file is not open, an I/O error occurs, or jBASE cannot find the file.\r\nIf an ON ERROR clause is not specified and a fatal error occurs, the program terminates.\r\nThe jBC OSBWRITE command writes an expression to a OS file starting at a specified byte location.\r\nOSBWRITE immediately writes a file segment out to the UNIX or Windows file.\r\njBC begins writing to the file at the offset specified by ByteExpr.\r\nAfter successful execution of OSBWRITE, the file pointer remains at the next byte after the data is written.\r\nA length expression need not be specified as the number of bytes in Variable is written to the file.\r\nReminder - The file must first be opened using the OSOPEN command.\r\njBC uses the ASCII 0 character (CHAR(0)) as a string-end delimiter.\r\nTherefore, ASCII 0 cannot be used in any string variable within jBC.\r\nIf jBC reads a string that contains CHAR(0) characters using OSBREAD, those characters are converted to CHAR(128).\r\nOSBWRITE converts CHAR(128) back to CHAR(0) when writing a block of characters.",
             "detail": "OSBWRITE Variable ON | TO FileVar AT ByteExpr {ON ERROR Statements}"
          },
          {
             "key": "Osclose",
             "icon": 14,
             "index": 262,
-            "documentation": "Closes a previously opened OS file.",
+            "documentation": "Closes a previously opened OS file.\r\nFileVar Specifies the file to close.\r\nON ERROR Statements Conditional jBC statements to execute if the OSCLOSE statement fails with a fatal error because the file is not open, an I/O error occurs, or jBASE cannot find the file.\r\nIf an ON ERROR clause is not specified and a fatal error occurs, the program terminates.\r\nThe jBC OSCLOSE command closes a sequential file that was opened with an OSOPEN statement.",
             "detail": "OSCLOSE FileVar {ON ERROR Statements}"
          },
          {
             "key": "Osdelete",
             "icon": 14,
             "index": 263,
-            "documentation": "Deletes an OS file.",
+            "documentation": "Deletes an OS file.\r\nexpression Specifies the full file path.\r\nIf the file resides in JEDIFILEPATH then just the file name is required.\r\nON ERROR Statements Conditional jBC statements to execute if the OSDELETE statement fails with a fatal error because the file is not open, an I/O error occurs, or jBASE cannot find the file.\r\nIf an ON ERROR clause is not specified and a fatal error occurs, the program terminates.\r\nThe jBC OSDELETE command deletes an NTFS or UNIX sequential file.\r\nThis command is intended for use on OS-type files and not jBASE hashed files.\r\nThis command should NEVER be used on Hashed files (see DELETE-FILE to remove Hashed files).",
             "detail": "OSDELETE expression {ON ERROR Statements}"
          },
          {
             "key": "Osopen",
             "icon": 14,
             "index": 264,
-            "documentation": "The OSOPEN statment opens an OS file for processing.",
+            "documentation": "The OSOPEN statment opens an OS file for processing.\r\nexpression Specifies the full file path.\r\nIf the file resides in JEDIFILEPATH then just the file name is required.\r\nREADONLY Directs jBASE to open the file for reading only.\r\nIf the program attempts to write to a file opened in READONLY mode, jBASE displays a runtime error message and does not update the file.\r\nFileVar Specifies the variable to be used to hold the descriptor for the file.\r\nThis can then be used to access the file via OSBREAD and OSBWRITE.\r\nIf no file descriptor variable is supplied, then the file will be opened to the default file descriptor.\r\nON ERROR Statements Conditional jBC statements to execute if the OSOPEN statement fails with a fatal error because an I/O error occurs or jBASE cannot find the file.\r\nIf an ON ERROR clause is not specified and a fatal error occurs, the program terminates.\r\nTHEN | ELSE\tIf the OSOPEN statement fails it will execute any statements associated with an ELSE clause.\r\n\tIf the OSOPEN is successful it will execute any statements associated with a THEN clause.\r\nNote that the syntax requires either one or both of the THEN and ELSE clauses.\r\nThe jBC OSOPEN command opens a sequential file which does not use CHAR(10) as the line delimiter.\r\nRead/write access mode is the default.\r\nAfter opening a sequential file with OSOPEN, use OSBREAD to read a block of data from the file or OSBWRITE to write a block of data to the file.",
             "detail": "OSOPEN expression {READONLY} {TO FileVar} {ON ERROR Statements} {THEN | ELSE} Statements {END}"
          },
          {
             "key": "Osread",
             "icon": 14,
             "index": 265,
-            "documentation": "Reads an OS file.",
+            "documentation": "Reads an OS file.\r\nVariable Specifies the variable to contain the data from the read.\r\nexpression Specifies the full file path.\r\nIf the file resides in JEDIFILEPATH then just the file name is required.\r\nON ERROR Statements Conditional jBC statements to execute if the OSREAD statement fails with a fatal error because the file is not open, an I/O error occurs, or jBASE cannot find the file.\r\nIf an ON ERROR clause is not specified and a fatal error occurs, the program terminates.\r\nTHEN | ELSE\tIf the OSREAD statement fails it will execute any statements associated with an ELSE clause.\tIf the OSREAD is successful it will execute any statements associated with a THEN clause.\r\nNote that the syntax requires either one or both of the THEN and ELSE clauses.\r\nThe jBC OSREAD command reads an entire sequential file and assigns the contents of the file to a variable.\r\nDo not use OSREAD on large files.\r\nIf the file is too large for the program’s memory, the program aborts and a runtime error message is generated.\r\nOn large files, use OSBREAD or READSEQ.\r\njBASE uses the ASCII 0 character (CHAR(0)) as a string-end delimiter.\r\nASCII 0 cannot be used in any string variable within jBC.\r\nThis command converts CHAR(0) to CHAR(128) when reading a block of data.",
             "detail": "OSREAD Variable FROM expression {ON ERROR Statements} {THEN | ELSE} Statements {END}"
          },
          {
             "key": "Oswrite",
             "icon": 14,
             "index": 266,
-            "documentation": "Writes an OS file.",
+            "documentation": "Writes an OS file.\r\nVariable Specifies the variable to contain the data from the read.\r\nexpression Specifies the full file path.\r\nIf the file resides in JEDIFILEPATH then just the file name is required.\r\nON ERROR Statements Conditional jBC statements to execute if the OSWRITE statement fails with a fatal error because the file is not open, an I/O error occurs, or jBASE cannot find the file.\r\nIf an ON ERROR clause is not specified and a fatal error occurs, the program terminates.\r\nThe jBC OSWRITE command writes the contents of an expression to a sequential file.\r\njBASE uses the ASCII 0 character (CHAR(0)) as a string-end delimiter.\r\nFor this reason, ASCII 0 cannot be used in any jBC string variable.\r\nIf jBC reads a string with a CHAR(0) character, and then the character is converted to CHAR(128), this command converts CHAR(128) to CHAR(0) when writing a block of characters.",
             "detail": "OSWRITE Variable ON |TO expression {ON ERROR Statements}"
          },
          {
             "key": "Out",
             "icon": 14,
             "index": 267,
-            "documentation": "The OUT statement is used to send raw characters to the current output device (normally the terminal).",
+            "documentation": "The OUT statement is used to send raw characters to the current output device (normally the terminal).\r\nexpression should evaluate to a numeric integer in the range 0 to 255, being the entire range of ASCII characters.\r\nThe numeric expression is first converted to the raw ASCII character specified and then sent directly to the output advice.",
             "detail": "OUT expression"
          },
          {
