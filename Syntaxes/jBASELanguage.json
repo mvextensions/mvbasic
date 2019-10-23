@@ -972,7 +972,7 @@
             "key": "Execute",
             "icon": 14,
             "index": 139,
-            "documentation": "The EXECUTE or PERFORM statement allows the currently executing program to pause and execute any other UNIX/NT program, including another jBC program or a jBASE command.\r\nThe PERFORMed expression can be formed from any jBASE construct.\r\nThe system will not verify that the command exists before executing it.\r\nThe command is executed by a new Bourne Shell (sh) by default.\r\nThe shell type can be changed by preceding the command with a CHAR(255) (or equivalently, @IM) concatenated with either \"k\", \"c\", or \"s\" to signify the Korn shell, C shell or Bourne Shell.\r\nVariables used to pass data to the executed program should have been assigned a value before they are used.\r\nAny variable name may be used to receive data.\r\n\r\nCAPTURING variable\r\nThe capturing clause will capture any output that the executing program would normally send to the terminal screen and place it in the variable specified. Every newline normally sent to the terminal is replaced with a field mark in the variable.\r\nRETURNING variable or SETTING variable\r\nThe returning and setting clauses are identical. Both clauses will capture the output associated with any error messages the executing program issues. The first field of the variable will be set to the exit code of the program.\r\nPASSLIST variable\r\nThe PASSLIST clause allows jBASE programs to exchange lists or dynamic arrays between them. The variable should contain the list that the program wishes to pass to the jBASE program it is executing. The program to be executed should be able to process lists, otherwise the list will just be ignored. If the variable name is not specified then the clause will pass the default select list to the executing program.\r\nRTNLIST variable\r\nIf the program executed sets up a list then the RTNLIST clause may be used to place that list into a specified variable. If the variable is omitted then the list is placed in the default list variable.\r\nPASSDATA variable\r\nThe data in the specified variable is passed to another jBC program. The executing jBC program should retrieve the data using the COLLECTDATA statement.\r\nRTNDATA variable\r\nThe RTNDATA statement returns any data passed from an executing jBC program in the specified variable. The executing jBC program should use the RTNDATA statement to pass data back to the calling program.\r\nThe clauses may be specified in any order within the statement but only one of each clause may exist.",
+            "documentation": "The EXECUTE or PERFORM statement allows the currently executing program to pause and execute any other UNIX/NT program, including another jBC program or a jBASE command.\r\nThe expression to be EXECUTEd can be formed from any jBASE construct.\r\nThe system will not verify that the command exists before executing it.\r\nThe command is executed by a new Bourne Shell (sh) by default.\r\nThe shell type can be changed by preceding the command with a CHAR(255) (or equivalently, @IM) concatenated with either \"k\", \"c\", or \"s\" to signify the Korn shell, C shell or Bourne Shell.\r\nVariables used to pass data to the executed program should have been assigned a value before they are used.\r\nAny variable name may be used to receive data.\r\n\r\nCAPTURING variable\r\nThe capturing clause will capture any output that the executing program would normally send to the terminal screen and place it in the variable specified. Every newline normally sent to the terminal is replaced with a field mark in the variable.\r\nRETURNING variable or SETTING variable\r\nThe returning and setting clauses are identical. Both clauses will capture the output associated with any error messages the executing program issues. The first field of the variable will be set to the exit code of the program.\r\nPASSLIST variable\r\nThe PASSLIST clause allows jBASE programs to exchange lists or dynamic arrays between them. The variable should contain the list that the program wishes to pass to the jBASE program it is executing. The program to be executed should be able to process lists, otherwise the list will just be ignored. If the variable name is not specified then the clause will pass the default select list to the executing program.\r\nRTNLIST variable\r\nIf the program executed sets up a list then the RTNLIST clause may be used to place that list into a specified variable. If the variable is omitted then the list is placed in the default list variable.\r\nPASSDATA variable\r\nThe data in the specified variable is passed to another jBC program. The executing jBC program should retrieve the data using the COLLECTDATA statement.\r\nRTNDATA variable\r\nThe RTNDATA statement returns any data passed from an executing jBC program in the specified variable. The executing jBC program should use the RTNDATA statement to pass data back to the calling program.\r\nThe clauses may be specified in any order within the statement but only one of each clause may exist.",
             "detail": "EXECUTE expression {CAPTURING variable} {RETURNING|SETTING variable}\r\n{PASSLIST expression} {RTNLIST {variable}}\r\n{PASSDATA variable} {RTNDATA variable}"
          },
          {
@@ -1874,35 +1874,35 @@
             "key": "Page",
             "icon": 14,
             "index": 268,
-            "documentation": "Prints any FOOTING statement, throws a page and prints any heading statement on the current output device.",
+            "documentation": "Prints any FOOTING statement, throws a page and prints any heading statement on the current output device.\r\nIf expression is specified it should evaluate to a numeric integer, which will cause the page number after the page throw to be set to this value.",
             "detail": "PAGE {ON channel} {expression}"
          },
          {
             "key": "Pause",
             "icon": 14,
             "index": 269,
-            "documentation": "The PAUSE statement allows processing to be suspended until an external event triggered by a WAKE statement from another process or a timeout occurs.",
+            "documentation": "The PAUSE statement allows processing to be suspended until an external event triggered by a WAKE statement from another process or a timeout occurs.\r\nexpression may evaluate to a timeout value, which is the maximum number of seconds to suspend the process.\r\nIf expression is omitted then the PAUSE statement will cause the process to suspend until woken by the WAKE statement.\r\nIf a timeout value is specified and the suspended process is not woken by a WAKE statement, then the process will continue once the timeout period has expired.\r\nIf a WAKE statement is executed for the process before the process executes the PAUSE statement then the PAUSE will be ignored and processing will continue until a subsequent PAUSE statement.",
             "detail": "PAUSE {expression}"
          },
          {
             "key": "Perform",
             "icon": 14,
             "index": 270,
-            "documentation": "The EXECUTE or PERFORM statement allows the currently executing program to pause and execute any other UNIX/NT program, including another jBC program or a jBASE command.",
+            "documentation": "The EXECUTE or PERFORM statement allows the currently executing program to pause and execute any other UNIX/NT program, including another jBC program or a jBASE command.\r\nThe PERFORMed expression can be formed from any jBASE construct.\r\nThe system will not verify that the command exists before executing it.\r\nThe command is executed by a new Bourne Shell (sh) by default.\r\nThe shell type can be changed by preceding the command with a CHAR(255) (or equivalently, @IM) concatenated with either \"k\", \"c\", or \"s\" to signify the Korn shell, C shell or Bourne Shell.\r\nVariables used to pass data to the executed program should have been assigned a value before they are used.\r\nAny variable name may be used to receive data.\r\n\r\nCAPTURING variable\r\nThe capturing clause will capture any output that the executing program would normally send to the terminal screen and place it in the variable specified. Every newline normally sent to the terminal is replaced with a field mark in the variable.\r\nRETURNING variable or SETTING variable\r\nThe returning and setting clauses are identical. Both clauses will capture the output associated with any error messages the executing program issues. The first field of the variable will be set to the exit code of the program.\r\nPASSLIST variable\r\nThe PASSLIST clause allows jBASE programs to exchange lists or dynamic arrays between them. The variable should contain the list that the program wishes to pass to the jBASE program it is executing. The program to be executed should be able to process lists, otherwise the list will just be ignored. If the variable name is not specified then the clause will pass the default select list to the executing program.\r\nRTNLIST variable\r\nIf the program executed sets up a list then the RTNLIST clause may be used to place that list into a specified variable. If the variable is omitted then the list is placed in the default list variable.\r\nPASSDATA variable\r\nThe data in the specified variable is passed to another jBC program. The executing jBC program should retrieve the data using the COLLECTDATA statement.\r\nRTNDATA variable\r\nThe RTNDATA statement returns any data passed from an executing jBC program in the specified variable. The executing jBC program should use the RTNDATA statement to pass data back to the calling program.\r\nThe clauses may be specified in any order within the statement but only one of each clause may exist.",
             "detail": "PERFORM expression {CAPTURING variable} {RETURNING|SETTING variable}\r\n{PASSLIST expression} {RTNLIST {variable}}\r\n{PASSDATA variable} {RTNDATA variable}"
          },
          {
             "key": "Precision",
             "icon": 14,
             "index": 271,
-            "documentation": "The PRECISION statement informs jBASE as to the number of digits of precision it uses after the decimal point in numbers.",
+            "documentation": "The PRECISION statement informs jBASE as to the number of digits of precision it uses after the decimal point in numbers.\r\ninteger should be in the range 0 to 9.\r\nIf the program contains no PRECISION statement then is it is set with a default precision of 4.\r\nIf there is one (or more) PRECISION statements then the first one encountered is taken as the PRECISION of the program.\r\nDuring the runtime of the program the precision will changed as it encounters any subsequent PRECISION statements.\r\nA PRECISION statement can be specified any number of times in a source file.\r\nOnly the most recently defined precision will be active at any one time.\r\nCalling programs and external subroutines do not have to be compiled at the same degree of precision, however, any changes to precision in a subroutine will not persist when control returns to the calling program.\r\njBASE uses the maximum degree of precision allowed on the host machine in all mathematical calculations to ensure maximum accuracy.\r\nIt then uses the defined precision to format the number.",
             "detail": "PRECISION integer"
          },
          {
             "key": "Print",
             "icon": 14,
             "index": 272,
-            "documentation": "The PRINT statement sends data directly to the current output device, which will either be the terminal or the printer.",
+            "documentation": "The PRINT statement sends data directly to the current output device, which will either be the terminal or the printer.\r\nChannel is the report channel number in the range 0 to 127.\r\nAn expression can evaluate to any data type.\r\nThe PRINT statement will convert the result to a string type for printing.\r\nExpressions separated by commas will be sent to the output device separated by a tab character.\r\nThe PRINT statement will append a newline sequence to the final expression unless it is terminated with a colon \":\" character.\r\nAs the expression can be any valid expression, it may have output formatting applied to it.\r\nIf a PRINTER ON statement is currently active then output will be sent to the currently assigned printer form queue, (see also SP-ASSIGN command).",
             "detail": "PRINT {ON Channel} expression {, expression...} {:}"
          },
          {
@@ -1930,120 +1930,120 @@
             "key": "Printerr",
             "icon": 14,
             "index": 276,
-            "documentation": "Used to print standard jBASE error messages.",
+            "documentation": "Used to print standard jBASE error messages.\r\nField 1 of the expression should evaluate to the numeric or string name of a valid error message in the jBASE error message file.\r\bIf the error message requires parameters then these can be passed to the message as subsequent fields of the expression.\r\nWhen the PRINTERR statement is used in International Mode, the error message file to be used, i.e. the default “jBASICmessages” or other as configured via the error message environment variable, will be suffixed with the current locale.\r\nFor example, if the currently configured locale is “fr_FR”, then the statement will attempt to find the specified error message record id in the “jBASICmessages_fr_FR” error message file.\r\nIf the file cannot be found then the country code will be discarded and just the language code used. i.e. the file “jBASICmessages_fr” will be used.\r\nIf this file is also not found then the error message file “jBASICmessages” will be used.\r\nThe PRINTERR statement is most useful for user defined messages that have been added to the standard set.",
             "detail": "PRINTERR expression"
          },
          {
             "key": "Procread",
             "icon": 14,
             "index": 277,
-            "documentation": "Used to retrieve data passed to programs from a jCL program.",
+            "documentation": "Used to retrieve data passed to programs from a jCL program.\r\nvariable is a valid jBC identifier, which will be used to store the contents of the primary input buffer of the last jCL program called.\r\nIf the program was not initiated by a jCL program then the PROCREAD will fail and any statements associated with an ELSE clause will be executed.\r\nIf the program was initiated by a jCL program then the PROCREAD will succeed, the jCL primary input buffer will be assigned to variable and any statements associated with a THEN clause will be executed.\r\nIt is recommended that the use of jCL and therefore the PROCREAD statement should be not be expanded within your application and gradually replaced with more sophisticated methods such as UNIX scripts or jBC programs.",
             "detail": "PROCREAD variable THEN|ELSE statements"
          },
          {
             "key": "Procwrite",
             "icon": 14,
             "index": 278,
-            "documentation": "Used to pass data back to the primary input buffer of a calling jCL program.",
+            "documentation": "Used to pass data back to the primary input buffer of a calling jCL program.\r\nexpression may evaluate to any valid data type.",
             "detail": "PROCWRITE expression"
          },
          {
             "key": "Program",
             "icon": 14,
             "index": 279,
-            "documentation": "Performs no function other than to document the source code.",
+            "documentation": "Performs no function other than to document the source code.\r\nProgname can be any string of characters.",
             "detail": "PROGRAM progname"
          },
          {
             "key": "Prompt",
             "icon": 14,
             "index": 280,
-            "documentation": "Used to change the prompt character used by terminal input commands",
+            "documentation": "Used to change the prompt character used by terminal input commands.\r\nexpression can evaluate to any printable string.\r\nThe entire string is used as the prompt.\r\nThe default prompt character is the question mark \"?\" character.",
             "detail": "PROMPT expression"
          },
          {
             "key": "Putenv",
             "icon": 3,
             "index": 281,
-            "documentation": "Used to set environment variables for the current process.",
+            "documentation": "Used to set environment variables for the current process.\r\nexpression should evaluate to a string of the form:\r\n\tEnvVarName=value\r\nwhere EnvVarName is the name of a valid environment variable and value is any string that makes sense to variable being set.\r\nIf PUTENV function succeeds it returns a Boolean TRUE value, if it fails it will return a Boolean FALSE value.\r\nPUTENV only sets environment variables for the current process and processes spawned (say by EXECUTE) by this process.\r\nThese variables are known as export only variables.",
             "detail": "PUTENV(expression)"
          },
          {
             "key": "Pwr",
             "icon": 3,
             "index": 282,
-            "documentation": "The PWR function raises a number to the n'th power.",
+            "documentation": "The PWR function raises a number to the n'th power.\r\nBoth expression1 and expression2 should evaluate to numeric arguments.\r\nThe function will return the value of expression1 raised to the value of expression2.\r\nIf expression1 is negative and expression2 is not an integer then a maths library error is displayed and the function returns the value 0.\r\nThe error message displayed is:\r\n\tpow: DOMAIN error\r\nAll calculations are performed at the maximum precision supported on the host machine and truncated to the compiled precision on completion.",
             "detail": "PWR(expression1, expression2)\r\nor\r\nexpression1 ^ expression2"
          },
          {
             "key": "Quote",
             "icon": 3,
             "index": 283,
-            "documentation": "The function will put double quotation mark at the beginning and end of a string",
+            "documentation": "The function will put double quotation mark at the beginning and end of a string.\r\nexpression may be any expression that is valid in the JBC language.\r\nThe QUOTE function will enclose the value in double quotation marks. ",
             "detail": "QUOTE(Expression)"
          },
          {
             "key": "Raise",
             "icon": 3,
             "index": 284,
-            "documentation": "The RAISE function raises system delimiters in a string to the next highest delimiter.",
+            "documentation": "The RAISE function raises system delimiters in a string to the next highest delimiter.The expression is a string containing one or more delimiters which are raised.",
             "detail": "RAISE(Expression)"
          },
          {
             "key": "Read",
             "icon": 14,
             "index": 285,
-            "documentation": "The READ statement allows a program to read a record from a previously opened file into a variable.",
+            "documentation": "The READ statement allows a program to read a record from a previously opened file into a variable.\r\nvariable1 is the identifier into which the record will be read.\r\nvariable2, if specified, should be a jBC variable that has previously been opened to a file using the OPEN statement. If variable2 is not specified then the default file is assumed.\r\nThe expression should evaluate to a valid record key for the file.\r\nIf the SETTING clause is specified and the read fails, setvar will be set to an Incremental File Error code.\r\nIf ON ERROR is specified, the statements following the ON ERROR clause will be executed for any of the above Incremental File Errors except error 128.\r\nIf you wish to set a lock on a record you should do so explicitly with the READU statement.\r\nAn attempt to access a 'null' item-id in a directory will take the ELSE clause, i.e. treated as 'item does not exist'.",
             "detail": "READ variable1 FROM { variable2,} expression {SETTING setvar} {ON ERROR statements} THEN|ELSE statements"
          },
          {
             "key": "Readblk",
             "icon": 14,
             "index": 286,
-            "documentation": "The READBLK statement reads a block of data of a specified length from a file opened for sequential processing and assigns it to a variable.",
+            "documentation": "The READBLK statement reads a block of data of a specified length from a file opened for sequential processing and assigns it to a variable.\r\nREADBLK variable FROM file.variable, blocksize {THEN statemente [ELSE statements]|ELSE statements }\r\nThe READBLK statement reads a block of data beginning at the current position in the file and continuing for blocksize bytes and assigns it to variable.\r\nThe current position is reset to just beyond the last readable byte.\r\nfile.variable specifies a file previously opened for sequential processing.\r\nIf the data can be read from the file, the THEN statements are executed; any ELSE statements are ignored.\r\nIf the file is not readable or if the end of file is encountered, the ELSE statements are executed and the THEN statements are ignored.\r\nIf the ELSE statements are executed, variable is set to an empty string.\r\nIf either file.variable or blocksize evaluates to null, the READBLK statement fails and the program enters the debugger.\r\nNOTE: A new line in UNIX files is one byte long, whereas in Windows it is two bytes long.\r\nThis means that for a file with newlines, the same READBLK statement may return a different set of data depending on the operating system the file is stored under.\r\nThe difference between the READSEQ statement and the READBLK statement is that the READBLK statement reads a block of data of a specified length, whereas the READSEQ statement reads a single line of data.\r\nWhen using the READBLK statement in International Mode, care must be taken to ensure that the input variable is handled properly subsequent to the READBLK statement.\r\nThe READBLK statement requires that a “bytecount” be specified, however when manipulating variables in International Mode, character length rather than byte lengths are usually used and hence possible confusion or program malfunction can occur.\r\nIf requiring character data convert the input variable from ‘binary/latin1’ to UTF-8 byte sequence via the UTF8  function.\r\nIt is recommended that the READBLK/WRITEBLK statements not be used when executing in International Mode.\r\nSimilar functionality can be obtained via the READSEQ/WRITESEQ statement, which can be used to read/write characters a line at a time from a file.",
             "detail": "READBLK variable FROM file.variable, blocksize {THEN statemente [ELSE statements] | ELSE statements}"
          },
          {
             "key": "Readl",
             "icon": 14,
             "index": 287,
-            "documentation": "The READL statement allows a process to read a record from a previously opened file into a variable and takes a read-only shared lock on the record.\r\nIt respects all records locked with the READU statement but allows other processes using READL to share the same lock.",
+            "documentation": "The READL statement allows a process to read a record from a previously opened file into a variable and takes a read-only shared lock on the record.\r\nIt respects all records locked with the READU statement but allows other processes using READL to share the same lock.\r\nvariable1 is the identifier into which the record will be read.\r\nvariable2, if specified, should be a jBC variable that has previously been opened to a file using the OPEN statement.\r\nIf variable2 is not specified then the default file is assumed.\r\nThe expression should evaluate to a valid record key for the file.\r\nIf the SETTING clause is specified and the read fails, setvar will be set to an Incremental File Error code.\r\nIf ON ERROR is specified, the statements following the ON ERROR clause will be executed for any of the above Incremental File Errors except error 128.\r\nREADL takes a read-only shared record lock whereas READU takes an exclusive lock.\r\nWhat this basically means is that any record which is read using READL can also be read by another process using a READL.\r\nIn other words, the lock on the record is 'shared' in that no READU lock against the same record can be taken.\r\nSimilarly, if a READU takes a lock then READL will respect that lock.\r\nBy comparison, a READU takes an exclusive lock in that the one process retains control over the record.\r\nThe usage of READU is already well documented and hopefully understood.\r\nThe usage of READL allows for an application to present a record to one or more users such that its integrity is ensured, i.e. the user(s) viewing the record can be assured that 'wysiwyg' and that no updates to that record have been made whilst viewing the record.\r\nWhile it is permissible to WRITE a record that has a READL lock, the intent of READL is to permit a 'read-only' shared lock and the act of WRITEing this record would not be considered good programming practice.\r\nREAD takes no lock at all and does not respect any lock taken with READU or READL. In other words, a READ can be performed at any time and on any record regardless of any existing locks.\r\nDue to limitations on Windows platforms, the READL statement behaves the same as the READU statement, in other words they both take exclusive locks.\r\nIf the record could not be read because another process already had a READU lock on the record then one of two actions is taken.\r\nIf the LOCKED clause was specified in the statement then the statements dependant on it are executed.\r\nIf no LOCKED clause was specified then the statement blocks (hangs) until the lock is released by the other process.\r\nThe SYSTEM(43) function can be used to determine which port has the lock.\r\nIf the statement fails to read the record then any statements associated with the ELSE clause will be executed.\r\nIf the statement successfully reads the record then the statements associated with any THEN clause are executed.\r\nEither or both of THEN and ELSE clauses must be specified with the statement.\r\nThe lock taken by the READL statement will be released by any of the following events however, be aware that the record will not be fully released until all shared locks have been released:\r\n\tThe record is written to by the same program with WRITE, WRITEV or MATWRITE statements.\r\n\tThe record is deleted by the same program with the DELETE statement.\r\n\tThe record lock is released explicitly using the RELEASE statement.\r\n\tThe program stops normally or abnormally.\r\n\tWhen a file is OPENed to a local file variable in a subroutine then the file is closed when the subroutine RETURNS so all locks taken on that file are released, including locks taken in a calling program.\r\n\tFiles that are opened to COMMON variables are not closed so the locks remain intact.",
             "detail": "READL variable1 FROM {variable2,} expression {SETTING setvar} {ON ERROR statements} {LOCKED statements} THEN|ELSE statements"
          },
          {
             "key": "Readlist",
             "icon": 14,
             "index": 288,
-            "documentation": "READLIST allows the program to retrieve a previously stored list (perhaps created with the SAVE-LIST command), into a jBC variable.",
+            "documentation": "READLIST allows the program to retrieve a previously stored list (perhaps created with the SAVE-LIST command), into a jBC variable.\r\nvariable1 is the variable into which the list will be read. expression should evaluate to the name of a previously stored list to retrieve.\r\nIf specified, variable2 will be set to the number of elements in the list.\r\nIf the statement succeeds in retrieving the list, then the statements associated with any THEN clause will be executed.\r\nIf the statement fails to find the list, then the statements associated with any ELSE clause will be executed.\r\nThe READLIST statement is identical in function to the GETLIST statement.",
             "detail":"READLIST variable1 FROM expression {SETTING variable2} THEN|ELSE statements"
          },
          {
             "key": "ReadNext",
             "icon": 14,
             "index": 289,
-            "documentation": "READNEXT retrieves the next element in a list variable.",
+            "documentation": "READNEXT retrieves the next element in a list variable.\r\nvariable1 is the variable into which the next element of the list will be read.\r\nvariable2 is used when the list has been retrieved externally from a SSELECT or similar jBASE command that has used an exploding sort directive.\r\nWhen specified, this variable will be set to the multi-value reference of the current element.\r\nFor example, if the SSELECT used a BY-EXP directive on field 3 of the records in a file, the list will contain each record key in the file as many times as there are multi-values in the field.\r\nEach READNEXT instance will set variable2 to the multi-value in field 3 that the element refers to.\r\nThis allows the multi-values in field 3 to be retrieved in sorted order.\r\nIf variable3 is specified with the FROM clause, the READNEXT operates on the list contained in variable3.\r\nIf variable3 is not specified, the default select list variable will be assumed.\r\nIf the SETTING clause is specified and the read (to build the next portion of the list) fails, setvar will be set to an Incremental File Error code.\r\nREADNEXT can be used as an expression returning a Boolean TRUE or FALSE value. If an element is successfully read from the list, TRUE is returned. If the list was empty, FALSE is returned.",
             "detail": "READNEXT variable1, variable2 {FROM variable3} {SETTING setvar} {THEN|ELSE statements}"
          },
          {
             "key": "ReadNext Key",
             "icon": 14,
             "index": 290,
-            "documentation": "The READNEXT statement is extended in two ways.\r\nFirstly it can accept an index variable create with an OPENINDEX statement.\r\nSecondly, you can use the KEY modifier.",
+            "documentation": "The READNEXT statement is extended in two ways.\r\nFirstly it can accept an index variable create with an OPENINDEX statement.\r\nSecondly, you can use the KEY modifier.\r\nIn this format the READNEXT KEY statement will return the actual index key.\r\nThe select used use MUST have been created with the OPENINDEX statement.\r\nYou can optionally return the associated record key and the multi-value number associated with it.",
             "detail": "READNEXT KEY index.key{,record.key{,vmcount}} {FROM select-def} THEN/ELSE"
          },
          {
             "key": "Readprev Key",
             "icon": 14,
             "index": 291,
-            "documentation": "This statement is syntactically similar to the READNEXT KEY but it works in reverse order.",
+               "documentation": "This statement is syntactically similar to the READNEXT KEY but it works in reverse order.\r\nThis statement is syntactically similar to the READNEXT but it works in reverse order.\r\nThere are some considerations when the direction is changed from a forward search to a backward search or vice-versa.\r\nWhen a SELECT statement is first executed a forward direction is assumed.\r\nTherefore if a SELECT is immediately followed by a READPREV, then a change of direction is assumed.\r\nDuring the READNEXT or READPREV sequence a next-key pointer is kept up to date.\r\nThis is the record key, or index key to use should a READNEXT be executed.\r\nDuring a change of direction from forward (READNEXT) to backward (READPREV) then the next record key or index key read in by the READPREV will be the one preceding the next-key pointer.\r\nWhen the select list is exhausted it will either point one before the start of the select list (if READPREVs have been executed) or one past the end of the select list (if READNEXTs have been executed).\r\nThus in the event of a change of direction the very first or very last index key or record key will be used.",
             "detail": "READPREV KEY index.key{,record.key{,vmcount}} {FROM select-def} THEN/ELSE"
          },
          {
             "key": "Readseq",
             "icon": 14,
             "index": 292,
-            "documentation": "The READSEQ statement allows a program to read from a file opened for sequential access.",
-            "detail": "READSEQ Variable FROM FileVar {SETTING setvar} {ON ERROR statements} THEN | ELSE statements\r\nVariable: specifies the variable to contain next record from sequential file.\r\nFileVar: specifies the file descriptor of the file opened for sequential access.\r\nSETTING: if specified and the read fails, setvar will be set to one of the values in the 'Incremental File Errors' table below.\r\nON ERROR: statements are executed upon any error condition, i.e. the READSEQ fails (this is usually used in conjuction with the SETTING clause)\r\nStatements: conditional jBC statements"
+            "documentation": "The READSEQ statement allows a program to read from a file opened for sequential access.\r\nVariable specifies the variable to contain next record from sequential file.\r\nFileVar specifies the file descriptor of the file opened for sequential access.\r\nSETTING if specified and the read fails, setvar will be set to one an Incremental File Errors code.\r\nON ERROR statements are executed upon any error condition, i.e. the READSEQ fails (this is usually used in conjuction with the SETTING clause)\r\nStatements conditional jBC statements.\r\nIf ON ERROR is specified, the statements following the ON ERROR clause will be executed for any of the above Incremental File Errors except error 128.\r\nEach READSEQ reads a line of data from the sequentially opened file.\r\nAfter each READSEQ the file pointer moves forward to the next line of data.\r\nThe variable contains the line of data less the new line character from the sequential file.\r\nThe default buffer size for a READSEQ is 1024 bytes. This can be changed using the IOCTL() function with the JIOCTL_COMMAND_SEQ_CHANGE_RECORDSIZE Sequential File Extensions.",
+            "detail": "READSEQ Variable FROM FileVar {SETTING setvar} {ON ERROR statements} THEN | ELSE statements\r\nVariable: specifies the variable to contain next record from sequential file.\r\nFileVar: specifies the file descriptor of the file opened for sequential access.\r\nSETTING: if specified and the read fails, setvar will be set to an Incremental File Error code.\r\nON ERROR: statements are executed upon any error condition, i.e. the READSEQ fails (this is usually used in conjuction with the SETTING clause)\r\nStatements: conditional jBC statements"
          },
          {
             "key": "Readt",
