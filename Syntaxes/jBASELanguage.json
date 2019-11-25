@@ -2049,28 +2049,28 @@
             "key": "Readt",
             "icon": 14,
             "index": 293,
-            "documentation": "The READT statement is used to read from a range of tape devices 0-9.",
+            "documentation": "The READT statement is used to read from a range of tape devices 0-9.\r\nvariable is the variable that will receive any data read from the tape device.\r\nexpression should evaluate to an integer value in the range 0-9 and specifies from which tape channel to read data.\r\nIf the FROM clause is not specified the READT will assume channel 0.\r\nIf the READT fails then the statements associated with any ELSE clause will be executed. SYSTEM(0) will return the reason for the failure.",
             "detail": "READT variable {FROM expression} THEN|ELSE statements"
          },
          {
             "key": "Readu",
             "icon": 14,
             "index": 294,
-            "documentation": "The READU statement allows a program to read a record from a previously opened file into a variable.\r\nIt respects record locking and locks the specified record for update.",
+            "documentation": "The READU statement allows a program to read a record from a previously opened file into a variable.\r\nIt respects record locking and locks the specified record for update.\r\nvariable1 is the identifier into which the record will be read.\r\nvariable2, if specified, should be a jBC variable that has previously been opened to a file using the OPEN statement.\r\nIf variable2 is not specified, then the default file is assumed.\r\nThe expression should evaluate to a valid record key for the file.\r\nIf the SETTING clause is specified and the read fails, setvar will be set to an Incremental File Error.\r\nIf ON ERROR is specified, the statements following the ON ERROR clause will be executed for any of the Incremental File Errors except error 128.",
             "detail": "READU variable1 FROM {variable2,} expression {SETTING setvar} {ON ERROR statements} {LOCKED statements} THEN|ELSE statements"
          },
          {
             "key": "Readv",
             "icon": 14,
             "index": 295,
-            "documentation": "The READV statement allows a program to read a specific field from a record in a previously opened file into a variable.",
+            "documentation": "The READV statement allows a program to read a specific field from a record in a previously opened file into a variable.\r\nvariable1 is the identifier into which the record will be read.\r\nvariable2, if specified, should be a jBC variable that has previously been opened to a file using the OPEN statement.\r\nIf variable2 is not specified, the default file is assumed.\r\nexpression1 should evaluate to a valid record key for the file.\r\nexpression2 should evaluate to a positive integer.\r\nIf the number is invalid or greater than the number of fields in the record, a NULL string will be assigned to variable1.\r\nIf the number is 0 then the value returned in variable1 is controlled by the readv0 emulation setting.\r\nIf a non-numeric argument is evaluated, a run time error will occur.\r\nIf the SETTING clause is specified and the read fails, setvar will be set to an Incremental File Error code.\r\nIf ON ERROR is specified, the statements following the ON ERROR clause will be executed for any Incremental File Errors except error 128.",
             "detail": "READV variable1 FROM { variable2,} expression1, expression2 {SETTING setvar} {ON ERROR statements} THEN|ELSE statements"
          },
          {
             "key": "Readvu",
             "icon": 14,
             "index": 296,
-            "documentation": "The READVU statement allows a program to read a specific field in a record in a previously opened file into a variable.\r\nIt also respects record locking and locks the specified record for update.",
+            "documentation": "The READVU statement allows a program to read a specific field in a record in a previously opened file into a variable.\r\nIt also respects record locking and locks the specified record for update.\r\nvariable1 is the identifier into which the record will be read.\r\nvariable2, if specified, should be a jBC variable that has previously been opened to a file using the OPEN statement.\r\nIf variable2 is not specified then the default file is assumed.\r\nexpression1 should evaluate to a valid record key for the file.\r\nexpression2 should evaluate to a positive integer.\r\nIf the number is invalid or greater than the number of fields in the record, then a NULL string will be assigned to variable1.\r\nIf the number is 0 then the value returned in variable1 is controlled by the readv0 emulation setting.\r\nIf a non-numeric argument is evaluated a run time error will occur.\r\nIf the SETTING clause is specified and the read fails, setvar will be set to an Incremental File Error code.\r\nIf ON ERROR is specified, the statements following the ON ERROR clause will be executed for any Incremental File Error except error 128.",
             "detail": "READVU variable1 FROM { variable2,} expression1, expression2 {SETTING setvar} {ON ERROR statements} {LOCKED statements} THEN|ELSE statements"
          },
          {
