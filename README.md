@@ -25,7 +25,7 @@ This extension includes the following features:
 - Access your remote MultiValue files and programs
 - Find all References of a word in current program
 - Shows outline of internal subroutines, include files and subroutine calls
-- [Documentation](documentation) in Markdown! (Note: we'd love your pull requests to make this even better!)
+- [Documentation][documentation] in Markdown! (Note: we'd love your pull requests to make this even better!)
 
 ## Participate
 
