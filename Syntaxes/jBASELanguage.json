@@ -2084,35 +2084,35 @@
             "key": "Recordlocked",
             "icon": 3,
             "index": 298,
-            "documentation": "The RECORDLOCKED function can be called to ascertain the status of a record lock.",
+            "documentation": "The RECORDLOCKED function can be called to ascertain the status of a record lock.\r\nfilevar is a file variable from a previously executed OPEN statement.\r\nrecordkey is an expression for the record id that will be checked.\r\nThe function returns an integer value to indicate the record lock status of the specified record id.\r\nIf the return value is negative, then the  SYSTEM(43) and STATUS function calls can be used to determine the port number of the program that holds the lock.\r\nIf -1 is returned, more than 1 port could hold the lock and so the port number returned will be the first port number found.",
             "detail": "RECORDLOCKED(filevar, recordkey)"
          },
          {
             "key": "Regexp",
             "icon": 3,
             "index": 299,
-            "documentation": "The REGEXP function is a powerful function that allows pattern matching using UNIX regular expressions.\r\nREGEXP is not supported on Windows.",
+            "documentation": "The REGEXP function is a powerful function that allows pattern matching using UNIX regular expressions.\r\nREGEXP is not supported on Windows.\r\nvariable can be any type of jBC variable and is the variable upon which pattern matching will be performed.\r\nexpression should evaluate to a standard UNIX regular expression as defined in the UNIX documentation.\r\nThe function returns a numeric integer value being the first character in variable that failed to match the specified regular expression.\r\nIf a match is not found or the regular expression was invalid then the function returns 0.",
             "detail": "REGEXP(variable, expression)"
          },
          {
             "key": "Release",
             "icon": 14,
             "index": 300,
-            "documentation": "The RELEASE statement explicitly releases record locks without updating the records using a WRITE or DELETE and it also clears all execution locks without issuing an UNLOCK.",
+            "documentation": "The RELEASE statement explicitly releases record locks without updating the records using a WRITE or DELETE and it also clears all execution locks without issuing an UNLOCK.\r\nIf variable is specified it should be a valid file descriptor variable (i.e. it should have been the subject of an OPEN statement).\r\nIf an expression is supplied it should evaluate to the key of a record whose lock the program wishes to free.\r\nIf variable was specified, the record lock on the file described by it is released.\r\nIf variable was not specified the record lock on the file described by the default file variable is released.\r\nIf RELEASE is called without arguments then all record locks in all files that were set by the current program will be released.\r\nIt also releases all execution locks that were set in the current program with the LOCK statement.",
             "detail": "RELEASE {{variable,} expression}"
          },
          {
             "key": "Rem",
             "icon": 3,
             "index": 301,
-            "documentation": "The MOD and REM functions return the arithmetic modulo (remainder) of two numeric expressions.",
+            "documentation": "The MOD and REM functions return the arithmetic modulo (remainder) of two numeric expressions.\r\nBoth expression1 and expression2 should evaluate to numeric expressions or a runtime error will occur.\r\nThe modulo is calculated as the remainder of expression1 divided by expression2.\r\nIf expression2 evaluates to 0, then the value of expression1 is returned.",
             "detail": "REM(expression1, expression2)"
          },
          {
             "key": "Remove",
             "icon": 3,
             "index": 302,
-            "documentation": "The REMOVE function will successively extract delimited strings from a dynamic array.",
+            "documentation": "The REMOVE function will successively extract delimited strings from a dynamic array.\r\nvariable is the variable which is to receive the extracted string.\r\narray is the dynamic array from which the string is to be extracted.\r\nsetvar is set by the system during the extraction to indicate the type of delimiter found.\r\nThe first time the REMOVE statement is used with a particular array, it will extract the first delimited string and set the special \"remove pointer\" to the start of the next string (if any).\r\nThe next time REMOVE is used on the same array, the pointer will be used to retrieve the next string and so on.\r\nThe array is not altered.\r\nThe variable named in the SETTING clause is used to record the type of delimiter that was found - so that you can tell whether the REMOVE statement extracted a field, a value or a subvalue for example.\r\nDelimiters are defined as characters between xF9 and xFF only.\r\nOnce the end of the array has been reached, the string variable will not be updated and the SETTING clause will always return 0.\r\nYou can reset the \"remove pointer\" by assigning the variable to itself - for example REC = REC.",
             "detail": "REMOVE variable FROM array SETTING setvar"
          },
          {
@@ -2126,49 +2126,49 @@
             "key": "Replace",
             "icon": 3,
             "index": 304,
-            "documentation": "This is an obsolete way to assign to dynamic arrays via a function.",
+            "documentation": "This is an obsolete way to assign to dynamic arrays via a function.\r\nvar is the dynamic array that the REPLACE function will use to assign expression4.\r\nUnless the same var is assigned the result of the function it will be unchanged.\r\nexpression1 specifies into which field assignment will be made and should evaluate to a numeric.\r\nexpression2 is only specified when multi-value assignment is to be done and should evaluate to a numeric.\r\nexpression3 is only specified when sub-value assignment is to be done and should evaluate to a numeric.\r\nexpression4 can evaluate to any data type and is the actual data that will be assigned to the array.\r\nThe function returns a copy of var with the specified replacement carried out.\r\nThis value may be assigned to the original var, in which case the jBC compiler will optimise the assignment.",
             "detail": "REPLACE(var, expression1{, expression2{, expression3}}; expression4)"
          },
          {
             "key": "Return",
             "icon": 14,
             "index": 305,
-            "documentation": "The RETURN statement transfers program execution to the caller of a subroutine/function or to a specific label in the program.",
+            "documentation": "The RETURN statement transfers program execution to the caller of a subroutine/function or to a specific label in the program.\r\nlabel must reference an existing label within the source of the program.\r\nexpression evaluates to the value that is returned by a user-written function.\r\nThe RETURN statement will transfer program execution to the statement after the GOSUB that called the current internal subroutine.\r\nIf the RETURN statement is executed in an external SUBROUTINE and there are no outstanding GOSUBs, then the program will transfer execution to the CALL'ing program.\r\nThe program will enter the debugger with an appropriate message should a RETURN be executed with no GOSUB or CALL outstanding.\r\nThe second form of the RETURN statement is used to return a value from a user-written function. ",
             "detail": "RETURN {TO label}\r\nRETURN(expression)"
          },
          {
             "key": "Rewind",
             "icon": 14,
             "index": 306,
-            "documentation": "The REWIND statement will issue a rewind command to the device attached to the specified channel.",
+            "documentation": "The REWIND statement will issue a rewind command to the device attached to the specified channel.\r\nexpression, if specified, should evaluate to an integer in the range 0 to 9.\r\nDefault is 0.\r\nIf the statement fails to issue the rewind then any statements associated with the ELSE clause are executed.\r\nIf the statement successfully issues the rewind command then the statements associated with any THEN clause are executed.\r\nEither or both of the THEN and ELSE clauses must be specified with the statement.\r\nIf the statement fails then the reason for failure can be determined via the value of SYSTEM(0).",
             "detail": "REWIND {ON expression} THEN|ELSE statements"
          },
          {
             "key": "Right",
             "icon": 3,
             "index": 307,
-            "documentation": "The RIGHT function returns a sub-string composed of the last n characters of a specified string.",
+            "documentation": "The RIGHT function returns a sub-string composed of the last n characters of a specified string.\r\nexpression evaluates to the string from which the sub string is extracted.\r\nlength is the number of characters that are extracted.\r\nIf length is less than 1, RIGHT() returns null.\r\nThe RIGHT() function is equivalent to sub-string extraction for the last n characters, i.e. expression[n]",
             "detail": "RIGHT(expression, length)"
          },
          {
             "key": "Rnd",
             "icon": 3,
             "index": 308,
-            "documentation": "The RND function allows the generation of random numbers by a program.",
+            "documentation": "The RND function allows the generation of random numbers by a program.\r\nexpression should evaluate to a numeric integer value or a runtime error will occur.\r\nThe absolute value of expression is used by the function (see ABS).\r\nThe highest number expression can be on Windows is PWR(2,15) - 1.\r\nThe highest number on UNIX is PWR(2,31) - 1.\r\nThe function will return a random integer number between 0 and the value of expression-1.",
             "detail": "RND(expression)"
          },
          {
             "key": "Rqm",
             "icon": 14,
             "index": 309,
-            "documentation": "Allows the program to pause execution for a specified time period.\r\nSynonymous with SLEEP.",
+            "documentation": "Allows the program to pause execution for a specified time period.\r\nSynonymous with SLEEP.\r\nexpression may evaluate to one of two forms:\r\n\tNumeric in which case the statement will sleep for the specified number of seconds or fractions of a second.\r\n\t\"nn:nn{:nn}\" in which case the statement will sleep until the time specified.\r\nIf expression is not supplied then a default time period of 1 second is assumed.",
             "detail": "RQM {expression}"
          },
          {
             "key": "Rtndata",
             "icon": 14,
             "index": 310,
-            "documentation": "The RTNDATA statement allows a jBC program to return specific data to the RTNDATA clause of another program's EXECUTE statement.",
+            "documentation": "The RTNDATA statement allows a jBC program to return specific data to the RTNDATA clause of another program's EXECUTE statement.\r\nexpression may evaluate to any data type.\r\nWhen a jBC program executes another jBC program using the EXECUTE statement, it may specify a variable to pick up data in using the RTNDATA clause.\r\nThe data picked up will be that specified by the executed program using the RTNDATA statement.\r\nThe data will be discarded if the program is not executed by an EXECUTE statement in another program.",
             "detail": "RTNDATA expression"
          },
          {
