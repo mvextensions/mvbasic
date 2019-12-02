@@ -2469,7 +2469,7 @@
             "key": "Trans",
             "icon": 3,
             "index": 353,
-            "documentation": "The TRANS function will return the data value of a field, given the name of the file, the record key, the field number, and an action code./r/nDICT  is the literal string to be placed before the file name in the event it is desired to open the dictionary portion of the file, rather than the data portion.\r\nfilename is a string containing the name of the file to be accessed.  Note that it is the actual name of the file, and not a file unit variable.\r\nThis function requires the file name, regardless of whether or not the file has been opened to a file unit variable.\r\nkey  is an expression that evaluates to the record key, or item ID, of the record from which data is to be accessed.\r\nfield#  is the field number to be retrieved from the record.\r\naction.code  a literal which indicates what should happen if the field is null, or the if record is not found.",
+            "documentation": "The TRANS function will return the data value of a field, given the name of the file, the record key, the field number, and an action code./r/nDICT is the literal string to be placed before the file name in the event it is desired to open the dictionary portion of the file, rather than the data portion.\r\nfilename is a string containing the name of the file to be accessed.  Note that it is the actual name of the file, and not a file unit variable.\r\nThis function requires the file name, regardless of whether or not the file has been opened to a file unit variable.\r\nkey  is an expression that evaluates to the record key, or item ID, of the record from which data is to be accessed.\r\nfield#  is the field number to be retrieved from the record.\r\naction.code  a literal which indicates what should happen if the field is null, or the if record is not found.",
             "detail": "TRANS ([DICT] filename, key, field#, action.code)"
          },
          {
@@ -2546,21 +2546,21 @@
             "key": "Unassigned",
             "icon": 3,
             "index": 364,
-            "documentation": "The UNASSIGNED function allows a program to determine whether a variable has been assigned a value.",
+            "documentation": "The UNASSIGNED function allows a program to determine whether a variable has been assigned a value.\r\nvariable is the name of variable used elsewhere in the program.\r\nThe function returns Boolean TRUE if variable has not yet been assigned a value and Boolean FALSE if variable has already been assigned a value.",
             "detail": "UNASSIGNED(variable)"
          },
          {
             "key": "Uniquekey",
             "icon": 3,
             "index": 365,
-            "documentation": "The UNIQUEKEY function returns a unique 16-byte character key.",
+            "documentation": "The UNIQUEKEY function returns a unique 16-byte character key.\r\nThe UNIQUEKEY() function will generate a unique 16-byte character key on each call to the function.\r\nThe key contains characters from the set A-Z a-z 0-9 ^ and _ (base64). Based on the current UTC time and the process number, the key is unique on a single computer system providing that the system clock is not turned back.",
             "detail": "UNIQUEKEY()"
          },
          {
             "key": "Unlock",
             "icon": 14,
             "index": 366,
-            "documentation": "The UNLOCK statement releases a previously LOCKed execution lock.",
+            "documentation": "The UNLOCK statement releases a previously LOCKed execution lock.\r\nIf expression is specified it should evaluate to the number of a held execution lock, which will then be released.\r\nIf expression is omitted then all execution locks held by the current program will be released.\r\nNo action is taken if the program attempts to release an execution lock that it had not taken.",
             "detail": "UNLOCK {expression}"
          },
          {
@@ -2574,35 +2574,35 @@
             "key": "Upcase",
             "icon": 3,
             "index": 368,
-            "documentation": "UPCASE converts all lowercase characters in an expression to uppercase characters.",
+            "documentation": "UPCASE converts all lowercase characters in an expression to uppercase characters.\r\nexpression in a string containing alphabetic characters.",
             "detail": "UPCASE(expression)"
          },
          {
             "key": "Utf8",
             "icon": 3,
             "index": 369,
-            "documentation": "The UTF8 function converts a latin1 or binary string into the UTF-8 equivalent byte sequence.",
+            "documentation": "The UTF8 function converts a latin1 or binary string into the UTF-8 equivalent byte sequence.\r\nThe expression is expected to be a binary/latin1code page string.\r\nThe function converts the binary string into a UTF-8 encoded byte sequence, used to represent the Unicode values for each byte in the expression.\r\nThis function is useful for converting binary or latin1 code page data into internal format when in International Mode",
             "detail": "UTF8(expression)"
          },
          {
             "key": "Wake",
             "icon": 14,
             "index": 370,
-            "documentation": "The WAKE statement is used to wake a suspended process which has executed a PAUSE statement.",
+            "documentation": "The WAKE statement is used to wake a suspended process which has executed a PAUSE statement.\r\nPortNumber is a reference to the target port to be awoken.\r\nThe WAKE statement has no effect on processes which do not execute the PAUSE statement.",
             "detail": "WAKE PortNumber"
          },
          {
             "key": "Weof",
             "icon": 14,
             "index": 371,
-            "documentation": "The WEOF statement allows the program to write an EOF mark on an attached tape device.",
+            "documentation": "The WEOF statement allows the program to write an EOF mark on an attached tape device.\r\nexpression specifies the device channel to use, which should evaluate to a numeric integer argument in the range 0-9.\r\nDefault value is 0.\r\nf the WEOF fails then the statements associated with any ELSE clause will be executed.\r\nSYSTEM(0) will return a reason code for the failure.\r\nA \"tape\" not only refers to magnetic tape devices but to any device that has been described to jBASE.\r\nIf no tape device has been assigned to the channel specified then the jBASE debugger is entered with an appropriate message.",
             "detail": "WEOF {ON expression}"
          },
          {
             "key": "Weofseq",
             "icon": 14,
             "index": 372,
-            "documentation": "Write end of file on file opened for sequential access.",
+            "documentation": "Write end of file on file opened for sequential access.\r\nFileVar specifies the file descriptor of the file opened for sequential access.\r\nStatements are conditional jBC statements\r\nWEOFSEQ forces the file to be truncated at the current file pointer. Nothing is actually 'written' to the sequential file.",
             "detail": "WEOFSEQ FileVar { THEN | ELSE Statements}"
          },
          {
@@ -2616,98 +2616,98 @@
             "key": "Write",
             "icon": 14,
             "index": 374,
-            "documentation": "The WRITE statement allows a program to write a record into a previously opened file.",
+            "documentation": "The WRITE statement allows a program to write a record into a previously opened file.\r\nvariable1 is the identifier containing the record to write.\r\nvariable2, if specified, should be a jBC variable that has previously been opened to a file using the OPEN statement.\r\nIf variable2 is not specified then the default file is assumed.\rr\nThe expression should evaluate to a valid record key for the file.\r\nIf the SETTING clause is specified and the write fails, setvar will be set to an Incremental File Error code.\r\nIf a lock was being held on the record by this process it will be released by the WRITE.\r\nIf a lock should be retained on a record, it should be done so explicitly with the WRITEU statement.\r\nA 'WRITE' of a null item-id to a directory will take the 'ON ERROR' clause, if it exists.",
             "detail": "WRITE variable1 ON|TO { variable2,} expression {SETTING setvar} {ON ERROR statements}"
          },
          {
             "key": "Writeblk",
             "icon": 14,
             "index": 375,
-            "documentation": "The WRITEBLK statement writes a block of data to a file opened for sequential processing.",
+            "documentation": "The WRITEBLK statement writes a block of data to a file opened for sequential processing.\r\nEach WRITEBLK statement writes the value of expression starting at the current position in the file.\r\nThe current position is incremented to beyond the last byte written.\r\nWRITEBLK does not add a new line at the end of the data.\r\nfile.variable specifies a file opened for sequential processing.\r\nThe value of expression is written to the file, and the THEN statements are executed.\r\nIf no THEN statements are specified, program execution continues with the next statement.\r\nIf the file is neither accessible or does not exist, it executes the ELSE statements; and ignores any THEN statements.\r\nIf either expression or file.variable evaluates to null, the WRITEBLK statement fails and the program enters the debugger with a run-time error message.",
             "detail": "WRITEBLK expression ON file.variable {THEN statements [ELSE statements]|ELSE statements}"
          },
          {
             "key": "Writelist",
             "icon": 14,
             "index": 376,
-            "documentation": "WRITELIST allows the program to store a list held in a jBC variable to the global list file.",
+            "documentation": "WRITELIST allows the program to store a list held in a jBC variable to the global list file.\r\nvariable is the variable in which the list is held.\r\nexpression should evaluate to the required list name.\r\nIf expression is null, the list will be written to the default external list.\r\nIf the SETTING clause is specified and the write fails, setvar will be set to an Incremental File Error code.",
             "detail": "WRITELIST variable ON|TO expression {SETTING setvar} {ON ERROR statements}"
          },
          {
             "key": "Writeseq",
             "icon": 14,
             "index": 377,
-            "documentation": "Write to a file opened for sequential access.",
+            "documentation": "Write to a file opened for sequential access.\r\nVariable specifies the variable to contain next record from sequential file.\r\nFileVar specifies the file descriptor of the file opened for sequential access.\r\nStatements conditional jBC statements.\r\nEach WRITESEQ writes the data on a line of the sequentially opened file.\r\nEach line of data is suffixed with a new line character.\r\nAfter each WRITESEQ the file pointer moves forward to the end of line.\r\nThe APPEND option forces each WRITESEQ to advance to the end of the file before writing the next data line.",
             "detail": "WRITESEQ Expression {APPEND} ON|TO FileVar THEN | ELSE statements"
          },
          {
             "key": "Writeseqf",
             "icon": 14,
             "index": 378,
-            "documentation": "Write to a file opened for sequential access and force each data line to be flushed to the file when it is written. .",
+            "documentation": "Write to a file opened for sequential access and force each data line to be flushed to the file when it is written.\r\nVariable specifies the variable to contain next record from sequential file.\r\nFileVar specifies the file descriptor of the file opened for sequential access.\r\nStatements conditional jBC statements.\r\nEach WRITESEQ writes the data on a line of the sequentially opened file.\r\nEach line of data is suffixed with a new line character.\r\nAfter each WRITESEQ the file pointer moves forward to the end of line.\r\nThe WRITESEQF statement forces each data line to be flushed to the file when it is written.\r\nThe APPEND option forces each WRITESEQ to advance to the end of the file before writing the next data line.",
             "detail": "WRITESEQF Expression {APPEND} ON|TO FileVar THEN | ELSE statements"
          },
          {
             "key": "Writet",
             "icon": 14,
             "index": 379,
-            "documentation": "The WRITET statement enables data to be written to a range of tape devices between 0-9.",
+            "documentation": "The WRITET statement enables data to be written to a range of tape devices between 0-9.\r\nvariable holds the data for writing to the tape device.\r\nexpression should evaluate to an integer value in the range 0-9 and specifies which tape channel to read data from.\r\nIf the ON clause is not specified the WRITET will assume channel 0.\r\nIf the WRITET fails then the statements associated with any ELSE clause will be executed.\r\nSYSTEM(0) will return the reason code for the failure.\r\nA \"tape\" not only refers to magnetic tape devices but also any device that has been described to jBASE.\r\nIf no tape device has been assigned to the channel specified then the jBASE debugger is entered with an appropriate message.",
             "detail": "WRITET variable {ON|TO expression} THEN|ELSE statements"
          },
          {
             "key": "Writeu",
             "icon": 14,
             "index": 380,
-            "documentation": "The WRITEU statement allows a program to write a record into a previously opened file. An existing record lock will be preserved.",
+            "documentation": "The WRITEU statement allows a program to write a record into a previously opened file. An existing record lock will be preserved.\r\nvariable1 is the identifier holding the record to be written.\r\nvariable2, if specified, should be a jBC variable that has previously been opened to a file using the OPEN statement.\r\nIf variable2 is not specified then the default file is assumed.\r\nThe expression should evaluate to a valid record key for the file.\r\nIf the SETTING clause is specified and the write fails, setvar will be set to an Incremental File Error code.\r\nIf the statement fails to write the record then any statements associated with the ON ERROR clause are executed.\r\nThe lock maintained by the WRITEU statement will be released by any of the following events:\r\n\tthe record is written to by the same program with WRITE, WRITEV or MATWRITE statements.\r\n\tthe record lock is released explicitly using the RELEASEstatement.\r\n\tthe program stops normally or abnormally.",
             "detail": "WRITEU variable1 ON|TO { variable2,} expression {SETTING setvar} {ON ERROR statements}"
          },
          {
             "key": "Writev",
             "icon": 14,
             "index": 381,
-            "documentation": "The WRITEV statement allows a program to write a specific field of a record in a previously opened file.",
+            "documentation": "The WRITEV statement allows a program to write a specific field of a record in a previously opened file.\r\nvariable1 is the identifier holding the record to be written.\r\nvariable2, if specified, should be a jBC variable that has previously been opened to a file using the OPEN statement.\r\nIf variable2 is not specified then the default file is assumed.\r\nexpression1 should evaluate to a valid record key for the file.\r\nexpression2 should evaluate to a positive integer number.\r\nIf the number is greater than the number of fields in the record, null fields will be added to variable1.\r\nIf expression2 evaluates to a non-numeric argument, a run time error will be generated.\r\nIf the SETTING clause is specified and the write fails, setvar will be set to an Incremental File Errors code.\r\nThe WRITEV statement will cause any lock held on the record by this program to be released.\r\nIf a lock on the record should be retained, that should be done so explicitly with the WRITEVU statement.",
             "detail": "WRITEV variable1 ON|TO {variable2,} expression1, expression2 {SETTING setvar} {ON ERROR statements}"
          },
          {
             "key": "Writevu",
             "icon": 14,
             "index": 382,
-            "documentation": "The WRITEVU statement allows a program to write a specific field on a record in a previously opened file.\r\nAn existing record lock will be preserved.",
+            "documentation": "The WRITEVU statement allows a program to write a specific field on a record in a previously opened file.\r\nAn existing record lock will be preserved.\r\nvariable1 is the identifier holding the record to be written.\r\nvariable2, if specified, should be a jBC variable that has previously been opened to a file using the OPEN statement. If variable2 is not specified then the default file is assumed.\r\nexpression1 should evaluate to a valid record key for the file.\r\nexpression2 should evaluate to a positive integer number.\r\nIf the number is greater than the number of fields in the record, null fields will be added to variable1.\r\nIf expression2 evaluates to a non-numeric argument, a run time error will be generated.\r\nIf the SETTING clause is specified and the write fails, setvar will be set to an Incremental File Error code.\r\nIf the statement fails to write the record then any statements associated with the ON ERROR clause are executed.\r\nThe lock taken by the WRITEVU statement will be released by any of the following events:\r\n\tThe record is written to by the same program with WRITE, WRITEV or MATWRITE statements.\r\n\tThe record lock is released explicitly using the RELEASE statement.\r\n\tThe program stops normally or abnormally.",
             "detail": "WRITEVU variable1 ON|TO { variable2,} expression1, expression2 {SETTING setvar} {ON ERROR statements}"
          },
          {
             "key": "Writexml",
             "icon": 14,
             "index": 383,
-            "documentation": "The WRITEXML statement writes a dynamic array to a hashed file in XML format, using a style sheet from the DICT.",
+            "documentation": "The WRITEXML statement writes a dynamic array to a hashed file in XML format, using a style sheet from the DICT.\r\nThe XML is transformed into a dynamic array before being written to the file.\r\nThe transformation takes place using the stylesheet in DICT->@WRITEXML.",
             "detail": "WRITEXML rec ON file,id ELSE STOP 201,id"
          },
          {
             "key": "Xlate",
             "icon": 3,
             "index": 384,
-            "documentation": "The XLATE function will return the data value of a field, given the name of the file, the record key, the field number, and an action code.",
+            "documentation": "The XLATE function will return the data value of a field, given the name of the file, the record key, the field number, and an action code.DICT is the literal string to be placed before the file name in the event it is desired to open the dictionary portion of the file, rather than the data portion.\r\nfilename is a string containing the name of the file to be accessed.  Note that it is the actual name of the file, and not a file unit variable.\r\nThis function requires the file name, regardless of whether or not the file has been opened to a file unit variable.\r\nkey  is an expression that evaluates to the record key, or item ID, of the record from which data is to be accessed.\r\nfield#  is the field number to be retrieved from the record.\r\naction.code  a literal which indicates what should happen if the field is null, or the if record is not found.\r\nXLATE is a synonym of the TRANS function.",
             "detail": "XLATE ([DICT] filename, key, field#, action.code)"
          },
          {
             "key": "Xmltodyn",
             "icon": 3,
             "index": 385,
-            "documentation": "The XMLTODYN function converts an XML expression to a dynamic array, using an optional XSL to transform.",
+            "documentation": "The XMLTODYN function converts an XML expression to a dynamic array, using an optional XSL to transform.\r\nArray = XMLTODYN(XML,XSL,result)\r\nIf result = 0 Array will contain a dynamic array built from the xml / xsl.\r\nIf result <> 0, Array will contain an error message.",
             "detail": "XMLTODYN(XML, XSL, result)"
          },
          {
             "key": "Xmltoxml",
             "icon": 3,
             "index": 386,
-            "documentation": "The XMLTOXML function transforms an XML expression using an XSL.",
+            "documentation": "The XMLTOXML function transforms an XML expression using an XSL.\r\nnewxml=XMLTOXML(XML, XSL, result)\r\nIf result = 0, newxml  will contain a transformed version of XML using XSL.\r\nIf result = 1, newxml will contain an error message.",
             "detail": "XMLTOXML(XML, XSL, result)"
          },
          {
             "key": "Xtd",
             "icon": 3,
             "index": 387,
-            "documentation": "The XTD() function converts hexadecimal number into its decimal equivalent.",
+            "documentation": "The XTD() function converts hexadecimal number into its decimal equivalent.\r\nexpression should evaluate to a valid hexadecimal string.\r\nThe conversion process will halt at the first character that is not a valid base 16 character in the set [0-9, A-F or a-f].",
             "detail": "XTD(expression)"
          }
       ]
