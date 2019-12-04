@@ -412,14 +412,14 @@
             "key": "Bitchange",
             "icon": 3,
             "index": 59,
-            "documentation": "BITCHANGE toggles the state of a specified bit in the local bit table, and return the original value of the bit.\r\ntable_no specifies the position in the table of the bit to be changed.\r\nA unique table of 128 bits (numbered 1 to 128) is maintained for each process. Each bit in the table is treated as a two-state flag - the value returned will always be 0 (zero) or 1.\r\n-1 toggles (enables/disables) the BREAK key Inhibit bit.\r\n-2 toggles (enables/disables) the Command Level Restart feature.\r\n-3 toggles (enables/disables) the Break/End Restart feature.",
+            "documentation": "BITCHANGE toggles the state of a specified bit in the local bit table, and return the original value of the bit.\r\n\r\ntable_no specifies the position in the table of the bit to be changed.\r\nA unique table of 128 bits (numbered 1 to 128) is maintained for each process. Each bit in the table is treated as a two-state flag - the value returned will always be 0 (zero) or 1.\r\nBITCHANGE returns the value of the bit before it was changed.\r\nIt is therefore possible to check and set (or reset) a flag in one step.\r\nSome special functions ara aviable if one of the following table_no values is used:r\n-1 toggles (enables/disables) the BREAK key Inhibit bit.\r\n-2 toggles (enables/disables) the Command Level Restart feature.\r\n-3 toggles (enables/disables) the Break/End Restart feature.",
             "detail": "BITCHANGE(table_no)"
          },
          {
             "key": "Bitcheck",
             "icon": 3,
             "index": 60,
-            "documentation": "BITCHECK returns the current value of a specified bit from the local bit table.\r\ntable_no specifies the position in the table of the bit to be checked.\r\nA unique table of 128 bits (numbered 1 to 128) is maintained for each process. Each bit in the table is treated as a two-state flag - the value returned will always be 0 (zero) or 1.\r\n-1 returns the setting of the BREAK key Inhibit bit.\r\n-2 returns the setting of the Command Level Restart feature.\r\n-3 returns the setting of the Break/End Restart feature.",
+            "documentation": "BITCHECK returns the current value of a specified bit from the local bit table.\r\ntable_no specifies the position in the table of the bit to be checked.\r\nA unique table of 128 bits (numbered 1 to 128) is maintained for each process. Each bit in the table is treated as a two-state flag - the value returned will always be 0 (zero) or 1.\r\nBITCHECK also provides some special functions if one of the following table_no values is used:\r\n-1 returns the setting of the BREAK key Inhibit bit.\r\n-2 returns the setting of the Command Level Restart feature.\r\n-3 returns the setting of the Break/End Restart feature.",
             "detail": "BITCHECK(table_no)"
          },
          {
