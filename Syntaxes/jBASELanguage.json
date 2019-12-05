@@ -461,7 +461,7 @@
             "key": "Bittest",
             "icon": 3,
             "index": 66,
-            "documentation": "BITTEST tests the bit number of the integer specified by an expression.\r\nThe function returns 1 if the bit is set; it returns 0 if it is not; Bits are counted from right to left.\r\nThe number of the rightmost bit is 0.\r\nf expression evaluates to the null value, null is returned. If bit# evaluates to null, the BITTEST function fails and the program terminates with a run-time error message.\r\nNon integer values are truncated before the operation is performed.",
+            "documentation": "BITTEST tests the bit number of the integer specified by an expression.\r\nThe function returns 1 if the bit is set; it returns 0 if it is not; Bits are counted from right to left.\r\nThe number of the rightmost bit is 0.\r\nIf expression evaluates to the null value, null is returned. If bit# evaluates to null, the BITTEST function fails and the program terminates with a run-time error message.\r\nNon integer values are truncated before the operation is performed.",
             "detail":"BITTEST(expression, bit#)"
          },
          {
@@ -489,7 +489,7 @@
             "key": "Call",
             "icon": 14,
             "index": 70,
-            "documentation": "The CALL statement transfers program execution to an external subroutine.\r\nThe CALL statement transfers program execution to the subroutine called subroutine.name, which can be any valid string either quoted or unquoted.\r\nThe CALL @ variant of this statement assumes that subroutine.name is a variable that contains the name of the subroutine to call.\r\nThe CALL statement may optionally pass a number of parameters to the target subroutine.\r\nThese parameters can consist of any valid expression or variable name.\r\nIf a variable name is used then the called program may return a value to the variable by changing the value of the equivalent variable in its own parameter list.",
+            "documentation": "The CALL statement transfers program execution to the subroutine called subroutine.name, which can be any valid string either quoted or unquoted.\r\nThe CALL @ variant of this statement assumes that subroutine.name is a variable that contains the name of the subroutine to call.\r\nThe CALL statement may optionally pass a number of parameters to the target subroutine.\r\nThese parameters can consist of any valid expression or variable name.\r\nIf a variable name is used then the called program may return a value to the variable by changing the value of the equivalent variable in its own parameter list.",
             "detail": "CALL {@}subroutine.name {(argument {, argument ... })}"
          },
          {
@@ -503,14 +503,14 @@
             "key": "Calldotnet",
             "icon": 14,
             "index": 72,
-            "documentation": "The CALLdotNET command allows jBASE BASIC to call any .NET assembly and is useful when using third party applications.\r\nNameSpaceAndClassName The “full” NameSpace (e.g., myNameSpace.myClass)\r\nmethodName The name of the .NET in this class (e.g., “myMethod”)\r\nParam Any parameter (eg DynArray)",
+            "documentation": "The CALLdotNET command allows jBASE BASIC to call any .NET assembly and is useful when using third party applications.\r\nNameSpaceAndClassName The “full” NameSpace (e.g., myNameSpace.myClass)\r\nmethodName The name of the .NET in this class (e.g., “myMethod”)\r\nParam Any parameter (e.g. DynArray)",
             "detail": "CALLdotNET NameSpaceAndClassName, methodName, param SETTING ret [ON ERROR errStatment]"
          },
          {
             "key": "Callj",
             "icon": 14,
             "index": 73,
-            "documentation": "The CALLJ statement allows a jBC program to call a Java method.\r\npackageAndClassName The “full” class name (e.g., com.jbase.util.utilClass).\r\nmethodName The name of the Java method in this class (e,g., “myMethod”). If the method is static, you must include a ‘$’ before the name. This ‘$’ will be removed from the method name before calling it.\r\nparam Any parameter (eg DynArray)",
+            "documentation": "The CALLJ statement allows a jBC program to call a Java method.\r\npackageAndClassName The “full” class name (e.g., com.jbase.util.utilClass).\r\nmethodName The name of the Java method in this class (e,g., “myMethod”). If the method is static, you must include a ‘$’ before the name. This ‘$’ will be removed from the method name before calling it.\r\nparam Any parameter (e.g. DynArray)",
             "detail": "CALLJ packageAndClassName, [$]methodName, param SETTING ret [ON ERROR] statements"
          },
          {
