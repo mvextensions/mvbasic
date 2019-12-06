@@ -657,7 +657,7 @@
             "key": "Col2",
             "icon": 3,
             "index": 94,
-            "documentation": "The function is used in conjunction with the FIELD function to determine the character position 1 position after the last field that was located.\r\nCOL2() will return the position of the character immediately after the end of the last field located. Together with COL(1), they can then be used to manipulate the string.",
+            "documentation": "The function is used in conjunction with the FIELD function to determine the character position 1 position after the last field that was located.\r\nCOL2() will return the position of the character immediately after the end of the last field located. Together with COL1(), they can then be used to manipulate the string.",
             "detail": "COL2()"
          },
          {
@@ -706,7 +706,7 @@
             "key": "Cos",
             "icon": 3,
             "index": 101,
-            "documentation": "The COS function calculates the cosine of any angle using floating point arithmetic, then rounds to the precision implied by the jBC program. This makes it very accurate.\r\nThe expression must evaluate to a numeric result or a runtime error will occur.\r\nThe expression must evaluate to a numeric result or a runtime error will occur.",
+            "documentation": "The COS function calculates the cosine of any angle using floating point arithmetic, then rounds to the precision implied by the jBC program. This makes it very accurate.\r\nThe expression must evaluate to a numeric result or a runtime error will occur.",
             "detail": "COS(expression)"
          },
          {
@@ -720,7 +720,7 @@
             "key": "Counts",
             "icon": 3,
             "index": 103,
-            "documentation": "The COUNTS function counts the number of times a substring is repeated in each element of a dynamic array.\r\nThe result is a new dynamic array whose elements are the counts corresponding to the elements in the dynamic array.\r\ndynamic.array specifies the dynamic array whose elements are to be searched.\r\nsubstring is an expression that evaluates to the substring to be counted. substring can be a character string, a constant, or a variable. Each character in an element is matched to substring only once.\r\nTherefore, when substring is longer than one character and a match is found, the search continues with the character following the matched substring.\r\bNo part of the matched element is recounted toward another match.\r\nIf substring does not appear in an element, a 0 value is returned. If substring is an empty string, the number of characters in the element is returned.\r\nIf substring is null, the COUNTS function fails and the program terminates with a run-time error message.\r\nIf any element in dynamic.array is null, null is returned.",
+            "documentation": "The COUNTS function counts the number of times a substring is repeated in each element of a dynamic array.\r\nThe result is a new dynamic array whose elements are the counts corresponding to the elements in the dynamic array.\r\ndynamic.array specifies the dynamic array whose elements are to be searched.\r\nsubstring is an expression that evaluates to the substring to be counted. substring can be a character string, a constant, or a variable. Each character in an element is matched to substring only once.\r\nTherefore, when substring is longer than one character and a match is found, the search continues with the character following the matched substring.\r\nNo part of the matched element is recounted toward another match.\r\nIf substring does not appear in an element, a 0 value is returned. If substring is an empty string, the number of characters in the element is returned.\r\nIf substring is null, the COUNTS function fails and the program terminates with a run-time error message.\r\nIf any element in dynamic.array is null, null is returned.",
             "detail": "COUNTS(dynamic array, substring)"
          },
          {
