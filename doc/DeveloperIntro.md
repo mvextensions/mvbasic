@@ -44,7 +44,7 @@ Screenshots of this process will be done from Windows, but everything can be don
 
 Before starting you should have the following installed and working:
 
-* [VSCode](https://code.visualstudio.com/download) (duh! :))
+* [VSCode](https://code.visualstudio.com/download)
 * [Git](https://git-scm.com/downloads)
 * [Nodejs](https://nodejs.org/en/download/)
 
@@ -65,7 +65,7 @@ v10.16.3
 
 ## 2.2 Option 1 - Clone the repository directly
 
-This is the simpler approach, and less confusing when getting started.  The good news is there's no risk of bad things happening - in the very worst case you can simply delete any cloned repos and start over.  We are going to "clone" the mvextensions/mvbasic repo to our local machine so we have a copy of the source code to work with.
+This is the simple approach, and less confusing when getting started.  We are going to directly "clone" the mvextensions/mvbasic repo to our local machine so we have a copy of the source code to work with.
 
 ```
 c:\>cd src
@@ -77,7 +77,7 @@ This will create a new folder, mvbasic, with a complete copy of the repo from gi
 
 ## 2.3 Start the extension and finish development setup
 
-Since we're right there at prompt, start VSCode and tell it to open the directory we just cloned.
+Since we're right there at the prompt, start VSCode and tell it to open the directory we just cloned.
 
 ```
 src>code mvbasic
@@ -94,6 +94,8 @@ npm install
 After churning for a while, downloading, extracting and installing hundrds of packages will complete:
 
 ![npminstall2](screenshots/devguide/npminstall2.png)
+
+//TODO: How to make the "No license field" go away?
 
 [(top)](#table-of-contents)
 
@@ -122,7 +124,7 @@ The simple approach of directly cloning the mvextensions/mvbasic repo from githu
 
 ## 8.1 Option 2 - Fork and Clone the MV Extensions Repo
 
-If you are making more than minor edits, it's a good idea to first fork the project repository on Github.  This is an optional step, and not required unless you plan on submitting changes back to MV Extensions.  This is an optional, extra credit, step.
+If you are making more than minor edits, it's a good idea to first fork the project repository on Github.  This is an optional step, and not required unless you plan on submitting changes back to MV Extensions.
 
 Forking will allow two things:
 
@@ -137,7 +139,7 @@ To fork the repo from github, click on the fork button to the top right:
 
 ![fork](screenshots/devguide/fork.png)
 
-After a few seconds of churning, you will be taken to a brand new repo, that is an exact copy of the MV Extensions repo:
+After a few seconds of churning, you will be taken to your brand new repo, that is an exact copy of the MV Extensions repo:
 
 ![forkresult](screenshots/devguide/forkresults.png)
 
