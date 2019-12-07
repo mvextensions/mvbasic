@@ -13,6 +13,9 @@
   - [2.3 Start the extension and finish development setup](#23-start-the-extension-and-finish-development-setup)
 - [3. Running in debug mode](#3-running-in-debug-mode)
 - [4. Syntax definitions / theming](#4-syntax-definitions--theming)
+  - [4.1 Resources](#41-resources)
+  - [4.2 Changing/Adding Scopes](#42-changingadding-scopes)
+  - [4.3 Overriding theme color choices](#43-overriding-theme-color-choices)
 - [5. Formatting](#5-formatting)
 - [6. Code validation](#6-code-validation)
 - [7. Building a custom version of the extension](#7-building-a-custom-version-of-the-extension)
@@ -91,6 +94,8 @@ npm install
 
 ![npminstall](screenshots/devguide/npminstall.png)
 
+The list of ten packages the extension directly depends on is specified in the top-level package.json.  Running "npm ls" from the command prompt will show the tree of recursive package dependencies.
+
 After churning for a while, downloading, extracting and installing hundrds of packages will complete:
 
 ![npminstall2](screenshots/devguide/npminstall2.png)
@@ -107,6 +112,22 @@ This will start a new instance of VSCode running in debug mode, connected back t
 
 [(top)](#table-of-contents)
 # 4. Syntax definitions / theming
+
+## 4.1 Resources
+
+An introduction to how syntax highlights work in VSCode: https://code.visualstudio.com/api/language-extensions/syntax-highlight-guide
+
+A description of the various "scopes" typically used: https://macromates.com/manual/en/language_grammars
+
+Using "Developer: Inspect TM Scopes" to see how a particular token is interpreted.
+
+## 4.2 Changing/Adding Scopes
+
+Updating mvon.tmLanguage.json.  (//TODO, revisit how to choose language dialect)
+
+## 4.3 Overriding theme color choices
+
+Let's say we want a particular kind of comment to show up in a hard-to-ignore color.
 
 [(top)](#table-of-contents)
 # 5. Formatting
