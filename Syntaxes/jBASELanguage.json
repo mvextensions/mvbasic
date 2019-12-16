@@ -1693,7 +1693,7 @@
             "key": "Neg",
             "icon": 3,
             "index": 242,
-            "documentation": "The NEG function is used to invert the arithmetic value of an expression.expression may evaluate to any numeric value.",
+            "documentation": "The NEG function is used to invert the arithmetic value of an expression.\r\nexpression may evaluate to any numeric value.",
             "detail": "NEG(expression)"
          },
          {
@@ -1749,7 +1749,7 @@
             "key": "Num",
             "icon": 3,
             "index": 250,
-            "documentation": "The NUM function is used to test arguments for numeric values.\r\nexpression may evaluate to any data type.\r\nIf every character in expression is found to be numeric then NUM returns a value of Boolean TRUE.\r\nIf any character in expression is found not to be numeric then a value of Boolean FALSE is returned.\r\nNote that to execute user code migrated from older systems correctly, the NUM function will accept both a null string and the single characters \".\", \"+\", and \"-\" as being numeric.The aforementioned single characters will not be considered numeric if 'dot_not_numeric' is set to 'true' in the Config_EMULATE file.\r\nCHAR(0) is also considered numeric, therefore NUM(CHAR(0)) returns TRUE.\r\nIf running jBC in ros emulation, the \".\" , \"+\" and \"-\" characters would not be considered numeric.",
+            "documentation": "The NUM function is used to test arguments for numeric values.\r\nexpression may evaluate to any data type.\r\nIf every character in expression is found to be numeric then NUM returns a value of Boolean TRUE.\r\nIf any character in expression is found not to be numeric then a value of Boolean FALSE is returned.\r\nNote that to execute user code migrated from older systems correctly, the NUM function will accept both a null string and the single characters \".\", \"+\", and \"-\" as being numeric\r\nThe aforementioned single characters will not be considered numeric if 'dot_not_numeric' is set to 'true' in the Config_EMULATE file.\r\nCHAR(0) is also considered numeric, therefore NUM(CHAR(0)) returns TRUE.\r\nIf running jBC in ros emulation, the \".\" , \"+\" and \"-\" characters would not be considered numeric.",
             "detail": "NUM(expression)"
          },
          {
