@@ -150,18 +150,13 @@ After adding all the parameters to the workspace, your settings should be like t
         }
     ],
     "settings": {
-        "mvbasic.RestPath": "http://localhost:9005/",
-        "mvbasic.GatewayType": "Universe",
-        "mvbasic.UseGateway": true,
-        "mvbasic.RemoteHost": "192.168.1.2",
-        "mvbasic.UserName": "myUserName",
-        "mvbasic.Password": "mvPassword",
-        "mvbasic.Account": "DEMO",
-        "files.associations": {
-           "*.md": "markdown",
-           "*.js": "javascript",
-           "\*"  : "mvbasic"
-        }
+        "MVBasic.RestPath": "http://localhost:9005/",
+        "MVBasic.GatewayType": "Universe",
+        "MVBasic.UseGateway": true,
+        "MVBasic.RemoteHost": "192.168.1.2",
+        "MVBasic.UserName": "myUserName",
+        "MVBasic.Password": "mvPassword",
+        "MVBasic.Account": "DEMO"
     }
 }
 ```
@@ -253,7 +248,7 @@ After the option is selected, the results will be displayed in message box at th
 
 ## 6.7 Formatting Programs
 
-**Right Clicking** and selecting **Format Document** , will format your BASIC program. The formatting is based on the 2 settings, **mvbasic.indent** and **mvbasic.margin** that have default values of 3 and 5.
+**Right Clicking** and selecting **Format Document** , will format your BASIC program. The formatting is based on the 2 settings, **MVBasic.indent** and **MVBasic.margin** that have default values of 3 and 5.
 
 [(top)](#table-of-contents)
 
@@ -269,28 +264,25 @@ After the option is selected, the results will be displayed in message box at th
         }
     ],
     "settings": {
-        "mvbasic.RestPath": "http://localhost:9005/",
-        "mvbasic.UseGateway": true,
-        "mvbasic.GatewayType": "Universe",
-        "mvbasic.RemoteHost": "192.168.1.2",
-        "mvbasic.UserName": " myUserName",
-        "mvbasic.Password": "myPassword",
-        "mvbasic.Account": "DEMO",
-        "files.associations": {
-           "\*":"mvbasic"
-        }
+        "MVBasic.RestPath": "http://localhost:9005/",
+        "MVBasic.UseGateway": true,
+        "MVBasic.GatewayType": "Universe",
+        "MVBasic.RemoteHost": "192.168.1.2",
+        "MVBasic.UserName": "myUserName",
+        "MVBasic.Password": "myPassword",
+        "MVBasic.Account": "DEMO"
     }
 }
 ```
-| **Setting** |   | **Description** |
-| --- | --- | --- |
-| **mvbasic.RestPath** | [http://localhost:9005](http://localhost:9005)/ | Path to REST Gateway |
-| **mvbasic.UseGateway** | true | Indicate that the gateway must be used. |
-| **mvbasic.RemoteHost** | 192.168.1.2 | The servers IP/Host name that is running the Universe Database. |
-| **mvbasic.GatewayType** | Universe | Connecting to a Universe server |
-| **mvbasic.UserName** | myUserName | The Windows/UNIX user id to log into the server. |
-| **mvbasic.Password** | myPassword | The password for the user above. |
-| **mvbasic.Account** | DEMO | The account name on Universe to connect to. This must be defined in the UV.ACCOUNT file in the UV account. |
+|Setting|Value|Description|
+|---|---|---|
+|MVBasic.RestPath|[http://localhost:9005](http://localhost:9005)/|Path to REST Gateway|
+|MVBasic.UseGateway|true|Indicate that the gateway must be used.|
+|MVBasic.RemoteHost|192.168.1.2|The servers IP/Host name that is running the Universe Database.|
+|MVBasic.GatewayType|Universe|Connecting to a Universe server|
+|MVBasic.UserName|myUserName|The Windows/UNIX user id to log into the server.|
+|MVBasic.Password|myPassword|The password for the user above.|
+|MVBasic.Account|DEMO|The account name on Universe to connect to. This must be defined in the UV.ACCOUNT file in the UV account.|
 
 ## 7.2 Unidata
 ```
@@ -302,28 +294,27 @@ After the option is selected, the results will be displayed in message box at th
         }
     ],
     "settings": {
-        "mvbasic.RestPath": "http://localhost:9005/",
-        "mvbasic.UseGateway": true,
-        "mvbasic.GatewayType": "Unidata",
-        "mvbasic.RemoteHost": "192.168.1.2",
-        "mvbasic.UserName": "myUserName",
-        "mvbasic.Password": "MyPassword",
-        "mvbasic.Account": "DEMO",
-        "mvbasic.AccountPath": "/usr/data/DEMO",
-        "files.associations": {"\*":"mvbasic"}
+        "MVBasic.RestPath": "http://localhost:9005/",
+        "MVBasic.UseGateway": true,
+        "MVBasic.GatewayType": "Unidata",
+        "MVBasic.RemoteHost": "192.168.1.2",
+        "MVBasic.UserName": "myUserName",
+        "MVBasic.Password": "MyPassword",
+        "MVBasic.Account": "DEMO",
+        "MVBasic.AccountPath": "/usr/data/DEMO"
     }
 }
 ```
-| **Setting** |   | **Description** |
-| --- | --- | --- |
-| **mvbasic.RestPath** | [http://localhost:9005](http://localhost:9005) | Path to REST Gateway |
-| **mvbasic.UseGateway** | true | Indicate that the gateway must be used. |
-| **mvbasic.RemoteHost** | 192.168.1.10 | The servers IP/Host name that is running the Unidata Database. |
-| **mvbasic.GatewayType** | Unidata | Connecting to a Unidata server |
-| **mvbasic.UserName** | MyUserName | The Windows/UNIX user id to log into the server. |
-| **mvbasic.Password** | MyPassword | The password for the user above. |
-| **mvbasic.Account** | DEMO | A name for this account. |
-| **mvbasic.AccountPath** | /usr/data/DEMO | The path on the Unidata machine to the Unidata account. |
+|Setting|Value|Description|
+|---|---|---|
+|MVBasic.RestPath|[http://localhost:9005](http://localhost:9005)|Path to REST Gateway|
+|MVBasic.UseGateway|true|Indicate that the gateway must be used.|
+|MVBasic.RemoteHost|192.168.1.10|The servers IP/Host name that is running the Unidata Database.|
+|MVBasic.GatewayType|Unidata|Connecting to a Unidata server|
+|MVBasic.UserName|MyUserName|The Windows/UNIX user id to log into the server.|
+|MVBasic.Password|MyPassword|The password for the user above.|
+|MVBasic.Account|DEMO|A name for this account.|
+|MVBasic.AccountPath|/usr/data/DEMO|The path on the Unidata machine to the Unidata account.|
 
 ## 7.3 OpenQM
 ```
@@ -335,26 +326,25 @@ After the option is selected, the results will be displayed in message box at th
         }
     ],
     "settings": {
-        "mvbasic.RestPath": "http://localhost:9005/",
-        "mvbasic.UseGateway": true,
-        "mvbasic.GatewayType": "QM",
-        "mvbasic.RemoteHost": "192.168.1.2",
-        "mvbasic.UserName": "MyUserName",
-        "mvbasic.Password": "MyPassword",
-        "mvbasic.Account": "DEMO",
-        "files.associations": {"\*":"mvbasic"}
+        "MVBasic.RestPath": "http://localhost:9005/",
+        "MVBasic.UseGateway": true,
+        "MVBasic.GatewayType": "QM",
+        "MVBasic.RemoteHost": "192.168.1.2",
+        "MVBasic.UserName": "MyUserName",
+        "MVBasic.Password": "MyPassword",
+        "MVBasic.Account": "DEMO"
     }
 }
 ```
-| **Setting** |   | **Description** |
-| --- | --- | --- |
-| **mvbasic.RestPath** | [http://localhost:9005/](http://localhost:9005/) | Path to REST Gateway |
-| **mvbasic.UseGateway** | true | Indicate that the gateway must be used. |
-| **mvbasic.remoteHost** | 192.168.1.2 | The servers IP/Host name that is running the OpenQM Database. |
-| **mvbasic.gatewayType** | QM | Connecting to a OpenQM server |
-| **mvbasic.UserName** | MyUserName | The Windows/UNIX user id to log into the server. |
-| **mvbasic.Password** | MyPassword | The password for the user above. |
-| **mvbasic.Account** | DEMO | The account name on the QM server to connect to. This must be defined in the ACCOUNTS file in the QMSYS account. |
+|Setting|Value|Description|
+|---|---|---|
+|MVBasic.RestPath|[http://localhost:9005/](http://localhost:9005/)|Path to REST Gateway|
+|MVBasic.UseGateway|true|Indicate that the gateway must be used.|
+|MVBasic.remoteHost|192.168.1.2|The servers IP/Host name that is running the OpenQM Database.|
+|MVBasic.gatewayType|QM|Connecting to a OpenQM server|
+|MVBasic.UserName|MyUserName|The Windows/UNIX user id to log into the server.|
+|MVBasic.Password|MyPassword|The password for the user above.|
+|MVBasic.Account|DEMO|The account name on the QM server to connect to. This must be defined in the ACCOUNTS file in the QMSYS account.|
 
 ## 7.4 jBASE
 ```
@@ -366,27 +356,26 @@ After the option is selected, the results will be displayed in message box at th
         }
     ],
     "settings": {
-        "mvbasic.RestPath": "http://localhost:9005/",
-        "mvbasic.UseGateway": true,
-        "mvbasic.GatewayType": "jBASE",
-        "mvbasic.RemoteHost": "192.168.1.2",
-        "mvbasic.UserName": "MyUserName",
-        "mvbasic.Password": "MyPassword",
-        "mvbasic.Account": "",
-        "files.associations": {"\*":"mvbasic"}
+        "MVBasic.RestPath": "http://localhost:9005/",
+        "MVBasic.UseGateway": true,
+        "MVBasic.GatewayType": "jBASE",
+        "MVBasic.RemoteHost": "192.168.1.2",
+        "MVBasic.UserName": "MyUserName",
+        "MVBasic.Password": "MyPassword",
+        "MVBasic.Account": ""
     }
 }
 ```
 
-| **Setting** |   | **Description** |
-| --- | --- | --- |
-| **mvbasic.RestPath** | [http://localhost:9005/](http://localhost:9005/) | Path to REST Gateway |
-| **mvbasic.UseGateway** | true | Indicates that the gateway must be used. |
-| **mvbasic.RemoteHost** | 192.168.137.2 | The servers IP name that is running the jBASE Database. |
-| **mvbasic.GatewayType** | jBASE | Connecting to a jBASE server |
-| **mvbasic.UserName** | MyUserName | The Windows/UNIX user id to log into the server. |
-| **mvbasic.Password** | MyPassword | The password for the user above. |
-| **mvbasic.Account** |   | This is blank, jBASE uses the default path of the user for the account. |
+|Setting|Value|Description|
+|---|---|---|
+|MVBasic.RestPath|[http://localhost:9005/](http://localhost:9005/)|Path to REST Gateway|
+|MVBasic.UseGateway|true|Indicates that the gateway must be used.|
+|MVBasic.RemoteHost|192.168.137.2|The servers IP name that is running the jBASE Database.|
+|MVBasic.GatewayType|jBASE|Connecting to a jBASE server|
+|MVBasic.UserName|MyUserName|The Windows/UNIX user id to log into the server.|
+|MVBasic.Password|MyPassword|The password for the user above.|
+|MVBasic.Account||This is blank, jBASE uses the default path of the user for the account.|
 
 A record in the **MD** called **MVONFILES** can used as a list of available files, alternatively all files are displayed.
 
@@ -401,27 +390,26 @@ A record in the **MD** called **MVONFILES** can used as a list of available file
         }
     ],
     "settings": {
-        "mvbasic.RestPath": "http://localhost:9005/",
-        "mvbasic.UseGateway": true,
-        "mvbasic.GatewayType": "D3",
-        "mvbasic.RemoteHost": "192.168.1.2",
-        "mvbasic.UserName": "dm",
-        "mvbasic.AccountPassword": "",
-        "mvbasic.Account": "dm",
-        "files.associations": {"\*":"mvbasic"}
+        "MVBasic.RestPath": "http://localhost:9005/",
+        "MVBasic.UseGateway": true,
+        "MVBasic.GatewayType": "D3",
+        "MVBasic.RemoteHost": "192.168.1.2",
+        "MVBasic.UserName": "dm",
+        "MVBasic.AccountPassword": "",
+        "MVBasic.Account": "dm"
     }
 }
 ```
 
-| **Setting** |   | **Description** |
-| --- | --- | --- |
-| **mvbasic.RestPath** | http://localhost:9005/ | Path to the REST Gateway |
-| **mvbasic.UseGateway** | true | Indicates that the gateway must be used. |
-| **mvbasic.RemoteHost** | 192.168.137.102 | The servers IP name that is running the D3 Database. |
-| **mvbasic.GatewayType** | D3 | Connecting to a D3 server |
-| **mvbasic.UserName** | dm | The D3 User name to log in with |
-| **mvbasic.AccountPassword** |   | Specify the account password if a password is set on the account. |
-| **Mvon.Account** | dm | The D3 account to connect to. |
+|Setting|Value|Description|
+|---|---|---|
+|MVBasic.RestPath|http://localhost:9005/|Path to the REST Gateway|
+|MVBasic.UseGateway|true|Indicates that the gateway must be used.|
+|MVBasic.RemoteHost|192.168.137.102|The servers IP name that is running the D3 Database.|
+|MVBasic.GatewayType|D3|Connecting to a D3 server|
+|MVBasic.UserName|dm|The D3 User name to log in with|
+|MVBasic.AccountPassword||Specify the account password if a password is set on the account.|
+|MVBasic.Account|dm|The D3 account to connect to.|
 
 MSVP must be configured for the above account and the user must have MSVP access. A record in the **MD** called **VSCodeFILES** can be used as a list of available files, alternatively all files are displayed.
 
@@ -436,25 +424,24 @@ MSVP must be configured for the above account and the user must have MSVP access
         }
     ],
     "settings": {
-        "mvbasic.RestPath": "http://localhost:9005/",
-        "mvbasic.UseGateway": true,
-        "mvbasic.GatewayType": "mvBase",
-        "mvbasic.RemoteHost": "192.168.1.2",
-        "mvbasic.UserName": "MyUserName ",
-        "mvbasic.AccountPassword": "MyPassword",
-        "files.associations": {"\*":"mvbasic"}
+        "MVBasic.RestPath": "http://localhost:9005/",
+        "MVBasic.UseGateway": true,
+        "MVBasic.GatewayType": "mvBase",
+        "MVBasic.RemoteHost": "192.168.1.2",
+        "MVBasic.UserName": "MyUserName ",
+        "MVBasic.AccountPassword": "MyPassword"
     }
 }
 ```
 
-| **Setting** |   | **Description** |
-| --- | --- | --- |
-| **mvbasic.RestPath** | http://localhost:9005/ | Path to the REST Gateway |
-| **mvbasic.UseGateway** | true | Indicates that the gateway must be used. |
-| **mvbasic.RemoteHost** | 192.168.137.2 | The servers IP name that is running mvBase. |
-| **mvbasic.GatewayType** | mvBase | Connecting to a mvBase server |
-| **mvbasic.UserName** | MyUserName | The User name to log in with |
-| **Mvon.AccountPassword** | MyPassword | Specify the account password if a password is set on the account. |
+|Setting|Value|Description|
+|---|---|---|
+|MVBasic.RestPath|http://localhost:9005/|Path to the REST Gateway|
+|MVBasic.UseGateway|true|Indicates that the gateway must be used.|
+|MVBasic.RemoteHost|192.168.137.2|The servers IP name that is running mvBase.|
+|MVBasic.GatewayType|mvBase|Connecting to a mvBase server|
+|MVBasic.UserName|MyUserName|The User name to log in with|
+|MVBasic.AccountPassword|MyPassword|Specify the account password if a password is set on the account.|
 
 MSVP must be configured for the above account and the user must have MSVP access. A record in the **MD** called **VSCodeFILES** can be used as a list of available files, alternatively all files are displayed.
 
@@ -468,32 +455,31 @@ MSVP must be configured for the above account and the user must have MSVP access
         }
     ],
     "settings": {
-        "mvbasic.RestPath": "http://192.168.1.2/mvonrest",
-        "mvbasic.UseGateway": false,
-        "mvbasic.UserName": "MyUserName ",
-        "mvbasic.Password": "MyPassword",
-        "mvbasic.Account: "Netbasic",
-        "mvbasic.RemoteDebug": true,
-        "files.associations": {"\*":"mvbasic"}
+        "MVBasic.RestPath": "http://192.168.1.2/mvonrest",
+        "MVBasic.UseGateway": false,
+        "MVBasic.UserName": "MyUserName ",
+        "MVBasic.Password": "MyPassword",
+        "MVBasic.Account: "Netbasic",
+        "MVBasic.RemoteDebug": true
     }
 }
 ```
 
-| **Setting** |   | **Description** |
-| --- | --- | --- |
-| **mvbasic.RestPath** | [http://192.168.1.2/mvonrest](http://192.168.1.2/mvonrest) | URL of the MVON# REST service |
-| **mvbasic.UseGateway** | false | Indicates that the gateway is not required and may be omitted from the configuration. |
-| **mvbasic.UserName** | MyUserName | The User name to log in with |
-| **mvbasic.Password** | MyPassword | Specify the account password if a password is set on the account. |
-| **mvbasic.Account** | Netbasic | Name of the MVON# account you are connecting to. |
-| **mvbasic.RemoteDebug** | True | This enables the MVON# remote debugging feature allowing a rich debugging environment in VSCode |
+|Setting|Value|Description|
+|---|---|---|
+|MVBasic.RestPath|[http://192.168.1.2/mvonrest](http://192.168.1.2/mvonrest)|URL of the MVON# REST service|
+|MVBasic.UseGateway|false|Indicates that the gateway is not required and may be omitted from the configuration.|
+|MVBasic.UserName|MyUserName|The User name to log in with|
+|MVBasic.Password|MyPassword|Specify the account password if a password is set on the account.|
+|MVBasic.Account|Netbasic|Name of the MVON# account you are connecting to.|
+|MVBasic.RemoteDebug|True|This enables the MVON# remote debugging feature allowing a rich debugging environment in VSCode|
 
 MVON# connects differently from other MV servers.  It does not require the MVGateway service, providing a direct connection through the MVON# REST server.  You must have this server configured before connecting.
 
 ## 7.8 Associating Programs with the MVextension
-Most programming languages have an extension that says what language it is. Python is .py, C# is .cs etc.  MV Basic typically does not follow this concept.
+Most programming languages have a file extension that says what language it is. Python is .py, C# is .cs etc.  MV Basic typically does not follow this concept.  To manually load the MVBasic extension, choose "Change Language Mode" from the command palette.  Choose MVBasic from the dropdown and the extension will load.  ctrl-K M MV is a quick keyboard shortcut to achieve that.
 
-In order to tell VSCode that we are editing a MV BASIC program in order to enable Syntax highlighting. Intellisense, Linting and other features, we need to tell VSCode that files in the Workspace are linked to this MV BASIC extension. This is achieved by adding the following setting to your Workspace settings (see red highlight below).
+To automatically load the extension, we can configure the workspace so any files without a known extension are linked to the MV BASIC extension. This is achieved by adding the following setting to your Workspace settings.
 
 ```
 {
@@ -504,21 +490,34 @@ In order to tell VSCode that we are editing a MV BASIC program in order to enabl
         }
     ],
     "settings": {
-        "mvbasic.RestPath": "http://localhost/mvonrest",
-        "files.associations": {"\*":"mvbasic"}
+        // Other settings,
+        "files.associations": {
+            "*.html": "html",
+            "*.js": "javascript",
+            "*.json": "json",
+            "*.md": "markdown",
+            "*.py": "python",
+            "*.txt": "text",
+            "*": "mvbasic"
+        },
     }
 }
+```
+
+In some cases the suggestions made by the extension can be an annoyance.  To keep the suggestions, but only get auto-completion when tab is pressed, set:
+
+```
+"editor.acceptSuggestionOnEnter": "off"
 ```
 
 ## 7.9 Additional MVBasic Developer Settings
 
 The following settings are available to customize your VSCode MVBasic Developer experience.
 
-| **Setting** | **Description** |
-| --- | --- |
-| **mvbasic.margin** | The number of characters to use as a margin when formatting. |
-| **mvbasic.indent** | The number of characters to use when indenting code blocks. |
-| **mvbasic.useCamelCase** | Use CamelCase for Intellisense keywords. |
-| **mvbasic.ignoreGotoScope** | The linter will not highlight goto that jump into the middle of loops. |
-| **mvbasic.formattingEnabled** | Set to false to disable code formatting. |
-|   |   |
+|Setting|Description|
+|---|---|
+|MVBasic.margin|The number of characters to use as a margin when formatting.|
+|MVBasic.indent|The number of characters to use when indenting code blocks.|
+|MVBasic.useCamelCase|Use CamelCase for Intellisense keywords.|
+|MVBasic.ignoreGotoScope|The linter will not highlight goto that jump into the middle of loops.|
+|MVBasic.formattingEnabled|Set to false to disable code formatting.|
