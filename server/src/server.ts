@@ -168,7 +168,7 @@ function validateTextDocument(textDocument: TextDocument): void {
 	let rEndLoop = new RegExp("(repeat$)", "i")
 	let rEndCase = new RegExp("(^end case)", "i")
 	let rElseEnd = new RegExp("^(end else\\s.+)", "i")
-	let rComment = new RegExp("(^\\*.+|^\\s+\\*.+|^!.+|^\\s+!.+|^REM.+|^\\s+REM.+)", "i")
+	let rComment = new RegExp("(^\\*.+|^\\s+\\*.+|^!.+|^\\s+!.+|^\\s*REM\\s.*)", "i")
 	let tComment = new RegExp("(;\\*.+|;\\s+\\*.+)", "i");
 	let lComment = new RegExp("(^[0-9]+\\s+\\*)|(^[0-9]+\\s+;)|(^[0-9]+\\*)|(^[0-9]+;)")  // number label with comments after
 	let trailingComment = new RegExp("(\\*.+)|(;+)")
