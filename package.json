@@ -79,23 +79,23 @@
     "commands": [
       {
         "command": "extension.compileProgram",
-        "title": "Compile Basic Program"
+        "title": "MVBasic: Compile Basic Program"
       },
       {
         "command": "extension.initialiseRestFS",
-        "title": "Connect to MultiValue REST FS"
+        "title": "MVBasic: Connect to MultiValue REST FS"
       },
       {
         "command": "extension.compileDebug",
-        "title": "Compile Basic Program with Debug"
+        "title": "MVBasic: Compile Basic Program with Debug"
       },
       {
         "command": "extension.catalogProgram",
-        "title": "Catalog Basic Program"
+        "title": "MVBasic: Catalog Basic Program"
       },
       {
         "command": "extension.mvonAdmin",
-        "title": "MVON# Administrator"
+        "title": "MVBasic: MVON# Administrator"
       }
     ],
     "grammars": [
