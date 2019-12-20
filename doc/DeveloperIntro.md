@@ -17,7 +17,7 @@
   - [4.2 Changing/Adding Scopes](#42-changingadding-scopes)
   - [4.3 Overriding theme color choices](#43-overriding-theme-color-choices)
 - [5. Formatting](#5-formatting)
-- [6. Code validation](#6-code-validation)
+- [6. Code validation/Linting](#6-code-validationlinting)
 - [7. Building a custom version of the extension](#7-building-a-custom-version-of-the-extension)
 - [8. Contributing back / creating a pull request](#8-contributing-back--creating-a-pull-request)
   - [8.1 Option 2 - Fork and Clone the MV Extensions Repo](#81-option-2---fork-and-clone-the-mv-extensions-repo)
@@ -30,7 +30,9 @@
 ---
 # 0. Code of conduct
 
-Refer to the code of conduct at https://help.github.com/en/github/building-a-strong-community/adding-a-code-of-conduct-to-your-project
+Refer to the code of conduct at:
+
+https://github.com/ianmcgowan/mvbasic/blob/add-code-of-conduct-1/CODE_OF_CONDUCT.md
 
 # 1. Introduction
 
@@ -110,8 +112,6 @@ After churning for a while, downloading, extracting and installing hundrds of pa
 
 ![npminstall2](screenshots/devguide/npminstall2.png)
 
-//TODO: How to make the "No license field" go away?
-
 [(top)](#table-of-contents)
 
 # 3. Running in debug mode
@@ -129,9 +129,11 @@ Debug: Restart from the command palette to restart the debug instance and make i
 
 An introduction to how syntax highlights work in VSCode: https://code.visualstudio.com/api/language-extensions/syntax-highlight-guide
 
-A description of the various "scopes" typically used: https://macromates.com/manual/en/language_grammars
+A description of the various "scopes" typically used: https://macromates.com/manual/en/language_grammars#naming_conventions
 
-Using "Developer: Inspect TM Scopes" to see how a particular token is interpreted.
+Using "Developer: Inspect TM Scopes" to see how a particular token is interpreted.  This will show both the source as well as the scope for any language elements selected.
+
+![Dev Inspect Scopes](screenshots/devguide/dev_inspect_scopes.gif)
 
 ## 4.2 Changing/Adding Scopes
 
@@ -184,8 +186,12 @@ Now that we've added a new scope, we can target this in our workspace settings:
 [(top)](#table-of-contents)
 # 5. Formatting
 
+Formatting is done in javascript code in client/src/extension.ts provideDocumentFormattingEdits.
+
 [(top)](#table-of-contents)
-# 6. Code validation
+# 6. Code validation/Linting
+
+Code validation is done from javascript code in server/src/server.ts validateTextDocument.
 
 [(top)](#table-of-contents)
 # 7. Building a custom version of the extension
