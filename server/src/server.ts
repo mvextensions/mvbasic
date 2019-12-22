@@ -145,7 +145,7 @@ function getWord(line: string, wordCount: number): string {
 	return line.substr(startpos, xpos - startpos)
 
 }
-function validateTextDocument(textDocument: TextDocument): void {
+function validateTextDocument(textDocument: TextDocument): void {	
 	let diagnostics: Diagnostic[] = [];
 
 	let lines = textDocument.getText().split(/\r?\n/g);
@@ -938,5 +938,3 @@ connection.onDidCloseTextDocument((params) => {
 	// params.uri uniquely identifies the document.
 	connection.console.log(`${params.textDocument.uri} closed.`);
 });*/
-
-
