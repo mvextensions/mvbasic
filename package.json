@@ -101,7 +101,7 @@
     "grammars": [
       {
         "language": "mvbasic",
-        "scopeName": "source.mvon",
+        "scopeName": "source.mvbasic",
         "path": "./Syntaxes/mvon.tmLanguage.json"
       }
     ],
