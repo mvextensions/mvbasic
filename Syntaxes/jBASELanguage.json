@@ -2210,14 +2210,14 @@
             "key": "Seek",
             "icon": 14,
             "index": 316,
-            "documentation": "The SEEK statement moves a file pointer by an offset specified in bytes, relative to the current position, the beginning of the file, or the end of the file.\r\nfile.variable specifies a file previously opened for sequential access.\r\noffset is the number of bytes before or after the reference position.\r\nA negative offset results in the pointer being moved before the position specified by relto.\r\nIf offset is not specified, 0 is assumed.\r\nOn Windows NT systems, line endings in files are denoted by the character sequence RETURN + LINEFEED rather than the single LINEFEED used in UNIX files. The value of offset should take into account this extra byte on each line in Windows NT file systems.\r\nIf relto is not specified, 0 is assumed.\r\nIf the pointer is moved, the THEN statements are executed and the ELSE statements are ignored.\r\nIf the THEN statements are not specified, program execution continues with the next statement.\r\nIf the file cannot be accessed or does not exist the ELSE statements are executed; any THEN statements are ignored.\r\nIf file.variable, offset, or relto evaluates to null, the SEEK statement fails and the program terminates with a run-time error message.",
+            "documentation": "The SEEK statement moves a file pointer by an offset specified in bytes, relative to the current position, the beginning of the file, or the end of the file.\r\nfile.variable specifies a file previously opened for sequential access.\r\noffset is the number of bytes before or after the reference position.\r\nA negative offset results in the pointer being moved before the position specified by relto.\r\nIf offset is not specified, 0 is assumed.\r\nOn Windows systems, line endings in files are denoted by the character sequence RETURN + LINEFEED rather than the single LINEFEED used in UNIX files. The value of offset should take into account this extra byte on each line in Windows file systems.\r\nIf relto is not specified, 0 is assumed.\r\nIf the pointer is moved, the THEN statements are executed and the ELSE statements are ignored.\r\nIf the THEN statements are not specified, program execution continues with the next statement.\r\nIf the file cannot be accessed or does not exist the ELSE statements are executed; any THEN statements are ignored.\r\nIf file.variable, offset, or relto evaluates to null, the SEEK statement fails and the program terminates with a run-time error message.",
             "detail": "SEEK file.variable [ , offset [ , relto] ] {THEN statements [ELSE statements] | ELSE statements}"
          },
          {
             "key": "Select",
             "icon": 14,
             "index": 317,
-            "documentation": "The SELECT statement creates a select list of elements in a specified variable for use with the READNEXT statement.\r\nvariable1 can be an OPENed file descriptor, in which case the record keys in the specified file will be selected, or an ordinary variable in which case each field in the variable will become a list element.\r\nvariable1 may also be an existing list in which case the elements in the list will be selected.\r\nIf variable1 is not specified in the statement then the default file variable is assumed.\r\nIf variable2 is specified then the newly created list will be placed in the variable.\r\nAlternatively, a select list number in the range 0 to 10 can be specified with listnum.\r\nIf neither variable2 nor listnum is specified then the default list variable will be assumed.\r\nIf the SETTING clause is specified and the select fails, setvar will be set to an Incremental File Error code.\r\nWhen a list is being built from record keys in a file, the list is not created immediately by scanning the file for all the record keys.\r\nInstead, only the first few keys will be extracted. When these keys have been taken from the list, the next few keys will be obtained and so on.\r\nThis means that the list could contain records that are written to the file after the SELECT command is started.\r\nIf a variable is used to hold the select list, then it should be unassigned or null prior to the SELECT.\r\nIf it contains a number in the range 0 to 10 then the corresponding select list number will be used to hold the list, although you can still reference the list with the variable name.\r\nWhen variable1 is a dynamic array (not a file descriptor) the result of variable2 is NOT a copy of variable1.",
+            "documentation": "The SELECT statement creates a select list of elements in a specified variable for use with the READNEXT statement.\r\nvariable1 can be an OPENed file descriptor, in which case the record keys in the specified file will be selected, or an ordinary variable in which case each field in the variable will become a list element.\r\nvariable1 may also be an existing list in which case the elements in the list will be selected.\r\nIf variable1 is not specified in the statement then the default file variable is assumed.\r\nIf variable2 is specified then the newly created list will be placed in the variable.\r\nAlternatively, a select list number in the range 0 to 10 can be specified with listnum.\r\nIf neither variable2 nor listnum is specified then the default list variable will be assumed.\r\nIf the SETTING clause is specified and the select fails, setvar will be set to an Incremental File Error code.\r\nWhen a list is being built from record keys in a file, the list is not created immediately by scanning the file for all the record keys.\r\nInstead, only the first few keys will be extracted.\r\nWhen these keys have been taken from the list, the next few keys will be obtained and so on.\r\nThis means that the list could contain records that are written to the file after the SELECT command is started.\r\nIf a variable is used to hold the select list, then it should be unassigned or null prior to the SELECT.\r\nIf it contains a number in the range 0 to 10 then the corresponding select list number will be used to hold the list, although you can still reference the list with the variable name.\r\nWhen variable1 is a dynamic array (not a file descriptor) the result of variable2 is NOT a copy of variable1.",
             "detail": "SELECT {variable1} {TO variable2 | listnum} {SETTING setvar}"
          },
          {
@@ -2227,507 +2227,535 @@
             "documentation": "This form of the SELECT statement allows you to use the index data in conjunction with an index definition variable created with an OPENINDEX statement.\r\nThis form of the SELECT statement allows the index data to be used in conjunction with an index definition variable created with an OPENINDEX statement.\r\nThe normal 'TO select-def' can be used to perform the selection to a numbered list or a variable instead of to the default select list.\r\nThe use of the 'ATKEY index-key{,record-key{,vmcount}}' is optional and allows positioning at a specific point in the index.\r\nIn its minimal form, the index key at which to start selection is specified. As each index key may contain many record keys, it is possible to sub-specify at which record key within that index to use as the starting position\r\nFinally, as each record may be multi-valued with the same index data, it is possible to sub-position at which value mark within the record key.\r\nThe SELECT .. ATKEY statement uses raw data whereas the key-select and query-index programs assume the index specification is in external representation and pass it though any defined lookup code.",
             "detail": "SELECT indexvariable {TO select-def} {ATKEY index-key{,record-key{,vmcount}}}"
          },
+         {
+            "key": "Selecte",
+            "icon": 14,
+            "index": 319,
+            "documentation": "The SELECTE statement allows the contents of select list 0 to be assigned to a list variable.\r\nlist.num is a select list number in the range 0 to 10",
+            "detail": "SELECTE TO list.num"
+         },
          { 
             "key": "Selectindex",
             "icon": 14,
-            "index": 319,
+            "index": 320,
             "documentation": "This statement will create a dynamic array of record keys based on a single selection of a single index key value.\r\nIt is more efficient to use a combination of OPENINDEX and READNEXT statements rather than the SELECTINDEX.\r\nindex-name must correspond to the name of a valid index created on the file that has been opened to the file descriptor file-var.\r\nIf index-key is specified it must correspond the the an indexed value within the index specified by index-name.\r\nIf select-var is specified it is used to hold the select list created by the SELECTINDEX statement.\r\nGiven an opened file descriptor this statement will select all the record keys in this file, sorted by the index definition 'index-name'.\r\nAn optional variable 'index-key' can be used to restrict this selection to a single index key value.\r\nThe value of 'index-key' will be the raw value of the index data - no lookup code processing will be done on this value.",
             "detail": "SELECTINDEX index-name{,index-key} FROM file-var {TO select-var}"
          },
          {
+            "key": "Selectn",
+            "icon": 14,
+            "index": 321,
+            "documentation": "The SELECTN statement creates a select list of elements in a specified list number for use with the READNEXT statement.\r\nvariable1 can be an OPENed file descriptor, in which case the record keys in the specified file will be selected, or an ordinary variable in which case each field in the variable will become a list element.\r\nvariable1 may also be an existing list in which case the elements in the list will be selected.\r\nIf variable1 is not specified in the statement then the default file variable is assumed.\r\nIf variable2 is specified then the newly created list will be placed in the variable.\r\nAlternatively, a select list number in the range 0 to 10 can be specified with listnum.\r\nIf neither variable2 nor listnum is specified then the default list variable will be assumed.\r\nIf the SETTING clause is specified and the select fails, setvar will be set to an Incremental File Error code.\r\nWhen a list is being built from record keys in a file, the list is not created immediately by scanning the file for all the record keys.\r\nInstead, only the first few keys will be extracted.\r\nWhen these keys have been taken from the list, the next few keys will be obtained and so on.\r\nThis means that the list could contain records that are written to the file after the SELECT command is started.\r\nIf a variable is used to hold the select list, then it should be unassigned or null prior to the SELECT.\r\nIf it contains a number in the range 0 to 10 then the corresponding select list number will be used to hold the list, although you can still reference the list with the variable name.\r\nWhen variable1 is a dynamic array (not a file descriptor) the result of variable2 is NOT a copy of variable1.",
+            "detail": "SELECTN {variable1} {TO listnum} {SETTING setvar}"
+         },
+         {
+            "key": "Selectv",
+            "icon": 14,
+            "index": 322,
+            "documentation": "The SELECTV statement creates a select list of elements in a specified variable for use with the READNEXT statement.\r\nvariable1 can be an OPENed file descriptor, in which case the record keys in the specified file will be selected, or an ordinary variable in which case each field in the variable will become a list element.\r\nvariable1 may also be an existing list in which case the elements in the list will be selected.\r\nIf variable1 is not specified in the statement then the default file variable is assumed.\r\nIf variable2 is specified then the newly created list will be placed in the variable.\r\nAlternatively, a select list number in the range 0 to 10 can be specified with listnum.\r\nIf neither variable2 nor listnum is specified then the default list variable will be assumed.\r\nIf the SETTING clause is specified and the select fails, setvar will be set to an Incremental File Error code.\r\nWhen a list is being built from record keys in a file, the list is not created immediately by scanning the file for all the record keys.\r\nInstead, only the first few keys will be extracted.\r\nWhen these keys have been taken from the list, the next few keys will be obtained and so on.\r\nThis means that the list could contain records that are written to the file after the SELECT command is started.\r\nIf a variable is used to hold the select list, then it should be unassigned or null prior to the SELECT.\r\nIf it contains a number in the range 0 to 10 then the corresponding select list number will be used to hold the list, although you can still reference the list with the variable name.\r\nWhen variable1 is a dynamic array (not a file descriptor) the result of variable2 is NOT a copy of variable1.",
+            "detail": "SELECTV {variable1} {TO variable2} {SETTING setvar}"
+         },
+         {
             "key": "Send",
             "icon": 14,
-            "index": 320,
+            "index": 323,
             "documentation": "The SEND statement sends a block of data directly to a device.\r\nThe output is an expression evaluating to a string that will be sent to the output device (specified by FileVar).\r\nIt is expected that the device has already been opened with OPENSER or OPENSEQ.\r\nThe SEND statement will append a newline sequence to the final output expression unless it is terminated with a colon.\r\nAs the expression can be any valid expression, it may have output formatting applied to it.\r\nThe SEND syntax requires that either a THEN or ELSE clause, or both, be specified.\r\nIf the data is sent without error, the THEN clause is executed.\r\nIf the data cannot be sent, the ELSE clause is executed.",
             "detail": "SEND output {:} TO FileVar THEN | ELSE statements"
          },
          {
+            "key": "Sendx",
+            "icon": 14,
+            "index": 324,
+            "documentation": "The SENDX statement sends a block of data (in hexadecimal) directly to a device.\r\nThe output is an expression evaluating to a string that will be sent to the output device (specified by FileVar).\r\nIt is expected that the device has already been opened with OPENSER or OPENSEQ.\r\nThe SENDX statement will append a newline sequence to the final output expression unless it is terminated with a colon.\r\nAs the expression can be any valid expression, it may have output formatting applied to it.\r\nThe SENDX syntax requires that either a THEN or ELSE clause, or both, be specified.\r\nIf the data is sent without error, the THEN clause is executed.\r\nIf the data cannot be sent, the ELSE clause is executed.",
+            "detail": "SENDX output {:} TO FileVar THEN | ELSE statements"
+         },
+         {
             "key": "Sentence",
             "icon": 3,
-            "index": 321,
+            "index": 325,
             "documentation": "The SENTENCE function allows a program to find out the command used to invoke it and the arguments it was given.\r\nIf expression is specified it should evaluate to a positive integer value.\r\nA negative value will return a null string.\r\nA value of null will return the entire command line.\r\nAn integer value of expression will return a specific element of the command line with the command itself being returned by SENTENCE(0), the first parameter being returned by SENTENCE(1) and so on.\r\nThe command line arguments are assumed to be space separated and when the entire command line is returned they are returned as such.\r\nThe SYSTEM(1000) function will return the command line attribute mark delimited.",
             "detail": "SENTENCE({expression})"
          },
          {
             "key": "Seq",
             "icon": 3,
-            "index": 322,
+            "index": 326,
             "documentation": "The SEQ function returns numeric ASCII value of a character.\r\nexpression may evaluate to any data type.\r\nHowever the SEQ function will convert the expression to a string and operate on the first character of that string.\r\nThe function operates on any character in the integer range 0 to 255",
             "detail": "SEQ(expression)"
          },
          {
             "key": "Seqs",
             "icon": 3,
-            "index": 323,
+            "index": 327,
             "documentation": "The SEQS function converts a dynamic array of ASCII characters to their numeric string equivalents.\r\ndynamic.array specifies the ASCII characters to be converted.\r\nIf dynamic.array evaluates to null, it returns null.\r\nIf any element of dynamic.array is null, it returns null for that element.\r\nIf the subroutine syntax is used, the resulting dynamic array is returned as return.array.\r\nBy using the function to convert a character outside its range results in a run-time message, and the return of an empty string.",
             "detail": "SEQS(dynamic.array)"
          },
          {
             "key": "Sin",
             "icon": 3,
-            "index": 324,
+            "index": 328,
             "documentation": "The SIN function returns the mathematical sine value of a numeric expression.\r\nexpression should evaluate to a numeric value and is interpreted as a number of degrees between 0 and 360.\r\nThe function will calculate the sine of the angle specified by the expression as accurately as the host system will allow.\r\nIt will then truncate the value according to the PRECISION of the program.",
             "detail": "SIN(expression)"
          },
          {
             "key": "Sleep",
             "icon": 3,
-            "index": 325,
+            "index": 329,
             "documentation": "Allows the program to pause execution for a specified time period.\r\nSee also MSLEEP to sleep for a specified number of milliseconds.\r\nexpression may evaluate to one of two forms:\r\n\tNumeric in which case the statement will sleep for the specified number ofseconds or fractions of a second.\r\n\t'nn:nn{:nn}' in which case the statement will sleep until the time specified.\r\nIf expression is not supplied then a default time period of 1 second is assumed.",
             "detail": "SLEEP {expression}"
          },
          {
             "key": "Smul",
             "icon": 3,
-            "index": 326,
+            "index": 330,
             "documentation": "The SMUL function performs string multiplication of two base 10 string numbers.\r\nexpr1 and expr2 are strings consisting of numeric characters, with either optionally including a decimal part.\r\nThe SMUL function can be used with numbers that may exceed a valid range with standard arithmetic operators.\r\nThe  PRECISION declaration does not affect the value returned by he function.",
             "detail": "SMUL(expr1, expr2)"
          },
          {
             "key": "Sort",
             "icon": 3,
-            "index": 327,
+            "index": 331,
             "documentation": "The SORT function sorts all elements of a dynamic array in ascending left-justified order.\r\nexpression may evaluate to any data type but will only be useful if it evaluates to a dynamic array.\r\nThe dynamic array can contain any number and combination of system delimiters.\r\nThe SORT() function will return an attribute delimited array of the sorted elements.\r\nNote that all system delimiters in expression will be converted to an attribute mark '0xFE' in the sorted result.\r\nThe SORT function is implemented using the quick sort algorithm, which sorts in situ and is very fast.",
             "detail": "SORT(expression)"
          },
          {
             "key": "Soundex",
             "icon": 3,
-            "index": 328,
+            "index": 332,
             "documentation": "The SOUNDEX function allows phonetic conversions of strings.\r\nexpression may evaluate to any data type, but the function will only return meaningful results for English words.\r\nThe phonetic equivalent of a string is calculated as the first alphabetic character in the string followed by a 1 to 3 digit representation of the rest of the word.",
             "detail": "SOUNDEX(expression)"
          },
          {
             "key": "Space",
             "icon": 3,
-            "index": 329,
+            "index": 333,
             "documentation": "The SPACE function is a convenient way to generate a specific number of ASCII space characters.\r\nexpression should evaluate to a positive integer value.\r\nThe SPACE function will return the specified number of ASCII space characters and is useful for padding strings.\r\nIt should not be used to position output on the terminal screen however as this is inefficient and should be accomplished using the @( ) function.",
             "detail": "SPACE(expression)"
          },
          {
             "key": "Spaces",
             "icon": 3,
-            "index": 330,
+            "index": 334,
             "documentation": "The SPACES function returns a dynamic array with elements composed of blank spaces.\r\ndynamic.array specifies the number of spaces in each element.\r\nIf dynamic.array or any element of dynamic.array evaluates to null, the SPACES function will enter the debugger.",
             "detail": "SPACES(dynamic.array)"
          },
          {
             "key": "Splice",
             "icon": 3,
-            "index": 331,
+            "index": 335,
             "documentation": "The SPLICE function returns a dynamic array of the element by element concatenation of two dynamic arrays.\r\nEach element of array1 is concatenated with expression and with the corresponding element of array2.\r\nThe result is returned in the corresponding element of a new dynamic array.\r\nIf an element of one dynamic array has no corresponding element in the other dynamic array, the element is returned properly concatenated with expression.\r\nIf either element of a corresponding pair is null, null is returned for that element.\r\nIf expression evaluates to null, null is returned for the entire dynamic array.",
             "detail": "SPLICE(array1, expression, array2)"
          },
          {
             "key": "Spooler",
             "icon": 3,
-            "index": 332,
+            "index": 336,
             "documentation": "The SPOOLER function returns information from the jBASE spooler.\r\nn specifies the information that is returned\r\nPort limits the information returned to the specified port\r\nUser limits the information returned to the specified user.",
             "detail": "SPOOLER(n{, Port|User})"
          },
          {
             "key": "Sqrt",
             "icon": 3,
-            "index": 333,
+            "index": 337,
             "documentation": "The SQRT function returns the mathematical square root of a value.\r\nThe expression should evaluate to a positive numeric value as the authors did not want to introduce a complex number type within the language.\r\nNegative values will cause a math error.\r\nThe function calculates the result at the highest precision available and then truncates the answer to the required PRECISION.",
             "detail": "SQRT(expression)"
          },
          {
             "key": "Squote",
             "icon": 3,
-            "index": 334,
+            "index": 338,
             "documentation": "The function will put single quotation mark at the beginning and end of a string.\r\nexpression may be any expression that is valid in the JBC language.\r\nThe SQUOTE function will enclose the value in single quotation marks.",
             "detail": "SQUOTE(Expression)"
          },
          {
             "key": "Sselect",
             "icon": 14,
-            "index": 335,
+            "index": 339,
             "documentation": "The SSELECT statement allows the creation of numbered select list of record IDs in sorted order from a jBASE file or from a dynamic array.\r\nA select list of record IDs from a dynamic array is not in sorted order.\r\nvariable can specify a dynamic array or a file variable.\r\nIf it specifies a dynamic array, the record IDs must be separated by field marks (ASCII 254). \r\nIf variable specifies a file variable, the file variable must have previously been opened.\r\nIf variable is not specified, the default file is assumed.\r\nIf the file is neither accessible nor open, or if variable evaluates to null, the SSELECT statement fails and the program enters the debugger with a run-time error message.\r\nThe TO clause specifies the select list that is to be used.\r\nlist.number is an integer from 0 through 10.\r\nIf no list.number is specified, select list 0 is used.\r\nThe record IDs of all the records in the file forms the list.\r\nThe record IDs are listed in ascending order\r\nEach record ID is one entry in the list.\r\nThe ON ERROR clause is optional in SSELECT statement and allows an alternative to be specified for program termination when a fatal error is encountered during processing of a SSELECT statement.",
             "detail": "SSELECT [variable] [TO list.number] [ON ERROR statements]"
          },
          {
             "key": "Sselectn",
             "icon": 14,
-            "index": 336,
+            "index": 340,
             "documentation": "The SSELECTN statement allows the creation of numbered select list of record IDs from a jBASE file or dynamic array and stores the select list in a named list variable.\r\nA select list of record IDs from a dynamic array is not in sorted order.\r\nvariable can specify a dynamic array or a file variable.\r\nIf it specifies a dynamic array, the record IDs must be separated by field marks (ASCII 254). \r\nIf variable specifies a file variable, the file variable must have previously been opened.\r\nIf variable is not specified, the default file is assumed.\r\nIf the file is neither accessible nor open, or if variable evaluates to null, the SSELECT statement fails and the program enters the debugger with a run-time error message.\r\nThe TO clause specifies the select list that is to be used.\r\nlist.number is an integer from 0 through 10.\r\nIf no list.number is specified, select list 0 is used.\r\nThe record IDs of all the records in the file forms the list.\r\nThe record IDs are listed in ascending order\r\nEach record ID is one entry in the list.\r\nThe ON ERROR clause is optional in SSELECT statement and allows an alternative to be specified for program termination when a fatal error is encountered during processing of a SSELECT statement.",
             "detail": "SSELECTN [variable] [TO list.number] [ON ERROR statements]"
          },
          {
             "key": "Sselectv",
             "icon": 14,
-            "index": 337,
+            "index": 341,
             "documentation": "The SSELECTV statement allows the creation of select list of record IDs from a jBASE file or dynamic array and stores the select list in a named list variable.\r\nA select list of record IDs from a dynamic array is not in sorted order.\r\nvariable can specify a dynamic array or a file variable.\r\nIf it specifies a dynamic array, the record IDs must be separated by field marks (ASCII 254). \r\nIf variable specifies a file variable, the file variable must have previously been opened.\r\nIf variable is not specified, the default file is assumed.\r\nIf the file is neither accessible nor open, or if variable evaluates to null, the SSELECT statement fails and the program enters the debugger with a run-time error message.\r\nThe TO clause specifies the select list that is to be used.\r\nlist.variable is an expression that evaluates to a valid variable name.\r\nThe record IDs of all the records in the file forms the list.\r\nThe record IDs are listed in ascending order\r\nEach record ID is one entry in the list.\r\nThe ON ERROR clause is optional in SSELECT statement and allows an alternative to be specified for program termination when a fatal error is encountered during processing of a SSELECT statement.",
             "detail": "SSELECTV [variable] TO list.variable [ON ERROR statements]"
          },
          {
             "key": "Ssub",
             "icon": 3,
-            "index": 338,
+            "index": 342,
             "documentation": "The SSUB function performs string subtraction of two base 10 string numbers.\r\nexpr1 and expr2 are strings consisting of numeric characters, optionally including a decimal part.\r\nThe SSUB function can be used with numbers that may exceed a valid range with standard arithmetic operators.\r\nThe  PRECISION declaration has no effect on the value returned by the function.",
             "detail": "SSUB(expr1, expr2)"
          },
          {
             "key": "Status",
             "icon": 3,
-            "index": 339,
+            "index": 343,
             "documentation": "Use the STATUS function after an OPENPATH statement to find the cause of a file open failure (that is, for a statement in which the ELSE clause is used).",
             "detail": "STATUS()"
          },
          {
             "key": "Status",
             "icon": 14,
-            "index": 340,
+            "index": 344,
             "documentation": "Use the STATUS statement to determine the status of an open file.\r\nvariable specifies an open file.\r\nIf variable evaluates to the null value, the STATUS statement fails and the program terminates with a run-time error message.\r\nIf the STATUS is assigned to an array, the THEN statements are executed and the ELSE statements are ignored.\r\nIf no THEN statements are present, program execution continues with the next statement.\r\nIf the attempt to assign the array fails, the ELSE statements are executed; any THEN statements are ignored.",
             "detail": "STATUS array FROM variable THEN statements ELSE statements|ELSE statements"
          },
          {
             "key": "Stop",
             "icon": 3,
-            "index": 341,
+            "index": 345,
             "documentation": "The STOP statement is virtually identical in function to the ABORT statement except that a calling jCL program will not be terminated.\r\nThe optional message.number provided with the statement must be a numeric value, which corresponds to a record key in the jBASE error message file.\r\nA single expression or a list of expressions may follow the message.number.\r\nWhere more than one expression is listed, they must be delimited by use of the comma character.\r\nThe expression(s) correspond to the parameters that need to be passed to the error file record to display it.\r\nThe optional message.number and expression(s) given with the command are parameters or resultants provided as variables, literal strings, expressions, or functions.",
             "detail": "STOP {message.number{, expression ...}}"
          },
          {
             "key": "Str",
             "icon": 3,
-            "index": 342,
+            "index": 346,
             "documentation": "The STR function allows the duplication of a string a number of times.\r\nexpression1 will evaluate to the string to duplicate and may be of any length.\r\nexpression2 should evaluate to a numeric integer, which specifies the number of times the string will be duplicated.",
             "detail": "STR(expression1, expression2)"
          },
          {
             "key": "Strs",
             "icon": 3,
-            "index": 343,
+            "index": 347,
             "documentation": "The STRS function produces a dynamic array containing the specified number of repetitions of each element of a dynamic array.\r\ndynamic.array is an expression that evaluates to the strings to be generated.\r\nrepeat is an expression that evaluates to the number of times the elements are to be repeated.\r\nIf it does not evaluate to a value that can be truncated to a positive integer, an empty string is returned for dynamic.array.\r\nIf dynamic.array evaluates to null, it returns null.\r\nIf any element of dynamic.array is null, null is returned for that element.\r\nIf repeat evaluates to null, the function fails and the program enters the debugger.",
             "detail": "STRS(dynamic.array, repeat)"
          },
          {
             "key": "Subroutine",
             "icon": 14,
-            "index": 344,
+            "index": 348,
             "documentation": "The SUBROUTINE statement is used at the start of any program that will be called externally by the CALL statement. It also declares any parameters to the compiler.\r\nName is the identifier by which the subroutine will be known to the compilation process.\r\nIt should always be present as this name (not the source file name), will be used to call it by.\r\nHowever, if the name is left out, the compiler will name subroutine as the source file name (without suffixes).\r\nDefault naming is not encouraged as it can cause problems if source files are renamed.\r\nEach comma separated variable in the optional parenthesized list is used to identify parameters to the compiler.\r\nThese variables will be assigned the values passed to the subroutine by a CALL statement.\r\nThe SUBROUTINE statement must be the first code line in a subroutine.",
             "detail": "SUB{ROUTINE} Name {({MAT} variable{,{MAT} variable...})}"
          },
          {
             "key": "Subs",
             "icon": 3,
-            "index": 345,
+            "index": 349,
             "documentation": "The SUBS function returns a dynamic array, the content of which is derived by subtracting each element of the second dynamic array argument from the corresponding element of the first dynamic array argument.\r\nDynArr1 and DynArr2 represent dynamic arrays.\r\nNull elements of argument arrays are treated as zero.\r\nOtherwise, a non-numeric element in an argument array will cause a run-time error.",
             "detail": "SUBS(DynArr1, DynArr2)"
          },
          {
             "key": "Substrings",
             "icon": 3,
-            "index": 346,
+            "index": 350,
             "documentation": "The SUBSTRINGS function returns a dynamic array of elements which are sub-strings of the corresponding elements in a supplied dynamic array.\r\nDynArr should evaluate to a dynamic array.\r\nStart specifies the position from which characters are extracted from each array element.\r\nIt should evaluate to an integer greater than zero.\r\nLength specifies the number of characters to extract from each dynamic array element.\r\nIf the length specified exceeds the number of characters remaining in an array element, then all characters from the Start position are extracted.",
             "detail": "SUBSTRINGS(DynArr, Start, Length)"
          },
          {
             "key": "Sum",
             "icon": 3,
-            "index": 347,
+            "index": 351,
             "documentation": "The SUM function sums numeric elements in a dynamic array.\r\nexpr is a dynamic array.\r\nNon-numeric sub-values, values and attributes are ignored.",
             "detail": "SUM(DynaArr)"
          },
          {
             "key": "Swap",
             "icon": 3,
-            "index": 348,
+            "index": 352,
             "documentation": "The SWAP function operates on a variable and replaces all occurrences of one string with another.\r\nexpression1 may evaluate to any result and is the string of characters that will be replaced.\r\nexpression2 may also evaluate to any result and is the string of characters that will replace expression1.\r\nThe variable may be any previously assigned variable in the program.\r\nEither string can be of any length and is not required to be the same length.\r\nThis function is provided for compatibility with older systems.\r\nSee also the CHANGE() function.",
             "detail": "SWAP( variable, expression1, expression2 )"
          },
          {
             "key": "System",
             "icon": 3,
-            "index": 349,
+            "index": 353,
             "documentation": "The SYSTEM functions return information about the current user and processes",
             "detail": "SYSTEM(integer)"
          },
          {
             "key": "Tan",
             "icon": 3,
-            "index": 350,
+            "index": 354,
             "documentation": "The TAN function returns the mathematical tangent of an angle.\r\nexpression should evaluate to a numeric type.\r\nThe function calculates the result at the highest precision available on the host system.\r\nThe result is truncated to the current PRECISION after calculation.",
             "detail": "TAN(expression)"
          },
          {
             "key": "Time",
             "icon": 3,
-            "index": 351,
+            "index": 355,
             "documentation": "The TIME() function returns the current system time in internal format (as the number of seconds past midnight).",
             "detail": "TIME()"
          },
          {
             "key": "Timedate",
             "icon": 3,
-            "index": 352,
+            "index": 356,
             "documentation": "The TIMEDATE() function returns the current time and date as a printable string.\r\nThe function returns a string of the form: hh:mm:ss dd mmm yyyy , or in the appropriate format for the international date setting on the system.",
             "detail": "TIMEDATE()"
          },
          {
             "key": "Timediff",
             "icon": 3,
-            "index": 353,
+            "index": 357,
             "documentation": "The TIMEDIFF function returns the interval between two timestamp values as a dynamic array.\r\nThe function returns the interval between two timestamp values by subtracting the value of Timestamp2 from Timestamp1.\r\nThe interval is returned as an attribute delimited array of the time difference.\r\nThe Mask is an integer from 0 to 7.",
             "detail": "TIMEDIFF(Timestamp1, Timestamp2,Mask)"
          },
          {
             "key": "Timeout",
             "icon": 14,
-            "index": 354,
+            "index": 358,
             "documentation": "The TIMEOUT statement terminates a READBLK or READSEQ statement.\r\nfile.variable specifies a file opened for sequential access.\r\ntime is an expression that evaluates to the number of seconds the program should wait before terminating the READSEQ statement.\r\nTIMEOUT causes subsequent READSEQ and READBLK statements to terminate and execute ELSE statements if the number of seconds specified by time elapses while waiting for data.\r\nIf either file.variable or time evaluates to null, the TIMEOUT statement fails and the program enters the debugger.",
             "detail": "TIMEOUT file.variable, time"
          },
          {
             "key": "Timestamp",
             "icon": 3,
-            "index": 355,
+            "index": 359,
             "documentation": "The TIMESTAMP function returns a UTC timestamp value as decimal seconds.\r\nThe TIMESTAMP function returns a Universal Coordinated Time (UTC) value as decimal seconds, i.e. seconds with tenths and hundredths specified after the decimal point.\r\nThe value is returned as a variable with as many decimal places as the current precision allows.\r\nHowever, successive calls may return the same value a number of times before the operating system updates the underlying timer.",
             "detail": "TIMESTAMP()"
          },
          {
             "key": "Trans",
             "icon": 3,
-            "index": 356,
+            "index": 360,
             "documentation": "The TRANS function will return the data value of a field, given the name of the file, the record key, the field number, and an action code.\r\nDICT is the literal string to be placed before the file name in the event it is desired to open the dictionary portion of the file, rather than the data portion.\r\nfilename is a string containing the name of the file to be accessed.  Note that it is the actual name of the file, and not a file unit variable.\r\nThis function requires the file name, regardless of whether or not the file has been opened to a file unit variable.\r\nkey  is an expression that evaluates to the record key, or item ID, of the record from which data is to be accessed.\r\nfield#  is the field number to be retrieved from the record.\r\naction.code  a literal which indicates what should happen if the field is null, or the if record is not found.",
             "detail": "TRANS ([DICT] filename, key, field#, action.code)"
          },
          {
             "key": "Transabort",
             "icon": 14,
-            "index": 357,
+            "index": 361,
             "documentation": "This statement is used to abort the current transaction and reverse any updates to the database.\r\nabort-text specifies an optional text string to save in the transaction abort record.\r\nA THEN or ELSE (or both) statement is required.\r\nThe THEN clause will be be executed if the transaction is successfully aborted.\r\nThe ELSE clause will be executed if the transaction abort fails for any reason.",
             "detail": "TRANSABORT {abort-text} [THEN statement | ELSE statement]"
          },
          {
             "key": "Transend",
             "icon": 14,
-            "index": 358,
+            "index": 362,
             "documentation": "This statement is used to mark the end of a successfully completed transaction.\r\nend-text specifies an optional text string to save with the transaction end record.\r\nA THEN or ELSE (or both) statement is required.\r\nThe THEN clause will be executed if the transaction is successfully ended.\r\nThe ELSE clause will be executed if the transaction end fails for any reason.",
             "detail": "TRANSEND {end-text} [THEN statement | ELSE statement]"
          },
          {
             "key": "Transquery",
             "icon": 14,
-            "index": 359,
+            "index": 363,
             "documentation": "This function is used to detect whether or not a transaction is active on the current process.\r\nTRANSQUERY will return 1 (true) if the process is within a transaction boundary, and 0 (false) if it is not.\r\nIn other words, TRANSQUERY will return true if the TRANSTART statement has been issued but a TRANSEND or TRANSABORT statement has not yet been processed.",
             "detail": "ROLLBACK"
          },
          {
             "key": "Transtart",
             "icon": 14,
-            "index": 360,
+            "index": 364,
             "documentation": "In transaction processing, this statement is used to mark the beginning of a transaction.\r\nSYNC is an option to force the updates to be flushed at transaction end or abort.\r\nstart-text specifies an optional text string to save with the transaction start record.\r\nA THEN or ELSE (or both) statement is required.\r\nThe THEN clause will be executed if the transaction is successfully started.\r\nThe ELSE clause will be executed if the transaction start fails for any reason.",
             "detail": "TRANSTART {SYNC}{start-text} [THEN statement | ELSE statement]"
          },
          {
             "key": "Trim",
             "icon": 3,
-            "index": 361,
+            "index": 365,
             "documentation": "The TRIM statement allows characters to be removed from a string in a number of ways.\r\nexpression1 specifies the string from which to trim characters.\r\nexpression2 may optionally specify the character to remove from the string. If not specified then the space character is assumed.\r\nexpression3 evaluates to a single character specifies the type of trim to perform.",
             "detail": "TRIM(expression1 {, expression2{, expression3}})"
          },
          {
             "key": "Trimb",
             "icon": 3,
-            "index": 362,
+            "index": 366,
             "documentation": "The TRIMB() function is equivalent to TRIM(expression, \" \", \"T\")",
             "detail": "TRIMB(expression)"
          },
          {
             "key": "Trimbs",
             "icon": 3,
-            "index": 363,
+            "index": 367,
             "documentation": "The TRIMBS function removes all trailing spaces and tabs from each element of a dynamic array.\r\nTRIMBS removes all trailing spaces and tabs from each element and reduces multiple occurrences of spaces and tabs to a single space or tab.\r\nIf dynamic.array evaluates to null, null is returned.\r\nIf any element of dynamic.array is null, null is returned for that value.",
             "detail": "TRIMBS(dynamic.array)"
          },
          {
             "key": "Trimf",
             "icon": 3,
-            "index": 364,
+            "index": 368,
             "documentation": "The TRIMF() function is equivalent to TRIM(expression, \" \", \"L\")",
             "detail": "TRIMF(expression)"
          },
          {
             "key": "Trimfs",
             "icon": 3,
-            "index": 365,
+            "index": 369,
             "documentation": "The TRIMFS function removes all leading, trailing and redundant spaces and tabs from each element of a dynamic array.\r\nTRIMFS removes all leading and trailing spaces and tabs from each element and reduces multiple occurrences of spaces and tabs to a single space or tab.\r\nIf dynamic.array evaluates to null, null is returned.\r\nIf any element of dynamic.array is null, null is returned for that value.",
             "detail": "TRIMFS(dynamic.array)"
          },
          {
             "key": "Trims",
             "icon": 3,
-            "index": 366,
+            "index": 370,
             "documentation": "The TRIMS function removes redundant spaces and tabs from each element of a dynamic array.\r\nTdynamic.array specifies the elements to be scanned.\r\nIf dynamic.array evaluates to null, it returns null.\r\nIf any element of dynamic.array is null, it returns null for that element.\r\nIf the subroutine syntax is used, the resulting dynamic array is returned as return.array. ",
             "detail": "TRIMS(dynamic.array)"
          },
          {
             "key": "Unassigned",
             "icon": 3,
-            "index": 367,
+            "index": 371,
             "documentation": "The UNASSIGNED function allows a program to determine whether a variable has been assigned a value.\r\nvariable is the name of variable used elsewhere in the program.\r\nThe function returns Boolean TRUE if variable has not yet been assigned a value and Boolean FALSE if variable has already been assigned a value.",
             "detail": "UNASSIGNED(variable)"
          },
          {
             "key": "Uniquekey",
             "icon": 3,
-            "index": 368,
+            "index": 372,
             "documentation": "The UNIQUEKEY function returns a unique 16-byte character key.\r\nThe UNIQUEKEY() function will generate a unique 16-byte character key on each call to the function.\r\nThe key contains characters from the set A-Z a-z 0-9 ^ and _ (base64). Based on the current UTC time and the process number, the key is unique on a single computer system providing that the system clock is not turned back.",
             "detail": "UNIQUEKEY()"
          },
          {
             "key": "Unlock",
             "icon": 14,
-            "index": 369,
+            "index": 373,
             "documentation": "The UNLOCK statement releases a previously LOCKed execution lock.\r\nIf expression is specified it should evaluate to the number of a held execution lock, which will then be released.\r\nIf expression is omitted then all execution locks held by the current program will be released.\r\nNo action is taken if the program attempts to release an execution lock that it had not taken.",
             "detail": "UNLOCK {expression}"
          },
          {
             "key": "Until",
             "icon": 14,
-            "index": 370,
+            "index": 374,
             "documentation": "The UNTIL statement terminates a FOR or LOOP loop when the specified expression is true. The optional DO is required in a LOOP",
             "detail": "UNTIL expr {DO}"
          },
          {
             "key": "Upcase",
             "icon": 3,
-            "index": 371,
+            "index": 375,
             "documentation": "UPCASE converts all lowercase characters in an expression to uppercase characters.\r\nexpression in a string containing alphabetic characters.",
             "detail": "UPCASE(expression)"
          },
          {
             "key": "Utf8",
             "icon": 3,
-            "index": 372,
+            "index": 376,
             "documentation": "The UTF8 function converts a latin1 or binary string into the UTF-8 equivalent byte sequence.\r\nThe expression is expected to be a binary/latin1code page string.\r\nThe function converts the binary string into a UTF-8 encoded byte sequence, used to represent the Unicode values for each byte in the expression.\r\nThis function is useful for converting binary or latin1 code page data into internal format when in International Mode",
             "detail": "UTF8(expression)"
          },
          {
             "key": "Wake",
             "icon": 14,
-            "index": 373,
+            "index": 377,
             "documentation": "The WAKE statement is used to wake a suspended process which has executed a PAUSE statement.\r\nPortNumber is a reference to the target port to be awoken.\r\nThe WAKE statement has no effect on processes which do not execute the PAUSE statement.",
             "detail": "WAKE PortNumber"
          },
          {
             "key": "Weof",
             "icon": 14,
-            "index": 374,
+            "index": 378,
             "documentation": "The WEOF statement allows the program to write an EOF mark on an attached tape device.\r\nexpression specifies the device channel to use, which should evaluate to a numeric integer argument in the range 0-9.\r\nDefault value is 0.\r\nf the WEOF fails then the statements associated with any ELSE clause will be executed.\r\nSYSTEM(0) will return a reason code for the failure.\r\nA \"tape\" not only refers to magnetic tape devices but to any device that has been described to jBASE.\r\nIf no tape device has been assigned to the channel specified then the jBASE debugger is entered with an appropriate message.",
             "detail": "WEOF {ON expression}"
          },
          {
             "key": "Weofseq",
             "icon": 14,
-            "index": 375,
+            "index": 379,
             "documentation": "Write end of file on file opened for sequential access.\r\nFileVar specifies the file descriptor of the file opened for sequential access.\r\nStatements are conditional jBC statements\r\nWEOFSEQ forces the file to be truncated at the current file pointer. Nothing is actually 'written' to the sequential file.",
             "detail": "WEOFSEQ FileVar { THEN | ELSE Statements}"
          },
          {
             "key": "While",
             "icon": 14,
-            "index": 376,
+            "index": 380,
             "documentation": "The WHILE statement terminates a FOR or LOOP loop when the specified expression is true. The optional DO is required in a LOOP.",
             "detail": "WHILE expr {DO}"
          },
          {
             "key": "Write",
             "icon": 14,
-            "index": 377,
+            "index": 381,
             "documentation": "The WRITE statement allows a program to write a record into a previously opened file.\r\nvariable1 is the identifier containing the record to write.\r\nvariable2, if specified, should be a jBC variable that has previously been opened to a file using the OPEN statement.\r\nIf variable2 is not specified then the default file is assumed.\rr\nThe expression should evaluate to a valid record key for the file.\r\nIf the SETTING clause is specified and the write fails, setvar will be set to an Incremental File Error code.\r\nIf a lock was being held on the record by this process it will be released by the WRITE.\r\nIf a lock should be retained on a record, it should be done so explicitly with the WRITEU statement.\r\nA 'WRITE' of a null item-id to a directory will take the 'ON ERROR' clause, if it exists.",
             "detail": "WRITE variable1 ON|TO { variable2,} expression {SETTING setvar} {ON ERROR statements}"
          },
          {
             "key": "Writeblk",
             "icon": 14,
-            "index": 378,
+            "index": 382,
             "documentation": "The WRITEBLK statement writes a block of data to a file opened for sequential processing.\r\nEach WRITEBLK statement writes the value of expression starting at the current position in the file.\r\nThe current position is incremented to beyond the last byte written.\r\nWRITEBLK does not add a new line at the end of the data.\r\nfile.variable specifies a file opened for sequential processing.\r\nThe value of expression is written to the file, and the THEN statements are executed.\r\nIf no THEN statements are specified, program execution continues with the next statement.\r\nIf the file is neither accessible or does not exist, it executes the ELSE statements; and ignores any THEN statements.\r\nIf either expression or file.variable evaluates to null, the WRITEBLK statement fails and the program enters the debugger with a run-time error message.",
             "detail": "WRITEBLK expression ON file.variable {THEN statements [ELSE statements]|ELSE statements}"
          },
          {
             "key": "Writelist",
             "icon": 14,
-            "index": 379,
+            "index": 383,
             "documentation": "WRITELIST allows the program to store a list held in a jBC variable to the global list file.\r\nvariable is the variable in which the list is held.\r\nexpression should evaluate to the required list name.\r\nIf expression is null, the list will be written to the default external list.\r\nIf the SETTING clause is specified and the write fails, setvar will be set to an Incremental File Error code.",
             "detail": "WRITELIST variable ON|TO expression {SETTING setvar} {ON ERROR statements}"
          },
          {
             "key": "Writeseq",
             "icon": 14,
-            "index": 380,
+            "index": 384,
             "documentation": "Write to a file opened for sequential access.\r\nVariable specifies the variable to contain next record from sequential file.\r\nFileVar specifies the file descriptor of the file opened for sequential access.\r\nStatements conditional jBC statements.\r\nEach WRITESEQ writes the data on a line of the sequentially opened file.\r\nEach line of data is suffixed with a new line character.\r\nAfter each WRITESEQ the file pointer moves forward to the end of line.\r\nThe APPEND option forces each WRITESEQ to advance to the end of the file before writing the next data line.",
             "detail": "WRITESEQ Expression {APPEND} ON|TO FileVar THEN | ELSE statements"
          },
          {
             "key": "Writeseqf",
             "icon": 14,
-            "index": 381,
+            "index": 385,
             "documentation": "Write to a file opened for sequential access and force each data line to be flushed to the file when it is written.\r\nVariable specifies the variable to contain next record from sequential file.\r\nFileVar specifies the file descriptor of the file opened for sequential access.\r\nStatements conditional jBC statements.\r\nEach WRITESEQ writes the data on a line of the sequentially opened file.\r\nEach line of data is suffixed with a new line character.\r\nAfter each WRITESEQ the file pointer moves forward to the end of line.\r\nThe WRITESEQF statement forces each data line to be flushed to the file when it is written.\r\nThe APPEND option forces each WRITESEQ to advance to the end of the file before writing the next data line.",
             "detail": "WRITESEQF Expression {APPEND} ON|TO FileVar THEN | ELSE statements"
          },
          {
             "key": "Writet",
             "icon": 14,
-            "index": 382,
+            "index": 386,
             "documentation": "The WRITET statement enables data to be written to a range of tape devices between 0-9.\r\nvariable holds the data for writing to the tape device.\r\nexpression should evaluate to an integer value in the range 0-9 and specifies which tape channel to read data from.\r\nIf the ON clause is not specified the WRITET will assume channel 0.\r\nIf the WRITET fails then the statements associated with any ELSE clause will be executed.\r\nSYSTEM(0) will return the reason code for the failure.\r\nA \"tape\" not only refers to magnetic tape devices but also any device that has been described to jBASE.\r\nIf no tape device has been assigned to the channel specified then the jBASE debugger is entered with an appropriate message.",
             "detail": "WRITET variable {ON|TO expression} THEN|ELSE statements"
          },
          {
             "key": "Writeu",
             "icon": 14,
-            "index": 383,
+            "index": 387,
             "documentation": "The WRITEU statement allows a program to write a record into a previously opened file. An existing record lock will be preserved.\r\nvariable1 is the identifier holding the record to be written.\r\nvariable2, if specified, should be a jBC variable that has previously been opened to a file using the OPEN statement.\r\nIf variable2 is not specified then the default file is assumed.\r\nThe expression should evaluate to a valid record key for the file.\r\nIf the SETTING clause is specified and the write fails, setvar will be set to an Incremental File Error code.\r\nIf the statement fails to write the record then any statements associated with the ON ERROR clause are executed.\r\nThe lock maintained by the WRITEU statement will be released by any of the following events:\r\n\tthe record is written to by the same program with WRITE, WRITEV or MATWRITE statements.\r\n\tthe record lock is released explicitly using the RELEASEstatement.\r\n\tthe program stops normally or abnormally.",
             "detail": "WRITEU variable1 ON|TO { variable2,} expression {SETTING setvar} {ON ERROR statements}"
          },
          {
             "key": "Writev",
             "icon": 14,
-            "index": 384,
+            "index": 388,
             "documentation": "The WRITEV statement allows a program to write a specific field of a record in a previously opened file.\r\nvariable1 is the identifier holding the record to be written.\r\nvariable2, if specified, should be a jBC variable that has previously been opened to a file using the OPEN statement.\r\nIf variable2 is not specified then the default file is assumed.\r\nexpression1 should evaluate to a valid record key for the file.\r\nexpression2 should evaluate to a positive integer number.\r\nIf the number is greater than the number of fields in the record, null fields will be added to variable1.\r\nIf expression2 evaluates to a non-numeric argument, a run time error will be generated.\r\nIf the SETTING clause is specified and the write fails, setvar will be set to an Incremental File Errors code.\r\nThe WRITEV statement will cause any lock held on the record by this program to be released.\r\nIf a lock on the record should be retained, that should be done so explicitly with the WRITEVU statement.",
             "detail": "WRITEV variable1 ON|TO {variable2,} expression1, expression2 {SETTING setvar} {ON ERROR statements}"
          },
          {
             "key": "Writevu",
             "icon": 14,
-            "index": 385,
+            "index": 389,
             "documentation": "The WRITEVU statement allows a program to write a specific field on a record in a previously opened file.\r\nAn existing record lock will be preserved.\r\nvariable1 is the identifier holding the record to be written.\r\nvariable2, if specified, should be a jBC variable that has previously been opened to a file using the OPEN statement. If variable2 is not specified then the default file is assumed.\r\nexpression1 should evaluate to a valid record key for the file.\r\nexpression2 should evaluate to a positive integer number.\r\nIf the number is greater than the number of fields in the record, null fields will be added to variable1.\r\nIf expression2 evaluates to a non-numeric argument, a run time error will be generated.\r\nIf the SETTING clause is specified and the write fails, setvar will be set to an Incremental File Error code.\r\nIf the statement fails to write the record then any statements associated with the ON ERROR clause are executed.\r\nThe lock taken by the WRITEVU statement will be released by any of the following events:\r\n\tThe record is written to by the same program with WRITE, WRITEV or MATWRITE statements.\r\n\tThe record lock is released explicitly using the RELEASE statement.\r\n\tThe program stops normally or abnormally.",
             "detail": "WRITEVU variable1 ON|TO { variable2,} expression1, expression2 {SETTING setvar} {ON ERROR statements}"
          },
          {
             "key": "Writexml",
             "icon": 14,
-            "index": 386,
+            "index": 390,
             "documentation": "The WRITEXML statement writes a dynamic array to a hashed file in XML format, using a style sheet from the DICT.\r\nThe XML is transformed into a dynamic array before being written to the file.\r\nThe transformation takes place using the stylesheet in DICT->@WRITEXML.",
             "detail": "WRITEXML rec ON file,id ELSE STOP 201,id"
          },
          {
             "key": "Xlate",
             "icon": 3,
-            "index": 387,
+            "index": 391,
             "documentation": "The XLATE function will return the data value of a field, given the name of the file, the record key, the field number, and an action code.DICT is the literal string to be placed before the file name in the event it is desired to open the dictionary portion of the file, rather than the data portion.\r\nfilename is a string containing the name of the file to be accessed.  Note that it is the actual name of the file, and not a file unit variable.\r\nThis function requires the file name, regardless of whether or not the file has been opened to a file unit variable.\r\nkey  is an expression that evaluates to the record key, or item ID, of the record from which data is to be accessed.\r\nfield#  is the field number to be retrieved from the record.\r\naction.code  a literal which indicates what should happen if the field is null, or the if record is not found.\r\nXLATE is a synonym of the TRANS function.",
             "detail": "XLATE ([DICT] filename, key, field#, action.code)"
          },
          {
             "key": "Xmltodyn",
             "icon": 3,
-            "index": 388,
+            "index": 392,
             "documentation": "The XMLTODYN function converts an XML expression to a dynamic array, using an optional XSL to transform.\r\nArray = XMLTODYN(XML,XSL,result)\r\nIf result = 0 Array will contain a dynamic array built from the xml / xsl.\r\nIf result <> 0, Array will contain an error message.",
             "detail": "XMLTODYN(XML, XSL, result)"
          },
          {
             "key": "Xmltoxml",
             "icon": 3,
-            "index": 389,
+            "index": 393,
             "documentation": "The XMLTOXML function transforms an XML expression using an XSL.\r\nnewxml=XMLTOXML(XML, XSL, result)\r\nIf result = 0, newxml  will contain a transformed version of XML using XSL.\r\nIf result = 1, newxml will contain an error message.",
             "detail": "XMLTOXML(XML, XSL, result)"
          },
          {
             "key": "Xtd",
             "icon": 3,
-            "index": 390,
+            "index": 394,
             "documentation": "The XTD() function converts hexadecimal number into its decimal equivalent.\r\nexpression should evaluate to a valid hexadecimal string.\r\nThe conversion process will halt at the first character that is not a valid base 16 character in the set [0-9, A-F or a-f].",
             "detail": "XTD(expression)"
          }
