@@ -44,6 +44,14 @@ All other trademarks and service marks are property of their respective holders.
   - [7.7 MVON](#77-mvon)
   - [7.8 Associating Programs with the MVextension](#78-associating-programs-with-the-mvextension)
   - [7.9 Additional MVBasic Developer Settings](#79-additional-mvbasic-developer-settings)
+- [8. Recommended reading/extensions](#8-recommended-readingextensions)
+  - [8.0 VSCode Tips and Tricks](#80-vscode-tips-and-tricks)
+  - [8.1 SFTP](#81-sftp)
+  - [8.2 Insert Cursor at Beginning of Line](#82-insert-cursor-at-beginning-of-line)
+  - [8.3 Cursor Align](#83-cursor-align)
+  - [8.4 Cursor Trim](#84-cursor-trim)
+  - [8.5 Bracket Pair Colorizer 2](#85-bracket-pair-colorizer-2)
+  - [8.6 GitLens](#86-gitlens)
 
 # Purpose of this guide
 
@@ -521,3 +529,72 @@ The following settings are available to customize your VSCode MVBasic Developer 
 |MVBasic.useCamelCase|Use CamelCase for Intellisense keywords.|
 |MVBasic.ignoreGotoScope|The linter will not highlight goto that jump into the middle of loops.|
 |MVBasic.formattingEnabled|Set to false to disable code formatting.|
+
+# 8. Recommended reading/extensions
+
+## 8.0 VSCode Tips and Tricks
+
+https://code.visualstudio.com/docs/getstarted/tips-and-tricks is worth reading and trying out commands from the various sections to get an idea of what is possible in VSCode.
+
+https://medium.com/@nafiszaman/multiple-cursors-visual-studio-code-a2e2f531c5b5 is a good introduction to "Multiple Cursors" - one of the most useful features in VSCode.
+
+![Multiple Cursors](https://code.visualstudio.com/assets/docs/editor/codebasics/multicursor.gif)
+
+## 8.1 SFTP
+
+If working with a Linux/Unix system, this extension allows a workflow where opening a local file automatically downloads/syncs from a remote server, and saving automatically uploads the changed file back to the server.  Multiple profile support (for things like dev/uat/prod) is also helpful.
+
+```
+"uploadOnSave": true
+"downloadOnOpen": true
+```
+
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=liximomo.sftp
+
+## 8.2 Insert Cursor at Beginning of Line
+
+Multiple cursors are one of the indispensible features of VSCode.  You can create multiple cursors by alt-clicking, using ctrl-D to select one-by-one, or highlighting a block and ctrl+alt+I.  This inserts a cursor at the end of the selected lines by default.  This extension changes the behavior to insert the cursor at the start of the lines, which makes using cursor align easier.
+
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=kaiwood.insert-cursor-at-beginning-of-each-line-selected
+
+## 8.3 Cursor Align
+
+Aligns using spaces.  If you like to line things up in your code, this extension makes doing so less of a chore.
+
+Cursor Align
+
+![Cursor Align](https://github.com/yo1dog/vscode-cursor-align/raw/master/img/cursorAlignDemo.gif)
+
+Selection Align
+
+![Selection Align](https://github.com/yo1dog/vscode-cursor-align/raw/master/img/selectAlignDemo1.gif)
+
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=yo1dog.cursor-align
+
+## 8.4 Cursor Trim
+
+This extension provides a quick way to delete white-space.
+
+![Cursor Trim](https://github.com/yo1dog/vscode-cursor-trim/raw/master/img/trimDemo.gif)
+
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=yo1dog.cursor-trim
+
+## 8.5 Bracket Pair Colorizer 2
+
+A customizable extension for colorizing matching brackets, making it easier to scan visually.
+
+![Bracket Pair Colorizer](https://github.com/CoenraadS/Bracket-Pair-Colorizer-2/raw/master/images/example.png)
+
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer-2
+
+## 8.6 GitLens
+
+GitLens adds various enhancements to the git experience from within VSCode.  If there are multiple developers using git for source control it provides at a glance code authorship:
+
+![Current Line Blame](https://raw.githubusercontent.com/eamodio/vscode-gitlens/master/images/docs/current-line-blame.png)
+
+For single developers, tools like "current line history" showing the change history for the current line are very convenient:
+
+![Line History View](https://raw.githubusercontent.com/eamodio/vscode-gitlens/master/images/docs/view-line-history.png)
+
+VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens
