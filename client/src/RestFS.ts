@@ -38,6 +38,7 @@ export class Directory implements vscode.FileStat {
 
     name: string;
     entries: Map<string, File | Directory>;
+    needRefresh: boolean;
 
     constructor(name: string) {
         this.type = vscode.FileType.Directory;
@@ -46,6 +47,7 @@ export class Directory implements vscode.FileStat {
         this.size = 0;
         this.name = name;
         this.entries = new Map();
+        this.needRefresh = true;
     }
 }
 
@@ -53,65 +55,136 @@ export type Entry = File | Directory;
 
 export class RestFS implements vscode.FileSystemProvider {
 
-    root = new Directory('');
-    RestPath: string = ""
-    RestAccount: string = ""
-    // --- manage file metadata
-    setRestFS(restPath: string, restAccount: string) {
+    private root: Directory;
+    public RestPath: string;
+    public RestAccount: string;
+
+    constructor(restPath: string = "", restAccount: string = "") {
+        this.initRestFS(restPath, restAccount);
+    }
+
+    initRestFS(restPath: string, restAccount: string) {
+        this.root = new Directory('');
         this.RestPath = restPath;
         this.RestAccount = restAccount;
     }
 
-    stat(uri: vscode.Uri): vscode.FileStat {
-        
-        return this._lookup(uri, false);
+    stat(uri: vscode.Uri): vscode.FileStat { 
+        var entry = undefined;
+        if(!this._excluded(uri)) {
+            // see if file / directory is in local cache      
+            entry = this._lookup(uri, false);
+            if (!entry) {
+                // not in local cache, try to read directory from server
+                try {
+                    this.readDirectory(uri);
+                    entry = this._lookup(uri, false);
+                } catch(e) {
+                }
+            }
+            if (!entry) {
+                // not in local cache, try to read file from server
+                try {
+                    this.readFile(uri);
+                    entry = this._lookup(uri, false);
+                } catch(e) {
+                }
+            }
+        }
+        if (!entry) {
+            throw vscode.FileSystemError.FileNotFound(uri);
+        }
+        return entry;
     }
 
+    // TODO: do we need to refresh local cache?
     readDirectory(uri: vscode.Uri): [string, vscode.FileType][] {
-
-        let result: [string, vscode.FileType][] = [];
-        if (uri.path != "/") {
-            // add directories to account
-            let fileName = uri.path.substr(1);
-            var res = request('GET', this.RestPath + "/dir/" + this.RestAccount + "/" + fileName + "/");
-            var fileList = JSON.parse(res.body);
-            for (let i = 0; i < fileList.Files.length; i++) {
-                result.push([fileList.Files[i].Name, fileList.Files[i].Type])
+        if(this._excluded(uri)) {
+            throw vscode.FileSystemError.FileNotFound(uri);
+        }
+        var result: [string, vscode.FileType][] = [];
+        var entry: Entry = this._lookupAsDirectory(uri, false);
+        if (entry && !(<Directory>entry).needRefresh) {
+            for(let item of (<Directory>entry).entries.values()) {
+                result.push([item.name, item.type]);
             }
             return result;
         }
-        else {
-            const entry = this._lookupAsDirectory(uri, false);
-            let result: [string, vscode.FileType][] = [];
-            for (const [name, child] of entry.entries) {
-                result.push([name, child.type]);
-            }
-            return result;
+        // get directory or file list from server
+        let res = request('GET', this.RestPath + "/dir/" + this.RestAccount + uri.path + (uri.path === "/" ? "" : "/")); // uri.path begins with "/"
+        if (res.statusCode != 200) {
+            throw vscode.FileSystemError.FileNotFound(uri);
         }
+        let rtn = JSON.parse(res.body);
+        var fileList: [{Name: string, Type: number}];
+        if (rtn.hasOwnProperty('Directories')) {
+            fileList = rtn.Directories; // RESTFS API returns 'Directories' array for MD
+        } else if (rtn.hasOwnProperty('Files')) {
+            fileList = rtn.Files; // RESTFS API returns 'Files' array for dict or data files
+        } else {
+            throw vscode.FileSystemError.FileNotFound(uri); // punt! bad response!
+        }        
+        this._fireSoon({ type: vscode.FileChangeType.Changed, uri }); 
+        // build result array & update parent directory entries                           
+        let parent = <Directory>entry;
+        parent.entries = new Map();
+        parent.mtime = Date.now();
+        parent.size = 0;
+        parent.needRefresh = false;
+        for (let i = 0; i < fileList.length; i++) {
+            result.push([fileList[i].Name, fileList[i].Type]);
+            if (fileList[i].Type === vscode.FileType.Directory) {
+                entry = new Directory(fileList[i].Name);
+            } else {
+                entry = new File(fileList[i].Name);
+            }
+            parent.entries.set(entry.name, entry);
+            parent.size += 1;
+            this._fireSoon({ type: vscode.FileChangeType.Created, uri: uri.with({ path: uri.path + (uri.path === "/" ? "" : "/") + entry.name }) });                            
+        }
+        return result;
     }
 
     // --- manage file contents
 
+    // TODO: do we need to refresh local cache?
+    // TODO: save list of failed file lookups so we don't need to hit server every time?
     readFile(uri: vscode.Uri): Uint8Array {
+        if(this._excluded(uri)) {
+            throw vscode.FileSystemError.FileNotFound(uri);
+        }
         const data = this._lookupAsFile(uri, false).data;
         if (data) {
             return data;
         }
-        // file not loaded so load it now
-        let parts = uri.path.split("/");
-        let fileName = parts[1];
-        let recordId = parts[2];
-        var res = request('GET', this.RestPath + "/file/" + this.RestAccount + "/" + fileName + "/" + recordId + "/");
-        var program = JSON.parse(res.body);
-        this.writeFile(uri, Buffer.from(program.join(String.fromCharCode(10))), { create: true, overwrite: true })
-        return Buffer.from(program.join(String.fromCharCode(10)));
+        // file not loaded so load it from server using RESTFS API
+        let res = request('GET', this.RestPath + "/file/" + this.RestAccount + uri.path + "/"); // uri.path begins with "/"
+        if (res.statusCode != 200) {
+            throw vscode.FileSystemError.FileNotFound(uri);
+        }
+        let program = JSON.parse(res.body);
+        if (program instanceof Array) {
+            program = program.join(String.fromCharCode(10));
+        } else {
+            // TODO: handle other body formats
+        }
+        let content = Buffer.from(program);
+        // update local file cache so we don't read every time
+        let basename = path.posix.basename(uri.path);
+        let parent = this._lookupParentDirectory(uri);
+        let entry = new File(basename);
+        parent.entries.set(basename, entry);
+        entry.mtime = Date.now();
+        entry.size = content.byteLength;
+        entry.data = content;
+        this._fireSoon({ type: vscode.FileChangeType.Changed, uri });
+        return content;
     }
 
     writeFile(uri: vscode.Uri, content: Uint8Array, options: { create: boolean, overwrite: boolean }): void {
         let basename = path.posix.basename(uri.path);
         let parent = this._lookupParentDirectory(uri);
         let entry = parent.entries.get(basename);
-        let newEntry = false;
         if (entry instanceof Directory) {
             throw vscode.FileSystemError.FileIsADirectory(uri);
         }
@@ -126,18 +199,19 @@ export class RestFS implements vscode.FileSystemProvider {
             parent.entries.set(basename, entry);
             this._fireSoon({ type: vscode.FileChangeType.Created, uri });
         }
-        if (newEntry === false) {
-            // update via REST to mvon# server
-            let data = JSON.stringify(content.toString().split(String.fromCharCode(10)));
-            data = "{ \"ProgramLines\" :" + data + "}";
-            request('POST', this.RestPath + "/file/" + this.RestAccount + "/" + parent.name + "/" + entry.name + "/",
-                { json: data }
-            );
+        // update server using RESTFS API
+        let data = JSON.stringify(content.toString().split(String.fromCharCode(10)));
+        data = "{ \"ProgramLines\" :" + data + "}";
+        let res = request('POST', this.RestPath + "/file/" + this.RestAccount + "/" + parent.name + "/" + entry.name + "/",
+            { json: data } // NOTE: this should be body:data, not json:data!
+        );
+        if (res.statusCode != 200) {
+            throw vscode.FileSystemError.FileNotFound(uri);
         }
+        // update local file cache with changed file
         entry.mtime = Date.now();
         entry.size = content.byteLength;
         entry.data = content;
-
         this._fireSoon({ type: vscode.FileChangeType.Changed, uri });
     }
 
@@ -182,7 +256,6 @@ export class RestFS implements vscode.FileSystemProvider {
         let basename = path.posix.basename(uri.path);
         let dirname = uri.with({ path: path.posix.dirname(uri.path) });
         let parent = this._lookupAsDirectory(dirname, false);
-
         let entry = new Directory(basename);
         parent.entries.set(entry.name, entry);
         parent.mtime = Date.now();
@@ -236,8 +309,21 @@ export class RestFS implements vscode.FileSystemProvider {
     }
 
     private _lookupParentDirectory(uri: vscode.Uri): Directory {
+        if (uri.path === '/')
+            return this.root;
         const dirname = uri.with({ path: path.posix.dirname(uri.path) });
         return this._lookupAsDirectory(dirname, false);
+    }
+
+    // test for certain excluded directories
+    private _excluded(uri: vscode.Uri): boolean {
+        if ((uri.path + '/').substr(0, 9) === '/.vscode/')
+            return true;
+        if ((uri.path + '/').substr(0,6) === '/.git/')
+            return true;
+        if ((uri.path + '/').substr(0, 14) === '/node_modules/')
+            return true;
+        return false;
     }
 
     // --- manage file events

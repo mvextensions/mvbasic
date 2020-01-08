@@ -37,6 +37,18 @@
     //   ],
     //   "outFiles": ["${workspaceFolder}/client/out/test/**/*.js"]
     // }
+     ,
+     {
+       "name": "FTSERVER Test",
+       "type": "extensionHost",
+       "request": "launch",
+       "runtimeExecutable": "${execPath}",
+       "args": [
+         "--extensionDevelopmentPath=${workspaceFolder}",
+         "D:/projects/mvide/my.code-workspace"
+       ],
+       "outFiles": ["${workspaceFolder}/client/out/test/**/*.js"]
+     }
   ],
   "compounds": [
     {

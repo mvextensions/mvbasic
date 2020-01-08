@@ -22,12 +22,6 @@ var UsingRest: Boolean = false;
 
 export function activate(context: ExtensionContext) {
 
-	// initialise Remote REST FileSystem
-
-	const RESTFS = new RestFS();
-	context.subscriptions.push(vscode.workspace.registerFileSystemProvider('RestFS', RESTFS, { isCaseSensitive: true }));
-
-
 	// The server is implemented in node
 	let serverModule = context.asAbsolutePath(
 		path.join('server', 'out', 'server.js')
@@ -96,6 +90,10 @@ export function activate(context: ExtensionContext) {
 	let disposable = new LanguageClient('mvbasic', 'MV Basic Server', serverOptions, clientOptions).start();
 
 
+	// initialise Remote REST FileSystem
+
+	const RESTFS = new RestFS(RestPath, Account);
+	context.subscriptions.push(vscode.workspace.registerFileSystemProvider('RestFS', RESTFS, { isCaseSensitive: true }));
 
 
 	let initialiseRestFS = vscode.commands.registerCommand('extension.initialiseRestFS', async () => {
@@ -109,8 +107,7 @@ export function activate(context: ExtensionContext) {
 			vscode.window.showInformationMessage('Please configure the RESTFul Path in the workspace settings');
 			return;
 		}
-		RESTFS.RestPath = RestPath;
-		RESTFS.RestAccount = Account;
+		RESTFS.initRestFS(RestPath, Account);
 		if (UseGateway) {
 
 			// send credentials if we are using the gateway
@@ -131,26 +128,24 @@ export function activate(context: ExtensionContext) {
 		}
 		// Display a message box to the user
 		vscode.window.showInformationMessage('Using REST Path to ' + RestPath);
-		// get a list of files from the server
-		var files = request('GET', RestPath + "/dir/" + Account + "/");
-		if (files.statusCode != 200) {
-			vscode.window.showInformationMessage('Unable to retrieve file list. Please check your settings');
-			return;
-		}
-		var dirList = JSON.parse(files.body);
-		for (let i = 0; i < dirList.Directories.length; i++) {
-			if (dirList.Directories[i].Name.endsWith(".Lib")) {
+		// TODO: refresh RESTFS after gateway login
+		//var dirList = JSON.parse(files.body);
+		//for (let i = 0; i < dirList.Directories.length; i++) {
+		//	if (dirList.Directories[i].Name.endsWith(".Lib")) {
 
-			}
-			else {
-				RESTFS.createDirectory(vscode.Uri.parse('RestFS:/' + dirList.Directories[i].Name + '/'));
-			}
-		}
+		//	}
+		//	else {
+		//		RESTFS.createDirectory(vscode.Uri.parse('RestFS:/' + dirList.Directories[i].Name + '/'));
+		//	}
+		//}
+		// add root directory
+		//RESTFS.createDirectory(vscode.Uri.parse('RestFS:/'));
+
 		// add any addional files specified in the config
 		for (let i = 0; i < additionalFiles.length; i++) {
 			RESTFS.createDirectory(vscode.Uri.parse('RestFS:/' + additionalFiles[i] + '/'));
 		}
-		UsingRest = true;
+		UsingRest = true; // TODO: when RESTFS is used without initializeRestFS command, how do we set this?
 		vscode.window.showInformationMessage("Connected");
 	});
 
