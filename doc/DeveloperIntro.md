@@ -11,7 +11,14 @@
   - [2.1 Install the prerequisites](#21-install-the-prerequisites)
   - [2.2 Option 1 - Clone the repository directly](#22-option-1---clone-the-repository-directly)
   - [2.3 Start the extension and finish development setup](#23-start-the-extension-and-finish-development-setup)
-- [3. Running in debug mode](#3-running-in-debug-mode)
+- [3. Extension Introduction](#3-extension-introduction)
+  - [3.1 Important Configuration Files](#31-important-configuration-files)
+    - [3.1.1 Syntax Coloring](#311-syntax-coloring)
+    - [3.1.2 Syntax Checking](#312-syntax-checking)
+    - [3.1.3 Code Formatting](#313-code-formatting)
+    - [3.1.4 Intellisense](#314-intellisense)
+    - [3.1.5 Code Snippets](#315-code-snippets)
+  - [3.2 Running in debug mode](#32-running-in-debug-mode)
 - [4. Syntax definitions / theming](#4-syntax-definitions--theming)
   - [4.1 Resources](#41-resources)
   - [4.2 Changing/Adding Scopes](#42-changingadding-scopes)
@@ -30,9 +37,11 @@
 ---
 # 0. Code of conduct
 
-Refer to the code of conduct at:
+Important reading for new developers planning on contributing back fixes and enhancements to the extension:
 
-https://github.com/ianmcgowan/mvbasic/blob/add-code-of-conduct-1/CODE_OF_CONDUCT.md
+[Code of Conduct](https://github.com/mvextensions/.github/blob/master/CODE_OF_CONDUCT.md)
+
+[Contribution Guidelines](https://github.com/mvextensions/.github/blob/master/CONTRIBUTING.md)
 
 # 1. Introduction
 
@@ -114,7 +123,36 @@ After churning for a while, downloading, extracting and installing hundrds of pa
 
 [(top)](#table-of-contents)
 
-# 3. Running in debug mode
+# 3. Extension Introduction
+
+## 3.1 Important Configuration Files
+
+There are several different areas that control how the extension deals with basic code.
+
+|Area|Description|File|
+|---|---|---|
+|Syntax Coloring|Controls how programs are displayed|Syntaxes/mvon.tmLanguage.json|
+|Syntax Checking|Linting - this controls the red squiggles and error reports|server/src/server.ts|
+|Code Formatting|Reformats/reindents the program|server/src/server.ts|
+|Intellisense|
+|Code Snippets||
+
+### 3.1.1 Syntax Coloring
+The highlighting/coloring of code in the editor is controlled by tmLanguage.json files in the syntaxes folder.  This configuration file consists of regular expressions that are run against code as it is edited and assigns each "chunk" of code a scope name.  The themes you select in VSCode will then apply styles to these scopes.
+
+### 3.1.2 Syntax Checking
+Also known as linting - every time a program is changed the function validateTextDocument in server.ts is called and the entire program is checked for syntax errors.
+
+### 3.1.3 Code Formatting
+When Shift+Alt+F or Format Document is called, the current program is reformatted/reindented.
+
+### 3.1.4 Intellisense
+Hovering over a statement or function, or pressing Ctrl+Space, will provide a "tooltip" or Intellisense reminder for that function.  The data for these tooltips are loaded dynamically from json files in the Syntaxes folder.
+
+### 3.1.5 Code Snippets
+Code snippets are user-defined short-cuts that can be used for any commonly repeated set of keystrokes.  For example, you could type "prog" or "sub", Ctrl+Space, and a standard code header could be inserted, and prompts for the variable parts filled in.
+
+## 3.2 Running in debug mode
 
 From inside the instance of VSCode, hit F5 or from the command palette choose ```Debug: Start Debugging```
 
