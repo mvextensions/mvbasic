@@ -1,0 +1,1645 @@
+* This module should compile cleanly but doesn't run to do anything useful.
+* It is intended to contain every syntax element of QMBasic for testing
+* recognition by the VSCode editor.
+
+* Untested:
+*   FUNCTION or SUBROUTINE with VAR.ARGS
+*   ARG.PRESENT()
+*   FILE
+*   RETURN FROM PROGRAM
+*   Compiler directives
+
+* Module type declaration.
+* This is a class module so that we can test the full range of object
+* oriented programming features. Almost all of the normal stuff found in a
+* PROGRAM, SUBROUTINE or FUNCTION can also be used here.
+
+$debug
+class syntax max.args 40 inherits other.class
+
+   deffun fun1(a,b) calling'fun1' var.args key 7
+   deffun fun2(a,b) local
+   deffun fun3(a,b) external calling'fun3'
+
+   private a, b = 99
+   public c readonly
+   public d = 88, e(3,3)
+
+   shared public x
+   common /com/var, arr(3,3), arr2(10)
+   com /com/ n
+
+   public subroutine create.object
+   end
+
+   public function func(p, q, r)
+      return 0
+   end
+
+dim arr(10,10)
+
+* ======================================================================
+* Comments
+
+! junk
+rem junk
+remark junk
+rem var = 1 ;* var = 2 ; var = 3
+var = 1  ;* set var
+var = 1  ; * set var
+var = 1  ;! set var
+var = 1  ;rem set var
+
+* ======================================================================
+* Labels
+* Some of the numeric labels are particularly weird but should work
+
+1
+2:
+3.1:
+4...:
+my.label:
+my.other..label:
+
+go 4...
+goto 4...:
+goto my.label
+go to my.label
+goto my.label:
+
+gosub my.label
+gosub sub1(a, b)
+
+* ======================================================================
+* Constants
+
+var = 123
+var = 0x123
+var = 1.6
+var = 'abc'
+var = "abc"
+var = \abc\
+var = 'abc"def'
+var = "abc'def"
+
+* ======================================================================
+* Variables
+
+var1 = 0
+var1.2 = 0
+var1%2 = 0
+var1$2 = 0
+var1_2 = 0
+
+* ======================================================================
+* Assignment operators
+
+var = 123
+arr(1,2) = 123
+var += 7
+var -= 7
+var *= 7
+var /= 7
+var := 'abc'
+var &= 1
+var != 1
+var[start,length] = 'abc'
+var[length] = 'abc'
+var[delim,i,n] = 'abc'
+dyn<f> = 1
+dyn<f,v> = 2
+dyn<f,v,s> = 3
+dyn<f>= 1
+dyn<f,s<x>> = 1
+col{x} = 1
+col{x,y} = 1
+
+* ======================================================================
+* Expressions
+
+var = s[start,length]
+var = s[length]
+var = s[start,*]
+var = s[delim,i,n]
+var = s[delim,i,*]
+var = dyn<f>
+var = dyn<f,v>
+var = dyn<f,v,s>
+var = col{s}
+var = arr(1,2)
+var = status()
+var = oconv(var, 'MCU')
+var = arr(1,2)<3>[1,2]
+var = @false
+var = if a then b else c
+var = me->func(1,2,3)
+
+* ======================================================================
+* Operators
+
+var = +1
+var = -2
+var = ~8
+var = i ** 2
+var = i ^ 2
+var = i + 1
+var = i - 1
+var = i / 8
+var = i * 8
+var = i // 2
+var = i : 'aa'
+var = i = 1
+var = i # 1
+var = i <> 1
+var = i >< 1
+var = i < 1
+var = i > 1
+var = i <= 1
+var = i eq 1
+var = i ne 1
+var = i gt 1
+var = i lt 1
+var = i ge 1
+var = i le 1
+var = i == 'abc'
+var = i ~= 'abc'
+var = s matches '1-3A'
+var = s match '1-3A'
+var = a and b
+var = a & b
+var = a or b
+var = a ! b
+var = a .& b
+var = a .! b
+var = 1234 '6R'
+
+* ======================================================================
+* Structures
+
+begin case
+   case a = 1
+      null
+   case a = 2  ; null
+   case 1
+end case
+
+begin transaction
+   commit
+   rollback
+end transaction
+
+for a = 1 to 10
+until n
+while n
+continue
+exit
+   null
+next a
+
+for a = 1 to 10 step 3
+   null
+next a
+
+for a = 1 to 3
+next
+
+for a = 1, 2, 3
+   null
+next a
+
+for each var in s
+   null
+next var
+
+for each var in s delimiter delim
+   null
+next var
+
+loop
+   null
+repeat
+
+loop do null until a = b repeat
+
+if a then null else null
+
+if a
+then null
+else null
+
+if a then
+   null
+end else
+   null
+end
+
+on var gosub 1, 2, 3.1
+on var gosub 1:, 2:, 3.1:
+on var gosub 1,
+             2,
+             3.1
+
+on var goto 1, 2, 3.1
+on var goto 1:, 2:, 3.1:
+on var goto 1,
+            2,
+            3.1
+
+on var go to 1, 2, 3.1
+on var go to 1:, 2:, 3.1:
+on var go to 1,
+             2,
+             3.1
+
+transaction start
+transaction abort
+transaction commit
+
+transaction start else null
+transaction commit else null
+
+try
+   null
+catch 'my.exception'
+   null
+end
+
+* ======================================================================
+* @-variables
+
+var = @abort.code
+var = @abort.message
+var = @acall.fno
+var = @account
+var = @am
+var = @ans
+var = @bpv
+var = @build.time
+var = @command
+var = @command.stack
+var = @conv
+var = @crthigh
+var = @crtwide
+var = @data
+var = @data.f
+var = @data.pending
+var = @date
+var = @day
+var = @dict.f
+var = @dictrecs
+var = @drive
+var = @ds
+var = @exception
+var = @exception.data
+var = @exception.origin
+var = @exception.stack
+var = @false
+var = @file.name
+var = @filename
+var = @fm
+var = @fmt
+var = @fno
+var = @gid
+var = @hostname
+var = @id
+var = @im
+var = @ip.addr
+var = @itype.mode
+var = @level
+var = @line
+var = @logname
+var = @lptrhigh
+var = @lptrwide
+var = @lpv
+var = @mbutton
+var = @mcol
+var = @month
+var = @mrow
+var = @nb
+var = @nd
+var = @ni
+var = @ns
+var = @nv
+var = @null
+var = @option
+var = @parasentence
+var = @path
+var = @pib
+var = @pob
+var = @pstat
+var = @qm.group
+var = @record
+var = @replicate
+var = @selected
+var = @sentence
+var = @seqno
+var = @sib
+var = @sob
+var = @socket
+var = @sm
+var = @stdfil
+var = @svm
+var = @sys.bell
+var = @sys0
+var = @system.return.code
+var = @system.set
+var = @term.type
+var = @time
+var = @transaction.id
+var = @transaction.level
+var = @trigger.return.code
+var = @tm
+var = @true
+var = @tty
+var = @uid
+var = @user.no
+var = @user.return.code
+var = @user
+var = @user0
+var = @user1
+var = @user2
+var = @user3
+var = @user4
+var = @userno
+var = @vm
+var = @voc
+var = @where
+var = @who
+var = @year
+var = @year4
+
+* ======================================================================
+* Statements and functions
+
+var = @(1,2)
+
+abort
+abort 'failed'
+abort 201, 'myfile'
+
+s = abs(var)
+s = abss(var)
+
+skt = accept.socket.connection(a, 10)
+
+var = account.path(a)
+
+s = acos(i)
+
+s = alpha(var)
+
+s = ands(var, 99)
+
+s = arg(2)
+
+n = arg.count()
+
+s = ascii(var)
+
+s = asin(i)
+
+i = assigned(var)
+
+s = atan(i)
+
+s = bindkey(var, i)
+
+var = bitand(var, 8)
+var = bitnot(var)
+var = bitor(var, 8)
+var = bitreset(var, 8)
+var = bitset(var, 8)
+var = bittest(var, 8)
+var = bitxor(var, 8)
+
+var = bool(s)
+
+break key off
+break on
+break clear
+break reset
+break var
+var = break.count()
+
+call mysub
+call mysub(i,mat arr)
+call @var
+call @var(i,mat arr)
+call "bp mysub"
+call "bp mysub"(i,mat arr)
+call mysub(a,
+           b,
+           c)
+
+i = catalogued(var)
+
+var = cats(dyn, dyn)
+var = cats(dyn, reuse(s))
+var = cats(reuse(s), dyn)
+var = cats(reuse(s), reuse(dyn))
+
+i = ceil(var)
+
+chain var
+
+var = change(s, 'a', 'b')
+var = change(s, 'a', 'b')
+var = change(s, 'a', 'b', 2)
+var = change(s, 'a', 'b', 2, 3)
+
+var = char(i)
+var = chars(i)
+
+i = checksum(var)
+i = checksum(var, 0)
+
+i = child(n)
+
+clear
+clearcommon com
+clear common com
+
+cleardata
+
+clearfile fvar
+clearfile fvar on error stop
+
+clear input
+clearinput
+
+clearselect
+clearselect 5
+clearselect all
+clearselect var
+
+close fvar
+close fvar on error stop
+
+close.socket skt
+
+closeseq fvar
+closeseq fvar on error stop
+
+i = col1()
+i = col(2)
+
+col = collection()
+col = collection(var)
+
+i = compare(var, dyn<3>)
+i = compare(var, dyn<3>, 'R')
+i = compares(var, dyn)
+i = compares(var, dyn, 'R')
+
+var = config('GRPSIZE')
+
+i = connect.port('COM1', 9600, 0, 8, 1)
+
+convert 'abc' to 'ABC' in var
+var = convert('abc', 'ABC', var)
+
+s = cos(i)
+
+i = count(var, a)
+i = counts(var, a)
+
+create fvar then a = 1 else a = 0
+create fvar then a = 1
+create fvar else a = 0
+
+create.file var dynamic group.size 4 big.rec.size 1000 min.modulus 1 ~
+  split.load 80 merge.load 50 version 2 on error stop
+
+skt = create.server.socket('172.16.0.1', 80, 0)
+
+var = crop(var)
+
+var = csvdq(s)
+var = csvdq(s, delim)
+
+csv.mode 1
+csv.mode 1, delim
+
+data 'aaa', 'bbb'
+
+var = date()
+
+i = dcount(var, '|')
+
+debug
+
+var = decrypt(s, 'aaa')
+
+del dyn<4>
+s = delete(dyn, 4)
+del col{var}
+
+delete fvar, s
+delete fvar, s on error stop
+$mode write.delete.then.else
+delete fvar, s then a = 1 else s = 2
+$mode -write.delete.then.else
+deleteu fvar, s
+deleteu fvar, s on error stop
+
+deletelist var
+
+deleteseq var, s then a = 1 else a = 0
+deleteseq var, s no.map then a = 1 else a = 0
+
+i = dfpart(fvar, 3)
+
+s = digest(var, @false, 'MD4')
+
+var = dir(s)
+
+disinherit obj
+
+display 'aaa', 'bbb'
+display 'aaa', 'bbb' :
+
+var = display.width(s)
+dyn = display.widths(s)
+
+disable.key var
+
+var = div(100, 5)
+
+var = downcase(s)
+
+dparse var, delim, a, b, c
+dparse.csv var, delim, a, b, c
+
+s = dquote(var)
+s = dquotes(var)
+
+var = dtx(i)
+var = dtx(i, 8)
+
+var = ebcdic(s)
+
+var = echar(i)
+var = echars(i)
+
+echo off
+echo on
+echo var
+
+i = element.exists(col{var})
+
+enable.key var, s then a = 1 else a = 0
+
+var = encrypt(s, 'aaa')
+
+enter mysub
+enter mysub(i,mat arr)
+enter @var
+enter @var(i,mat arr)
+enter "bp mysub"
+enter "bp mysub"(i,mat arr)
+
+i = enter.package(var)
+
+var = enumerate(col)
+
+var = env('TERM')
+i = epoch()
+
+s = eqs(var, 99)
+
+var = ereplace(s, 'a', 'b')
+var = ereplace(s, 'a', 'b')
+var = ereplace(s, 'a', 'b', 2)
+var = ereplace(s, 'a', 'b', 2, 3)
+
+errmsg var
+errmsg 201, var
+
+evaluate var from s then a = 1 else a = 0
+
+execute var trapping aborts ~
+   capturing s no.tty passlist a rtnlist b setting c
+execute var trapping aborts ~
+   capturing s no.tty passlist a setting c
+execute var trapping aborts ~
+   capturing s no.tty stacklist setting c
+execute var ~
+   silent no.tty passlist a rtnlist b returning c
+
+i = exit.package(var)
+
+var = exp(i)
+
+i = expand(col{'link'})
+i = expand(col{'link'}, fvar)
+
+var = extract(dyn, 2)
+var = extract(dyn, 2, 3)
+var = extract(dyn, 2, 3, 4)
+
+i = fcontrol(fvar, 1)
+i = fcontrol(fvar, 1, 2)
+
+var = field(s, '|', 2)
+var = field(s, '|', 2, 3)
+var = field(s, '|', 2, *)
+
+var = fields(s, '|', 2)
+var = fields(s, '|', 2, 3)
+var = fields(s, '|', 2, *)
+
+dyn = fieldstore(var, delim, i, n, s)
+
+var = file.event(s, 0)
+
+i = fileinfo(fvar, 0)
+
+filelock fvar locked stop
+
+fileunlock fvar
+
+find var in dyn setting f else stop
+find var in dyn setting f,v else stop
+find var in dyn setting f,v,s else stop
+find var in dyn, 3 setting f else stop
+find var in dyn, 3 setting f,v else stop
+find var in dyn, 3 setting f,v,s else stop
+
+findstr var in dyn setting f else stop
+findstr var in dyn setting f,v else stop
+findstr var in dyn setting f,v,s else stop
+findstr var in dyn, 3 setting f else stop
+findstr var in dyn, 3 setting f,v else stop
+findstr var in dyn, 3 setting f,v,s else stop
+
+i = fix(n)
+i = fix(n, 3)
+i = fix(n, 3, @false)
+
+i = floor(var)
+
+flush fvar then a = 1 else a = 0
+
+flush.dh.cache
+flush.dh.cache local
+flush.dh.cache no.wait
+
+var = fmt(s, '10L')
+var = fmts(s, '10L')
+
+var = fmtdw(s, '10L')
+var = fmtdws(s, '10L')
+
+var = fold(s, 10)
+var = fold(s, 10, @tm)
+var = folds(s, 10)
+var = folds(s, 10, @tm)
+
+var = folddw(s, 10)
+var = folddw(s, 10, @tm)
+var = folddws(s, 10)
+var = folddws(s, 10, @tm)
+
+footing 'aaa'
+footing on 2 'aaa'
+
+var = formcsv(s)
+
+formlist dyn to var
+
+s = ges(var, 99)
+
+!!get var from fvar else null
+!!get var, 100 setting n from fvar else null
+!!get var, 100 setting n from fvar until 'x' else null
+!!get var, 100 setting n from fvar until 'x' waiting 3 else null
+
+get(arg.) var else stop
+get(arg., 6) var else stop
+
+var = get.messages()
+
+var = get.port.params(fvar)
+
+getlist var else stop
+getlist var to 2 else stop
+getlist var setting n else stop
+
+getlistv var to s else stop
+getlistv var to s setting n else stop
+
+var = getlocks(fvar, 0)
+
+var = getnls(1)
+
+var = getpu(0, 2)
+
+i = getrem(var)
+
+groupstore s in var using i, n
+groupstore s in var using i, n, delim
+
+s = gts(var, 99)
+
+heading 'aaa'
+heading on 2 'aaa'
+heading no.eject on 2 'aaa'
+
+hush off
+hush on 
+hush var
+hush off setting s
+hush on  setting s
+hush var setting s
+
+var = iconv(s, 'MD2')
+
+i = idiv(n, 3)
+
+dyn = ifs(a, b, c)
+
+in var
+in var for 10 else stop
+
+i = index(var, s)
+i = index(var, s, 1)
+i = indexs(var, s)
+i = indexs(var, s, 1)
+
+var  = indices(fvar)
+var  = indices(fvar, s)
+
+inherit obj
+
+var = inmat()
+var = inmat(arr)
+
+input var
+input var, 10
+input var, 10_
+input var, 10:
+input var, 10_:
+input var = 'dflt'
+input var, 10, s
+input var, 10_: hidden
+input var, 10_: no.echo
+input var, 10_: no.encoding
+input var, 10_: raw
+input var, 10_: timeout 7 else null
+input var, 10_: upcase
+
+inputdw var
+inputdw var, 10
+inputdw var, 10_
+inputdw var, 10:
+inputdw var, 10_:
+inputdw var = 'dflt'
+inputdw var, 10, s
+inputdw var, 10_: hidden
+inputdw var, 10_: no.echo
+inputdw var, 10_: no.encoding
+inputdw var, 10_: raw
+inputdw var, 10_: timeout 7 else null
+inputdw var, 10_: upcase
+
+input @(x,y) : var
+input @(x,y) : var, 10
+input @(x,y) : var, 10_
+input @(x,y) : var, 10:
+input @(x,y) : var, 10_:
+input @(x,y) : var, 10, s
+input @(x,y) : var, 10_: append
+input @(x,y) : var, 10_: edit
+input @(x,y) : var, 10_: hidden
+input @(x,y) : var, 10_: no.echo
+input @(x,y) : var, 10_: no.encoding
+input @(x,y) : var, 10_: overlay
+input @(x,y) : var, 10_: panning
+input @(x,y) : var, 10_: timeout 7 else null
+input @(x,y) : var, 10_: upcase
+input @(x,y) : var, 10_: '10L'
+input @(x,y) : var, 10_: '10L' edit panning upcase
+
+inputcsv a, b, c
+
+inputfield @(x,y) : var, 10
+inputfield @(x,y) : var, 10_
+inputfield @(x,y) : var, 10:
+inputfield @(x,y) : var, 10_:
+inputfield @(x,y) : var, 10, s
+inputfield @(x,y) : var, 10_: append
+inputfield @(x,y) : var, 10_: edit
+inputfield @(x,y) : var, 10_: hidden
+inputfield @(x,y) : var, 10_: no.echo
+inputfield @(x,y) : var, 10_: no.encoding
+inputfield @(x,y) : var, 10_: overlay
+inputfield @(x,y) : var, 10_: panning
+inputfield @(x,y) : var, 10_: timeout 7 else null
+inputfield @(x,y) : var, 10_: upcase
+inputfield @(x,y) : var, 10_: '10L'
+inputfield @(x,y) : var, 10_: '10L' edit panning upcase
+
+inputfieldv @(x,y) : var, 10
+inputfieldv @(x,y) : var, 10_
+inputfieldv @(x,y) : var, 10:
+inputfieldv @(x,y) : var, 10_:
+inputfieldv @(x,y) : var, 10, s
+inputfieldv @(x,y) : var, 10_: append
+inputfieldv @(x,y) : var, 10_: edit
+inputfieldv @(x,y) : var, 10_: hidden
+inputfieldv @(x,y) : var, 10_: no.echo
+inputfieldv @(x,y) : var, 10_: no.encoding
+inputfieldv @(x,y) : var, 10_: overlay
+inputfieldv @(x,y) : var, 10_: panning
+inputfieldv @(x,y) : var, 10_: timeout 7 else null
+inputfieldv @(x,y) : var, 10_: upcase
+inputfieldv @(x,y) : var, 10_: '10L'
+inputfieldv @(x,y) : var, 10_: '10L' edit panning upcase
+
+inputcsv a, b, c
+
+inputif var else stop
+inputif var, 10 else stop
+inputif var, 10_ else stop
+inputif var, 10: else stop
+inputif var, 10_: else stop
+inputif var, 10, s else stop
+inputif var, 10_: hidden else stop
+inputif var, 10_: no.echo else stop
+inputif var, 10_: no.encoding else stop
+inputif var, 10_: raw else stop
+inputif var, 10_: upcase else stop
+
+inputif @(x,y) :var, 10 else stop
+inputif @(x,y) :var, 10_ else stop
+inputif @(x,y) :var, 10: else stop
+inputif @(x,y) :var, 10_: else stop
+inputif @(x,y) :var, 10, s else stop
+inputif @(x,y) :var, 10_: hidden else stop
+inputif @(x,y) :var, 10_: no.echo else stop
+inputif @(x,y) :var, 10_: no.encoding else stop
+inputif @(x,y) :var, 10_: upcase else stop
+
+inputclear
+
+inputerr 'msg'
+
+inputnull var
+
+inputtrap var goto 1, 2, 3.1, my.label
+inputtrap var gosub 1, 2, 3.1, my.label
+
+ins var before dyn<f>
+ins var before dyn<f,v>
+ins var before dyn<f,v,s>
+x = insert(dyn, f; var)
+x = insert(dyn, f, v; var)
+x = insert(dyn, f, v, s, var)
+
+ins var as col{s}
+
+i = int(s)
+
+i = is.alnum(s)
+i = is.alpha(s)
+i = is.digit(s)
+i = is.graph(s)
+i = is.mark(s)
+i = is.space(s)
+i = is.wide(s)
+i = is.user.char(s)
+
+i = is.ecs(s)
+
+i = is.null(var)
+
+i = is.widestr(var)
+
+s = itype(var)
+
+s = jbuild(col)
+s = jbuild(col, 1)
+
+col = jparse(var)
+
+keep.select
+
+s = keycode()
+s = keycode(10)
+s = keycodev()
+s = keycodev(10)
+
+keyedit (2, 99), (3, 44)
+
+keyexit (2, 99), (3, 44)
+
+s = keyin()
+s = keyinc()
+s = keyin(10)
+s = keyinc(10)
+s = keyinv()
+s = keyincv()
+s = keyinv(10)
+s = keyincv(10)
+
+i = keyready()
+
+keytrap (2, 99), (3, 44)
+
+var = last(s, delim)
+
+var = left(s, 10)
+
+n = len(s)
+n = lens(s)
+
+s = les(var, 99)
+
+n = listindex(var, '|', s)
+
+var = ln(i)
+
+locate var in dyn<f> setting i else stop
+locate var in dyn<f,v> setting i else stop
+locate var in dyn<f,v,s> setting i else stop
+locate var in dyn<f> by 'al' setting i else stop
+locate var in dyn<f,v> by 'al' setting i else stop
+locate var in dyn<f,v,s> by 'al' setting i else stop
+
+$mode uv.locate
+locate var in dyn setting i else stop
+locate var in dyn<f> setting i else stop
+locate var in dyn<f,v> setting i else stop
+locate var in dyn by 'al' setting i else stop
+locate var in dyn<f> by 'al' setting i else stop
+locate var in dyn<f,v> by 'al' setting i else stop
+locate var in dyn, 3 by 'al' setting i else stop
+locate var in dyn<f>, 3 by 'al' setting i else stop
+locate var in dyn<f,v>, 3 by 'al' setting i else stop
+$mode -uv.locate
+
+locate(var, dyn, f, v; i) else stop
+locate(var, dyn, f, v; i; 'al') else stop
+
+lock 22
+
+logmsg var
+
+var = lower(s)
+
+s = lts(var, 99)
+
+mark.mapping fvar, off
+mark.mapping fvar, on
+mark.mapping fvar, var
+
+mat arr = 0
+mat arr = mat arr2
+i = mat arr = mat arr2
+
+col{'a'} = mat()
+col{'a'} = mat(arr)
+col{'a'} = mat(arr, 6)
+
+matbuild var from arr
+matbuild var from arr, 3
+matbuild var from arr, 3, 7
+matbuild var from arr, 3, 7 using '|'
+
+i = matchess(dyn, '3A')
+
+s = matchfield(var, '3A0-6N', 3)
+s = matchfields(dyn, '3A0-6N', 3)
+
+matparse arr from var
+matparse arr from var setting n
+matparse arr from var, delim
+matparse arr from var, delim setting n
+matparse arr from var using delim
+matparse arr from var using delim setting n
+
+matread arr from fvar, s else null
+matread arr encoding 'UTF8' from fvar, s else null
+matreadl arr encoding 'UTF8' from fvar, s else null
+matreadu arr encoding 'UTF8' from fvar, s else null
+
+matreadcsv arr from fvar else stop
+matreadcsv arr from fvar delimiter '|' else stop
+matreadcsv arr encoding 'UTF8' from fvar else stop
+matreadcsv arr encoding 'UTF8' from fvar delimiter '|' else stop
+
+var = matstr(arr)
+
+matwrite arr to fvar, s
+matwrite arr on fvar, s
+matwrite arr encoding 'UTF8' to fvar, s
+
+matwritecsv arr to fvar else stop
+matwritecsv arr on fvar else stop
+matwritecsv arr encoding 'UTF8' to fvar else stop
+
+i = max(a, b)
+
+i = maximum(dyn)
+
+var = md5(s)
+
+var = mergelist(a, b, 0)
+
+i = min(a, b)
+
+i = minimum(dyn)
+
+n = mod(a, b)
+
+mouse on
+mouse off
+mouse var
+mouse on setting var
+mouse off setting var
+mouse var setting var
+
+n = mvdate(var)
+n = mvdate.time(var)
+
+var = mvepoch(s)
+var = mvepoch(a, b)
+
+n = mvdate.time(var)
+
+nap 300
+
+n = neg(n)
+n = negs(dyn)
+
+s = nes(var, 99)
+
+nobuf fvar else null
+
+s = not(var)
+s = nots(var)
+
+dyn = ns(s)
+
+null
+
+i = num(a)
+i = nums(dyn)
+
+i = numeric(a)
+
+dyn = nv(s)
+dyn = nv(s, @true)
+
+obj = object(var)
+obj = object(var, 1, 2)
+
+var = objinfo(obj, 0)
+
+var = oconv(s, 'MD2')
+
+open 'file' to fvar else stop
+open '', 'file' to fvar else stop
+open 'dict','file' to fvar else stop
+open 'file' encoding 'UTF8' to fvar else stop
+open 'file' non.transactional to fvar else stop
+open 'file' no.map to fvar else stop
+open 'file' readonly to fvar else stop
+open 'file' sync to fvar else stop
+
+openpath 'path' to fvar else stop
+openpath 'path' encoding 'UTF8' to fvar else stop
+openpath 'path' non.transactional to fvar else stop
+openpath 'path' no.map to fvar else stop
+openpath 'path' readonly to fvar else stop
+openpath 'path' sync to fvar else stop
+
+openseq 'file', 'id' to fvar else stop
+openseq 'path' to fvar else stop
+openseq 'path' encoding 'UTF8' to fvar else stop
+openseq 'path' append to fvar else stop
+openseq 'path' creating to fvar else stop
+openseq 'path' nobuf to fvar else stop
+openseq 'path' no.map to fvar else stop
+openseq 'path' overwrite to fvar else stop
+openseq 'path' readonly to fvar else stop
+openseq 'path' shared to fvar else stop
+
+opentemp to fvar else stop
+opentemp 'path' to fvar else stop
+opentemp 'path' ecs to fvar else stop
+opentemp 'path' non.transactional to fvar else stop
+
+var = open.socket('172.16.0.1', 80, 0)
+var = open.socket('172.16.0.1', 80, 0, 10)
+
+var = option('dump.on.error')
+
+s = ors(var, 8)
+
+n = os.error()
+
+os.execute var
+os.execute var capturing s
+os.execute var silent
+
+osdelete var
+
+s = ospath(var, n)
+s = ospath(var, a, b)
+
+osread var from s else null
+
+i = osrename(a, b)
+
+oswrite var to s
+oswrite var to s on error stop
+
+var = outerjoin(var, a, b)
+
+page
+page 2
+page on 1
+page on 1 2
+
+dyn = parse(var, '0A0N', delim)
+
+pause
+pause 10
+
+pdump
+
+phantom var else stop
+phantom var group else stop
+phantom var logfile s else stop
+phantom var no.log else stop
+phantom var no.msg else stop
+phantom var pass.data else stop
+phantom var pool s else stop
+phantom var pool s no.log else stop
+phantom var pool s new.process no.log else stop
+
+pool.idle
+
+precision 7
+precision inherit
+
+print a, b
+print on 6 a, b
+print no.encoding a, b
+print no.encoding on 6 a, b
+
+printcsv a, b
+printcsv on 6 a, b
+
+printer on
+printer off
+printer close
+printer close on 6
+printer display
+printer display on 6
+printer display on 6 else null
+printer file var, s
+printer file on 6 var, s
+printer file on 6 var, s else null
+printer name var
+printer name on 6 var
+printer name on 6 var else null
+printer reset
+printerr 'msg'
+
+procread var then null
+
+procwrite var
+
+prompt ''
+
+i = pterm(1, 0)
+
+i = pwr(n, 3)
+
+s = quote(var)
+s = quotes(var)
+
+dyn = raise(s)
+
+randomize 10
+
+n = rdiv(a, b)
+
+read var from fvar, s then null
+read var encoding 'UTF8' from fvar, s then null
+
+var = read.socket(skt, 100, 0, 10)
+
+readblk var from fvar, 10 else null
+readblk var encoding 'UTF8' from fvar, 10 else null
+
+readcsv from fvar to a, b else null
+readcsv encoding 'UTF8' from fvar to a, b else null
+readcsv from fvar delimiter '|' to a, b else null
+
+readl var from fvar, s then null
+readl var encoding 'UTF8' from fvar, s then null
+readl var encoding 'UTF8' from fvar, s locked null else null
+
+readlist var else null
+readlist var from 3 else null
+
+readnext var else null
+readnext var from 3 else null
+readnext var, v from 3 else null
+readnext var, v, s from 3 else null
+
+readseq var from fvar else null
+readseq var encoding 'UTF8' from fvar else null
+
+readu var from fvar, s then null
+readu var encoding 'UTF8' from fvar, s then null
+readu var encoding 'UTF8' from fvar, s locked null else null
+
+readv var from fvar, s, 2 then null
+readv var encoding 'UTF8' from fvar, s, 2 then null
+
+readvl var from fvar, s, 2 then null
+readvl var encoding 'UTF8' from fvar, s, 2 then null
+readvl var encoding 'UTF8' from fvar, s, 2 locked null else null
+
+readvu var from fvar, s, 2 then null
+readvu var encoding 'UTF8' from fvar, s, 2 then null
+readvu var encoding 'UTF8' from fvar, s, 2 locked null else null
+
+i = recordlocked(fvar, s)
+
+recordlockl fvar, s
+recordlockl fvar, s locked null
+
+recordlocku fvar, s
+recordlocku fvar, s locked null
+
+i = regex(var, s)
+i = regex(var, s, 0)
+
+release
+release fvar
+release fvar, s
+
+n = rem(a, b)
+
+remove s from var setting n
+s = remove(var, n)
+
+remove.break.handler
+
+s = removef(var)
+s = removef(var, delim)
+s = removef(var, delim, n)
+
+s = replace(dyn, f; var)
+s = replace(dyn, f, v; var)
+s = replace(dyn, f, v, s, var)
+
+restore.screen var, @false
+
+return
+return to my.label
+
+s = cats(dyn, reuse(a))
+
+i = reusing(s)
+
+s = right(var, 10)
+
+s = rmvd(dyn, delim)
+
+n = rnd(100)
+
+n = rounddown(i, 3)
+n = roundup(i, 3)
+
+s = rtrans('myfile', 'id', f, 'X')
+s = rtrans(dict 'myfile', 'id', f, 'X')
+
+s = sadd(a, b)
+s = sdiv(a, b)
+s = sdiv(a, b, c)
+s = sdiv(a, b, c, d)
+s = smul(a, b)
+s = ssub(a, b)
+i = scmp(a, b)
+
+var = save.screen(a, b, c, d)
+
+savelist var else null
+savelist var from 3 else null
+
+seek fvar else null
+seek fvar, a else null
+seek fvar, a, b else null
+
+select fvar
+select fvar to 3
+selectn fvar
+selectn fvar to 3
+selectv fvar
+selectv fvar to s
+
+i = select.socket(arr2, 10)
+
+selecte to var
+
+selectindex var from fvar
+selectindex var, s from fvar
+selectindex var from fvar to 3
+selectindex var, s from fvar to 3
+
+i = selectinfo(a, 1)
+
+selectleft var from fvar
+selectleft var from fvar to 3
+selectleft var from fvar setting s
+selectleft var from fvar setting s to 3
+
+selectright var from fvar
+selectright var from fvar to 3
+selectright var from fvar setting s
+selectright var from fvar setting s to 3
+
+send var to fvar else null
+send var : to fvar else null
+
+var = sentence()
+
+n = seq(c)
+
+var = server.addr(s)
+
+i = server.window(var)
+i = server.window(var, s)
+
+set.arg n, var
+
+set.break.handler var
+
+i = set.ecs.map('base')
+
+set.exit.status 0
+
+setleft var from fvar
+setright var from fvar
+
+i = set.port.params(fvar, s)
+
+i = set.socket.mode(skt, a, b)
+
+set.status 0
+
+set.timezone 'UTC'
+
+setnls a, b
+
+setpu a, b, c
+
+setrem 0 on var
+
+n = shift(i, 3)
+
+i = signal(n)
+
+s = sin(i)
+
+i = socket.info(skt, n)
+
+var = sort(1, 0)
+var = sort(1, a)
+var = sort(3, mat arr2)
+
+sortadd var, a, '123'
+sortadd var, mat arr2, '123'
+
+sortclear var
+
+s = sortdata(var)
+s = sortdata(var, 10)
+
+s = sortnext(var)
+s = sortnext(var, a)
+s = sortnext(var, mat arr2)
+
+i = sort.compare(a, b, c)
+i = sort.compare(a, b, @false)
+
+var = soundex(s)
+
+s = space(a)
+s = spaces(dyn)
+
+var = splice(a, b, c)
+
+n = sqrt(a)
+
+s = squote(var)
+s = squotes(var)
+
+sselect fvar
+
+sselect fvar on error null
+sselect fvar 0
+sselect fvar to 3
+sselect fvar to 3 0
+
+sselectn fvar
+sselectn fvar on error null
+sselectn fvar descending
+sselectn fvar to 3
+sselectn fvar to 3 no.case
+
+sselectv fvar
+sselectv fvar on error null
+sselectv fvar right.aligned
+sselectv fvar to var
+sselectv fvar to var no.case descending right.aligned
+
+n = status()
+
+status var from fvar else null
+
+stop
+stop 'failed'
+stop 201, 'myfile'
+
+var = str(s)
+var = str(s, 10)
+var = strs(s)
+var = strs(s, 10)
+
+var = subr('mysub')
+var = subr('mysub', a, b, c)
+
+var = substitute(dyn, a, b)
+var = substitute(dyn, a, b, delim)
+
+n = substrdw(s, a, b)
+n = substrdws(s, a, b)
+
+var = substrings(dyn, a, b)
+
+n = sum(dyn)
+
+n = summation(dyn)
+
+var = swap(s, 'a', 'b')
+var = swap(s, 'a', 'b')
+var = swap(s, 'a', 'b', 2)
+var = swap(s, 'a', 'b', 2, 3)
+
+s = swapcase(var)
+
+s = swapmarks(var)
+
+var = sysmsg(1234)
+var = sysmsg(1234, a, b)
+
+n = system(1234)
+
+s = tan(i)
+
+tclread var
+
+var = terminfo()
+var = terminfo(s)
+var = terminfo.ex()
+var = terminfo.ex(s)
+
+i = testlock(4)
+
+n = time()
+
+s = timedate()
+
+timeout fvar, 10
+
+s = trans('myfile', 'id', f, 'X')
+s = trans(dict 'myfile', 'id', f, 'X')
+
+var = transliterate(s)
+
+var = trim(s)
+var = trims(s)
+var = trim(s, a)
+var = trims(s, a)
+var = trim(s, a, b)
+var = trims(s, a, b)
+var = trimb(s)
+var = trimbs(s)
+var = trimf(s)
+var = trimfs(s)
+
+var = trimw(s)
+var = trimws(s)
+
+var  = ttyget()
+
+ttyset var
+
+i = unassigned(var)
+
+unlock
+unlock 3
+unlock else null
+unlock 3 else null
+
+var = upcase(s)
+
+n = vartype(var)
+
+var = vocpath('fname')
+var = vocpath('fname', @false)
+
+void 1 + 2
+
+var = vslice(s, 3)
+var = vslice(s, 3, 2)
+
+i = wait.file.event(var, 10)
+i = wait.file.event(arr2, 10)
+
+wake n
+
+weofseq fvar
+weofseq fvar on error null
+
+write var to fvar, s
+write var on fvar, s
+write var encoding 'UTF8' to fvar, s
+write var to fvar creating.seqkey s
+write var encoding 'UTF8' to fvar creating.seqkey s
+$mode write.delete.then.else
+write var to fvar, s else null
+write var encoding 'UTF8' to fvar, s else null
+write var to fvar creating.seqkey s else null
+write var encoding 'UTF8' to fvar creating.seqkey s else null
+$mode -write.delete.then.else
+
+n = write.socket(skt, var, 0, 10)
+
+writeblk var to fvar else null
+writeblk var encoding 'UTF8' to fvar else null
+
+writecsv a, b, c to fvar else null
+writecsv a, b, c encoding 'UTF8' to fvar else null
+
+writelist var to s
+writelist var on s
+
+writeseq var to fvar else null
+writeseq var on fvar else null
+writeseq var encoding 'UTF8' to fvar else null
+
+writev var to fvar, s, 2
+writev var on fvar, s, 2
+writev var encoding 'UTF8' to fvar, s, 2
+$mode write.delete.then.else
+writev var to fvar, s, 2 else null
+writev var encoding 'UTF8' to fvar, s, 2 else null
+$mode -write.delete.then.else
+
+writevu var to fvar, s, 2
+writevu var on fvar, s, 2
+writevu var encoding 'UTF8' to fvar, s, 2
+$mode write.delete.then.else
+writevu var to fvar, s, 2 else null
+writevu var encoding 'UTF8' to fvar, s, 2 else null
+$mode -write.delete.then.else
+
+n = xtd(var)
+
+* ======================================================================
+* Local functions and subroutines
+
+local function fun2(a1, a2)
+   private x
+   private y, z
+
+   x = a1 + a2
+   return x
+end
+
+local subroutine sub1(a1, a2)
+   return
+end
+
+* ======================================================================
+* Legal but not recommended
+
+before = 1
+ins a before dyn<before>
+
+* ======================================================================
+* Just to stop compiler moaning about unassigned variables
+
+y = 0
+length = 0
+start = 0
+
+end
