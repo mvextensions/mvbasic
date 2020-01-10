@@ -72,15 +72,15 @@ Details on how to connect to the different databases are explained in later chap
 
 This extension includes the following features:
 
-1. Code highlighting for MV Basic Programs
-2. Intellisense for the MV Basic Statements and Functions
-3. Code folding
-4. Code formatting
-5. Goto/Peek Definition. Automatically jump to and peek internal subroutines
-6. Goto/Peek Definition. Automatically peek/load CALL, CHAIN and INCLUDE routines
-7. Syntax checking for GOTO/GOSUB, LOOPS, CASE STATEMENTS and IF THE/ELSE statements
-8. Access your remote MV files and programs
-9. Find all References of a word in current program
+* Code highlighting for MV Basic Programs
+* Intellisense for the MV Basic Statements and Functions
+* Code folding
+* Code formatting
+* Goto/Peek Definition. Automatically jump to and peek internal subroutines
+* Goto/Peek Definition. Automatically peek/load CALL, CHAIN and INCLUDE routines
+* Syntax checking for GOTO/GOSUB, LOOPS, CASE STATEMENTS and IF THE/ELSE statements
+* Access your remote MV files and programs
+* Find all References of a word in current program
 
 VSCode is available on Windows, Linux and Mac OSX.
 
@@ -91,7 +91,7 @@ The following environment is required in order to use the extension.
 
 1. Windows, Linux or Mac OSX machine.
 2. VSCode
-3. MVGateway installed (Optional, Windows only for remote editing)
+3. MVGateway installed (optional, Windows only for remote editing)
 
 [(top)](#table-of-contents)
 # 3. Installing VSCode

@@ -11,7 +11,14 @@
   - [2.1 Install the prerequisites](#21-install-the-prerequisites)
   - [2.2 Option 1 - Clone the repository directly](#22-option-1---clone-the-repository-directly)
   - [2.3 Start the extension and finish development setup](#23-start-the-extension-and-finish-development-setup)
-- [3. Running in debug mode](#3-running-in-debug-mode)
+  - [2.4 Running in debug mode](#24-running-in-debug-mode)
+- [3. Extension Introduction](#3-extension-introduction)
+  - [3.1 Important Configuration Files](#31-important-configuration-files)
+    - [3.1.1 Syntax Coloring](#311-syntax-coloring)
+    - [3.1.2 Syntax Checking](#312-syntax-checking)
+    - [3.1.3 Code Formatting](#313-code-formatting)
+    - [3.1.4 Intellisense](#314-intellisense)
+    - [3.1.5 Code Snippets](#315-code-snippets)
 - [4. Syntax definitions / theming](#4-syntax-definitions--theming)
   - [4.1 Resources](#41-resources)
   - [4.2 Changing/Adding Scopes](#42-changingadding-scopes)
@@ -30,9 +37,11 @@
 ---
 # 0. Code of conduct
 
-Refer to the code of conduct at:
+Important reading for new developers planning on contributing back fixes and enhancements to the extension:
 
-https://github.com/ianmcgowan/mvbasic/blob/add-code-of-conduct-1/CODE_OF_CONDUCT.md
+[Code of Conduct](https://github.com/mvextensions/.github/blob/master/CODE_OF_CONDUCT.md)
+
+[Contribution Guidelines](https://github.com/mvextensions/.github/blob/master/CONTRIBUTING.md)
 
 # 1. Introduction
 
@@ -112,15 +121,55 @@ After churning for a while, downloading, extracting and installing hundrds of pa
 
 ![npminstall2](screenshots/devguide/npminstall2.png)
 
-[(top)](#table-of-contents)
+## 2.4 Running in debug mode
 
-# 3. Running in debug mode
+From inside the instance of VSCode, hit F5 or from the command palette choose ```Debug: Start Debugging```, or from the side bar click the debug icon, select "Launch Client" and then click "Debug and Run".
 
-From inside the instance of VSCode, hit F5 or from the command palette choose ```Debug: Start Debugging```
+![debug_start](screenshots/devguide/dev_debug_start.gif)
 
 This will start a new instance of VSCode running in debug mode, connected back to the controlling instance.  Any changes to the
-extension will be made in the controlling instance, and tested in the debug instance.  After making a change, ctrl+shift+F5 or
+extension will be made in the controlling instance, and tested in the debug instance.  You will see "building" in the bottom status bar as any changes to the typescript code are transpiled to javascript.
+
+After making a change in the extension code, or altering breakpoints, ctrl+shift+F5 or
 Debug: Restart from the command palette to restart the debug instance and make it aware of the changes.
+
+[(top)](#table-of-contents)
+
+# 3. Extension Introduction
+
+## 3.1 Important Configuration Files
+
+There are different areas that control how the extension deals with basic code.  They can be broadly divided into:
+
+* Configuration files that control how the extension interacts with Basic code.
+* The client extension in /client/src/extension.ts that runs code inside a VSCode process in response to various VSCode events.
+* The server extension in /server/src/server.ts that runs code when called from the client extension.  The server runs in a process outside the main VSCode process.
+
+https://code.visualstudio.com/api/language-extensions/language-server-extension-guide
+https://vscode.readthedocs.io/en/latest/extensions/example-language-server/
+
+|Area|Description|File|
+|---|---|---|
+|Syntax Coloring|Controls how programs are displayed|Syntaxes/mvon.tmLanguage.json|
+|Syntax Checking|Linting - this controls the red squiggles and error reports in the status bar|server/src/server.ts<br>validateTextDocument()|
+|Code Formatting|Reformats/reindents the program|client/src/extension.ts provideDocumentFormattingEdits()|
+|Intellisense|Provides tooltips and code completion|server/src/server.ts|
+|User Snippets|User-defined tooltips and code completion|%userprofile%\AppData\Roaming\Code\User\snippets|
+
+### 3.1.1 Syntax Coloring
+The highlighting/coloring of code in the editor is controlled by tmLanguage.json files in the syntaxes folder.  This configuration file consists of regular expressions that are run against code as it is edited and assigns each "chunk" of code a scope name.  The themes you select in VSCode will then apply styles to these scopes.  For example, comments are colored in green, labels are blue etc.
+
+### 3.1.2 Syntax Checking
+Also known as linting - every time a program is changed the function validateTextDocument in server.ts is called and the entire program is checked for syntax errors.
+
+### 3.1.3 Code Formatting
+When Shift+Alt+F or Format Document is called, the current program is reformatted/reindented.
+
+### 3.1.4 Intellisense
+Hovering over a statement or function, or pressing Ctrl+Space, will provide a "tooltip" or Intellisense reminder for that function.  The data for these tooltips are loaded dynamically from json files in the Syntaxes folder.
+
+### 3.1.5 Code Snippets
+Code snippets are user-defined short-cuts that can be used for any commonly repeated set of keystrokes.  For example, you could type "prog" or "sub", Ctrl+Space, and a standard code header could be inserted, and prompts for the variable parts filled in.  They are not part of the extension, but depending on what you have loaded in snippets, can confuse tooltops and command completion.
 
 [(top)](#table-of-contents)
 # 4. Syntax definitions / theming
