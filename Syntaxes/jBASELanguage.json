@@ -2758,6 +2758,13 @@
             "index": 394,
             "documentation": "The XTD() function converts hexadecimal number into its decimal equivalent.\r\nexpression should evaluate to a valid hexadecimal string.\r\nThe conversion process will halt at the first character that is not a valid base 16 character in the set [0-9, A-F or a-f].",
             "detail": "XTD(expression)"
+         },
+         {
+            "key": "$Option",
+            "icon": 14,
+            "index": 395,
+            "documentation": "The $OPTION directive allows dynamic objects options/parameters to be specified.\r\nkeyword is currently one or more of the following:\r\n arrow|auto|case|debug|jabba|keywords|object|period|self|stats|tokens|trace|universe|uv|uvcase|warning|warnings\r\n, commas separated.",
+            "detail": "$option keyword"
          }
       ]
    }
