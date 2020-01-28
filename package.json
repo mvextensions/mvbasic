@@ -240,11 +240,29 @@
           "default": false,
           "description": "Connect to the MV Gateway."
         },
+        "MVBasic.UseRestFS": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": false,
+          "description": "Use the RestFS file system for accessing the MultiValue server."
+        },
         "MVBasic.RestPath": {
           "scope": "resource",
           "type": "string",
           "default": "http://localhost/mvonrest",
-          "description": "The URL when connecting via the REST FileSystem"
+          "description": "The URL when connecting via the RestFS file system."
+        },
+        "MVBasic.RestFS.CaseSensitive": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": true,
+          "description": "The RestFS file system is case sensitive."
+        },
+        "MVBasic.RestFS.MaxItems": {
+          "scope": "resource",
+          "type": "number",
+          "default": 500,
+          "description": "The maximum number of items the RestFS file system can return when reading a directory."
         },
         "MVBasic.trace.server": {
           "scope": "window",

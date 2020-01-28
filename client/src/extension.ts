@@ -16,7 +16,7 @@ import fs = require('fs')
 
 
 
-
+var RESTFS: RestFS;
 var UsingRest: Boolean = false;
 
 
@@ -55,19 +55,26 @@ export function activate(context: ExtensionContext) {
 	let AccountPath: string = vscode.workspace.getConfiguration("MVBasic").get("AccountPath")
 	let AccountPassword: string = vscode.workspace.getConfiguration("MVBasic").get("AccountPassword")
 	let GatewayType: string = vscode.workspace.getConfiguration("MVBasic").get("GatewayType");
-	let UseGateway: string = vscode.workspace.getConfiguration("MVBasic").get("UseGateway");
+	let UseGateway: boolean = vscode.workspace.getConfiguration("MVBasic").get("UseGateway");
+	UsingRest = vscode.workspace.getConfiguration("MVBasic").get("UseRestFS");
 	//let HomePath: string = vscode.workspace.getConfiguration("MVBasic").get("homePath");
 	//let codePage: string = vscode.workspace.getConfiguration("MVBasic").get("encoding");
 	let margin: number = vscode.workspace.getConfiguration("MVBasic").get("margin");
 	let indent: number = vscode.workspace.getConfiguration("MVBasic").get("indent");
 	let formattingEnabled: boolean = vscode.workspace.getConfiguration("MVBasic").get("formattingEnabled");
-	let additionalFiles: any = vscode.workspace.getConfiguration("MVBasic").get("additionalFiles");
+//TODO: how does this work? let additionalFiles: any = vscode.workspace.getConfiguration("MVBasic").get("additionalFiles");
 	//let gatewayDebug: any = vscode.workspace.getConfiguration("MVBasic").get("gatewayDebug");
 	let customWordColor: any = vscode.workspace.getConfiguration("MVBasic").get("customWordColor");
 	let customWordlist: string = vscode.workspace.getConfiguration("MVBasic").get("customWords");
 	let customWordPath: any = vscode.workspace.getConfiguration("MVBasic").get("customWordPath");
 	let RestPath: any = vscode.workspace.getConfiguration("MVBasic").get("RestPath");
-
+	let AutoConnect: boolean = vscode.workspace.getConfiguration("MVBasic").get("RestAutoConnect");
+	let RestAPIVersion: number = vscode.workspace.getConfiguration("MVBasic").get("RestFS.RestAPI", 0);
+	let RestMaxItems: number = vscode.workspace.getConfiguration("MVBasic").get("RestFS.MaxItems", 0);
+	let RestDefAttr: number = vscode.workspace.getConfiguration("MVBasic").get("RestFS.DefAttr", 0);
+	let RestCaseSensitive: boolean = vscode.workspace.getConfiguration("MVBasic").get("RestFS.CaseSensitive");
+	UsingRest = UsingRest || UseGateway; // gateway implies RestFS
+	
 	let timeout: NodeJS.Timer | null = null;
 	var customWordDict = new Map();
 
@@ -85,32 +92,19 @@ export function activate(context: ExtensionContext) {
 	}
 
 
-
 	// Create the language client and start the client.
 	let disposable = new LanguageClient('mvbasic', 'MV Basic Server', serverOptions, clientOptions).start();
 
 
 	// initialise Remote REST FileSystem
+	if (UsingRest) {
+		RESTFS = new RestFS(RestAPIVersion);
+		RESTFS.initRestFS(RestPath, Account, {max_items: RestMaxItems, def_attr: RestDefAttr});
+		context.subscriptions.push(vscode.workspace.registerFileSystemProvider('RestFS', RESTFS, { isCaseSensitive: RestCaseSensitive }));		
 
-	const RESTFS = new RestFS(RestPath, Account);
-	context.subscriptions.push(vscode.workspace.registerFileSystemProvider('RestFS', RESTFS, { isCaseSensitive: true }));
-
-
-	let initialiseRestFS = vscode.commands.registerCommand('extension.initialiseRestFS', async () => {
-		// Check we have credentials and server details
-		let rPath = await vscode.window.showInputBox({ prompt: "Enter or select the REST path ", value: RestPath });
-		if (rPath != undefined) {
-			RestPath = rPath;
-			vscode.workspace.getConfiguration("MVBasic").update("RestPath", RestPath, false);
-		}
-		if (RestPath === "") {
-			vscode.window.showInformationMessage('Please configure the RESTFul Path in the workspace settings');
-			return;
-		}
-		RESTFS.initRestFS(RestPath, Account);
-		if (UseGateway) {
-
-			// send credentials if we are using the gateway
+		let connectRestFS = function(): boolean {
+			RESTFS.initRestFS(RestPath, Account, {max_items: RestMaxItems, def_attr: RestDefAttr});
+			// send credentials (some of these are specific to the gateway)
 			let login = {
 				"ServerIP": RemoteHost,
 				"ServerType": GatewayType,
@@ -119,35 +113,40 @@ export function activate(context: ExtensionContext) {
 				"AccountName": Account,
 				"AccountPath": AccountPath,
 				"AccountPassword": AccountPassword
+			};
+			if (!RESTFS.login(login)) {				
+				vscode.window.showInformationMessage('Unable to connect to the RestFS server. Please check your settings.');
+				return false;
 			}
-			var log = request('POST', RestPath + "/login", { json: login });
-			if (log.statusCode != 200) {
-				vscode.window.showInformationMessage('Unable to connect to the REST server. Please check your settings');
+			// TODO: add any addional files specified in the config
+			//for (let i = 0; i < additionalFiles.length; i++) {
+			//	RESTFS.createDirectory(vscode.Uri.parse('RestFS:/' + additionalFiles[i] + '/'));
+			//}
+			// Display a message box to the user
+			vscode.window.showInformationMessage('Connected to RestFS server ' + RestPath);
+			// The next line ensures the file explorer will be loaded correctly
+			vscode.commands.executeCommand('workbench.files.action.refreshFilesExplorer');			
+			return true;
+		};
+
+		if (AutoConnect) {
+			connectRestFS();
+		}
+
+		var initialiseRestFS = vscode.commands.registerCommand('extension.initialiseRestFS', async () => {
+			// Check we have credentials and server details
+			let rPath = await vscode.window.showInputBox({ prompt: "Enter or select the RestFS URI ", value: RestPath });
+			if (rPath != undefined) {
+				RestPath = rPath;
+				vscode.workspace.getConfiguration("MVBasic").update("RestPath", RestPath, false);
+			}
+			if (RestPath === "") {
+				vscode.window.showInformationMessage('Please configure the RESTFul Path in the workspace settings.');
 				return;
 			}
-		}
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Using REST Path to ' + RestPath);
-		// TODO: refresh RESTFS after gateway login
-		//var dirList = JSON.parse(files.body);
-		//for (let i = 0; i < dirList.Directories.length; i++) {
-		//	if (dirList.Directories[i].Name.endsWith(".Lib")) {
-
-		//	}
-		//	else {
-		//		RESTFS.createDirectory(vscode.Uri.parse('RestFS:/' + dirList.Directories[i].Name + '/'));
-		//	}
-		//}
-		// add root directory
-		//RESTFS.createDirectory(vscode.Uri.parse('RestFS:/'));
-
-		// add any addional files specified in the config
-		for (let i = 0; i < additionalFiles.length; i++) {
-			RESTFS.createDirectory(vscode.Uri.parse('RestFS:/' + additionalFiles[i] + '/'));
-		}
-		UsingRest = true; // TODO: when RESTFS is used without initializeRestFS command, how do we set this?
-		vscode.window.showInformationMessage("Connected");
-	});
+			connectRestFS();
+		});
+	}
 
 	let mvonAdmin = vscode.commands.registerCommand('extension.mvonAdmin', async () => {
 
@@ -452,4 +451,11 @@ export function activate(context: ExtensionContext) {
 		}
 		activeEditor.setDecorations(customDecoration, customWords);
 	}
+}
+
+export function deactivate() {
+	if (RESTFS) {
+		RESTFS.logout();
+	}
+	RESTFS = undefined;
 }
