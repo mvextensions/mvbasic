@@ -136,7 +136,7 @@ export class RestFS implements vscode.FileSystemProvider {
 
         // get directory & file list from server
         const qs = "max_items=" + this.max_items + "&attr=" + this.def_attr;
-        let res = request('GET', this.RestPath + path.posix.join("/dir", this.RestAccount, uri.path, "/") + "?" + qs,
+        let res = request('GET', this.RestPath + path.posix.join("/dir", this.RestAccount, uri.path) + "?" + qs,
             { headers: this._request_headers() });
         if (res.statusCode != 200) {
             // TODO: improve error reporting
@@ -211,7 +211,7 @@ export class RestFS implements vscode.FileSystemProvider {
             return data;
         }
         // file not loaded so load it from server using RESTFS API
-        let res = request('GET', this.RestPath + path.posix.join("/file", this.RestAccount, uri.path, "/"),
+        let res = request('GET', this.RestPath + path.posix.join("/file", this.RestAccount, uri.path),
             { headers: this._request_headers() });
         if (res.statusCode != 200) {
             // TODO: improve error reporting
@@ -313,14 +313,14 @@ export class RestFS implements vscode.FileSystemProvider {
                 method = 'POST';
                 action = '/create';
             }
-            res = request(method, this.RestPath + path.posix.join(action, this.RestAccount, uri.path, "/"),
+            res = request(method, this.RestPath + path.posix.join(action, this.RestAccount, uri.path),
                 { json: {id: entry.name, type: "array", data: dynarr}, headers: this._request_headers() } 
             );
         } else {
             // update server using original RESTFS API
             data = JSON.stringify(content.toString().split(String.fromCharCode(10)));
             data = "{ \"ProgramLines\" :" + data + "}";
-            res = request('POST', this.RestPath + path.posix.join("/file", + this.RestAccount, uri.path, "/"),
+            res = request('POST', this.RestPath + path.posix.join("/file", + this.RestAccount, uri.path),
                 { json: data } // NOTE: this should really be body:data, not json:data, but this is how the original API works!
             );
         }
@@ -351,15 +351,14 @@ export class RestFS implements vscode.FileSystemProvider {
 
     rename(oldUri: vscode.Uri, newUri: vscode.Uri, options: { overwrite: boolean }): void {
 
-        if (this.ApiVersion == 0) {
-            // TODO: does original RESTFS API support 'rename'?
-            throw vscode.FileSystemError.FileNotFound(oldUri);
+        if (this.ApiVersion == 0) {            
+            throw vscode.FileSystemError.FileNotFound(oldUri); // original RESTFS API does not support 'rename'
         }
         if (!options.overwrite && this._stat(newUri)) {
             throw vscode.FileSystemError.FileExists(newUri);
         }
         let qs = "newname=" + path.posix.join(this.RestAccount, newUri.path);
-        let res = request('GET', this.RestPath + path.posix.join("/rename", this.RestAccount, oldUri.path + "/") + qs,
+        let res = request('GET', this.RestPath + path.posix.join("/rename", this.RestAccount, oldUri.path) + "?" + qs,
             { headers: this._request_headers() });
         if (res.statusCode != 200) {
             // TODO: better error reporting
@@ -393,11 +392,10 @@ export class RestFS implements vscode.FileSystemProvider {
     }
 
     delete(uri: vscode.Uri): void {
-        if (this.ApiVersion == 0) {
-            // TODO: does original RESTFS API support 'delete'?
-            throw vscode.FileSystemError.FileNotFound(uri);
+        if (this.ApiVersion == 0) {            
+            throw vscode.FileSystemError.FileNotFound(uri); // original RESTFS API does not support 'delete'
         }
-        let res = request('DELETE', this.RestPath + path.posix.join("/file", this.RestAccount, uri.path, "/"),
+        let res = request('DELETE', this.RestPath + path.posix.join("/file", this.RestAccount, uri.path),
             { headers: this._request_headers() });
         if (res.statusCode != 200) {
             // TODO: better error reporting
@@ -415,9 +413,8 @@ export class RestFS implements vscode.FileSystemProvider {
     }
 
     createDirectory(uri: vscode.Uri): void {
-        if (this.ApiVersion == 0) {
-            // TODO: does original RESTFS API support 'create'?
-            throw vscode.FileSystemError.FileNotFound(uri);
+        if (this.ApiVersion == 0) {            
+            throw vscode.FileSystemError.FileNotFound(uri); // original RESTFS API does not support 'create'
         }
         let basename = path.posix.basename(uri.path);
         let dirname = uri.with({ path: path.posix.dirname(uri.path) });
@@ -429,7 +426,7 @@ export class RestFS implements vscode.FileSystemProvider {
         }
         // send 'create' request to server
         let qs = "dir=true";
-        let res = request('POST', this.RestPath + path.posix.join("/create", this.RestAccount, uri.path, "/") + "?" + qs,
+        let res = request('POST', this.RestPath + path.posix.join("/create", this.RestAccount, uri.path) + "?" + qs,
             { headers: this._request_headers() });
         if (res.statusCode != 200) {
             // TODO: better error reporting
@@ -443,6 +440,7 @@ export class RestFS implements vscode.FileSystemProvider {
     }
 
     // --- other API methods, not part of FileSystemProvider, but necessary
+
     public login(login_params: object) : boolean {
         let my_login_params = {...login_params, Client: "vscode.restfs"};
         let res = request('POST', this.RestPath + "/login",
@@ -467,8 +465,55 @@ export class RestFS implements vscode.FileSystemProvider {
         let headers = this._request_headers();
         this.auth = undefined;
         setTimeout(() => {
-            request('GET', path, { headers: headers });            
+            request('GET', path, { headers: headers }); // run this from timer, as this extension may be unloading now         
         }, 1);                
+    }
+
+    public compile(uri: vscode.Uri, options?: any) {
+        if (this.ApiVersion > 0) {
+            let qs = options && options.debug ? "debug=true" : "";
+            var res = request('POST', this.RestPath + path.posix.join("/cmd/compile", this.RestAccount, uri.path) + "?" + qs,
+            { headers: this._request_headers() });
+        } else {
+            let dg = options && options.debug ? "dg" : "";
+            var res = request('GET', this.RestPath + path.posix.join("/compile", this.RestAccount, uri.path, dg),
+            { headers: this._request_headers() });
+        }
+        if (res.statusCode != 200) {
+            // TODO: better error reporting
+            throw vscode.FileSystemError.FileNotFound(uri);
+        }
+        let results = JSON.parse(res.body);
+        if (results.Result) {
+            vscode.window.showInformationMessage(results.Result);
+        }
+		if (results.Errors.length > 0) {
+			for (let i = 0; i < results.Errors.length; i++) {
+				let errorMsg = "Line    : " + results.Errors[i].LineNo + "  \nError  : " + results.Errors[i].ErrorMessage + "  \nSource : " + results.Errors[i].Source;
+				vscode.window.showErrorMessage(results.Result, errorMsg.split("\n")[0], errorMsg.split("\n")[1], errorMsg.split("\n")[2]);
+			}
+		}
+    }
+
+    public catalog(uri: vscode.Uri, _options?: any) {
+        if (this.ApiVersion > 0) {
+            var res = request('POST', this.RestPath + path.posix.join("/cmd/catalog", this.RestAccount, uri.path),
+            { headers: this._request_headers() });
+        } else {
+            var res = request('GET', this.RestPath + path.posix.join("/catalog", this.RestAccount, uri.path),
+            { headers: this._request_headers() });
+        }
+        if (res.statusCode != 200) {
+            // TODO: better error reporting
+            throw vscode.FileSystemError.FileNotFound(uri);
+        }
+        let results = JSON.parse(res.body);
+        if (results.Result) {
+            vscode.window.showInformationMessage(results.Result);
+        } else if (typeof results === "string") {
+            // Original API returns string, not object
+            vscode.window.showInformationMessage(results);
+        }
     }
 
     // --- lookup

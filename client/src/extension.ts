@@ -7,13 +7,11 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 
-const request = require("sync-request");
 import { RestFS } from "./RestFS"
 
 import { workspace, ExtensionContext } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient';
 import fs = require('fs')
-
 
 
 var RESTFS: RestFS;
@@ -62,7 +60,7 @@ export function activate(context: ExtensionContext) {
 	let margin: number = vscode.workspace.getConfiguration("MVBasic").get("margin");
 	let indent: number = vscode.workspace.getConfiguration("MVBasic").get("indent");
 	let formattingEnabled: boolean = vscode.workspace.getConfiguration("MVBasic").get("formattingEnabled");
-//TODO: how does this work? let additionalFiles: any = vscode.workspace.getConfiguration("MVBasic").get("additionalFiles");
+	//let additionalFiles: any = vscode.workspace.getConfiguration("MVBasic").get("additionalFiles"); // deprecated
 	//let gatewayDebug: any = vscode.workspace.getConfiguration("MVBasic").get("gatewayDebug");
 	let customWordColor: any = vscode.workspace.getConfiguration("MVBasic").get("customWordColor");
 	let customWordlist: string = vscode.workspace.getConfiguration("MVBasic").get("customWords");
@@ -118,10 +116,6 @@ export function activate(context: ExtensionContext) {
 				vscode.window.showInformationMessage('Unable to connect to the RestFS server. Please check your settings.');
 				return false;
 			}
-			// TODO: add any addional files specified in the config
-			//for (let i = 0; i < additionalFiles.length; i++) {
-			//	RESTFS.createDirectory(vscode.Uri.parse('RestFS:/' + additionalFiles[i] + '/'));
-			//}
 			// Display a message box to the user
 			vscode.window.showInformationMessage('Connected to RestFS server ' + RestPath);
 			// The next line ensures the file explorer will be loaded correctly
@@ -189,83 +183,20 @@ export function activate(context: ExtensionContext) {
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(initialiseRestFS);
 
-
-	let compile = vscode.commands.registerCommand('extension.compileProgram', async () => {
-		let filePath = vscode.window.activeTextEditor.document.fileName
-		// handle linux and OSX file paths
-		while (filePath.indexOf("/") > -1) {
-			filePath = filePath.replace("/", "\\");
-		}
-		let parts = filePath.split('\\')
-		let fileName = parts[parts.length - 1]
-		let programFile = parts[parts.length - 2]
-
-		if (UsingRest) {
-			var compile = request('GET', RestPath + "/compile/" + Account + "/" + programFile + "/" + fileName+"/")
-
-			var response = JSON.parse(compile.body);
-			if (response.Errors.length === 0) {
-				vscode.window.showInformationMessage(response.Result);
-			}
-			else {
-				vscode.window.showInformationMessage(response.Result);
-				for (let i = 0; i < response.Errors.length; i++) {
-					let errorMsg = "Line    : " + response.Errors[i].LineNo + "  \nError  : " + response.Errors[i].ErrorMessage + "  \nSource : " + response.Errors[i].Source
-					vscode.window.showErrorMessage(response.Result, errorMsg.split("\n")[0], errorMsg.split("\n")[1], errorMsg.split("\n")[2]);
-				}
-			}
-			return;
-		}
-	});
-
-	let catalog = vscode.commands.registerCommand('extension.catalogProgram', async () => {
-		let filePath = vscode.window.activeTextEditor.document.fileName
-		// handle linux and OSX file paths
-		while (filePath.indexOf("/") > -1) {
-			filePath = filePath.replace("/", "\\");
-		}
-		let parts = filePath.split('\\')
-		let fileName = parts[parts.length - 1]
-		let programFile = parts[parts.length - 2]
-		if (UsingRest) {
-			var catalog = request('GET', RestPath + "/catalog/" + Account + "/" + programFile + "/" + fileName+"/")
-			var msg = JSON.parse(catalog.body);
-			vscode.window.showInformationMessage(msg);
-			return;
-		}
-	});
-
-	let compileDebug = vscode.commands.registerCommand('extension.compileDebug', async () => {
-		let filePath = vscode.window.activeTextEditor.document.fileName
-		// handle linux and OSX file paths
-		while (filePath.indexOf("/") > -1) {
-			filePath = filePath.replace("/", "\\");
-		}
-		let parts = filePath.split('\\')
-		let fileName = parts[parts.length - 1]
-		let programFile = parts[parts.length - 2]
-		if (UsingRest) {
-			var compile = request('GET', RestPath + "/compile/" + Account + "/" + programFile + "/" + fileName + "/dg/")
-
-			var response = JSON.parse(compile.body);
-			if (response.Errors.length === 0) {
-				vscode.window.showInformationMessage(response.Result);
-			}
-			else {
-				vscode.window.showInformationMessage(response.Result);
-				for (let i = 0; i < response.Errors.length; i++) {
-					let errorMsg = "Line    : " + response.Errors[i].LineNo + "  \nError  : " + response.Errors[i].ErrorMessage + "  \nSource : " + response.Errors[i].Source
-					vscode.window.showErrorMessage(response.Result, errorMsg.split("\n")[0], errorMsg.split("\n")[1], errorMsg.split("\n")[2]);
-				}
-			}
-			return;
-		}
-
-	});
-
-	context.subscriptions.push(catalog);
-	context.subscriptions.push(compile);
-	context.subscriptions.push(compileDebug);
+	if (UsingRest) {		
+		let compile = vscode.commands.registerCommand('extension.compileProgram', async () => {
+			RESTFS.compile(vscode.window.activeTextEditor.document.uri);
+		});
+		let compileDebug = vscode.commands.registerCommand('extension.compileDebug', async () => {
+			RESTFS.compile(vscode.window.activeTextEditor.document.uri, {debug: true});
+		});
+		let catalog = vscode.commands.registerCommand('extension.catalogProgram', async () => {
+			RESTFS.catalog(vscode.window.activeTextEditor.document.uri);
+		});
+		context.subscriptions.push(catalog);
+		context.subscriptions.push(compile);
+		context.subscriptions.push(compileDebug);
+	}
 
 	vscode.languages.registerDocumentFormattingEditProvider('mvbasic', {
 		provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
