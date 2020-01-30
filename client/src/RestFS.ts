@@ -18,10 +18,10 @@ export class File implements vscode.FileStat {
     size: number;
 
     name: string;
-    attr: MVAttr;
+    attr: RestFSAttr;
     data?: Uint8Array;
 
-    constructor(name: string, attr: MVAttr = MVAttr.MVATTR_FILE) {
+    constructor(name: string, attr: RestFSAttr = RestFSAttr.ATTR_FILE) {
         this.type = vscode.FileType.File;
         this.ctime = Date.now();
         this.mtime = Date.now();
@@ -39,11 +39,11 @@ export class Directory implements vscode.FileStat {
     size: number;
 
     name: string;
-    attr: MVAttr;
+    attr: RestFSAttr;
     entries: Map<string, File | Directory>;
     needRefresh: boolean;
 
-    constructor(name: string, attr: MVAttr = MVAttr.MVATTR_FOLDER) {
+    constructor(name: string, attr: RestFSAttr = RestFSAttr.ATTR_FOLDER) {
         this.type = vscode.FileType.Directory;
         this.ctime = Date.now();
         this.mtime = Date.now();
@@ -57,19 +57,24 @@ export class Directory implements vscode.FileStat {
 
 export type Entry = File | Directory;
 
-enum MVAttr {
-    MVATTR_READONLY     = 0x0001, // item is read-only
-    MVATTR_HIDDEN       = 0x0002, // item is hidden file or folder
-    MVATTR_SYSTEM       = 0x0004, // item is a system file or folder
-    MVATTR_VOLUME       = 0x0008, // unused (reserved)
-    MVATTR_FOLDER       = 0x0010, // item is a "folder" (MV file - D, F or Q pointer)
-    MVATTR_ARCHIVE      = 0x0020, // unused (reserved)
-    MVATTR_SYMLINK      = 0x0040, // item is a symlink (MV Q-pointer)
-    MVATTR_FILE         = 0x0080, // item is normal file (MV item)
-    MVATTR_FIELD        = 0x0100, // item is a field definition (MV dictionary definition - A, S, I, V or D type)
-    MVATTR_ACCOUNT      = 0x0200, // item is the account "folder" (MV account MD or VOC)
-    MVATTR_ROOT         = 0x0400, // item is the root "folder"
-    MVATTR_DATAONLY     = 0x8000  // when selecting files from MD, return only data (not dict) files
+// Note: these attribute values are roughly equivalent to MSDOS file
+// attributes and .NET FileAttributes. ATTR_SYMLINK would more correctly
+// be mapped to FileAttributes.ReparsePoint, but there is not a precise
+// correlation here. Hopefully a vscode update will provide a FileType
+// for ReadOnly.
+export const enum RestFSAttr {
+    ATTR_READONLY     = 0x0001, // item is read-only
+    ATTR_HIDDEN       = 0x0002, // item is hidden file or folder
+    ATTR_SYSTEM       = 0x0004, // item is a system file or folder
+    ATTR_VOLUME       = 0x0008, // unused (reserved)
+    ATTR_FOLDER       = 0x0010, // item is a "folder" (MV file - D, F or Q pointer)
+    ATTR_ARCHIVE      = 0x0020, // unused (reserved)
+    ATTR_SYMLINK      = 0x0040, // item is a symlink (MV Q-pointer)
+    ATTR_FILE         = 0x0080, // item is normal file (MV item)
+    ATTR_FIELD        = 0x0100, // item is a field definition (MV dictionary definition - A, S, I, V or D type)
+    ATTR_ACCOUNT      = 0x0200, // item is the account "folder" (MV account MD or VOC)
+    ATTR_ROOT         = 0x0400, // item is the root "folder"
+    ATTR_DATAONLY     = 0x8000  // when selecting files from MD, return only data (not dict) files
 }
 
 // define 3-level nested array used to represent MV dynamic array
@@ -97,7 +102,7 @@ export class RestFS implements vscode.FileSystemProvider {
     initRestFS(restPath: string, restAccount: string, options:any = {}) {
         console.log("initRestFS " + restPath + " " + restAccount);
         this.root = new Directory('');
-        this.root.attr |= MVAttr.MVATTR_ROOT | MVAttr.MVATTR_READONLY;
+        this.root.attr |= RestFSAttr.ATTR_ROOT | RestFSAttr.ATTR_READONLY;
         this.RestPath = restPath;
         this.RestAccount = restAccount;
         this.max_items = (options && options.max_items) || 0;
@@ -105,15 +110,36 @@ export class RestFS implements vscode.FileSystemProvider {
         this.auth = undefined; // must call login to get authorization
     }
 
-    stat(uri: vscode.Uri): vscode.FileStat { 
+    public stat(uri: vscode.Uri): vscode.FileStat | Promise<vscode.FileStat> {
+        return new Promise((resolve, reject) => {
+            try {
+                let entry = this._stat(uri);
+                if (!entry)
+                    throw vscode.FileSystemError.FileNotFound(uri);        
+                resolve(entry);
+            } catch(e) {
+                reject(e);
+            }
+        });
+    }
+/*    stat(uri: vscode.Uri): vscode.FileStat { 
         let entry = this._stat(uri);
         if (!entry) {
             throw vscode.FileSystemError.FileNotFound(uri);
         }
         return entry;
     }
-
-    readDirectory(uri: vscode.Uri): [string, vscode.FileType][] {
+*/
+    public readDirectory(uri: vscode.Uri): [string, vscode.FileType][] | Promise<[string, vscode.FileType][]> {
+        return new Promise((resolve, reject) => {
+            try {
+                resolve(this._readDirectory(uri));
+            } catch(e) {
+                reject(e);
+            }
+        });
+    }
+    _readDirectory(uri: vscode.Uri): [string, vscode.FileType][] {
 
         if(this._excluded(uri)) {
             throw vscode.FileSystemError.FileNotFound(uri);
@@ -175,17 +201,17 @@ export class RestFS implements vscode.FileSystemProvider {
         entry.size = 0;
         entry.needRefresh = false;
         let name: string;
-        let attr: MVAttr;
+        let attr: RestFSAttr;
         let item: Entry;
         for (let i = 0; i < numItems; i++) {
             if (this.ApiVersion > 0) {
                 name = itemList[i].id;
-                attr = itemList[i].attr || MVAttr.MVATTR_FILE;
+                attr = itemList[i].attr || RestFSAttr.ATTR_FILE;
             } else {
                 name = fileList[i].Name;
-                attr = fileList[i].Type == vscode.FileType.Directory ? MVAttr.MVATTR_FOLDER : MVAttr.MVATTR_FILE;
+                attr = fileList[i].Type == vscode.FileType.Directory ? RestFSAttr.ATTR_FOLDER : RestFSAttr.ATTR_FILE;
             }
-            if (attr & MVAttr.MVATTR_FOLDER) {
+            if (attr & RestFSAttr.ATTR_FOLDER) {
                 item = new Directory(name, attr);
             } else {
                 item = new File(name, attr);
@@ -201,14 +227,23 @@ export class RestFS implements vscode.FileSystemProvider {
     // --- manage file contents
 
     // TODO: save list of failed file lookups so we don't need to hit server every time?
-    readFile(uri: vscode.Uri): Uint8Array {
+    public readFile(uri: vscode.Uri): Uint8Array | Promise<Uint8Array> {
+        return new Promise((resolve, reject) => {
+            try {
+                resolve(this._readFile(uri));
+            } catch(e) {
+                reject(e);
+            }
+        });
+    }
+    _readFile(uri: vscode.Uri): Uint8Array {
 
         if(this._excluded(uri)) {
             throw vscode.FileSystemError.FileNotFound(uri);
         }
-        const data = this._lookupAsFile(uri).data;
-        if (data) {
-            return data;
+        let entry = this._lookupAsFile(uri);
+        if (entry && entry.data) {
+            return entry.data;
         }
         // file not loaded so load it from server using RESTFS API
         let res = request('GET', this.RestPath + path.posix.join("/file", this.RestAccount, uri.path),
@@ -219,9 +254,11 @@ export class RestFS implements vscode.FileSystemProvider {
         }
         let result = JSON.parse(res.body);
 
+        let attr: RestFSAttr = 0;
         let program: string;
         if (this.ApiVersion > 0) {
-            // RESTFS API version 1 returns object {id: string, type: "array", data: []}
+            // RESTFS API version 1 returns object {id: string, type: "array", attr: number, data: []}
+            attr |= result.attr; // if server sends any attributes, keep them
             if (result.type == "array") {
                 <DynArray>(result.data).forEach(function(element: ValArray, attnbr: number, atts: DynArray) {
                     if (element instanceof Array) {                        
@@ -256,10 +293,11 @@ export class RestFS implements vscode.FileSystemProvider {
         let parent = this._fixupParentDirectory(uri);
         // update local file cache so we don't read from server every time
         let basename = path.posix.basename(uri.path);
-        let entry = new File(basename);
+        entry = new File(basename);
         entry.mtime = Date.now();
         entry.size = content.byteLength;
         entry.data = content;
+        entry.attr |= attr;
         if (!this._lookup(uri))
             parent.size += 1;
         parent.entries.set(basename, entry);
@@ -267,7 +305,16 @@ export class RestFS implements vscode.FileSystemProvider {
         return content;
     }
 
-    writeFile(uri: vscode.Uri, content: Uint8Array, options: { create: boolean, overwrite: boolean }): void {
+    public writeFile(uri: vscode.Uri, content: Uint8Array, options: { create: boolean, overwrite: boolean }): void | Promise<void> {
+        return new Promise((resolve, reject) => {
+            try {
+                resolve(this._writeFile(uri, content, options));
+            } catch(e) {
+                reject(e);
+            }
+        });
+    }
+    _writeFile(uri: vscode.Uri, content: Uint8Array, options: { create: boolean, overwrite: boolean }): void {
     
         let entry = this._stat(uri); // may cause read from server
         if (entry instanceof Directory) {
@@ -278,6 +325,9 @@ export class RestFS implements vscode.FileSystemProvider {
         }
         if (entry && options.create && !options.overwrite) {
             throw vscode.FileSystemError.FileExists(uri);
+        }
+        if (entry && (entry.attr & RestFSAttr.ATTR_READONLY)) {
+            throw vscode.FileSystemError.NoPermissions(uri);
         }
         
         let res: any;
@@ -349,7 +399,16 @@ export class RestFS implements vscode.FileSystemProvider {
 
     // --- manage files/folders
 
-    rename(oldUri: vscode.Uri, newUri: vscode.Uri, options: { overwrite: boolean }): void {
+    public rename(oldUri: vscode.Uri, newUri: vscode.Uri, options: { overwrite: boolean }): void | Promise<void> {
+        return new Promise((resolve, reject) => {
+            try {
+                resolve(this._rename(oldUri, newUri, options));
+            } catch(e) {
+                reject(e);
+            }
+        });
+    }
+    _rename(oldUri: vscode.Uri, newUri: vscode.Uri, options: { overwrite: boolean }): void {
 
         if (this.ApiVersion == 0) {            
             throw vscode.FileSystemError.FileNotFound(oldUri); // original RESTFS API does not support 'rename'
@@ -391,7 +450,16 @@ export class RestFS implements vscode.FileSystemProvider {
         );
     }
 
-    delete(uri: vscode.Uri): void {
+    public delete(uri: vscode.Uri): void | Promise<void> {
+        return new Promise((resolve, reject) => {
+            try {
+                resolve(this._delete(uri));
+            } catch(e) {
+                reject(e);
+            }
+        });
+    }
+    _delete(uri: vscode.Uri): void {
         if (this.ApiVersion == 0) {            
             throw vscode.FileSystemError.FileNotFound(uri); // original RESTFS API does not support 'delete'
         }
@@ -412,7 +480,16 @@ export class RestFS implements vscode.FileSystemProvider {
         this._fireSoon({ type: vscode.FileChangeType.Changed, uri: dirname }, { type: vscode.FileChangeType.Deleted, uri });
     }
 
-    createDirectory(uri: vscode.Uri): void {
+    public createDirectory(uri: vscode.Uri): void | Promise<void> {
+        return new Promise((resolve, reject) => {
+            try {
+                resolve(this._createDirectory(uri));
+            } catch(e) {
+                reject(e);
+            }
+        });
+    }
+    _createDirectory(uri: vscode.Uri): void {
         if (this.ApiVersion == 0) {            
             throw vscode.FileSystemError.FileNotFound(uri); // original RESTFS API does not support 'create'
         }
@@ -421,8 +498,12 @@ export class RestFS implements vscode.FileSystemProvider {
         // make sure there is a parent directory
         let parent = this._stat(dirname);    
         if (parent == undefined || parent.type != vscode.FileType.Directory) {
-            // TODO: better error reporting
-            throw vscode.FileSystemError.FileNotFound(uri);
+            throw vscode.FileSystemError.FileNotADirectory(dirname);
+        }
+        // make sure file or directory does not exist
+        let entry = this._stat(uri);
+        if (entry) {
+            throw vscode.FileSystemError.FileExists(uri);
         }
         // send 'create' request to server
         let qs = "dir=true";
@@ -432,7 +513,7 @@ export class RestFS implements vscode.FileSystemProvider {
             // TODO: better error reporting
             throw vscode.FileSystemError.FileNotFound(uri);
         }
-        let entry = new Directory(basename);
+        entry = new Directory(basename);
         (<Directory>parent).entries.set(entry.name, entry);
         parent.mtime = Date.now();
         parent.size += 1;
@@ -526,14 +607,14 @@ export class RestFS implements vscode.FileSystemProvider {
             if (!entry) {
                 // not in local cache, try to read directory from server
                 try {
-                    this.readDirectory(uri);
+                    this._readDirectory(uri);
                     entry = this._lookup(uri);
                 } catch(e) {}
             }
             if (!entry) {
                 // not in local cache, try to read file from server
                 try {
-                    this.readFile(uri);
+                    this._readFile(uri);
                     entry = this._lookup(uri);
                 } catch(e) {}
             }
@@ -594,8 +675,9 @@ export class RestFS implements vscode.FileSystemProvider {
             return parent;
         if (uri.path === "/")
             throw vscode.FileSystemError.FileNotFound(uri);
-        let next_parent = this._fixupParentDirectory(uri.with({ path: path.posix.dirname(uri.path) }));
-        let basename = path.posix.basename(uri.path);
+        let next_uri = uri.with({ path: path.posix.dirname(uri.path) })
+        let next_parent = this._fixupParentDirectory(next_uri);
+        let basename = path.posix.basename(next_uri.path);
         let entry = new Directory(basename);
         next_parent.entries.set(entry.name, entry);
         next_parent.mtime = Date.now();

@@ -7,7 +7,8 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 
-import { RestFS } from "./RestFS"
+import { RestFS } from "./RestFS";
+import { RestFSAttr } from "./RestFS";
 
 import { workspace, ExtensionContext } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient';
@@ -62,6 +63,7 @@ export function activate(context: ExtensionContext) {
 	let formattingEnabled: boolean = vscode.workspace.getConfiguration("MVBasic").get("formattingEnabled");
 	//let additionalFiles: any = vscode.workspace.getConfiguration("MVBasic").get("additionalFiles"); // deprecated
 	//let gatewayDebug: any = vscode.workspace.getConfiguration("MVBasic").get("gatewayDebug");
+	let editFiles: any = vscode.workspace.getConfiguration("MVBasic").get("EditFiles");
 	let customWordColor: any = vscode.workspace.getConfiguration("MVBasic").get("customWordColor");
 	let customWordlist: string = vscode.workspace.getConfiguration("MVBasic").get("customWords");
 	let customWordPath: any = vscode.workspace.getConfiguration("MVBasic").get("customWordPath");
@@ -71,7 +73,13 @@ export function activate(context: ExtensionContext) {
 	let RestMaxItems: number = vscode.workspace.getConfiguration("MVBasic").get("RestFS.MaxItems", 0);
 	let RestDefAttr: number = vscode.workspace.getConfiguration("MVBasic").get("RestFS.DefAttr", 0);
 	let RestCaseSensitive: boolean = vscode.workspace.getConfiguration("MVBasic").get("RestFS.CaseSensitive");
-	UsingRest = UsingRest || UseGateway; // gateway implies RestFS
+	
+	// gateway implies RestFS
+	UsingRest = UsingRest || UseGateway; 
+	
+	// default MV dir selection: file (folder), item (file), q-pointers (symlink), ignore items in dictionary level files
+	if (RestDefAttr === 0) 
+		RestDefAttr = RestFSAttr.ATTR_FOLDER | RestFSAttr.ATTR_FILE | RestFSAttr.ATTR_SYMLINK | RestFSAttr.ATTR_DATAONLY;
 	
 	let timeout: NodeJS.Timer | null = null;
 	var customWordDict = new Map();
@@ -96,12 +104,14 @@ export function activate(context: ExtensionContext) {
 
 	// initialise Remote REST FileSystem
 	if (UsingRest) {
+
 		RESTFS = new RestFS(RestAPIVersion);
-		RESTFS.initRestFS(RestPath, Account, {max_items: RestMaxItems, def_attr: RestDefAttr});
 		context.subscriptions.push(vscode.workspace.registerFileSystemProvider('RestFS', RESTFS, { isCaseSensitive: RestCaseSensitive }));		
 
 		let connectRestFS = function(): boolean {
+			
 			RESTFS.initRestFS(RestPath, Account, {max_items: RestMaxItems, def_attr: RestDefAttr});
+			
 			// send credentials (some of these are specific to the gateway)
 			let login = {
 				"ServerIP": RemoteHost,
@@ -116,10 +126,27 @@ export function activate(context: ExtensionContext) {
 				vscode.window.showInformationMessage('Unable to connect to the RestFS server. Please check your settings.');
 				return false;
 			}
+			
 			// Display a message box to the user
 			vscode.window.showInformationMessage('Connected to RestFS server ' + RestPath);
 			// The next line ensures the file explorer will be loaded correctly
-			vscode.commands.executeCommand('workbench.files.action.refreshFilesExplorer');			
+			vscode.commands.executeCommand('workbench.files.action.refreshFilesExplorer');	
+			
+			// auto-open files
+			if (editFiles && (typeof editFiles == 'string' || editFiles instanceof Array)) {
+				if (typeof editFiles == 'string')
+					editFiles = [editFiles];
+				editFiles.forEach(function(item: any) {
+					if (typeof item == 'string') {
+						vscode.workspace.openTextDocument(vscode.Uri.parse('RestFS://' + item))
+						.then(function(doc: vscode.TextDocument) {
+							vscode.window.showTextDocument(doc, -2, false)
+						});
+					}
+				});
+			}
+			editFiles = undefined; // only once
+
 			return true;
 		};
 
