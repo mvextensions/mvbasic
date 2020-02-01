@@ -68,18 +68,18 @@ export function activate(context: ExtensionContext) {
 	let customWordlist: string = vscode.workspace.getConfiguration("MVBasic").get("customWords");
 	let customWordPath: any = vscode.workspace.getConfiguration("MVBasic").get("customWordPath");
 	let RestPath: any = vscode.workspace.getConfiguration("MVBasic").get("RestPath");
-	let AutoConnect: boolean = vscode.workspace.getConfiguration("MVBasic").get("RestAutoConnect");
+	let AutoConnect: boolean = vscode.workspace.getConfiguration("MVBasic").get("RestFS.AutoConnect");
 	let RestAPIVersion: number = vscode.workspace.getConfiguration("MVBasic").get("RestFS.RestAPI", 0);
 	let RestMaxItems: number = vscode.workspace.getConfiguration("MVBasic").get("RestFS.MaxItems", 0);
-	let RestDefAttr: number = vscode.workspace.getConfiguration("MVBasic").get("RestFS.DefAttr", 0);
+	let RestSelAttr: number = vscode.workspace.getConfiguration("MVBasic").get("RestFS.SelAttr", 0);
 	let RestCaseSensitive: boolean = vscode.workspace.getConfiguration("MVBasic").get("RestFS.CaseSensitive");
 	
 	// gateway implies RestFS
 	UsingRest = UsingRest || UseGateway; 
 	
 	// default MV dir selection: file (folder), item (file), q-pointers (symlink), ignore items in dictionary level files
-	if (RestDefAttr === 0) 
-		RestDefAttr = RestFSAttr.ATTR_FOLDER | RestFSAttr.ATTR_FILE | RestFSAttr.ATTR_SYMLINK | RestFSAttr.ATTR_DATAONLY;
+	if (RestSelAttr === 0) 
+		RestSelAttr = RestFSAttr.ATTR_FOLDER | RestFSAttr.ATTR_FILE | RestFSAttr.ATTR_SYMLINK | RestFSAttr.ATTR_DATAONLY;
 	
 	let timeout: NodeJS.Timer | null = null;
 	var customWordDict = new Map();
@@ -108,44 +108,46 @@ export function activate(context: ExtensionContext) {
 		RESTFS = new RestFS(RestAPIVersion);
 		context.subscriptions.push(vscode.workspace.registerFileSystemProvider('RestFS', RESTFS, { isCaseSensitive: RestCaseSensitive }));		
 
-		let connectRestFS = function(): boolean {
+		const connectRestFS = async function(): Promise<boolean> {
 			
-			RESTFS.initRestFS(RestPath, Account, {max_items: RestMaxItems, def_attr: RestDefAttr});
+			try {
+				RESTFS.initRestFS(RestPath, Account, {max_items: RestMaxItems, def_attr: RestSelAttr});
 			
-			// send credentials (some of these are specific to the gateway)
-			let login = {
-				"ServerIP": RemoteHost,
-				"ServerType": GatewayType,
-				"UserId": UserName,
-				"Password": Password,
-				"AccountName": Account,
-				"AccountPath": AccountPath,
-				"AccountPassword": AccountPassword
-			};
-			if (!RESTFS.login(login)) {				
+				// send credentials (some of these are specific to the gateway)
+				const login = {
+					"ServerIP": RemoteHost,
+					"ServerType": GatewayType,
+					"UserId": UserName,
+					"Password": Password,
+					"AccountName": Account,
+					"AccountPath": AccountPath,
+					"AccountPassword": AccountPassword
+				};
+				await RESTFS.login(login);
+			
+				// Display a message box to the user
+				vscode.window.showInformationMessage('Connected to RestFS server ' + RestPath);
+				
+				// The next line ensures the file explorer will be loaded correctly
+				vscode.commands.executeCommand('workbench.files.action.refreshFilesExplorer');	
+			
+				// auto-open files
+				if (editFiles && (typeof editFiles == 'string' || editFiles instanceof Array)) {
+					if (typeof editFiles == 'string')
+						editFiles = [editFiles];
+					editFiles.forEach(async function(item: any) {
+						if (typeof item == 'string') {
+							let doc = await vscode.workspace.openTextDocument(vscode.Uri.parse('RestFS://' + item));
+							await vscode.window.showTextDocument(doc, {preview: false});
+						}			
+					});
+				}			
+				editFiles = undefined; // only once
+			
+			} catch(e) {
 				vscode.window.showInformationMessage('Unable to connect to the RestFS server. Please check your settings.');
 				return false;
 			}
-			
-			// Display a message box to the user
-			vscode.window.showInformationMessage('Connected to RestFS server ' + RestPath);
-			// The next line ensures the file explorer will be loaded correctly
-			vscode.commands.executeCommand('workbench.files.action.refreshFilesExplorer');	
-			
-			// auto-open files
-			if (editFiles && (typeof editFiles == 'string' || editFiles instanceof Array)) {
-				if (typeof editFiles == 'string')
-					editFiles = [editFiles];
-				editFiles.forEach(function(item: any) {
-					if (typeof item == 'string') {
-						vscode.workspace.openTextDocument(vscode.Uri.parse('RestFS://' + item))
-						.then(function(doc: vscode.TextDocument) {
-							vscode.window.showTextDocument(doc, -2, false)
-						});
-					}
-				});
-			}
-			editFiles = undefined; // only once
 
 			return true;
 		};
@@ -212,13 +214,13 @@ export function activate(context: ExtensionContext) {
 
 	if (UsingRest) {		
 		let compile = vscode.commands.registerCommand('extension.compileProgram', async () => {
-			RESTFS.compile(vscode.window.activeTextEditor.document.uri);
+			RESTFS.cmd('compile', vscode.window.activeTextEditor.document.uri);
 		});
 		let compileDebug = vscode.commands.registerCommand('extension.compileDebug', async () => {
-			RESTFS.compile(vscode.window.activeTextEditor.document.uri, {debug: true});
+			RESTFS.cmd('compile', vscode.window.activeTextEditor.document.uri, {debug: true});
 		});
 		let catalog = vscode.commands.registerCommand('extension.catalogProgram', async () => {
-			RESTFS.catalog(vscode.window.activeTextEditor.document.uri);
+			RESTFS.cmd('catalog', vscode.window.activeTextEditor.document.uri);
 		});
 		context.subscriptions.push(catalog);
 		context.subscriptions.push(compile);

@@ -222,11 +222,11 @@
           "default": "false",
           "description": "Set to true when connecting to a Remote MVON# Host."
         },
-        "MVBasic.additionalFiles": {
+        "MVBasic.EditFiles": {
           "scope": "resource",
           "type": "array",
           "default": [],
-          "description": "Additional Files that must be including in the file list."
+          "description": "Files that should be opened in the editor."
         },
         "MVBasic.GatewayType": {
           "scope": "resource",
@@ -249,8 +249,13 @@
         "MVBasic.RestPath": {
           "scope": "resource",
           "type": "string",
-          "default": "http://localhost/mvonrest",
+          "default": "http://localhost:9005/mvonrest",
           "description": "The URL when connecting via the RestFS file system."
+        },
+        "MVBasic.RestFS.AutoConnect": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": "Automatically connect to the RestFS server without requiring a Connect command."
         },
         "MVBasic.RestFS.CaseSensitive": {
           "scope": "resource",
@@ -263,6 +268,18 @@
           "type": "number",
           "default": 500,
           "description": "The maximum number of items the RestFS file system can return when reading a directory."
+        },
+        "MVBasic.RestFS.SelAttr": {
+          "scope": "resource",
+          "type": "number",
+          "default": 0,
+          "description": "A bitmask of RestFSAttr which limits the items are returned when reading a directory. Default is: folder, file, symlink and data-only."
+        },
+        "MVBasic.RestFS.RestAPI": {
+          "scope": "resource",
+          "type": "number",
+          "default": 0,
+          "description": "The RestFS API version to use. 0 for original MVON# REST gateway, 1 for new gateway, mvConnect, AccuTerm connector."          
         },
         "MVBasic.trace.server": {
           "scope": "window",

@@ -522,42 +522,69 @@ export class RestFS implements vscode.FileSystemProvider {
 
     // --- other API methods, not part of FileSystemProvider, but necessary
 
-    public login(login_params: object) : boolean {
+    public login(login_params: object): Promise<void> {
+        return new Promise((resolve, reject) => {
+            try {
+                resolve(this._login(login_params));
+            } catch(e) {
+                reject(e);
+            }
+        });
+    }
+    _login(login_params: object) : void {
         let my_login_params = {...login_params, Client: "vscode.restfs"};
         let res = request('POST', this.RestPath + "/login",
             { json: my_login_params, headers: this._request_headers() });
-        if (res.statusCode != 200) {            
-            return false;
+        if (res.statusCode != 200) { 
+            // TODO: better error handling           
+            throw "login failed";
         }
         if (res.body) {
             try {
                 this.auth = JSON.parse(res.body);
-                return true;
             } catch(e) {
-                return false;
+                // TODO: better error handling
+                throw "login failed";
             }
+        } else {
+            this.auth = {}; //empty body with status 200 is OK (authorized)
         }
-        this.auth = {};
-        return true; //empty body with status 200 is OK (authorized)
     }
 
-    public logout() : void {
+    public logout(): Promise<void> {
+        return new Promise((resolve, reject) => {
+            try {
+                resolve(this._logout());
+            } catch(e) {
+                reject(e);
+            }
+        });
+    }
+    _logout() : void {
         let path = this.RestPath + "/logout";
         let headers = this._request_headers();
-        this.auth = undefined;
-        setTimeout(() => {
-            request('GET', path, { headers: headers }); // run this from timer, as this extension may be unloading now         
-        }, 1);                
+        this.auth = undefined;               
+        request('GET', path, { headers: headers });
     }
 
-    public compile(uri: vscode.Uri, options?: any) {
+    public cmd(command: string, uri?: vscode.Uri, options?: any): Promise<void> {
+        return new Promise((resolve, reject) => {
+            try {
+                resolve(this._cmd(command, uri, options));
+            } catch(e) {
+                reject(e);
+            }
+        });
+    }
+    _cmd(command: string, uri?: vscode.Uri, options?: any) : void {
         if (this.ApiVersion > 0) {
-            let qs = options && options.debug ? "debug=true" : "";
-            var res = request('POST', this.RestPath + path.posix.join("/cmd/compile", this.RestAccount, uri.path) + "?" + qs,
-            { headers: this._request_headers() });
+            let cmdpath = uri ? path.posix.join(this.RestAccount, uri.path) : "";
+            let opts = options ? options : {};
+            var res = request('POST', this.RestPath + path.posix.join("/cmd", command, cmdpath),
+            { json: opts, headers: this._request_headers() });
         } else {
             let dg = options && options.debug ? "dg" : "";
-            var res = request('GET', this.RestPath + path.posix.join("/compile", this.RestAccount, uri.path, dg),
+            var res = request('GET', this.RestPath + path.posix.join("/", command, this.RestAccount, uri.path, dg),
             { headers: this._request_headers() });
         }
         if (res.statusCode != 200) {
@@ -576,7 +603,16 @@ export class RestFS implements vscode.FileSystemProvider {
 		}
     }
 
-    public catalog(uri: vscode.Uri, _options?: any) {
+    public catalog(uri: vscode.Uri, options?: any): Promise<void> {
+        return new Promise((resolve, reject) => {
+            try {
+                resolve(this._catalog(uri, options));
+            } catch(e) {
+                reject(e);
+            }
+        });
+    }
+    _catalog(uri: vscode.Uri, _options?: any) {
         if (this.ApiVersion > 0) {
             var res = request('POST', this.RestPath + path.posix.join("/cmd/catalog", this.RestAccount, uri.path),
             { headers: this._request_headers() });
