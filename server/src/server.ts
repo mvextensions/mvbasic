@@ -153,7 +153,8 @@ function loadIntelliSense() {
       break;
     case "UniVerse":
       filePath =
-        filePath + path.join("../", "../", "../", "Syntaxes", "UniVerse.json");
+        filePath +
+        path.join("../", "../", "../", "Syntaxes", "UniVerseLanguage.json");
       break;
     case "MVON":
     default:
