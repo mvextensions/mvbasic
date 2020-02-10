@@ -142,6 +142,7 @@ export class RestFS implements vscode.FileSystemProvider {
 
         // can we use local cache of directory?
         let entry = this._lookupAsDirectory(uri);
+        // TODO: need to figure out when to refresh root directory
         if (false && entry && (entry.attr & RestFSAttr.ATTR_ROOT)) {
             // When reading root directory, if we have cached
             // entry, refresh contents from server. User probably
@@ -160,7 +161,13 @@ export class RestFS implements vscode.FileSystemProvider {
         let res = request('GET', this.RestPath + path.posix.join("/dir", this.RestAccount, uri.path) + "?" + qs,
             { headers: this._request_headers() });
         if (res.statusCode != 200) {
-            // TODO: improve error reporting
+            let resp = JSON.parse(res.body);
+            if (resp && resp.message) {
+                let message: string = resp.message;
+                if (resp.code)
+                    message += " (" + resp.code + ")";
+                vscode.window.showErrorMessage(message);
+            }
             throw vscode.FileSystemError.FileNotFound(uri);
         }
 
@@ -239,7 +246,13 @@ export class RestFS implements vscode.FileSystemProvider {
         let res = request('GET', this.RestPath + path.posix.join("/file", this.RestAccount, uri.path),
             { headers: this._request_headers() });
         if (res.statusCode != 200) {
-            // TODO: improve error reporting
+            let resp = JSON.parse(res.body);
+            if (resp && resp.message) {
+                let message: string = resp.message;
+                if (resp.code)
+                    message += " (" + resp.code + ")";
+                vscode.window.showErrorMessage(message);
+            }
             throw vscode.FileSystemError.FileNotFound(uri);
         }
         let result = JSON.parse(res.body);
@@ -264,16 +277,14 @@ export class RestFS implements vscode.FileSystemProvider {
                 });
                 program = result.data.join(String.fromCharCode(10));
             } else {
-                // TODO: improve error reporting
-                throw vscode.FileSystemError.FileNotFound(uri); // bad json format
+                throw Error("RestFS.readFile error - response from server has invalid type: " + result.type + "; expected 'array'.");
             }
         } else if (result instanceof Array) {
             // Original RESTFS API returns array of program lines
             program = result.join(String.fromCharCode(10));
             attr = RestFSAttr.ATTR_FILE;
         } else {
-            // TODO: improve error reporting
-            throw vscode.FileSystemError.FileNotFound(uri); // bad json format
+            throw Error("RestFS.readFile error - response from server has invalid format: expected Array.");
         }
 
         // update local file cache so we don't read from server every time
@@ -356,7 +367,13 @@ export class RestFS implements vscode.FileSystemProvider {
             );
         }
         if (res.statusCode != 200) {
-            // TODO: better error reporting
+            let resp = JSON.parse(res.body);
+            if (resp && resp.message) {
+                let message: string = resp.message;
+                if (resp.code)
+                    message += " (" + resp.code + ")";
+                vscode.window.showErrorMessage(message);
+            }
             throw vscode.FileSystemError.FileNotFound(uri);
         }
 
@@ -399,7 +416,13 @@ export class RestFS implements vscode.FileSystemProvider {
         let res = request('GET', this.RestPath + path.posix.join("/rename", this.RestAccount, oldUri.path) + "?" + qs,
             { headers: this._request_headers() });
         if (res.statusCode != 200) {
-            // TODO: better error reporting
+            let resp = JSON.parse(res.body);
+            if (resp && resp.message) {
+                let message: string = resp.message;
+                if (resp.code)
+                    message += " (" + resp.code + ")";
+                vscode.window.showErrorMessage(message);
+            }
             throw vscode.FileSystemError.FileNotFound(newUri);
         }
 
@@ -438,7 +461,13 @@ export class RestFS implements vscode.FileSystemProvider {
         let res = request('DELETE', this.RestPath + path.posix.join("/file", this.RestAccount, uri.path),
             { headers: this._request_headers() });
         if (res.statusCode != 200) {
-            // TODO: better error reporting
+            let resp = JSON.parse(res.body);
+            if (resp && resp.message) {
+                let message: string = resp.message;
+                if (resp.code)
+                    message += " (" + resp.code + ")";
+                vscode.window.showErrorMessage(message);
+            }
             throw vscode.FileSystemError.FileNotFound(uri);
         }
         let entry = this._lookup(uri);
@@ -477,7 +506,13 @@ export class RestFS implements vscode.FileSystemProvider {
         let res = request('POST', this.RestPath + path.posix.join("/create", this.RestAccount, uri.path) + "?" + qs,
             { headers: this._request_headers() });
         if (res.statusCode != 200) {
-            // TODO: better error reporting
+            let resp = JSON.parse(res.body);
+            if (resp && resp.message) {
+                let message: string = resp.message;
+                if (resp.code)
+                    message += " (" + resp.code + ")";
+                vscode.window.showErrorMessage(message);
+            }
             throw vscode.FileSystemError.FileNotFound(uri);
         }
         let name = uri.path;
@@ -504,15 +539,20 @@ export class RestFS implements vscode.FileSystemProvider {
         let res = request('POST', this.RestPath + "/login",
             { json: my_login_params, headers: this._request_headers() });
         if (res.statusCode != 200) { 
-            // TODO: better error handling           
-            throw "login failed";
+            let resp = JSON.parse(res.body);
+            if (resp && resp.message) {
+                let message: string = resp.message;
+                if (resp.code)
+                    message += " (" + resp.code + ")";
+                vscode.window.showErrorMessage(message);
+            }
+            throw Error("Login failed");
         }
         if (res.body) {
             try {
                 this.auth = JSON.parse(res.body);
             } catch(e) {
-                // TODO: better error handling
-                throw "login failed";
+                throw Error("Login failed: " + e);
             }
         } else {
             this.auth = {}; //empty body with status 200 is OK (authorized)
@@ -556,8 +596,14 @@ export class RestFS implements vscode.FileSystemProvider {
             { headers: this._request_headers() });
         }
         if (res.statusCode != 200) {
-            // TODO: better error reporting
-            throw vscode.FileSystemError.FileNotFound(uri);
+            let resp = JSON.parse(res.body);
+            if (resp && resp.message) {
+                let message: string = resp.message;
+                if (resp.code)
+                    message += " (" + resp.code + ")";
+                vscode.window.showErrorMessage(message);
+            }
+            throw Error("Failed to execute " + command + " for " + uri.path);
         }
         let results = JSON.parse(res.body);
         if (this.ApiVersion > 0) {
@@ -612,7 +658,7 @@ export class RestFS implements vscode.FileSystemProvider {
 
     private _stat(uri: vscode.Uri): Entry | undefined { 
         let entry: Entry | undefined = undefined;
-        if(!this._excluded(uri)) {
+        //if(!this._excluded(uri)) {
             // see if file / directory is in local cache      
             entry = this._lookup(uri);
             if (!entry) {
@@ -629,7 +675,7 @@ export class RestFS implements vscode.FileSystemProvider {
                     entry = this._lookup(uri);
                 } catch(e) {}
             }
-        }
+        //}
         return entry;
     }
 
