@@ -53,6 +53,7 @@ export function activate(context: ExtensionContext) {
 	let Account: string = vscode.workspace.getConfiguration("MVBasic").get("Account")
 	let AccountPath: string = vscode.workspace.getConfiguration("MVBasic").get("AccountPath")
 	let AccountPassword: string = vscode.workspace.getConfiguration("MVBasic").get("AccountPassword")
+	let ServerName: string = vscode.workspace.getConfiguration("MVBasic").get("ServerName");
 	let GatewayType: string = vscode.workspace.getConfiguration("MVBasic").get("GatewayType");
 	let UseGateway: boolean = vscode.workspace.getConfiguration("MVBasic").get("UseGateway");
 	UsingRest = vscode.workspace.getConfiguration("MVBasic").get("UseRestFS");
@@ -117,6 +118,7 @@ export function activate(context: ExtensionContext) {
 				const login = {
 					"ServerIP": RemoteHost,
 					"ServerType": GatewayType,
+					"ServerName": ServerName,
 					"UserId": UserName,
 					"Password": Password,
 					"AccountName": Account,

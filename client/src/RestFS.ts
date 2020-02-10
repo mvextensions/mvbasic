@@ -84,6 +84,8 @@ type DynArray = Array<string | ValArray>;
 // define auth type
 type AuthInfo = {access_token: string, token_type: string, expires_on: any};
 
+var restfs_output_channel: vscode.OutputChannel;
+
 export class RestFS implements vscode.FileSystemProvider {    
 
     private entries: Map<string, Entry>; // key = full path to dir or file
@@ -107,7 +109,7 @@ export class RestFS implements vscode.FileSystemProvider {
         this.case_insensitive = (options && options.case_insensitive) || false;
         this.max_items = (options && options.max_items) || 0;
         this.sel_attr = (options && options.sel_attr) || 0;
-        this.auth = undefined; // must call login to get authorization
+        this.auth = undefined; // must call login to get auth token
     }
 
     public stat(uri: vscode.Uri): vscode.FileStat | Promise<vscode.FileStat> {
@@ -122,14 +124,7 @@ export class RestFS implements vscode.FileSystemProvider {
             }
         });
     }
-/*    stat(uri: vscode.Uri): vscode.FileStat { 
-        let entry = this._stat(uri);
-        if (!entry) {
-            throw vscode.FileSystemError.FileNotFound(uri);
-        }
-        return entry;
-    }
-*/
+
     public readDirectory(uri: vscode.Uri): [string, vscode.FileType][] | Promise<[string, vscode.FileType][]> {
         return new Promise((resolve, reject) => {
             try {
@@ -140,9 +135,10 @@ export class RestFS implements vscode.FileSystemProvider {
         });
     }
     _readDirectory(uri: vscode.Uri): [string, vscode.FileType][] {
-        if(this._excluded(uri)) {
-            throw vscode.FileSystemError.FileNotFound(uri);
-        }
+
+        //if(this._excluded(uri)) {
+        //   throw vscode.FileSystemError.FileNotFound(uri);
+        //}
 
         // can we use local cache of directory?
         let entry = this._lookupAsDirectory(uri);
@@ -173,17 +169,19 @@ export class RestFS implements vscode.FileSystemProvider {
         let fileList: [{Name: string, Type: number}]; // Original RESTFS API
         let itemList: [{id: string, attr: number}]; // RESTFS API version 1
         let numItems: number;
-        if (rtn.hasOwnProperty('Directories')) {
-            fileList = rtn.Directories; // Original RESTFS API returns 'Directories' array for MD
-            numItems = fileList.length;
-        } else if (rtn.hasOwnProperty('Files')) {
-            fileList = rtn.Files; // Original RESTFS API returns 'Files' array for dict or data files
-            numItems = fileList.length;
-        } else if (rtn.hasOwnProperty('items')) {
+        if (this.ApiVersion > 0) {
             itemList = rtn.items; // RESTFS API version 1 returns 'items' array
             numItems = itemList.length;
         } else {
-            throw vscode.FileSystemError.FileNotFound(uri); // punt! bad response!
+            if (rtn.hasOwnProperty('Directories')) {
+                fileList = rtn.Directories; // Original RESTFS API returns 'Directories' array for MD
+                numItems = fileList.length;
+            } else if (rtn.hasOwnProperty('Files')) {
+                fileList = rtn.Files; // Original RESTFS API returns 'Files' array for dict or data files
+                numItems = fileList.length;
+            } else {
+                throw vscode.FileSystemError.FileNotFound(uri); // punt! bad response!
+            }
         }        
         this._fireSoon({ type: vscode.FileChangeType.Changed, uri }); 
         
@@ -227,9 +225,11 @@ export class RestFS implements vscode.FileSystemProvider {
         });
     }
     _readFile(uri: vscode.Uri): Uint8Array {
-        if(this._excluded(uri)) {
-            throw vscode.FileSystemError.FileNotFound(uri);
-        }
+
+        //if(this._excluded(uri)) {
+        //    throw vscode.FileSystemError.FileNotFound(uri);
+        //}
+
         let entry = this._lookupAsFile(uri);
         if (entry) {
             return entry.data;
@@ -560,44 +560,51 @@ export class RestFS implements vscode.FileSystemProvider {
             throw vscode.FileSystemError.FileNotFound(uri);
         }
         let results = JSON.parse(res.body);
-        if (results.Result) {
-            vscode.window.showInformationMessage(results.Result);
-        }
-		if (results.Errors.length > 0) {
-			for (let i = 0; i < results.Errors.length; i++) {
-				let errorMsg = "Line    : " + results.Errors[i].LineNo + "  \nError  : " + results.Errors[i].ErrorMessage + "  \nSource : " + results.Errors[i].Source;
-				vscode.window.showErrorMessage(results.Result, errorMsg.split("\n")[0], errorMsg.split("\n")[1], errorMsg.split("\n")[2]);
-			}
-		}
-    }
-
-    public catalog(uri: vscode.Uri, options?: any): Promise<void> {
-        return new Promise((resolve, reject) => {
-            try {
-                resolve(this._catalog(uri, options));
-            } catch(e) {
-                reject(e);
-            }
-        });
-    }
-    _catalog(uri: vscode.Uri, _options?: any) {
         if (this.ApiVersion > 0) {
-            var res = request('POST', this.RestPath + path.posix.join("/cmd/catalog", this.RestAccount, uri.path),
-            { headers: this._request_headers() });
+            if (results.message) {
+                vscode.window.showInformationMessage(results.message);
+            }
+            if (results.output && results.output instanceof Array) {
+                if (!restfs_output_channel)
+                    restfs_output_channel = vscode.window.createOutputChannel("MV Basic");
+                let message: string;
+                restfs_output_channel.show();
+                results.output.forEach(function(element: any) {
+                    if (element instanceof Array) {
+                        // [message, line, column]
+                        message = element[0];
+                        if (element.length > 1)
+                            message += ": " + uri.path + ":" + element[1];
+                        if (element.length > 2)
+                            message += ":" + element[2];                        
+                    } else {
+                        message = element;
+                    }
+                    restfs_output_channel.appendLine(message);
+                });                
+            }
         } else {
-            var res = request('GET', this.RestPath + path.posix.join("/catalog", this.RestAccount, uri.path),
-            { headers: this._request_headers() });
-        }
-        if (res.statusCode != 200) {
-            // TODO: better error reporting
-            throw vscode.FileSystemError.FileNotFound(uri);
-        }
-        let results = JSON.parse(res.body);
-        if (results.Result) {
-            vscode.window.showInformationMessage(results.Result);
-        } else if (typeof results === "string") {
-            // Original API returns string, not object
-            vscode.window.showInformationMessage(results);
+            // Original API
+            if (typeof results === "string") {
+                // Original API 'catalog' command returns a string with the result message
+                vscode.window.showInformationMessage(results);
+            } else {
+                // Original API 'compile' command returns:
+                // {Result: string, Errors: [{LineNo: number, ErrorMessage: string, Source: string}]}
+                if (results.Result) {
+                    vscode.window.showInformationMessage(results.Result);
+                }
+                if (results.Errors && results.Errors instanceof Array) {
+                    if (!restfs_output_channel)
+                        restfs_output_channel = vscode.window.createOutputChannel("MV Basic");
+                    restfs_output_channel.show();
+                    for (let i = 0; i < results.Errors.length; i++) {
+                        restfs_output_channel.appendLine("Line   : " + results.Errors[i].LineNo + " " + uri.path + ":" + results.Errors[i].LineNo);
+                        restfs_output_channel.appendLine("Error  : " + results.Errors[i].ErrorMessage);
+                        restfs_output_channel.appendLine("Source : " + results.Errors[i].Source);
+                    }
+                }
+            }
         }
     }
 
@@ -650,18 +657,17 @@ export class RestFS implements vscode.FileSystemProvider {
     }
 
     // test for certain excluded directories
-    // TODO: for gateway, exclude files that end with ".Lib"
-    private _excluded(uri: vscode.Uri): boolean {
-        if ((uri.path + '/').substr(0, 9) === '/.vscode/')
-            return true;
-        if ((uri.path + '/').substr(0,6) === '/.git/')
-            return true;
-        if ((uri.path + '/').substr(0, 14) === '/node_modules/')
-            return true;
-        if (path.posix.basename(uri.path) === "pom.xml")
-            return true;
-        return false;
-    }
+    //private _excluded(uri: vscode.Uri): boolean {
+    //    if ((uri.path + '/').substr(0, 9) === '/.vscode/')
+    //        return true;
+    //    if ((uri.path + '/').substr(0,6) === '/.git/')
+    //        return true;
+    //    if ((uri.path + '/').substr(0, 14) === '/node_modules/')
+    //        return true;
+    //    if (path.posix.basename(uri.path) === "pom.xml")
+    //        return true;
+    //    return false;
+    //}
 
     private _request_headers(): Object {
         if (this.auth && "access_token" in this.auth && "token_type" in this.auth) {
