@@ -45,7 +45,7 @@
        "runtimeExecutable": "${execPath}",
        "args": [
          "--extensionDevelopmentPath=${workspaceFolder}",
-         "D:/projects/mvide/my.code-workspace"
+         "c:/projects/mvbasic/accuterm-mvsvr-restfs/sample.code-workspace"
        ],
        "outFiles": ["${workspaceFolder}/client/out/test/**/*.js"]
      }

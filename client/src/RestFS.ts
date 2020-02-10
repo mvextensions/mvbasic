@@ -19,15 +19,16 @@ export class File implements vscode.FileStat {
 
     name: string;
     attr: RestFSAttr;
-    data?: Uint8Array;
+    data: Uint8Array;
 
-    constructor(name: string, attr: RestFSAttr = RestFSAttr.ATTR_FILE) {
+    constructor(name: string, attr: RestFSAttr = RestFSAttr.ATTR_FILE, data: Uint8Array) {
         this.type = vscode.FileType.File;
         this.ctime = Date.now();
         this.mtime = Date.now();
-        this.size = 0;
         this.name = name;
         this.attr = attr;
+        this.data = data;
+        this.size = data.length;
     }
 }
 
@@ -40,18 +41,16 @@ export class Directory implements vscode.FileStat {
 
     name: string;
     attr: RestFSAttr;
-    entries: Map<string, File | Directory>;
-    needRefresh: boolean;
+    items: [string, vscode.FileType][];
 
-    constructor(name: string, attr: RestFSAttr = RestFSAttr.ATTR_FOLDER) {
+    constructor(name: string, attr: RestFSAttr = RestFSAttr.ATTR_FOLDER, items: [string, vscode.FileType][]) {
         this.type = vscode.FileType.Directory;
         this.ctime = Date.now();
         this.mtime = Date.now();
         this.size = 0;
         this.name = name;
         this.attr = attr;
-        this.entries = new Map();
-        this.needRefresh = true;
+        this.items = items;
     }
 }
 
@@ -87,12 +86,13 @@ type AuthInfo = {access_token: string, token_type: string, expires_on: any};
 
 export class RestFS implements vscode.FileSystemProvider {    
 
-    private root: Directory;
+    private entries: Map<string, Entry>; // key = full path to dir or file
     public RestPath: string;
     public RestAccount: string;
     public ApiVersion: number;
+    private case_insensitive: boolean;
     private max_items: number; // max number of items to return using 'dir' action
-    private def_attr: number; // default attributes to select using 'dir' action
+    private sel_attr: number; // default attributes to select using 'dir' action
     private auth: AuthInfo | {};
 
     constructor(apiVersion: number = 0) {
@@ -101,12 +101,12 @@ export class RestFS implements vscode.FileSystemProvider {
 
     initRestFS(restPath: string, restAccount: string, options:any = {}) {
         console.log("initRestFS " + restPath + " " + restAccount);
-        this.root = new Directory('');
-        this.root.attr |= RestFSAttr.ATTR_ROOT | RestFSAttr.ATTR_READONLY;
+        this.entries = new Map<string, Entry>();
         this.RestPath = restPath;
         this.RestAccount = restAccount;
+        this.case_insensitive = (options && options.case_insensitive) || false;
         this.max_items = (options && options.max_items) || 0;
-        this.def_attr = (options && options.def_attr) || 0;
+        this.sel_attr = (options && options.sel_attr) || 0;
         this.auth = undefined; // must call login to get authorization
     }
 
@@ -140,28 +140,27 @@ export class RestFS implements vscode.FileSystemProvider {
         });
     }
     _readDirectory(uri: vscode.Uri): [string, vscode.FileType][] {
-
         if(this._excluded(uri)) {
             throw vscode.FileSystemError.FileNotFound(uri);
         }
 
         // can we use local cache of directory?
-        let result: [string, vscode.FileType][] = [];
         let entry = this._lookupAsDirectory(uri);
-        if (entry === this.root) {
-            // When reading root directory, always retrieve from server.
-            // User probably clicked 'refresh' button in explorer.
-            entry.needRefresh = true;
+        if (false && entry && (entry.attr & RestFSAttr.ATTR_ROOT)) {
+            // When reading root directory, if we have cached
+            // entry, refresh contents from server. User probably
+            // clicked 'refresh' button in explorer.
+            this.entries = new Map<string, Entry>();
+            entry = undefined;
         }
-        if (entry && !entry.needRefresh) {
-            for(let item of entry.entries.values()) {
-                result.push([item.name, item.type]);
-            }
-            return result;
+        if (entry) {
+            if (!(entry instanceof Directory))
+                throw vscode.FileSystemError.FileNotADirectory(uri);
+            return entry.items;
         }
 
         // get directory & file list from server
-        const qs = "max_items=" + this.max_items + "&attr=" + this.def_attr;
+        const qs = "max_items=" + this.max_items + "&attr=" + this.sel_attr;
         let res = request('GET', this.RestPath + path.posix.join("/dir", this.RestAccount, uri.path) + "?" + qs,
             { headers: this._request_headers() });
         if (res.statusCode != 200) {
@@ -187,40 +186,31 @@ export class RestFS implements vscode.FileSystemProvider {
             throw vscode.FileSystemError.FileNotFound(uri); // punt! bad response!
         }        
         this._fireSoon({ type: vscode.FileChangeType.Changed, uri }); 
-
-        if (!entry) {
-            let basename = path.posix.basename(uri.path);
-            entry = new Directory(basename);
-            let parent = this._fixupParentDirectory(uri);
-            parent.entries.set(basename, entry);
-            parent.size += 1;
-        }
+        
         // build result array & update directory entries                           
-        entry.entries = new Map();
-        entry.mtime = Date.now();
-        entry.size = 0;
-        entry.needRefresh = false;
+        let result: [string, vscode.FileType][] = [];
         let name: string;
         let attr: RestFSAttr;
-        let item: Entry;
+        let type: vscode.FileType;
         for (let i = 0; i < numItems; i++) {
             if (this.ApiVersion > 0) {
                 name = itemList[i].id;
-                attr = itemList[i].attr || RestFSAttr.ATTR_FILE;
+                type = itemList[i].attr & RestFSAttr.ATTR_FOLDER ? vscode.FileType.Directory : vscode.FileType.File;
             } else {
                 name = fileList[i].Name;
-                attr = fileList[i].Type == vscode.FileType.Directory ? RestFSAttr.ATTR_FOLDER : RestFSAttr.ATTR_FILE;
+                type = fileList[i].Type;
             }
-            if (attr & RestFSAttr.ATTR_FOLDER) {
-                item = new Directory(name, attr);
-            } else {
-                item = new File(name, attr);
-            }
-            result.push([item.name, item.type]);
-            entry.entries.set(item.name, item);
-            entry.size += 1;
-            this._fireSoon({ type: vscode.FileChangeType.Created, uri: uri.with({ path: path.posix.join(uri.path, item.name) }) });
+            result.push([name, type]);
+            this._fireSoon({ type: vscode.FileChangeType.Created, uri: uri.with({ path: path.posix.join(uri.path, name) }) });
         }
+        name = uri.path;
+        if (this.case_insensitive)
+            name = name.toUpperCase();
+        attr = RestFSAttr.ATTR_FOLDER;
+        if (name === '/')
+            attr |= RestFSAttr.ATTR_ROOT;
+        entry = new Directory(name, attr, result);
+        this.entries.set(name, entry);
         return result;
     }
 
@@ -237,15 +227,15 @@ export class RestFS implements vscode.FileSystemProvider {
         });
     }
     _readFile(uri: vscode.Uri): Uint8Array {
-
         if(this._excluded(uri)) {
             throw vscode.FileSystemError.FileNotFound(uri);
         }
         let entry = this._lookupAsFile(uri);
-        if (entry && entry.data) {
+        if (entry) {
             return entry.data;
         }
-        // file not loaded so load it from server using RESTFS API
+
+        // file not cached so load it from server using RESTFS API
         let res = request('GET', this.RestPath + path.posix.join("/file", this.RestAccount, uri.path),
             { headers: this._request_headers() });
         if (res.statusCode != 200) {
@@ -280,29 +270,20 @@ export class RestFS implements vscode.FileSystemProvider {
         } else if (result instanceof Array) {
             // Original RESTFS API returns array of program lines
             program = result.join(String.fromCharCode(10));
+            attr = RestFSAttr.ATTR_FILE;
         } else {
             // TODO: improve error reporting
             throw vscode.FileSystemError.FileNotFound(uri); // bad json format
         }
 
-        let content = Buffer.from(program);
-
-        // We have sucessfully read a file from this uri, so the parent directories
-        // must exist on the server. Make sure we have valid parent directory tree
-        // so we can cache this file (refresh directories on next stat call if needed).
-        let parent = this._fixupParentDirectory(uri);
         // update local file cache so we don't read from server every time
-        let basename = path.posix.basename(uri.path);
-        entry = new File(basename);
-        entry.mtime = Date.now();
-        entry.size = content.byteLength;
-        entry.data = content;
-        entry.attr |= attr;
-        if (!this._lookup(uri))
-            parent.size += 1;
-        parent.entries.set(basename, entry);
+        let name = uri.path;
+        if (this.case_insensitive)
+            name = name.toUpperCase();
+        entry = new File(name, attr, Buffer.from(program));
+        this.entries.set(name, entry);
         this._fireSoon({ type: vscode.FileChangeType.Changed, uri });
-        return content;
+        return entry.data;
     }
 
     public writeFile(uri: vscode.Uri, content: Uint8Array, options: { create: boolean, overwrite: boolean }): void | Promise<void> {
@@ -379,22 +360,20 @@ export class RestFS implements vscode.FileSystemProvider {
             throw vscode.FileSystemError.FileNotFound(uri);
         }
 
-        // We have sucessfully written a file to this uri, so the parent directories
-        // must exist on the server. Make sure we have valid parent directory tree
-        // so we can cache this file (refresh directories on next stat call if needed).
-        let parent = this._fixupParentDirectory(uri);
         // update local file cache with changed file
         if (!entry) {
-            let basename = path.posix.basename(uri.path);
-            entry = new File(basename);
-            parent.entries.set(basename, <File>entry);
-            parent.size += 1;
+            let name = uri.path;
+            if (this.case_insensitive)
+                name = name.toUpperCase();
+            entry = new File(name, RestFSAttr.ATTR_FILE, content);
+            this.entries.set(name, entry);
             this._fireSoon({ type: vscode.FileChangeType.Created, uri });
+        } else {
+            entry.mtime = Date.now();
+            entry.data = content;
+            entry.size = content.byteLength;
+            this._fireSoon({ type: vscode.FileChangeType.Changed, uri });
         }
-        entry.mtime = Date.now();
-        entry.size = content.byteLength;
-        (<File>entry).data = content;
-        this._fireSoon({ type: vscode.FileChangeType.Changed, uri });
     }
 
     // --- manage files/folders
@@ -425,24 +404,17 @@ export class RestFS implements vscode.FileSystemProvider {
         }
 
         // update local cache to match renamed file/directory
-        let newName = path.posix.basename(newUri.path);
-        let oldEntry = this._lookup(oldUri);
-        if (oldEntry) {
-            let oldParent = this._lookupParentDirectory(oldUri);
-            (<Directory>oldParent).entries.delete(oldEntry.name);
-            (<Directory>oldParent).size -= 1;
-            oldEntry.name = newName;
+        let oldName = oldUri.path;
+        let newName = newUri.path;
+        if (this.case_insensitive) {
+            oldName = oldName.toUpperCase();
+            newName = newName.toUpperCase();
         }
-        let newEntry = this._lookup(newUri);
-        let newParent = this._lookupParentDirectory(newUri);
-        if (newParent) {
-            if (oldEntry) {
-                newParent.entries.set(newName, oldEntry);
-                if (!newEntry)
-                    newParent.size += 1;
-            } else {
-                newParent.needRefresh = true;
-            }
+        let entry = this._lookup(oldUri);
+        if (entry) {
+            this.entries.delete(oldName);
+            entry.name = newName;
+            this.entries.set(newName, entry);
         }
         this._fireSoon(
             { type: vscode.FileChangeType.Deleted, uri: oldUri },
@@ -469,15 +441,11 @@ export class RestFS implements vscode.FileSystemProvider {
             // TODO: better error reporting
             throw vscode.FileSystemError.FileNotFound(uri);
         }
-        let dirname = uri.with({ path: path.posix.dirname(uri.path) });
-        let basename = path.posix.basename(uri.path);
-        let parent = this._lookupAsDirectory(dirname);
-        if (parent && parent.entries.has(basename)) {
-            parent.entries.delete(basename);
-            parent.mtime = Date.now();
-            parent.size -= 1;
+        let entry = this._lookup(uri);
+        if (entry) {
+            this.entries.delete(entry.name);
         }
-        this._fireSoon({ type: vscode.FileChangeType.Changed, uri: dirname }, { type: vscode.FileChangeType.Deleted, uri });
+        this._fireSoon({ type: vscode.FileChangeType.Changed, uri: uri.with( {path: path.posix.dirname(uri.path) } )}, { type: vscode.FileChangeType.Deleted, uri });
     }
 
     public createDirectory(uri: vscode.Uri): void | Promise<void> {
@@ -493,11 +461,10 @@ export class RestFS implements vscode.FileSystemProvider {
         if (this.ApiVersion == 0) {            
             throw vscode.FileSystemError.FileNotFound(uri); // original RESTFS API does not support 'create'
         }
-        let basename = path.posix.basename(uri.path);
         let dirname = uri.with({ path: path.posix.dirname(uri.path) });
         // make sure there is a parent directory
         let parent = this._stat(dirname);    
-        if (parent == undefined || parent.type != vscode.FileType.Directory) {
+        if (parent === undefined || !(parent instanceof Directory)) {
             throw vscode.FileSystemError.FileNotADirectory(dirname);
         }
         // make sure file or directory does not exist
@@ -513,10 +480,11 @@ export class RestFS implements vscode.FileSystemProvider {
             // TODO: better error reporting
             throw vscode.FileSystemError.FileNotFound(uri);
         }
-        entry = new Directory(basename);
-        (<Directory>parent).entries.set(entry.name, entry);
-        parent.mtime = Date.now();
-        parent.size += 1;
+        let name = uri.path;
+        if (this.case_insensitive)
+            name = name.toUpperCase();
+        entry = new Directory(name, RestFSAttr.ATTR_FOLDER, []);
+        this.entries.set(name, entry);
         this._fireSoon({ type: vscode.FileChangeType.Changed, uri: dirname }, { type: vscode.FileChangeType.Created, uri });
     }
 
@@ -567,16 +535,16 @@ export class RestFS implements vscode.FileSystemProvider {
         request('GET', path, { headers: headers });
     }
 
-    public cmd(command: string, uri?: vscode.Uri, options?: any): Promise<void> {
+    public command(command: string, uri?: vscode.Uri, options?: any): Promise<void> {
         return new Promise((resolve, reject) => {
             try {
-                resolve(this._cmd(command, uri, options));
+                resolve(this._command(command, uri, options));
             } catch(e) {
                 reject(e);
             }
         });
     }
-    _cmd(command: string, uri?: vscode.Uri, options?: any) : void {
+    _command(command: string, uri?: vscode.Uri, options?: any) : void {
         if (this.ApiVersion > 0) {
             let cmdpath = uri ? path.posix.join(this.RestAccount, uri.path) : "";
             let opts = options ? options : {};
@@ -636,7 +604,7 @@ export class RestFS implements vscode.FileSystemProvider {
     // --- lookup
 
     private _stat(uri: vscode.Uri): Entry | undefined { 
-        let entry = undefined;
+        let entry: Entry | undefined = undefined;
         if(!this._excluded(uri)) {
             // see if file / directory is in local cache      
             entry = this._lookup(uri);
@@ -659,22 +627,10 @@ export class RestFS implements vscode.FileSystemProvider {
     }
 
     private _lookup(uri: vscode.Uri): Entry | undefined {
-        let parts = uri.path.split('/');
-        let entry: Entry = this.root;
-        for (const part of parts) {
-            if (!part) {
-                continue;
-            }
-            let child: Entry | undefined;
-            if (entry instanceof Directory) {
-                child = entry.entries.get(part);
-            }
-            if (!child) {
-                return undefined;
-           }
-            entry = child;
-        }
-        return entry;
+        let name = uri.path;
+        if (this.case_insensitive)
+            name = name.toUpperCase();
+        return this.entries.get(name);
     }
 
     private _lookupAsDirectory(uri: vscode.Uri): Directory | undefined {
@@ -691,35 +647,6 @@ export class RestFS implements vscode.FileSystemProvider {
             return entry;
         }
         return undefined;
-    }
-
-    private _lookupParentDirectory(uri: vscode.Uri): Directory | undefined {
-        if (uri.path === '/')
-            return this.root;
-        const dirname = uri.with({ path: path.posix.dirname(uri.path) });
-        return this._lookupAsDirectory(dirname);
-    }
-
-    // We have sucessfully read a file or directory from this uri, so the parent
-    // directories must exist on the server. Make sure we have valid directory
-    // tree in the local cache, inserting any missing nodes in the tree as
-    // needed. Any inserted nodes are flagged for refresh. Return the parent
-    // directory, same as _lookupParentDirectory() above.
-    private _fixupParentDirectory(uri: vscode.Uri) : Directory {
-        let parent = this._lookupParentDirectory(uri);
-        if (parent instanceof Directory)
-            return parent;
-        if (uri.path === "/")
-            throw vscode.FileSystemError.FileNotFound(uri);
-        let next_uri = uri.with({ path: path.posix.dirname(uri.path) })
-        let next_parent = this._fixupParentDirectory(next_uri);
-        let basename = path.posix.basename(next_uri.path);
-        let entry = new Directory(basename);
-        next_parent.entries.set(entry.name, entry);
-        next_parent.mtime = Date.now();
-        next_parent.size += 1;
-        next_parent.needRefresh = true;
-        return entry;
     }
 
     // test for certain excluded directories

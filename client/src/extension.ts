@@ -111,7 +111,7 @@ export function activate(context: ExtensionContext) {
 		const connectRestFS = async function(): Promise<boolean> {
 			
 			try {
-				RESTFS.initRestFS(RestPath, Account, {max_items: RestMaxItems, def_attr: RestSelAttr});
+				RESTFS.initRestFS(RestPath, Account, {case_insensitive: !RestCaseSensitive, max_items: RestMaxItems, sel_attr: RestSelAttr});
 			
 				// send credentials (some of these are specific to the gateway)
 				const login = {
@@ -214,13 +214,13 @@ export function activate(context: ExtensionContext) {
 
 	if (UsingRest) {		
 		let compile = vscode.commands.registerCommand('extension.compileProgram', async () => {
-			RESTFS.cmd('compile', vscode.window.activeTextEditor.document.uri);
+			RESTFS.command('compile', vscode.window.activeTextEditor.document.uri);
 		});
 		let compileDebug = vscode.commands.registerCommand('extension.compileDebug', async () => {
-			RESTFS.cmd('compile', vscode.window.activeTextEditor.document.uri, {debug: true});
+			RESTFS.command('compile', vscode.window.activeTextEditor.document.uri, {debug: true});
 		});
 		let catalog = vscode.commands.registerCommand('extension.catalogProgram', async () => {
-			RESTFS.cmd('catalog', vscode.window.activeTextEditor.document.uri);
+			RESTFS.command('catalog', vscode.window.activeTextEditor.document.uri);
 		});
 		context.subscriptions.push(catalog);
 		context.subscriptions.push(compile);
