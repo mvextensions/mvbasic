@@ -2,7 +2,7 @@
   "name": "mvbasic",
   "displayName": "MV Basic",
   "description": "MV Basic",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "publisher": "mvextensions",
   "icon": "images/mvbasic-logo.png",
   "preview": false,
@@ -285,7 +285,7 @@
           "scope": "resource",
           "type": "number",
           "default": 0,
-          "description": "The RestFS API version to use. 0 for original MVON# REST gateway, 1 for new gateway, mvConnect, AccuTerm connector."          
+          "description": "The RestFS API version to use. 0 for original MVON# REST gateway, 1 for new gateway, mvConnect, AccuTerm connector."
         },
         "MVBasic.trace.server": {
           "scope": "window",

@@ -9,6 +9,7 @@ import * as path from 'path';
 import * as vscode from 'vscode';
 
 const request = require("sync-request");
+const Minimatch = require('minimatch').Minimatch;
 
 export class File implements vscode.FileStat {
 
@@ -96,6 +97,8 @@ export class RestFS implements vscode.FileSystemProvider {
     private max_items: number; // max number of items to return using 'dir' action
     private sel_attr: number; // default attributes to select using 'dir' action
     private auth: AuthInfo | {};
+    private excludes: Array<any>;
+    private root_refresh: boolean;
 
     constructor(apiVersion: number = 0) {
         this.ApiVersion = apiVersion;
@@ -110,6 +113,24 @@ export class RestFS implements vscode.FileSystemProvider {
         this.max_items = (options && options.max_items) || 0;
         this.sel_attr = (options && options.sel_attr) || 0;
         this.auth = undefined; // must call login to get auth token
+        this.root_refresh = true; // refresh root directory on next readDirectory()
+        // create array of excluded file globs
+        this.excludes = new Array<any>();
+        const excl = vscode.workspace.getConfiguration("files").get("exclude");
+        if (excl) {
+            for (let [key, value] of Object.entries(excl)) {
+                if (value === true) {
+                    // make minimatch work like vscode glob
+                    if (key.substr(-1,1) === '/') {
+                        this.excludes.push(new Minimatch(key.slice(0,-1), {dot: true, nonegate:true}));
+                        this.excludes.push(new Minimatch(key + "**", {dot: true, nonegate:true}));
+                    } else {
+                        this.excludes.push(new Minimatch(key, {dot: true, nonegate:true}));
+                        this.excludes.push(new Minimatch(key + "/**", {dot: true, nonegate:true}));
+                    }
+                }
+            }
+        }
     }
 
     public stat(uri: vscode.Uri): vscode.FileStat | Promise<vscode.FileStat> {
@@ -134,21 +155,26 @@ export class RestFS implements vscode.FileSystemProvider {
             }
         });
     }
-    _readDirectory(uri: vscode.Uri): [string, vscode.FileType][] {
-
-        //if(this._excluded(uri)) {
-        //   throw vscode.FileSystemError.FileNotFound(uri);
-        //}
+    _readDirectory(uri: vscode.Uri, quiet?: boolean): [string, vscode.FileType][] {
+        
+        // check if this directory is in our files.exclude
+        if(this._excluded(uri)) {
+           throw vscode.FileSystemError.FileNotFound(uri);
+        }
 
         // can we use local cache of directory?
-        let entry = this._lookupAsDirectory(uri);
-        // TODO: need to figure out when to refresh root directory
-        if (false && entry && (entry.attr & RestFSAttr.ATTR_ROOT)) {
+        let entry = this._lookupAsDirectory(uri);        
+        if (this.root_refresh && entry && (entry.attr & RestFSAttr.ATTR_ROOT)) {
             // When reading root directory, if we have cached
             // entry, refresh contents from server. User probably
             // clicked 'refresh' button in explorer.
             this.entries = new Map<string, Entry>();
             entry = undefined;
+            // delay next refresh for 10 seconds (vscode may retrieve the root several times on startup)
+            this.root_refresh = false;
+            setTimeout(() => {
+                this.root_refresh = true;
+            }, 10000);
         }
         if (entry) {
             if (!(entry instanceof Directory))
@@ -161,12 +187,14 @@ export class RestFS implements vscode.FileSystemProvider {
         let res = request('GET', this.RestPath + path.posix.join("/dir", this.RestAccount, uri.path) + "?" + qs,
             { headers: this._request_headers() });
         if (res.statusCode != 200) {
-            let resp = JSON.parse(res.body);
-            if (resp && resp.message) {
-                let message: string = resp.message;
-                if (resp.code)
-                    message += " (" + resp.code + ")";
-                vscode.window.showErrorMessage(message);
+            if (!quiet) {
+                let resp = JSON.parse(res.body);
+                if (resp && resp.message) {
+                    let message: string = resp.message;
+                    if (resp.code)
+                        message += " (" + resp.code + ")";
+                    vscode.window.showErrorMessage(message);
+                }
             }
             throw vscode.FileSystemError.FileNotFound(uri);
         }
@@ -216,6 +244,7 @@ export class RestFS implements vscode.FileSystemProvider {
             attr |= RestFSAttr.ATTR_ROOT;
         entry = new Directory(name, attr, result);
         this.entries.set(name, entry);
+            
         return result;
     }
 
@@ -231,11 +260,11 @@ export class RestFS implements vscode.FileSystemProvider {
             }
         });
     }
-    _readFile(uri: vscode.Uri): Uint8Array {
+    _readFile(uri: vscode.Uri, quiet?: boolean): Uint8Array {
 
-        //if(this._excluded(uri)) {
-        //    throw vscode.FileSystemError.FileNotFound(uri);
-        //}
+        if(this._excluded(uri)) {
+            throw vscode.FileSystemError.FileNotFound(uri);
+        }
 
         let entry = this._lookupAsFile(uri);
         if (entry) {
@@ -246,12 +275,14 @@ export class RestFS implements vscode.FileSystemProvider {
         let res = request('GET', this.RestPath + path.posix.join("/file", this.RestAccount, uri.path),
             { headers: this._request_headers() });
         if (res.statusCode != 200) {
-            let resp = JSON.parse(res.body);
-            if (resp && resp.message) {
-                let message: string = resp.message;
-                if (resp.code)
-                    message += " (" + resp.code + ")";
-                vscode.window.showErrorMessage(message);
+            if (!quiet) {
+                let resp = JSON.parse(res.body);
+                if (resp && resp.message) {
+                    let message: string = resp.message;
+                    if (resp.code)
+                        message += " (" + resp.code + ")";
+                    vscode.window.showErrorMessage(message);
+                }
             }
             throw vscode.FileSystemError.FileNotFound(uri);
         }
@@ -656,26 +687,26 @@ export class RestFS implements vscode.FileSystemProvider {
 
     // --- lookup
 
-    private _stat(uri: vscode.Uri): Entry | undefined { 
+    private _stat(uri: vscode.Uri): Entry | undefined {       
         let entry: Entry | undefined = undefined;
-        //if(!this._excluded(uri)) {
+        if(!this._excluded(uri)) {
             // see if file / directory is in local cache      
             entry = this._lookup(uri);
             if (!entry) {
                 // not in local cache, try to read directory from server
                 try {
-                    this._readDirectory(uri);
+                    this._readDirectory(uri, true);
                     entry = this._lookup(uri);
                 } catch(e) {}
             }
             if (!entry) {
                 // not in local cache, try to read file from server
                 try {
-                    this._readFile(uri);
+                    this._readFile(uri, true);
                     entry = this._lookup(uri);
                 } catch(e) {}
             }
-        //}
+        }
         return entry;
     }
 
@@ -702,18 +733,15 @@ export class RestFS implements vscode.FileSystemProvider {
         return undefined;
     }
 
-    // test for certain excluded directories
-    //private _excluded(uri: vscode.Uri): boolean {
-    //    if ((uri.path + '/').substr(0, 9) === '/.vscode/')
-    //        return true;
-    //    if ((uri.path + '/').substr(0,6) === '/.git/')
-    //        return true;
-    //    if ((uri.path + '/').substr(0, 14) === '/node_modules/')
-    //        return true;
-    //    if (path.posix.basename(uri.path) === "pom.xml")
-    //        return true;
-    //    return false;
-    //}
+    // test for certain excluded directories / files
+    private _excluded(uri: vscode.Uri): boolean {
+        const path = uri.path;
+        for (let i = 0; i < this.excludes.length; i++) {
+            if (this.excludes[i].match(path))
+                return true;
+        }
+        return false;
+    }
 
     private _request_headers(): Object {
         if (this.auth && "access_token" in this.auth && "token_type" in this.auth) {
