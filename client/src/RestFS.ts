@@ -387,7 +387,7 @@ export class RestFS implements vscode.FileSystemProvider {
                 action = '/create';
             }
             res = request(method, this.RestPath + path.posix.join(action, this.RestAccount, uri.path),
-                { json: {id: entry.name, type: "array", data: dynarr}, headers: this._request_headers() } 
+                { json: {id: path.posix.basename(uri.path), type: "array", data: dynarr}, headers: this._request_headers() } 
             );
         } else {
             // update server using original RESTFS API
