@@ -2417,352 +2417,366 @@
             "detail": "STOP {message.number{, expression ...}}"
          },
          {
-            "key": "Str",
+            "key": "Stope",
             "icon": 3,
             "index": 346,
+            "documentation": "The STOPE statement simply uses a message in the jbcmessages file whose item id is the first 'Expression', so in fact it operates exactly the same as STOP.",
+            "detail": "STOPE {expression{, expression ...}}"
+         },
+         {
+            "key": "Stopm",
+            "icon": 3,
+            "index": 347,
+            "documentation": "The STOPM statement uses the STOPM item in the jBASE error message file $JBCRELEASEDIR/jbcmessages.",
+            "detail": "STOPM {expression{, expression ...}}"
+         },
+         {
+            "key": "Str",
+            "icon": 3,
+            "index": 348,
             "documentation": "The STR function allows the duplication of a string a number of times.\r\nexpression1 will evaluate to the string to duplicate and may be of any length.\r\nexpression2 should evaluate to a numeric integer, which specifies the number of times the string will be duplicated.",
             "detail": "STR(expression1, expression2)"
          },
          {
             "key": "Strs",
             "icon": 3,
-            "index": 347,
+            "index": 349,
             "documentation": "The STRS function produces a dynamic array containing the specified number of repetitions of each element of a dynamic array.\r\ndynamic.array is an expression that evaluates to the strings to be generated.\r\nrepeat is an expression that evaluates to the number of times the elements are to be repeated.\r\nIf it does not evaluate to a value that can be truncated to a positive integer, an empty string is returned for dynamic.array.\r\nIf dynamic.array evaluates to null, it returns null.\r\nIf any element of dynamic.array is null, null is returned for that element.\r\nIf repeat evaluates to null, the function fails and the program enters the debugger.",
             "detail": "STRS(dynamic.array, repeat)"
          },
          {
             "key": "Subroutine",
             "icon": 14,
-            "index": 348,
+            "index": 350,
             "documentation": "The SUBROUTINE statement is used at the start of any program that will be called externally by the CALL statement. It also declares any parameters to the compiler.\r\nName is the identifier by which the subroutine will be known to the compilation process.\r\nIt should always be present as this name (not the source file name), will be used to call it by.\r\nHowever, if the name is left out, the compiler will name subroutine as the source file name (without suffixes).\r\nDefault naming is not encouraged as it can cause problems if source files are renamed.\r\nEach comma separated variable in the optional parenthesized list is used to identify parameters to the compiler.\r\nThese variables will be assigned the values passed to the subroutine by a CALL statement.\r\nThe SUBROUTINE statement must be the first code line in a subroutine.",
             "detail": "SUB{ROUTINE} Name {({MAT} variable{,{MAT} variable...})}"
          },
          {
             "key": "Subs",
             "icon": 3,
-            "index": 349,
+            "index": 351,
             "documentation": "The SUBS function returns a dynamic array, the content of which is derived by subtracting each element of the second dynamic array argument from the corresponding element of the first dynamic array argument.\r\nDynArr1 and DynArr2 represent dynamic arrays.\r\nNull elements of argument arrays are treated as zero.\r\nOtherwise, a non-numeric element in an argument array will cause a run-time error.",
             "detail": "SUBS(DynArr1, DynArr2)"
          },
          {
             "key": "Substrings",
             "icon": 3,
-            "index": 350,
+            "index": 352,
             "documentation": "The SUBSTRINGS function returns a dynamic array of elements which are sub-strings of the corresponding elements in a supplied dynamic array.\r\nDynArr should evaluate to a dynamic array.\r\nStart specifies the position from which characters are extracted from each array element.\r\nIt should evaluate to an integer greater than zero.\r\nLength specifies the number of characters to extract from each dynamic array element.\r\nIf the length specified exceeds the number of characters remaining in an array element, then all characters from the Start position are extracted.",
             "detail": "SUBSTRINGS(DynArr, Start, Length)"
          },
          {
             "key": "Sum",
             "icon": 3,
-            "index": 351,
+            "index": 353,
             "documentation": "The SUM function sums numeric elements in a dynamic array.\r\nexpr is a dynamic array.\r\nNon-numeric sub-values, values and attributes are ignored.",
             "detail": "SUM(DynaArr)"
          },
          {
             "key": "Swap",
             "icon": 3,
-            "index": 352,
+            "index": 354,
             "documentation": "The SWAP function operates on a variable and replaces all occurrences of one string with another.\r\nexpression1 may evaluate to any result and is the string of characters that will be replaced.\r\nexpression2 may also evaluate to any result and is the string of characters that will replace expression1.\r\nThe variable may be any previously assigned variable in the program.\r\nEither string can be of any length and is not required to be the same length.\r\nThis function is provided for compatibility with older systems.\r\nSee also the CHANGE() function.",
             "detail": "SWAP( variable, expression1, expression2 )"
          },
          {
             "key": "System",
             "icon": 3,
-            "index": 353,
+            "index": 355,
             "documentation": "The SYSTEM functions return information about the current user and processes",
             "detail": "SYSTEM(integer)"
          },
          {
             "key": "Tan",
             "icon": 3,
-            "index": 354,
+            "index": 356,
             "documentation": "The TAN function returns the mathematical tangent of an angle.\r\nexpression should evaluate to a numeric type.\r\nThe function calculates the result at the highest precision available on the host system.\r\nThe result is truncated to the current PRECISION after calculation.",
             "detail": "TAN(expression)"
          },
          {
             "key": "Time",
             "icon": 3,
-            "index": 355,
+            "index": 357,
             "documentation": "The TIME() function returns the current system time in internal format (as the number of seconds past midnight).",
             "detail": "TIME()"
          },
          {
             "key": "Timedate",
             "icon": 3,
-            "index": 356,
+            "index": 358,
             "documentation": "The TIMEDATE() function returns the current time and date as a printable string.\r\nThe function returns a string of the form: hh:mm:ss dd mmm yyyy , or in the appropriate format for the international date setting on the system.",
             "detail": "TIMEDATE()"
          },
          {
             "key": "Timediff",
             "icon": 3,
-            "index": 357,
+            "index": 359,
             "documentation": "The TIMEDIFF function returns the interval between two timestamp values as a dynamic array.\r\nThe function returns the interval between two timestamp values by subtracting the value of Timestamp2 from Timestamp1.\r\nThe interval is returned as an attribute delimited array of the time difference.\r\nThe Mask is an integer from 0 to 7.",
             "detail": "TIMEDIFF(Timestamp1, Timestamp2,Mask)"
          },
          {
             "key": "Timeout",
             "icon": 14,
-            "index": 358,
+            "index": 360,
             "documentation": "The TIMEOUT statement terminates a READBLK or READSEQ statement.\r\nfile.variable specifies a file opened for sequential access.\r\ntime is an expression that evaluates to the number of seconds the program should wait before terminating the READSEQ statement.\r\nTIMEOUT causes subsequent READSEQ and READBLK statements to terminate and execute ELSE statements if the number of seconds specified by time elapses while waiting for data.\r\nIf either file.variable or time evaluates to null, the TIMEOUT statement fails and the program enters the debugger.",
             "detail": "TIMEOUT file.variable, time"
          },
          {
             "key": "Timestamp",
             "icon": 3,
-            "index": 359,
+            "index": 361,
             "documentation": "The TIMESTAMP function returns a UTC timestamp value as decimal seconds.\r\nThe TIMESTAMP function returns a Universal Coordinated Time (UTC) value as decimal seconds, i.e. seconds with tenths and hundredths specified after the decimal point.\r\nThe value is returned as a variable with as many decimal places as the current precision allows.\r\nHowever, successive calls may return the same value a number of times before the operating system updates the underlying timer.",
             "detail": "TIMESTAMP()"
          },
          {
             "key": "Trans",
             "icon": 3,
-            "index": 360,
+            "index": 362,
             "documentation": "The TRANS function will return the data value of a field, given the name of the file, the record key, the field number, and an action code.\r\nDICT is the literal string to be placed before the file name in the event it is desired to open the dictionary portion of the file, rather than the data portion.\r\nfilename is a string containing the name of the file to be accessed.  Note that it is the actual name of the file, and not a file unit variable.\r\nThis function requires the file name, regardless of whether or not the file has been opened to a file unit variable.\r\nkey  is an expression that evaluates to the record key, or item ID, of the record from which data is to be accessed.\r\nfield#  is the field number to be retrieved from the record.\r\naction.code  a literal which indicates what should happen if the field is null, or the if record is not found.",
             "detail": "TRANS ([DICT] filename, key, field#, action.code)"
          },
          {
             "key": "Transabort",
             "icon": 14,
-            "index": 361,
+            "index": 363,
             "documentation": "This statement is used to abort the current transaction and reverse any updates to the database.\r\nabort-text specifies an optional text string to save in the transaction abort record.\r\nA THEN or ELSE (or both) statement is required.\r\nThe THEN clause will be be executed if the transaction is successfully aborted.\r\nThe ELSE clause will be executed if the transaction abort fails for any reason.",
             "detail": "TRANSABORT {abort-text} [THEN statement | ELSE statement]"
          },
          {
             "key": "Transend",
             "icon": 14,
-            "index": 362,
+            "index": 364,
             "documentation": "This statement is used to mark the end of a successfully completed transaction.\r\nend-text specifies an optional text string to save with the transaction end record.\r\nA THEN or ELSE (or both) statement is required.\r\nThe THEN clause will be executed if the transaction is successfully ended.\r\nThe ELSE clause will be executed if the transaction end fails for any reason.",
             "detail": "TRANSEND {end-text} [THEN statement | ELSE statement]"
          },
          {
             "key": "Transquery",
             "icon": 14,
-            "index": 363,
+            "index": 365,
             "documentation": "This function is used to detect whether or not a transaction is active on the current process.\r\nTRANSQUERY will return 1 (true) if the process is within a transaction boundary, and 0 (false) if it is not.\r\nIn other words, TRANSQUERY will return true if the TRANSTART statement has been issued but a TRANSEND or TRANSABORT statement has not yet been processed.",
             "detail": "ROLLBACK"
          },
          {
             "key": "Transtart",
             "icon": 14,
-            "index": 364,
+            "index": 366,
             "documentation": "In transaction processing, this statement is used to mark the beginning of a transaction.\r\nSYNC is an option to force the updates to be flushed at transaction end or abort.\r\nstart-text specifies an optional text string to save with the transaction start record.\r\nA THEN or ELSE (or both) statement is required.\r\nThe THEN clause will be executed if the transaction is successfully started.\r\nThe ELSE clause will be executed if the transaction start fails for any reason.",
             "detail": "TRANSTART {SYNC}{start-text} [THEN statement | ELSE statement]"
          },
          {
             "key": "Trim",
             "icon": 3,
-            "index": 365,
+            "index": 367,
             "documentation": "The TRIM statement allows characters to be removed from a string in a number of ways.\r\nexpression1 specifies the string from which to trim characters.\r\nexpression2 may optionally specify the character to remove from the string. If not specified then the space character is assumed.\r\nexpression3 evaluates to a single character specifies the type of trim to perform.",
             "detail": "TRIM(expression1 {, expression2{, expression3}})"
          },
          {
             "key": "Trimb",
             "icon": 3,
-            "index": 366,
+            "index": 368,
             "documentation": "The TRIMB() function is equivalent to TRIM(expression, \" \", \"T\")",
             "detail": "TRIMB(expression)"
          },
          {
             "key": "Trimbs",
             "icon": 3,
-            "index": 367,
+            "index": 369,
             "documentation": "The TRIMBS function removes all trailing spaces and tabs from each element of a dynamic array.\r\nTRIMBS removes all trailing spaces and tabs from each element and reduces multiple occurrences of spaces and tabs to a single space or tab.\r\nIf dynamic.array evaluates to null, null is returned.\r\nIf any element of dynamic.array is null, null is returned for that value.",
             "detail": "TRIMBS(dynamic.array)"
          },
          {
             "key": "Trimf",
             "icon": 3,
-            "index": 368,
+            "index": 370,
             "documentation": "The TRIMF() function is equivalent to TRIM(expression, \" \", \"L\")",
             "detail": "TRIMF(expression)"
          },
          {
             "key": "Trimfs",
             "icon": 3,
-            "index": 369,
+            "index": 371,
             "documentation": "The TRIMFS function removes all leading, trailing and redundant spaces and tabs from each element of a dynamic array.\r\nTRIMFS removes all leading and trailing spaces and tabs from each element and reduces multiple occurrences of spaces and tabs to a single space or tab.\r\nIf dynamic.array evaluates to null, null is returned.\r\nIf any element of dynamic.array is null, null is returned for that value.",
             "detail": "TRIMFS(dynamic.array)"
          },
          {
             "key": "Trims",
             "icon": 3,
-            "index": 370,
+            "index": 372,
             "documentation": "The TRIMS function removes redundant spaces and tabs from each element of a dynamic array.\r\nTdynamic.array specifies the elements to be scanned.\r\nIf dynamic.array evaluates to null, it returns null.\r\nIf any element of dynamic.array is null, it returns null for that element.\r\nIf the subroutine syntax is used, the resulting dynamic array is returned as return.array. ",
             "detail": "TRIMS(dynamic.array)"
          },
          {
             "key": "Unassigned",
             "icon": 3,
-            "index": 371,
+            "index": 373,
             "documentation": "The UNASSIGNED function allows a program to determine whether a variable has been assigned a value.\r\nvariable is the name of variable used elsewhere in the program.\r\nThe function returns Boolean TRUE if variable has not yet been assigned a value and Boolean FALSE if variable has already been assigned a value.",
             "detail": "UNASSIGNED(variable)"
          },
          {
             "key": "Uniquekey",
             "icon": 3,
-            "index": 372,
+            "index": 374,
             "documentation": "The UNIQUEKEY function returns a unique 16-byte character key.\r\nThe UNIQUEKEY() function will generate a unique 16-byte character key on each call to the function.\r\nThe key contains characters from the set A-Z a-z 0-9 ^ and _ (base64). Based on the current UTC time and the process number, the key is unique on a single computer system providing that the system clock is not turned back.",
             "detail": "UNIQUEKEY()"
          },
          {
             "key": "Unlock",
             "icon": 14,
-            "index": 373,
+            "index": 375,
             "documentation": "The UNLOCK statement releases a previously LOCKed execution lock.\r\nIf expression is specified it should evaluate to the number of a held execution lock, which will then be released.\r\nIf expression is omitted then all execution locks held by the current program will be released.\r\nNo action is taken if the program attempts to release an execution lock that it had not taken.",
             "detail": "UNLOCK {expression}"
          },
          {
             "key": "Until",
             "icon": 14,
-            "index": 374,
+            "index": 376,
             "documentation": "The UNTIL statement terminates a FOR or LOOP loop when the specified expression is true. The optional DO is required in a LOOP",
             "detail": "UNTIL expr {DO}"
          },
          {
             "key": "Upcase",
             "icon": 3,
-            "index": 375,
+            "index": 377,
             "documentation": "UPCASE converts all lowercase characters in an expression to uppercase characters.\r\nexpression in a string containing alphabetic characters.",
             "detail": "UPCASE(expression)"
          },
          {
             "key": "Utf8",
             "icon": 3,
-            "index": 376,
+            "index": 378,
             "documentation": "The UTF8 function converts a latin1 or binary string into the UTF-8 equivalent byte sequence.\r\nThe expression is expected to be a binary/latin1code page string.\r\nThe function converts the binary string into a UTF-8 encoded byte sequence, used to represent the Unicode values for each byte in the expression.\r\nThis function is useful for converting binary or latin1 code page data into internal format when in International Mode",
             "detail": "UTF8(expression)"
          },
          {
             "key": "Wake",
             "icon": 14,
-            "index": 377,
+            "index": 379,
             "documentation": "The WAKE statement is used to wake a suspended process which has executed a PAUSE statement.\r\nPortNumber is a reference to the target port to be awoken.\r\nThe WAKE statement has no effect on processes which do not execute the PAUSE statement.",
             "detail": "WAKE PortNumber"
          },
          {
             "key": "Weof",
             "icon": 14,
-            "index": 378,
+            "index": 380,
             "documentation": "The WEOF statement allows the program to write an EOF mark on an attached tape device.\r\nexpression specifies the device channel to use, which should evaluate to a numeric integer argument in the range 0-9.\r\nDefault value is 0.\r\nf the WEOF fails then the statements associated with any ELSE clause will be executed.\r\nSYSTEM(0) will return a reason code for the failure.\r\nA \"tape\" not only refers to magnetic tape devices but to any device that has been described to jBASE.\r\nIf no tape device has been assigned to the channel specified then the jBASE debugger is entered with an appropriate message.",
             "detail": "WEOF {ON expression}"
          },
          {
             "key": "Weofseq",
             "icon": 14,
-            "index": 379,
+            "index": 381,
             "documentation": "Write end of file on file opened for sequential access.\r\nFileVar specifies the file descriptor of the file opened for sequential access.\r\nStatements are conditional jBC statements\r\nWEOFSEQ forces the file to be truncated at the current file pointer. Nothing is actually 'written' to the sequential file.",
             "detail": "WEOFSEQ FileVar { THEN | ELSE Statements}"
          },
          {
             "key": "While",
             "icon": 14,
-            "index": 380,
+            "index": 382,
             "documentation": "The WHILE statement terminates a FOR or LOOP loop when the specified expression is true. The optional DO is required in a LOOP.",
             "detail": "WHILE expr {DO}"
          },
          {
             "key": "Write",
             "icon": 14,
-            "index": 381,
+            "index": 383,
             "documentation": "The WRITE statement allows a program to write a record into a previously opened file.\r\nvariable1 is the identifier containing the record to write.\r\nvariable2, if specified, should be a jBC variable that has previously been opened to a file using the OPEN statement.\r\nIf variable2 is not specified then the default file is assumed.\rr\nThe expression should evaluate to a valid record key for the file.\r\nIf the SETTING clause is specified and the write fails, setvar will be set to an Incremental File Error code.\r\nIf a lock was being held on the record by this process it will be released by the WRITE.\r\nIf a lock should be retained on a record, it should be done so explicitly with the WRITEU statement.\r\nA 'WRITE' of a null item-id to a directory will take the 'ON ERROR' clause, if it exists.",
             "detail": "WRITE variable1 ON|TO { variable2,} expression {SETTING setvar} {ON ERROR statements}"
          },
          {
             "key": "Writeblk",
             "icon": 14,
-            "index": 382,
+            "index": 384,
             "documentation": "The WRITEBLK statement writes a block of data to a file opened for sequential processing.\r\nEach WRITEBLK statement writes the value of expression starting at the current position in the file.\r\nThe current position is incremented to beyond the last byte written.\r\nWRITEBLK does not add a new line at the end of the data.\r\nfile.variable specifies a file opened for sequential processing.\r\nThe value of expression is written to the file, and the THEN statements are executed.\r\nIf no THEN statements are specified, program execution continues with the next statement.\r\nIf the file is neither accessible or does not exist, it executes the ELSE statements; and ignores any THEN statements.\r\nIf either expression or file.variable evaluates to null, the WRITEBLK statement fails and the program enters the debugger with a run-time error message.",
             "detail": "WRITEBLK expression ON file.variable {THEN statements [ELSE statements]|ELSE statements}"
          },
          {
             "key": "Writelist",
             "icon": 14,
-            "index": 383,
+            "index": 385,
             "documentation": "WRITELIST allows the program to store a list held in a jBC variable to the global list file.\r\nvariable is the variable in which the list is held.\r\nexpression should evaluate to the required list name.\r\nIf expression is null, the list will be written to the default external list.\r\nIf the SETTING clause is specified and the write fails, setvar will be set to an Incremental File Error code.",
             "detail": "WRITELIST variable ON|TO expression {SETTING setvar} {ON ERROR statements}"
          },
          {
             "key": "Writeseq",
             "icon": 14,
-            "index": 384,
+            "index": 386,
             "documentation": "Write to a file opened for sequential access.\r\nVariable specifies the variable to contain next record from sequential file.\r\nFileVar specifies the file descriptor of the file opened for sequential access.\r\nStatements conditional jBC statements.\r\nEach WRITESEQ writes the data on a line of the sequentially opened file.\r\nEach line of data is suffixed with a new line character.\r\nAfter each WRITESEQ the file pointer moves forward to the end of line.\r\nThe APPEND option forces each WRITESEQ to advance to the end of the file before writing the next data line.",
             "detail": "WRITESEQ Expression {APPEND} ON|TO FileVar THEN | ELSE statements"
          },
          {
             "key": "Writeseqf",
             "icon": 14,
-            "index": 385,
+            "index": 387,
             "documentation": "Write to a file opened for sequential access and force each data line to be flushed to the file when it is written.\r\nVariable specifies the variable to contain next record from sequential file.\r\nFileVar specifies the file descriptor of the file opened for sequential access.\r\nStatements conditional jBC statements.\r\nEach WRITESEQ writes the data on a line of the sequentially opened file.\r\nEach line of data is suffixed with a new line character.\r\nAfter each WRITESEQ the file pointer moves forward to the end of line.\r\nThe WRITESEQF statement forces each data line to be flushed to the file when it is written.\r\nThe APPEND option forces each WRITESEQ to advance to the end of the file before writing the next data line.",
             "detail": "WRITESEQF Expression {APPEND} ON|TO FileVar THEN | ELSE statements"
          },
          {
             "key": "Writet",
             "icon": 14,
-            "index": 386,
+            "index": 388,
             "documentation": "The WRITET statement enables data to be written to a range of tape devices between 0-9.\r\nvariable holds the data for writing to the tape device.\r\nexpression should evaluate to an integer value in the range 0-9 and specifies which tape channel to read data from.\r\nIf the ON clause is not specified the WRITET will assume channel 0.\r\nIf the WRITET fails then the statements associated with any ELSE clause will be executed.\r\nSYSTEM(0) will return the reason code for the failure.\r\nA \"tape\" not only refers to magnetic tape devices but also any device that has been described to jBASE.\r\nIf no tape device has been assigned to the channel specified then the jBASE debugger is entered with an appropriate message.",
             "detail": "WRITET variable {ON|TO expression} THEN|ELSE statements"
          },
          {
             "key": "Writeu",
             "icon": 14,
-            "index": 387,
+            "index": 389,
             "documentation": "The WRITEU statement allows a program to write a record into a previously opened file. An existing record lock will be preserved.\r\nvariable1 is the identifier holding the record to be written.\r\nvariable2, if specified, should be a jBC variable that has previously been opened to a file using the OPEN statement.\r\nIf variable2 is not specified then the default file is assumed.\r\nThe expression should evaluate to a valid record key for the file.\r\nIf the SETTING clause is specified and the write fails, setvar will be set to an Incremental File Error code.\r\nIf the statement fails to write the record then any statements associated with the ON ERROR clause are executed.\r\nThe lock maintained by the WRITEU statement will be released by any of the following events:\r\n* the record is written to by the same program with WRITE, WRITEV or MATWRITE statements.\r\n* the record lock is released explicitly using the RELEASEstatement.\r\n* the program stops normally or abnormally.",
             "detail": "WRITEU variable1 ON|TO { variable2,} expression {SETTING setvar} {ON ERROR statements}"
          },
          {
             "key": "Writev",
             "icon": 14,
-            "index": 388,
+            "index": 390,
             "documentation": "The WRITEV statement allows a program to write a specific field of a record in a previously opened file.\r\nvariable1 is the identifier holding the record to be written.\r\nvariable2, if specified, should be a jBC variable that has previously been opened to a file using the OPEN statement.\r\nIf variable2 is not specified then the default file is assumed.\r\nexpression1 should evaluate to a valid record key for the file.\r\nexpression2 should evaluate to a positive integer number.\r\nIf the number is greater than the number of fields in the record, null fields will be added to variable1.\r\nIf expression2 evaluates to a non-numeric argument, a run time error will be generated.\r\nIf the SETTING clause is specified and the write fails, setvar will be set to an Incremental File Error code.\r\nThe WRITEV statement will cause any lock held on the record by this program to be released.\r\nIf a lock on the record should be retained, that should be done so explicitly with the WRITEVU statement.",
             "detail": "WRITEV variable1 ON|TO {variable2,} expression1, expression2 {SETTING setvar} {ON ERROR statements}"
          },
          {
             "key": "Writevu",
             "icon": 14,
-            "index": 389,
+            "index": 391,
             "documentation": "The WRITEVU statement allows a program to write a specific field on a record in a previously opened file.\r\nAn existing record lock will be preserved.\r\nvariable1 is the identifier holding the record to be written.\r\nvariable2, if specified, should be a jBC variable that has previously been opened to a file using the OPEN statement.\r\nIf variable2 is not specified then the default file is assumed.\r\nexpression1 should evaluate to a valid record key for the file.\r\nexpression2 should evaluate to a positive integer number.\r\nIf the number is greater than the number of fields in the record, null fields will be added to variable1.\r\nIf expression2 evaluates to a non-numeric argument, a run time error will be generated.\r\nIf the SETTING clause is specified and the write fails, setvar will be set to an Incremental File Error code.\r\nIf the statement fails to write the record then any statements associated with the ON ERROR clause are executed.\r\nThe lock taken by the WRITEVU statement will be released by any of the following events:\r\n* The record is written to by the same program with WRITE, WRITEV or MATWRITE statements.\r\n* The record lock is released explicitly using the RELEASE statement.\r\n* The program stops normally or abnormally.",
             "detail": "WRITEVU variable1 ON|TO { variable2,} expression1, expression2 {SETTING setvar} {ON ERROR statements}"
          },
          {
             "key": "Writexml",
             "icon": 14,
-            "index": 390,
+            "index": 392,
             "documentation": "The WRITEXML statement writes a dynamic array to a hashed file in XML format, using a style sheet from the DICT.\r\nThe XML is transformed into a dynamic array before being written to the file.\r\nThe transformation takes place using the stylesheet in DICT->@WRITEXML.",
             "detail": "WRITEXML rec ON file,id ELSE STOP 201,id"
          },
          {
             "key": "Xlate",
             "icon": 3,
-            "index": 391,
+            "index": 393,
             "documentation": "The XLATE function will return the data value of a field, given the name of the file, the record key, the field number, and an action code.DICT is the literal string to be placed before the file name in the event it is desired to open the dictionary portion of the file, rather than the data portion.\r\nfilename is a string containing the name of the file to be accessed.  Note that it is the actual name of the file, and not a file unit variable.\r\nThis function requires the file name, regardless of whether or not the file has been opened to a file unit variable.\r\nkey  is an expression that evaluates to the record key, or item ID, of the record from which data is to be accessed.\r\nfield#  is the field number to be retrieved from the record.\r\naction.code  a literal which indicates what should happen if the field is null, or the if record is not found.\r\nXLATE is a synonym of the TRANS function.",
             "detail": "XLATE ([DICT] filename, key, field#, action.code)"
          },
          {
             "key": "Xmltodyn",
             "icon": 3,
-            "index": 392,
+            "index": 394,
             "documentation": "The XMLTODYN function converts an XML expression to a dynamic array, using an optional XSL to transform.\r\nArray = XMLTODYN(XML,XSL,result)\r\nIf result = 0 Array will contain a dynamic array built from the xml / xsl.\r\nIf result <> 0, Array will contain an error message.",
             "detail": "XMLTODYN(XML, XSL, result)"
          },
          {
             "key": "Xmltoxml",
             "icon": 3,
-            "index": 393,
+            "index": 395,
             "documentation": "The XMLTOXML function transforms an XML expression using an XSL.\r\nnewxml=XMLTOXML(XML, XSL, result)\r\nIf result = 0, newxml  will contain a transformed version of XML using XSL.\r\nIf result = 1, newxml will contain an error message.",
             "detail": "XMLTOXML(XML, XSL, result)"
          },
          {
             "key": "Xtd",
             "icon": 3,
-            "index": 394,
+            "index": 396,
             "documentation": "The XTD() function converts hexadecimal number into its decimal equivalent.\r\nexpression should evaluate to a valid hexadecimal string.\r\nThe conversion process will halt at the first character that is not a valid base 16 character in the set [0-9, A-F or a-f].",
             "detail": "XTD(expression)"
          },
          {
             "key": "$Option",
             "icon": 14,
-            "index": 395,
+            "index": 397,
             "documentation": "The $OPTION directive allows dynamic objects options/parameters to be specified.\r\nkeyword is currently one or more of the following:\r\n arrow|auto|case|debug|jabba|keywords|object|period|self|stats|tokens|trace|universe|uv|uvcase|warning|warnings\r\n, commas separated.",
             "detail": "$option keyword"
          }
