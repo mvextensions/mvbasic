@@ -382,7 +382,6 @@ function validateTextDocument(textDocument: TextDocument): void {
     RowLevel[i] = Level;
   }
   // if we have unmatched specific blocks then display error
-
   // First FOR/NEXT unbalanced
   for (let forvar of forDict.keys()) {
     let o = forDict.get(forvar);
