@@ -249,14 +249,9 @@ function validateTextDocument(textDocument: TextDocument): void {
   let rEndLoop = new RegExp("(repeat$)", "i");
   let rEndCase = new RegExp("(^end case)", "i");
   let rElseEnd = new RegExp("^(end else\\s.+)", "i");
-  let rComment = new RegExp(
-    "(^\\*.+|^\\s+\\*.+|^!.+|^\\s+!.+|^REM.+|^\\s+REM.+)",
-    "i"
-  );
-  let tComment = new RegExp("(;\\*.+|;\\s+\\*.+)", "i");
-  let lComment = new RegExp(
-    "(^[0-9]+\\s+\\*)|(^[0-9]+\\s+;)|(^[0-9]+\\*)|(^[0-9]+;)"
-  ); // number label with comments after
+  let rComment = new RegExp("(^\\s*\\*.*|^\\s*!.*|^\\s*REM.*)", "i"); // (Start-of-line 0-or-more whitespace {* ! REM} Anything)
+  let tComment = new RegExp("(^.+)(;\\s*\\*.*|;\\s*!.*|;\\s*REM.*)", "i"); // (something)(; {whitespace} {* ! REM} Anything)
+  let lComment = new RegExp("(^\\s*[0-9]+)(\\s*\\*.*)"); // number label with comments after
   let trailingComment = new RegExp("(\\*.+)|(;+)");
   let qStrings = new RegExp(
     "(\"([^\"]|\"\")*\")|('([^']|'')*')|(\\\\([^\\\\]|\\\\\\\\)*\\\\)",
@@ -268,8 +263,8 @@ function validateTextDocument(textDocument: TextDocument): void {
   let noEndFor = 0;
   let noEndLoop = 0;
   let noEndCase = 0;
-  let ForSequence = "";
-  // first build a list of labels in the program and indentation levels
+  let forDict = new Map<string, any>();
+  // first build a list of labels in the program and indentation levels, strip comments, break up ; delimited lines
   let Level = 0;
   var RowLevel: number[] = [lines.length];
   for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
@@ -278,35 +273,70 @@ function validateTextDocument(textDocument: TextDocument): void {
     if (rComment.test(line.trim()) === true) {
       continue;
     }
-    // remove trailing comments
+    // remove trailing comments with a semi-colon
     if (tComment.test(line.trim()) === true) {
-      let comment = tComment.exec(line.trim());
-      if (comment !== null) {
-        line = line.trim().replace(comment[0], "");
-      }
+      let comment = tComment.exec(line.trim()); // This does the regex match again, but assigns the results to comment array
+      line = comment![1];
     }
-    // remove comments after label
-    lComment.lastIndex = 0;
+    // remove comments after label (no semi-colon)
     if (lComment.test(line.trim()) === true) {
-      let comment = trailingComment.exec(line.trim());
-      if (comment != null) {
-        line = line.trim().replace(comment[0], "");
+      let comment = lComment.exec(line.trim()); // This does the regex match again, but assigns the results to comment array
+      line = comment![1];
+    }
+
+    /* Before we do anything else, split line on ; *except* inside strings or parens.
+		   Ug! One problem with this approach is it throws off the line number in the error report...
+		   This helps deal with lines like: FOR F=1 TO 20;CRT "NEW;":REPLACE(REC<F>,1,0,0;'XX');NEXT F ;* COMMENT
+			 There may be a way to do this with regexp, but it gets super hairy.
+			 See: https://stackoverflow.com/questions/23589174/regex-pattern-to-match-excluding-when-except-between
+		*/
+    if (line.indexOf(";") > 0) {
+      let inString = false;
+      for (var j = 0; j < line.length; j++) {
+        let ch = line.charAt(j);
+        if (
+          ch === '"' ||
+          ch === "'" ||
+          ch === "\\" ||
+          ch === "(" ||
+          ch === ")"
+        ) {
+          inString = !inString;
+        }
+        if (ch === ";" && !inString) {
+          let left = line.slice(0, j);
+          let right = line.slice(j + 1);
+          // Push the right side into the array lines, and deal with it later (including more splitting)
+          lines[i] = left;
+          lines.splice(i + 1, 0, right);
+          line = left;
+          break;
+        }
       }
     }
 
-    // check opening and closing block for types
-    let forvar = "";
-    let nextvar = "";
-    if (rStartFor.test(line.trim()) == true) {
-      noFor++;
-      forvar = getWord(line.trim(), 2);
-      ForSequence += i + "~+" + forvar + "|";
+    // check opening and closing block FOR/NEXT
+    if (rStartFor.test(line.trim())) {
+      let forvar = getWord(line.trim(), 2);
+      let o = forDict.get(forvar);
+      if (typeof o == "undefined") {
+        o = { ctr: 1, line: i };
+      } else {
+        o = { ctr: o.ctr + 1, line: i };
+      }
+      forDict.set(forvar, o);
     }
-    if (rEndFor.test(line.trim()) == true) {
-      noEndFor++;
-      nextvar = getWord(line.trim(), 2);
-      ForSequence += i + "~-" + nextvar + "|";
+    if (rEndFor.test(line.trim())) {
+      let nextvar = getWord(line.trim(), 2);
+      let o = forDict.get(nextvar);
+      if (typeof o == "undefined") {
+        o = { ctr: -1, line: i };
+      } else {
+        o = { ctr: o.ctr - 1, line: i };
+      }
+      forDict.set(nextvar, o);
     }
+    // Check for CASE/LOOP
     if (rStartCase.test(line.trim()) == true) {
       noCase++;
     }
@@ -352,94 +382,42 @@ function validateTextDocument(textDocument: TextDocument): void {
     RowLevel[i] = Level;
   }
   // if we have unmatched specific blocks then display error
-  if (noFor != noEndFor) {
-    // find the innermost for
-    // split out lines and remove matching for/nexts
-    let parts = ForSequence.split("|");
-    while (true) {
-      let exitFlag = true;
-      for (var i = 0; i < parts.length - 1; i++) {
-        if (parts[i] != "") {
-          let begin = parts[i].split("~");
-          if (begin[1].substr(0, 1) == "-") {
-            //ignore next
-            continue;
-          }
-          if (parts[i + 1] != "") {
-            let end = parts[i + 1].split("~");
-            if (begin[1].replace("+", "") == end[1].replace("-", "")) {
-              exitFlag = false;
-              parts.splice(i, 1);
-              parts.splice(i, 1);
-              exitFlag = false;
-              break;
-            }
-          }
-        }
+  // First FOR/NEXT unbalanced
+  for (let forvar of forDict.keys()) {
+    let o = forDict.get(forvar);
+    console.log(
+      "FOR/NEXT key=" + forvar + " value=" + o.ctr + " line=" + o.line
+    );
+    let errorMsg = "";
+    if (o.ctr != 0) {
+      if (o.ctr > 0) {
+        errorMsg = "Missing NEXT Statement - FOR " + forvar;
+      } else {
+        errorMsg = "Missing FOR Statement - NEXT " + forvar;
       }
-      if (exitFlag == true) {
-        break;
-      }
-    }
-    // check forward for any nested for/next
-    while (true) {
-      let exitFlag = true;
-      for (var i = 0; i < parts.length - 1; i++) {
-        if (parts[i] != "") {
-          let begin = parts[i].split("~");
-          for (var k = i + 1; k < parts.length; k++) {
-            if (parts[k] != "") {
-              let end = parts[k].split("~");
-              if (begin[1].replace("+", "") == end[1].replace("-", "")) {
-                exitFlag = false;
-                parts.splice(k, 1);
-                parts.splice(i, 1);
-                exitFlag = false;
-                break;
+      let lineNo = o.line;
+      let diagnosic: Diagnostic = {
+        severity: DiagnosticSeverity.Error,
+        range: {
+          start: { line: lineNo, character: 0 },
+          end: { line: lineNo, character: lines[lineNo].length }
+        },
+        message: errorMsg,
+        source: "MV Basic"
+      };
+      if (shouldSendDiagnosticRelatedInformation) {
+        diagnosic.relatedInformation = [
+          {
+            location: {
+              uri: textDocument.uri,
+              range: {
+                start: { line: lineNo, character: 0 },
+                end: { line: lineNo, character: lines[lineNo].length }
               }
-            }
+            },
+            message: errorMsg
           }
-        }
-      }
-      if (exitFlag == true) {
-        break;
-      }
-    }
-    // we now have a list of unmatched for/next and their locations
-    for (var i = 0; i < parts.length; i++) {
-      if (parts[i] != "") {
-        let unmatched = parts[i].split("~");
-        let errorMsg = "";
-        if (unmatched[1].substr(0, 1) == "+") {
-          errorMsg = "Missing NEXT Statement";
-        } else {
-          errorMsg = "Missing FOR Statement";
-        }
-        let lineNo = Number(unmatched[0]);
-        let diagnosic: Diagnostic = {
-          severity: DiagnosticSeverity.Error,
-          range: {
-            start: { line: lineNo, character: 0 },
-            end: { line: lineNo, character: lines[lineNo].length }
-          },
-          message: errorMsg,
-          source: "MV Basic"
-        };
-        if (shouldSendDiagnosticRelatedInformation) {
-          diagnosic.relatedInformation = [
-            {
-              location: {
-                uri: textDocument.uri,
-                range: {
-                  start: { line: lineNo, character: 0 },
-                  end: { line: lineNo, character: lines[lineNo].length }
-                }
-              },
-              message: errorMsg
-            }
-          ];
-        }
-        diagnostics.push(diagnosic);
+        ];
       }
     }
   }
