@@ -7,26 +7,19 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 
-const request = require("sync-request");
-import { RestFS } from "./RestFS"
+import { RestFS } from "./RestFS";
+import { RestFSAttr } from "./RestFS";
 
 import { workspace, ExtensionContext } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient';
 import fs = require('fs')
 
 
-
-
+var RESTFS: RestFS;
 var UsingRest: Boolean = false;
 
 
 export function activate(context: ExtensionContext) {
-
-	// initialise Remote REST FileSystem
-
-	const RESTFS = new RestFS();
-	context.subscriptions.push(vscode.workspace.registerFileSystemProvider('RestFS', RESTFS, { isCaseSensitive: true }));
-
 
 	// The server is implemented in node
 	let serverModule = context.asAbsolutePath(
@@ -60,20 +53,35 @@ export function activate(context: ExtensionContext) {
 	let Account: string = vscode.workspace.getConfiguration("MVBasic").get("Account")
 	let AccountPath: string = vscode.workspace.getConfiguration("MVBasic").get("AccountPath")
 	let AccountPassword: string = vscode.workspace.getConfiguration("MVBasic").get("AccountPassword")
+	let ServerName: string = vscode.workspace.getConfiguration("MVBasic").get("ServerName");
 	let GatewayType: string = vscode.workspace.getConfiguration("MVBasic").get("GatewayType");
-	let UseGateway: string = vscode.workspace.getConfiguration("MVBasic").get("UseGateway");
+	let UseGateway: boolean = vscode.workspace.getConfiguration("MVBasic").get("UseGateway");
+	UsingRest = vscode.workspace.getConfiguration("MVBasic").get("UseRestFS");
 	//let HomePath: string = vscode.workspace.getConfiguration("MVBasic").get("homePath");
 	//let codePage: string = vscode.workspace.getConfiguration("MVBasic").get("encoding");
 	let margin: number = vscode.workspace.getConfiguration("MVBasic").get("margin");
 	let indent: number = vscode.workspace.getConfiguration("MVBasic").get("indent");
 	let formattingEnabled: boolean = vscode.workspace.getConfiguration("MVBasic").get("formattingEnabled");
-	let additionalFiles: any = vscode.workspace.getConfiguration("MVBasic").get("additionalFiles");
+	//let additionalFiles: any = vscode.workspace.getConfiguration("MVBasic").get("additionalFiles"); // deprecated
 	//let gatewayDebug: any = vscode.workspace.getConfiguration("MVBasic").get("gatewayDebug");
+	let editFiles: any = vscode.workspace.getConfiguration("MVBasic").get("EditFiles");
 	let customWordColor: any = vscode.workspace.getConfiguration("MVBasic").get("customWordColor");
 	let customWordlist: string = vscode.workspace.getConfiguration("MVBasic").get("customWords");
 	let customWordPath: any = vscode.workspace.getConfiguration("MVBasic").get("customWordPath");
 	let RestPath: any = vscode.workspace.getConfiguration("MVBasic").get("RestPath");
-
+	let AutoConnect: boolean = vscode.workspace.getConfiguration("MVBasic").get("RestFS.AutoConnect");
+	let RestAPIVersion: number = vscode.workspace.getConfiguration("MVBasic").get("RestFS.RestAPI", 0);
+	let RestMaxItems: number = vscode.workspace.getConfiguration("MVBasic").get("RestFS.MaxItems", 0);
+	let RestSelAttr: number = vscode.workspace.getConfiguration("MVBasic").get("RestFS.SelAttr", 0);
+	let RestCaseSensitive: boolean = vscode.workspace.getConfiguration("MVBasic").get("RestFS.CaseSensitive");
+	
+	// gateway implies RestFS
+	UsingRest = UsingRest || UseGateway; 
+	
+	// default MV dir selection: file (folder), item (file), q-pointers (symlink), ignore items in dictionary level files
+	if (RestSelAttr === 0) 
+		RestSelAttr = RestFSAttr.ATTR_FOLDER | RestFSAttr.ATTR_FILE | RestFSAttr.ATTR_SYMLINK | RestFSAttr.ATTR_DATAONLY;
+	
 	let timeout: NodeJS.Timer | null = null;
 	var customWordDict = new Map();
 
@@ -91,68 +99,79 @@ export function activate(context: ExtensionContext) {
 	}
 
 
-
 	// Create the language client and start the client.
 	let disposable = new LanguageClient('mvbasic', 'MV Basic Server', serverOptions, clientOptions).start();
 
 
+	// initialise Remote REST FileSystem
+	if (UsingRest) {
 
+		RESTFS = new RestFS(RestAPIVersion);
+		context.subscriptions.push(vscode.workspace.registerFileSystemProvider('RestFS', RESTFS, { isCaseSensitive: RestCaseSensitive }));		
 
-	let initialiseRestFS = vscode.commands.registerCommand('extension.initialiseRestFS', async () => {
-		// Check we have credentials and server details
-		let rPath = await vscode.window.showInputBox({ prompt: "Enter or select the REST path ", value: RestPath });
-		if (rPath != undefined) {
-			RestPath = rPath;
-			vscode.workspace.getConfiguration("MVBasic").update("RestPath", RestPath, false);
-		}
-		if (RestPath === "") {
-			vscode.window.showInformationMessage('Please configure the RESTFul Path in the workspace settings');
-			return;
-		}
-		RESTFS.RestPath = RestPath;
-		RESTFS.RestAccount = Account;
-		if (UseGateway) {
-
-			// send credentials if we are using the gateway
-			let login = {
-				"ServerIP": RemoteHost,
-				"ServerType": GatewayType,
-				"UserId": UserName,
-				"Password": Password,
-				"AccountName": Account,
-				"AccountPath": AccountPath,
-				"AccountPassword": AccountPassword
+		const connectRestFS = async function(): Promise<boolean> {
+			
+			try {
+				RESTFS.initRestFS(RestPath, Account, {case_insensitive: !RestCaseSensitive, max_items: RestMaxItems, sel_attr: RestSelAttr});
+			
+				// send credentials (some of these are specific to the gateway)
+				const login = {
+					"ServerIP": RemoteHost,
+					"ServerType": GatewayType,
+					"ServerName": ServerName,
+					"UserId": UserName,
+					"Password": Password,
+					"AccountName": Account,
+					"AccountPath": AccountPath,
+					"AccountPassword": AccountPassword
+				};
+				await RESTFS.login(login);
+			
+				// Display a message box to the user
+				vscode.window.showInformationMessage('Connected to RestFS server ' + RestPath);
+				
+				// The next line ensures the file explorer will be loaded correctly
+				vscode.commands.executeCommand('workbench.files.action.refreshFilesExplorer');	
+			
+				// auto-open files
+				if (editFiles && (typeof editFiles == 'string' || editFiles instanceof Array)) {
+					if (typeof editFiles == 'string')
+						editFiles = [editFiles];
+					editFiles.forEach(async function(item: any) {
+						if (typeof item == 'string') {
+							let doc = await vscode.workspace.openTextDocument(vscode.Uri.parse('RestFS://' + item));
+							await vscode.window.showTextDocument(doc, {preview: false});
+						}			
+					});
+				}			
+				editFiles = undefined; // only once
+			
+			} catch(e) {
+				vscode.window.showInformationMessage('Unable to connect to the RestFS server. Please check your settings.');
+				return false;
 			}
-			var log = request('POST', RestPath + "/login", { json: login });
-			if (log.statusCode != 200) {
-				vscode.window.showInformationMessage('Unable to connect to the REST server. Please check your settings');
+
+			return true;
+		};
+
+		if (AutoConnect) {
+			connectRestFS();
+		}
+
+		var initialiseRestFS = vscode.commands.registerCommand('extension.initialiseRestFS', async () => {
+			// Check we have credentials and server details
+			let rPath = await vscode.window.showInputBox({ prompt: "Enter or select the RestFS URI ", value: RestPath });
+			if (rPath != undefined) {
+				RestPath = rPath;
+				vscode.workspace.getConfiguration("MVBasic").update("RestPath", RestPath, false);
+			}
+			if (RestPath === "") {
+				vscode.window.showInformationMessage('Please configure the RESTFul Path in the workspace settings.');
 				return;
 			}
-		}
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Using REST Path to ' + RestPath);
-		// get a list of files from the server
-		var files = request('GET', RestPath + "/dir/" + Account + "/");
-		if (files.statusCode != 200) {
-			vscode.window.showInformationMessage('Unable to retrieve file list. Please check your settings');
-			return;
-		}
-		var dirList = JSON.parse(files.body);
-		for (let i = 0; i < dirList.Directories.length; i++) {
-			if (dirList.Directories[i].Name.endsWith(".Lib")) {
-
-			}
-			else {
-				RESTFS.createDirectory(vscode.Uri.parse('RestFS:/' + dirList.Directories[i].Name + '/'));
-			}
-		}
-		// add any addional files specified in the config
-		for (let i = 0; i < additionalFiles.length; i++) {
-			RESTFS.createDirectory(vscode.Uri.parse('RestFS:/' + additionalFiles[i] + '/'));
-		}
-		UsingRest = true;
-		vscode.window.showInformationMessage("Connected");
-	});
+			connectRestFS();
+		});
+	}
 
 	let mvonAdmin = vscode.commands.registerCommand('extension.mvonAdmin', async () => {
 
@@ -195,83 +214,20 @@ export function activate(context: ExtensionContext) {
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(initialiseRestFS);
 
-
-	let compile = vscode.commands.registerCommand('extension.compileProgram', async () => {
-		let filePath = vscode.window.activeTextEditor.document.fileName
-		// handle linux and OSX file paths
-		while (filePath.indexOf("/") > -1) {
-			filePath = filePath.replace("/", "\\");
-		}
-		let parts = filePath.split('\\')
-		let fileName = parts[parts.length - 1]
-		let programFile = parts[parts.length - 2]
-
-		if (UsingRest) {
-			var compile = request('GET', RestPath + "/compile/" + Account + "/" + programFile + "/" + fileName+"/")
-
-			var response = JSON.parse(compile.body);
-			if (response.Errors.length === 0) {
-				vscode.window.showInformationMessage(response.Result);
-			}
-			else {
-				vscode.window.showInformationMessage(response.Result);
-				for (let i = 0; i < response.Errors.length; i++) {
-					let errorMsg = "Line    : " + response.Errors[i].LineNo + "  \nError  : " + response.Errors[i].ErrorMessage + "  \nSource : " + response.Errors[i].Source
-					vscode.window.showErrorMessage(response.Result, errorMsg.split("\n")[0], errorMsg.split("\n")[1], errorMsg.split("\n")[2]);
-				}
-			}
-			return;
-		}
-	});
-
-	let catalog = vscode.commands.registerCommand('extension.catalogProgram', async () => {
-		let filePath = vscode.window.activeTextEditor.document.fileName
-		// handle linux and OSX file paths
-		while (filePath.indexOf("/") > -1) {
-			filePath = filePath.replace("/", "\\");
-		}
-		let parts = filePath.split('\\')
-		let fileName = parts[parts.length - 1]
-		let programFile = parts[parts.length - 2]
-		if (UsingRest) {
-			var catalog = request('GET', RestPath + "/catalog/" + Account + "/" + programFile + "/" + fileName+"/")
-			var msg = JSON.parse(catalog.body);
-			vscode.window.showInformationMessage(msg);
-			return;
-		}
-	});
-
-	let compileDebug = vscode.commands.registerCommand('extension.compileDebug', async () => {
-		let filePath = vscode.window.activeTextEditor.document.fileName
-		// handle linux and OSX file paths
-		while (filePath.indexOf("/") > -1) {
-			filePath = filePath.replace("/", "\\");
-		}
-		let parts = filePath.split('\\')
-		let fileName = parts[parts.length - 1]
-		let programFile = parts[parts.length - 2]
-		if (UsingRest) {
-			var compile = request('GET', RestPath + "/compile/" + Account + "/" + programFile + "/" + fileName + "/dg/")
-
-			var response = JSON.parse(compile.body);
-			if (response.Errors.length === 0) {
-				vscode.window.showInformationMessage(response.Result);
-			}
-			else {
-				vscode.window.showInformationMessage(response.Result);
-				for (let i = 0; i < response.Errors.length; i++) {
-					let errorMsg = "Line    : " + response.Errors[i].LineNo + "  \nError  : " + response.Errors[i].ErrorMessage + "  \nSource : " + response.Errors[i].Source
-					vscode.window.showErrorMessage(response.Result, errorMsg.split("\n")[0], errorMsg.split("\n")[1], errorMsg.split("\n")[2]);
-				}
-			}
-			return;
-		}
-
-	});
-
-	context.subscriptions.push(catalog);
-	context.subscriptions.push(compile);
-	context.subscriptions.push(compileDebug);
+	if (UsingRest) {		
+		let compile = vscode.commands.registerCommand('extension.compileProgram', async () => {
+			RESTFS.command('compile', vscode.window.activeTextEditor.document.uri);
+		});
+		let compileDebug = vscode.commands.registerCommand('extension.compileDebug', async () => {
+			RESTFS.command('compile', vscode.window.activeTextEditor.document.uri, {debug: true});
+		});
+		let catalog = vscode.commands.registerCommand('extension.catalogProgram', async () => {
+			RESTFS.command('catalog', vscode.window.activeTextEditor.document.uri);
+		});
+		context.subscriptions.push(catalog);
+		context.subscriptions.push(compile);
+		context.subscriptions.push(compileDebug);
+	}
 
 	vscode.languages.registerDocumentFormattingEditProvider('mvbasic', {
 		provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
@@ -457,4 +413,11 @@ export function activate(context: ExtensionContext) {
 		}
 		activeEditor.setDecorations(customDecoration, customWords);
 	}
+}
+
+export function deactivate() {
+	if (RESTFS) {
+		RESTFS.logout();
+	}
+	RESTFS = undefined;
 }
