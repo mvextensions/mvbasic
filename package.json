@@ -2,7 +2,7 @@
   "name": "mvbasic",
   "displayName": "MV Basic",
   "description": "MV Basic",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "publisher": "mvextensions",
   "icon": "images/mvbasic-logo.png",
   "preview": false,
@@ -297,6 +297,18 @@
           ],
           "default": "off",
           "description": "Traces the communication between VSCode and the language server."
+        },
+        "MVBasic.languageType": {
+          "scope": "resource",
+          "type": "string",
+          "default": "MVON",
+          "enum": [
+            "MVON",
+            "jBASE",
+            "UniVerse",
+            "OpenQM"
+          ],
+          "description": "The flavor of PICK you are programming against, i.e. MVON, D3, jBASE."
         }
       }
     }
