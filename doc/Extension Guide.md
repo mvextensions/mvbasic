@@ -82,9 +82,9 @@ This extension includes the following features:
 - Intellisense for the MV Basic Statements and Functions
 - Code folding
 - Code formatting
-- Goto/Peek Definition. Automatically jump to and peek internal subroutines
-- Goto/Peek Definition. Automatically peek/load CALL, CHAIN and INCLUDE routines
-- Syntax checking for GOTO/GOSUB, LOOPS, CASE STATEMENTS and IF THE/ELSE statements
+- Go to/Peek Definition. Automatically jump to and peek internal subroutines
+- Go to/Peek Definition. Automatically peek/load `CALL`, `CHAIN` and `INCLUDE` routines
+- Syntax checking for `GOTO`, `GOSUB`, `LOOPS`, `CASE` statements and `IF` `THEN`/`ELSE` `END` statements
 - Access your remote MV files and programs
 - Find all References of a word in current program
 
@@ -128,6 +128,15 @@ Select the MV Developer Extension by clicking on the item in the list then choos
 
 The extension allows users to connect to MV servers and edit, compile and catalog BASIC programs. It currently supports two connection options: MVGateway or AccuTerm (version 7 and above).
 
+While not required, it is recommended that you alter your workspace to set the following:
+
+```json
+"files.autoSave": false,
+"files.hotExit": false
+```
+
+Disabling `autoSave` will reduce the communication traffic back to the server. Disabling `hotExit` will force VS Code to prompt you to save any unsaved changes before exiting.
+
 ### 5.1 Option 1 - MVGateway
 
 #### 5.1.1 Install the MVGateway
@@ -136,7 +145,7 @@ In order for VS Code to communicate to your MV server install the MVGateway prov
 
 #### 5.1.2 Configure the MVGateway
 
-Once you have installed the MVGateway the next step is to configure a VS Code Workspace. The Workspace will contain all the parameters required to connect and login to the remote MV Server. It is recommended that you use a directory on your system where you will save the Workspace definitions. If you have multiple servers and/or multiple accounts on each server, you will create a Workspace that points to a each particular server and account. In order to do that we first need to configure a VS Code **Workspace**.
+Once you have installed the MVGateway the next step is to configure a VS Code Workspace. The workspace will contain all the parameters required to connect and login to the remote MV Server. It is recommended that you use a directory on your system where you will save the workspace definitions. If you have multiple servers and/or multiple accounts on each server, you will create a workspace that points to a each particular server and account. In order to do that we first need to configure a workspace.
 
 To connect to an MV Server, the following information is required:
 
@@ -161,7 +170,7 @@ To create a new Workspace:
 
 ![New Workspace](screenshots/new_workspace.gif)
 
-After adding all the parameters to the workspace, your settings should be like this:
+After adding all the parameters to the workspace, your settings should look similar to this:
 
 ```json
 {
@@ -187,7 +196,7 @@ These are the base settings required to connect to an Universe MV Server. Press 
 
 #### 5.1.3 Testing the connection
 
-We can test to if the connection to MV server works by Pressing <kbd>F1</kbd> or <kbd>Cmd</kbd>/<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>. VS Code will prompt you for the command to run. Type `Connect` to display all commands with Connect in it and choose `Connect to Multivalue REST FS`.
+We can test to if the connection to MV server works by pressing <kbd>F1</kbd> or <kbd>Cmd</kbd>/<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>. VS Code will prompt you for the command to run. Type `Connect` to display all commands containing the word "Connect" and choose `Connect to Multivalue REST FS`.
 
 The extension will connect to the server and retrieve a list of Directory files from the server. If the connection is successful, the following messages will appear at the bottom left of the screen.
 
