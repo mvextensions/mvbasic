@@ -21,7 +21,7 @@ All other trademarks and service marks are property of their respective holders.
   - [1. Introduction](#1-introduction)
   - [2. Prerequisites](#2-prerequisites)
   - [3. Installing VS Code](#3-installing-vs-code)
-  - [4. Installing MVBasic Extension](#4-installing-mvbasic-extension)
+  - [4. Installing MV Basic Extension](#4-installing-mv-basic-extension)
   - [5. Connecting to a MultiValue Server](#5-connecting-to-a-multivalue-server)
     - [5.1 Option 1 - MVGateway](#51-option-1---mvgateway)
       - [5.1.1 Install the MVGateway](#511-install-the-mvgateway)
@@ -48,7 +48,7 @@ All other trademarks and service marks are property of their respective holders.
     - [7.6 mvBase](#76-mvbase)
     - [7.7 MVON&#35;](#77-mvon)
     - [7.8 Associating Programs with the MVextension](#78-associating-programs-with-the-mvextension)
-    - [7.9 Additional MVBasic Developer Settings](#79-additional-mvbasic-developer-settings)
+    - [7.9 Additional MV Basic Developer Settings](#79-additional-mv-basic-developer-settings)
   - [8. Recommended reading/extensions](#8-recommended-readingextensions)
     - [8.0 VS Code Tips and Tricks](#80-vs-code-tips-and-tricks)
     - [8.1 SFTP](#81-sftp)
@@ -64,7 +64,7 @@ This document describes how to install and use the MultiValue Basic Visual Studi
 
 - MV refers to Pick-style MultiValue application and database environments
 - VS Code refers to Microsoft Visual Studio Code
-- MVBasic refers to the MV VS Code Extension
+- MV Basic refers to the MV VS Code Extension
 
 [(top)](#table-of-contents)
 
@@ -72,7 +72,7 @@ This document describes how to install and use the MultiValue Basic Visual Studi
 
 VS Code is a free, open source, feature rich, IDE that allows programmers to develop and debug code in various languages. There is also a community of developers that have developed extensions that provide functionality for VS Code that isn't built into the main program.
 
-The MVBasic extension provides developers to gain the features of VS Code with MV BASIC programs. This extension provides connectivity to your MultiValue database, reading and writing code and is currently available for jBASE, OpenQM, MVON#, D3, Universe and Unidata. If the source code files are stored in O/S directories that are accessible by the user's system, then it can access other variants of MultiValue database.
+The MV Basic extension provides developers to gain the features of VS Code with MV BASIC programs. This extension provides connectivity to your MultiValue database, reading and writing code and is currently available for jBASE, OpenQM, MVON#, D3, Universe and Unidata. If the source code files are stored in O/S directories that are accessible by the user's system, then it can access other variants of MultiValue database.
 
 Details on how to connect to the different databases are explained in later chapters.
 
@@ -99,6 +99,7 @@ The following environment is required in order to use the extension.
 1. Windows, Linux or Mac OSX machine.
 2. VS Code
 3. MVGateway installed (optional, Windows only for remote editing)
+4. AccuTerm installed (optional, Windows only for remote editing and alternative to MVGateway)
 
 [(top)](#table-of-contents)
 
@@ -111,9 +112,9 @@ Select the version for your operating system. If you are running Windows, run ei
 
 [(top)](#table-of-contents)
 
-## 4. Installing MVBasic Extension
+## 4. Installing MV Basic Extension
 
-Before we can start using the MV features for VS Code, we need to install the MVBasic extension. VS Code has an automated download and installation process for extensions.
+Before we can start using the MV features for VS Code, we need to install the MV Basic extension. VS Code has an automated download and installation process for extensions.
 
 Start VS Code and select the Extensions Button. In the search box, type "mvbasic".
 
@@ -131,7 +132,7 @@ The extension allows users to connect to MV servers and edit, compile and catalo
 
 #### 5.1.1 Install the MVGateway
 
-In order for VS Code to communicate to your MV server install the MVGateway provided with the extension. The MVGateway runs as a Windows service and is installed using the Windows setup program provided. This setup program is included in `%userprofile%\.vscode\extension`. There will be a directory specific to the MVBasic extension. The name of this directory will change slightly with each new release of the extension because it contains the version number of the extension. In that directory is a MVGateway directory with the Windows MSI executable (setup program). Double-click on the MSI file and install the MVGateway service. The gateway does not need any special configuration or setup. The gateway can be installed on any Windows system in your network that has access to your computer and your MV server. Many users install it on their local system if they are running a Windows system.
+In order for VS Code to communicate to your MV server install the MVGateway provided with the extension. The MVGateway runs as a Windows service and is installed using the Windows setup program provided. This setup program is included in `%userprofile%\.vscode\extension`. There will be a directory specific to the MV Basic extension. The name of this directory will change slightly with each new release of the extension because it contains the version number of the extension. In that directory is a MVGateway directory with the Windows MSI executable (setup program). Double-click on the MSI file and install the MVGateway service. The gateway does not need any special configuration or setup. The gateway can be installed on any Windows system in your network that has access to your computer and your MV server. Many users install it on their local system if they are running a Windows system.
 
 #### 5.1.2 Configure the MVGateway
 
@@ -146,8 +147,8 @@ To connect to an MV Server, the following information is required:
 
 To create a new Workspace:
 
-1. Select "**Save Workspace As**" from **File** Menu. In this example, a folder called VS Code is used to store the Workspace definitions. As shown in the above screenshot, a blank Workspace called Demo is created that can now be configured to point to your MV server.
-2. To configure the connection parameters open the Workspace settings. One way to do that is to use the menu and select **File, Preference, Setting**.
+1. Select `Save Workspace As` from the `File` Menu. In this example, a folder called VS Code is used to store the Workspace definitions. As shown in the above screenshot, a blank Workspace called Demo is created that can now be configured to point to your MV server.
+2. To configure the connection parameters open the Workspace settings. One way to do that is to use the menu and select `File` -> `Preference` -> `Setting`.
 3. This will bring up the Settings pane in VS Code. Once this is open you MUST select the **Workspace Tab**. This is one area that VS Code has changed so your screen may appear a little different than these screenshots. For many users it is easier to edit the JSON version of the configuration rather than searching for each individual parameter. This is done by clicking on the Open Settings (JSON) button near the top right corner of your VS Code. You can then paste in the appropriate settings for the platform from section:
 
 - [7.1 Universe](#71-universe)
@@ -182,11 +183,11 @@ After adding all the parameters to the workspace, your settings should be like t
 }
 ```
 
-These are the base settings required to connect to an Universe MV Server. Press Ctl-S to save your settings.
+These are the base settings required to connect to an Universe MV Server. Press <kbd>Ctl+<kbd>S</kbd> to save your settings.
 
 #### 5.1.3 Testing the connection
 
-We can test to if the connection to MV server works by Pressing **F1** or Cmd/Ctrl-Shift-P. VS Code will prompt you for the command to run. Type **Connect** to display all commands with Connect in it and choose "Connect to Multivalue REST FS".
+We can test to if the connection to MV server works by Pressing <kbd>F1</kbd> or <kbd>Cmd</kbd>/<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>P</kbd>. VS Code will prompt you for the command to run. Type `Connect` to display all commands with Connect in it and choose `Connect to Multivalue REST FS`.
 
 The extension will connect to the server and retrieve a list of Directory files from the server. If the connection is successful, the following messages will appear at the bottom left of the screen.
 
@@ -199,8 +200,8 @@ See [section 7](#7-sample-config-files) for sample configuration files for each 
 To turn on logging in the MV Gateway, add the following to the settings section of the config file and the MVGateway service should log to c:\temp.
 
 ```json
-    "MVBasic.gatewayDebug": true,
-    "MVBasic.trace.server": "verbose"
+"MVBasic.gatewayDebug": true,
+"MVBasic.trace.server": "verbose"
 ```
 
 To test the RestFS connection manually, install a [REST client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) and review some request/response pairs to make sure the MVGateway service is connecting.
@@ -233,7 +234,7 @@ To use AccuTerm to connect the MV Basic extension to your MV server, you must be
 
 #### 5.2.1 Install the Host Programs
 
-After installing AccuTerm, update the host programs in the ACCUTERM account on your MV host (MultiValue -> Host Programs -> Update).
+After installing AccuTerm, update the host programs in the ACCUTERM account on your MV host via `MultiValue` -> `Host Programs` -> `Update`.
 
 #### 5.2.2 Usage
 
@@ -263,37 +264,37 @@ As you type your program, you will be prompted with available statements and fun
 
 ### 6.3 Find All References
 
-You can find all references to a word in your program by **right clicking** on a word and selecting **Find All References** from the menu.
+You can find all references to a word in your program by **right clicking** on a word and selecting `Find All References` from the menu.
 
-The display consists of 2 panels, the right containing the line that the word is in and the actual code block is in the left. Clicking on a line in the right panel will take you to the code block.
+The display consists of two panels, the right containing the line that the word is in and the actual code block is in the left. Clicking on a line in the right panel will take you to the code block.
 
 ![Find References](screenshots/find_references.gif)
 
 ### 6.4 Goto/Peek Definition
 
-If you **right click** on a internal or external subroutine name and select **Peek Definition** , a window appears showing the internal or external subroutine.
+If you **right click** on a internal or external subroutine name and select `Peek Definition` , a window appears showing the internal or external subroutine.
 
-If you select **Goto Definition** , the cursor is moved to start of the subroutine.
+If you select `Go to Definition`, the cursor is moved to start of the subroutine.
 
 ![Goto Definition](screenshots/goto_def.gif)
 
 ### 6.5 Internal Subroutine lookup
 
-Pressing **"Ctl-space"** after the word GOTO, GOSUB or GO TO, will allow you to select from defined internal subroutines in your program.
+Pressing <kbd>Ctl</kbd>+<kbd>Space</kbd> after the words `GOTO`, `GOSUB` or `GO TO`, will allow you to select from defined internal subroutines in your program.
 
 ### 6.6 Compiling and Cataloging your programs
 
-Right Clicking inside the code window allows you to select 3 options:
+**Right clicking** inside the code window allows you to select 3 options:
 
-1. Catalog Basic Program – catalogs the BASIC program
-2. Compile Basic Program – compiles the basic program.
-3. Compile Basic Program with Debug – compiles with the debug flag set.
+1. `Catalog Basic Program` – catalogs the BASIC program
+2. `Compile Basic Program` – compiles the basic program.
+3. `Compile Basic Program with Debug` – compiles with the debug flag set.
 
-After the option is selected, the results will be displayed in message box at the bottom of the screen. If an error is detected, the editor will place the cursor on the line where error occurs.
+After the option is selected, results are displayed in the `MV Basic` Output window, and errors have clickable links to the source.
 
 ### 6.7 Formatting Programs
 
-**Right Clicking** and selecting **Format Document** , will format your BASIC program. The formatting is based on the 2 settings, **MVBasic.indent** and **MVBasic.margin** that have default values of 3 and 5.
+**Right clicking** and selecting `Format Document` , will format your BASIC program. The formatting is based on the 2 settings, `MVBasic.indent` and `MVBasic.margin` that have default values of 3 and 5.
 
 [(top)](#table-of-contents)
 
@@ -429,7 +430,7 @@ After the option is selected, the results will be displayed in message box at th
 | MVBasic.Password    | MyPassword                                       | The password for the user above.                                        |
 | MVBasic.Account     |                                                  | This is blank, jBASE uses the default path of the user for the account. |
 
-A record in the **MD** called **MVONFILES** can used as a list of available files, alternatively all files are displayed.
+A record in the `MD` called `MVONFILES` can used as a list of available files, alternatively all files are displayed.
 
 ### 7.5 D3
 
@@ -463,7 +464,7 @@ A record in the **MD** called **MVONFILES** can used as a list of available file
 | MVBasic.AccountPassword |                                                  | Specify the account password if a password is set on the account. |
 | MVBasic.Account         | dm                                               | The D3 account to connect to.                                     |
 
-MSVP must be configured for the above account and the user must have MSVP access. A record in the **MD** called **VSCodeFILES** can be used as a list of available files, alternatively all files are displayed.
+MSVP must be configured for the above account and the user must have MSVP access. A record in the `MD` called `VSCodeFILES` can be used as a list of available files, alternatively all files are displayed.
 
 ### 7.6 mvBase
 
@@ -495,7 +496,7 @@ MSVP must be configured for the above account and the user must have MSVP access
 | MVBasic.UserName        | MyUserName                                       | The User name to log in with                                      |
 | MVBasic.AccountPassword | MyPassword                                       | Specify the account password if a password is set on the account. |
 
-MSVP must be configured for the above account and the user must have MSVP access. A record in the **MD** called **VSCodeFILES** can be used as a list of available files, alternatively all files are displayed.
+MSVP must be configured for the above account and the user must have MSVP access. A record in the `MD` called `VSCodeFILES` can be used as a list of available files, alternatively all files are displayed.
 
 ### 7.7 MVON&#35;
 
@@ -531,7 +532,7 @@ MVON# connects differently from other MV servers. It does not require the MVGate
 
 ### 7.8 Associating Programs with the MVextension
 
-Most programming languages have a file extension that says what language it is. Python is .py, C# is .cs etc. MV Basic typically does not follow this concept. To manually load the MVBasic extension, choose "Change Language Mode" from the command palette. Choose MVBasic from the dropdown and the extension will load. ctrl-K M MV is a quick keyboard shortcut to achieve that.
+Most programming languages have a file extension that says what language it is. Python is .py, C# is .cs etc. MV Basic typically does not follow this concept. To manually load the MV Basic extension, choose `Change Language Mode` from the command palette. Choose `MV Basic` from the dropdown and the extension will load. <kbd>Ctrl</kbd>+<kbd>K</kbd>+<kbd>M</kbd>+<kbd>MV</kbd> is a quick keyboard shortcut to achieve that.
 
 To automatically load the extension, we can configure the workspace so any files without a known extension are linked to the MV BASIC extension. This is achieved by adding the following setting to your Workspace settings.
 
@@ -561,12 +562,12 @@ To automatically load the extension, we can configure the workspace so any files
 In some cases the suggestions made by the extension can be an annoyance. To keep the suggestions, but only get auto-completion when tab is pressed, set:
 
 ```json
-    "editor.acceptSuggestionOnEnter": "off"
+"editor.acceptSuggestionOnEnter": "off"
 ```
 
-### 7.9 Additional MVBasic Developer Settings
+### 7.9 Additional MV Basic Developer Settings
 
-The following settings are available to customize your VS Code MVBasic Developer experience.
+The following settings are available to customize your VS Code MV Basic Developer experience.
 
 | Setting                   | Description                                                            |
 | ------------------------- | ---------------------------------------------------------------------- |
@@ -591,15 +592,15 @@ Additionally, this [Medium article](https://medium.com/@nafiszaman/multiple-curs
 If working with a Linux/Unix system, this extension allows a workflow where opening a local file automatically downloads/syncs from a remote server, and saving automatically uploads the changed file back to the server. Multiple profile support (for things like dev/uat/prod) is also helpful.
 
 ```json
-    "uploadOnSave": true
-    "downloadOnOpen": true
+"uploadOnSave": true
+"downloadOnOpen": true
 ```
 
 [VS Marketplace Link](https://marketplace.visualstudio.com/items?itemName=liximomo.sftp)
 
 ### 8.2 Insert Cursor at Beginning of Line
 
-Multiple cursors are one of the indispensible features of VS Code. You can create multiple cursors by alt-clicking, using ctrl-D to select one-by-one, or highlighting a block and ctrl+alt+I. This inserts a cursor at the end of the selected lines by default. This extension changes the behavior to insert the cursor at the start of the lines, which makes using cursor align easier.
+Multiple cursors are one of the indispensible features of VS Code. You can create multiple cursors by <kbd>Alt</kbd>-clicking, using <kbd>Ctrl</kbd>+<kbd>D</kbd> to select one-by-one, or highlighting a block and <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>I</kbd>. This inserts a cursor at the end of the selected lines by default. This extension changes the behavior to insert the cursor at the start of the lines, which makes using cursor align easier.
 
 [VS Marketplace Link](https://marketplace.visualstudio.com/items?itemName=kaiwood.insert-cursor-at-beginning-of-each-line-selected)
 
