@@ -126,9 +126,9 @@ Select the MV Developer Extension by clicking on the item in the list then choos
 
 ## 5. Connecting to a MultiValue Server
 
-The extension allows users to connect to MV servers and edit, compile and catalog BASIC programs. It currently supports two connection options: MVGateway or AccuTerm (version 7 and above).
+The extension allows users to connect to MV servers and edit, compile and catalog BASIC programs. It currently supports two connection options: MVGateway or [AccuTerm](https://www.zumasys.com/downloads/) (version 7.1+ with an add-on or version 8.0.1020+).
 
-While not required, it is recommended that you alter your workspace to set the following:
+While not required, it is recommended that you alter your VS Code User settings to specify the following:
 
 ```json
 "files.autoSave": false,
@@ -192,7 +192,7 @@ After adding all the parameters to the workspace, your settings should look simi
 }
 ```
 
-These are the base settings required to connect to an Universe MV Server. Press <kbd>Ctl+<kbd>S</kbd> to save your settings.
+These are the base settings required to connect to an Universe MV Server. Press <kbd>Ctl</kbd>+<kbd>S</kbd> to save your settings.
 
 #### 5.1.3 Testing the connection
 
@@ -303,7 +303,7 @@ After the option is selected, results are displayed in the `MV Basic` Output win
 
 ### 6.7 Formatting Programs
 
-**Right clicking** and selecting `Format Document` , will format your BASIC program. The formatting is based on the 2 settings, `MVBasic.indent` and `MVBasic.margin` that have default values of 3 and 5.
+**Right clicking** and selecting `Format Document`, will format your BASIC program. The formatting is based on the 2 settings, `MVBasic.indent` and `MVBasic.margin` that have default values of 3 and 5.
 
 [(top)](#table-of-contents)
 
