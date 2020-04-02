@@ -271,6 +271,8 @@ As you type your program, you will be prompted with available statements and fun
 
 ![IntelliSense](screenshots/intellisense.gif)
 
+As of version 2.0.4 the extension includes a setting called `MVBasic.languageType` which can be set to `MVON` (default), `jBASE`, `UniVerse` or `OpenQM`. Changing this setting will cause the language server to load the corresponding language definition file and adjust the responses for IntelliSense. Note that syntax highlighting and other code matching are not yet dynamically linked to this selection but that update will be forthcoming.
+
 ### 6.3 Find All References
 
 You can find all references to a word in your program by **right clicking** on a word and selecting `Find All References` from the menu.
