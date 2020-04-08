@@ -160,7 +160,7 @@
           "scope": "resource",
           "type": "boolean",
           "default": true,
-          "description": "Set to false to disable code formatting."
+          "description": "Set to true to enable code formatting."
         },
         "MVBasic.RemoteHost": {
           "scope": "resource",
