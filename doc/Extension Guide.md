@@ -586,7 +586,7 @@ The following settings are available to customize your VS Code MV Basic Develope
 | MVBasic.indent            | The number of characters to use when indenting code blocks.            |
 | MVBasic.useCamelCase      | Use CamelCase for Intellisense keywords.                               |
 | MVBasic.ignoreGotoScope   | The linter will not highlight goto that jump into the middle of loops. |
-| MVBasic.formattingEnabled | Set to false to disable code formatting.                               |
+| MVBasic.formattingEnabled | Set to true to enable automatic code formatting on filesave.           |
 
 ## 8. Recommended reading/extensions
 

@@ -160,7 +160,7 @@
           "scope": "resource",
           "type": "boolean",
           "default": true,
-          "description": "Set to true to enable code formatting."
+          "description": "Set to true to enable automatic code formatting on filesave."
         },
         "MVBasic.RemoteHost": {
           "scope": "resource",
