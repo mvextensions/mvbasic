@@ -239,7 +239,7 @@ Content-Type: application/json
 
 ### 5.2 Option 2 - AccuTerm
 
-To use AccuTerm to connect the MV Basic extension to your MV server, you must be running AccuTerm 7.1 or above (with an add-on) or AccuTerm 8.0.1020 or above (no add-on required).
+To use AccuTerm to connect the MV Basic extension to your MV server, you must be running AccuTerm 7.1 or above (with [this add-on](https://zdownload.blob.core.windows.net/accuterm/Miscellaneous/Windows/x86/1.0.4.0/accuterm-vscode-connector.exe)) or AccuTerm [8.0.1020](https://zdownload.blob.core.windows.net/accuterm/Standard/Windows/x86/8.0.1020.0/atwin_8.0.1020.exe) or above (no add-on required).
 
 #### 5.2.1 Install the Host Programs
 
