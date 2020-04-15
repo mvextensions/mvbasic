@@ -54,12 +54,14 @@ interface ExampleSettings {
   customWords: string;
   customWordPath: string;
   languageType: string;
+  trace: any; // expect trace.server is string enum 'off', 'messages', 'verbose'
 }
 
 let maxNumberOfProblems: number;
 let customWordList: string;
 let customWordPath: string;
 let languageType: string;
+let logLevel: number;
 let Intellisense: CompletionItem[] = [];
 
 // Label class represents instances of parsed labels in code, i.e. "LABEL.NAME:"
@@ -93,9 +95,11 @@ documents.listen(connection);
 
 // A document was opened
 documents.onDidOpen(event => {
-  connection.console.log(
-    `[Server(${process.pid})] Document opened: ${event.document.uri}`
-  );
+  if (logLevel) {
+    connection.console.log(
+      `[Server(${process.pid})] Document opened: ${event.document.uri}`
+    );
+  }
 });
 
 // The content of a text document has changed. This event is emitted
@@ -210,10 +214,11 @@ function loadIntelliSense() {
     }
   }
 
-  connection.console.log(
-    `[Server(${process.pid})] Language definition loaded for ${languageType}]`
-  );
-
+  if (logLevel) {
+    connection.console.log(
+      `[Server(${process.pid})] Language definition loaded for ${languageType}`
+    );
+  }
   return Intellisense;
 }
 
@@ -385,9 +390,6 @@ function validateTextDocument(textDocument: TextDocument): void {
   // First FOR/NEXT unbalanced
   for (let forvar of forDict.keys()) {
     let o = forDict.get(forvar);
-    console.log(
-      "FOR/NEXT key=" + forvar + " value=" + o.ctr + " line=" + o.line
-    );
     let errorMsg = "";
     if (o.ctr != 0) {
       if (o.ctr > 0) {
@@ -716,9 +718,11 @@ connection.onInitialize(
       _params.capabilities.textDocument &&
       _params.capabilities.textDocument.publishDiagnostics &&
       _params.capabilities.textDocument.publishDiagnostics.relatedInformation;
-    connection.console.log(
-      `[Server(${process.pid})] Started and initialize received`
-    );
+    if (logLevel) {
+      connection.console.log(
+        `[Server(${process.pid})] Started and initialize received`
+      );
+    }
     return {
       capabilities: {
         // Tell the client that the server works in FULL text document sync mode
@@ -749,7 +753,12 @@ connection.onDidChangeConfiguration(change => {
   customWordList = settings.MVBasic.customWords;
   customWordPath = settings.MVBasic.customWordPath;
   languageType = settings.MVBasic.languageType;
-
+  const _logLevel = <string>(settings.MVBasic.trace && settings.MVBasic.trace.server) || 'off';
+  switch (_logLevel) {
+    case 'messages': logLevel = 1; break;
+    case 'verbose': logLevel = 2; break;
+    default: logLevel = 0;
+  }
   loadIntelliSense();
 
   // Revalidate any open text documents
@@ -758,7 +767,9 @@ connection.onDidChangeConfiguration(change => {
 
 connection.onDidChangeWatchedFiles(_change => {
   // Monitored files have change in VSCode
-  connection.console.log("We received an file change event");
+  if (logLevel) {
+    connection.console.log("We received an file change event");
+  }
 });
 
 // This handler provides the initial list of the completion items.

@@ -45,9 +45,24 @@
        "runtimeExecutable": "${execPath}",
        "args": [
          "--extensionDevelopmentPath=${workspaceFolder}",
-         "D:/projects/mvbasic/accuterm-mvsvr-restfs/sample.code-workspace"
+         "C:/projects/mvbasic/accuterm-mvsvr-restfs/sample.code-workspace"
        ],
        "outFiles": ["${workspaceFolder}/client/out/test/**/*.js"]
+     }
+     ,
+     {
+       "name": "Gateway Test",
+       "type": "extensionHost",
+       "request": "launch",
+       "runtimeExecutable": "${execPath}",
+       "stopOnEntry": false,
+       "sourceMaps": true,
+       "outFiles": ["${workspaceFolder}/client/out/**/*.js"],
+        "args": [
+         "--extensionDevelopmentPath=${workspaceFolder}",
+         "C:/projects/mvbasic/jbase-gateway.code-workspace"
+       ],
+       "preLaunchTask": "npm: watch"
      }
   ],
   "compounds": [

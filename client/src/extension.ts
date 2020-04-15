@@ -39,6 +39,7 @@ var RestAPIVersion: number;
 var RestMaxItems: number;
 var RestSelAttr: number;
 var RestCaseSensitive: boolean;
+var logLevel: string;
 
 export function activate(context: ExtensionContext) {
 
@@ -96,8 +97,13 @@ export function activate(context: ExtensionContext) {
 		RestMaxItems = vscode.workspace.getConfiguration("MVBasic").get("RestFS.MaxItems", 0);
 		RestSelAttr = vscode.workspace.getConfiguration("MVBasic").get("RestFS.SelAttr", 0);
 		RestCaseSensitive = vscode.workspace.getConfiguration("MVBasic").get("RestFS.CaseSensitive");
+		logLevel = vscode.workspace.getConfiguration("MVBasic").get("trace.server", "off");
 		// gateway implies RestFS
 		UsingRest = UsingRest || UseGateway;
+		if (UsingRest && RESTFS) {
+			RESTFS.max_items = RestMaxItems;
+			RESTFS.sel_attr = RestSelAttr;			
+		}
 	}
 
 	// Reload the config if changes are made
@@ -141,7 +147,7 @@ export function activate(context: ExtensionContext) {
 		const connectRestFS = async function (): Promise<boolean> {
 
 			try {
-				RESTFS.initRestFS(RestPath, Account, { case_insensitive: !RestCaseSensitive, max_items: RestMaxItems, sel_attr: RestSelAttr });
+				RESTFS.initRestFS(RestPath, Account, { case_insensitive: !RestCaseSensitive, max_items: RestMaxItems, sel_attr: RestSelAttr, log_level: logLevel });
 
 				// send credentials (some of these are specific to the gateway)
 				const login = {
@@ -195,7 +201,7 @@ export function activate(context: ExtensionContext) {
 				vscode.workspace.getConfiguration("MVBasic").update("RestPath", RestPath, false);
 			}
 			if (RestPath === "") {
-				vscode.window.showInformationMessage('Please configure the RESTFul Path in the workspace settings.');
+				vscode.window.showInformationMessage('Please configure the RestPath in the workspace settings.');
 				return;
 			}
 			connectRestFS();
