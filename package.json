@@ -261,7 +261,8 @@
         "MVBasic.RestFS.AutoConnect": {
           "scope": "resource",
           "type": "boolean",
-          "default": "Automatically connect to the RestFS server without requiring a Connect command."
+          "default": false,
+          "description": "Automatically connect to the RestFS server without requiring a Connect command."
         },
         "MVBasic.RestFS.CaseSensitive": {
           "scope": "resource",
