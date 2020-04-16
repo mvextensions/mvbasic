@@ -819,25 +819,26 @@ export class RestFS implements vscode.FileSystemProvider {
             if (entry) {
                 this.log_level>1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", found in local cache");
             } else {
-                // not in local cache, try to read file from server
-                if (this.ApiVersion > 0 || uri.path.split('/').length >= 3) { // don't confuse dir/file for original API 
+                // not in local cache, try to read directory from server (try directory before file,
+                // so we don't end up treating D and F pointers as records)
+                if (this.ApiVersion > 0 || uri.path.split('/').length < 3) { // don't confuse dir/file for original API 
                     try {
-                        this._readFile(uri, true);
+                        this._readDirectory(uri, true);
                         entry = this._lookup(uri);
                     } catch(e) {
-                        this.log_level>1 && getTraceChannel().appendLine("[RestFS] stat: readFile path=" + uri.path + ", exception=" + e.toString());
+                        this.log_level>1 && getTraceChannel().appendLine("[RestFS] stat: readDirectory path=" + uri.path + ", exception=" + e.toString());
                     }
-                }
+                }            
                 if (!entry) {
-                    // not in local cache, try to read directory from server
-                    if (this.ApiVersion > 0 || uri.path.split('/').length < 3) { // don't confuse dir/file for original API 
+                    // not in local cache, try to read file from server
+                    if (this.ApiVersion > 0 || uri.path.split('/').length >= 3) { // don't confuse dir/file for original API 
                         try {
-                            this._readDirectory(uri, true);
+                            this._readFile(uri, true);
                             entry = this._lookup(uri);
                         } catch(e) {
-                            this.log_level>1 && getTraceChannel().appendLine("[RestFS] stat: readDirectory path=" + uri.path + ", exception=" + e.toString());
+                            this.log_level>1 && getTraceChannel().appendLine("[RestFS] stat: readFile path=" + uri.path + ", exception=" + e.toString());
                         }
-                    }            
+                    }
                 }
                 this.log_level>1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + " type=" + (entry ? (entry.type===vscode.FileType.Directory?"directory":"file") : "none"));
             }
