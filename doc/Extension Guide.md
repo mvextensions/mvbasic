@@ -253,6 +253,66 @@ A new `VSCODE` command is included in AccuTerm is and used to initialize the con
 
 By launching VS Code with this command, all of the VS Code Workspace configuration is taken care of automatically.
 
+*Note: when using the `VSCODE` command with AccuTerm 8, the "server mode" will automatically terminate when you close VS Code. With AccuTerm 7, you must cancel "server mode" manually.*
+
+#### 5.2.3 Configuration
+
+The default configuration for the `VSCODE` command is usable in most environments, however there are some settings that can be customized. When using the `VSCODE` command to launch VS Code, a temporary workspace is constructed from a template workspace in the ACCUTERMCTRL file. This template is installed the first time you use the `VSCODE` command. You can edit this template if needed to customize certain behaviors. The default template is shown here.
+
+*Note: several settings will be moved to a separate configuration item in a future AccuTerm release, reducing the need to modify the workspace template. Special tokens enclosed in < > are substituted when the `VSCODE` command is invoked and normally should not be modified.*
+
+```json
+// AccuTerm VSCode Workspace Template
+//
+// To change the maximum number of items to list from any file,
+// change RestFS.MaxItems. To show items in a dictionary level
+// file, change RestFS.SelAttr to 208.
+{
+  "folders":[{"uri":"RestFS:/","name":"<ACCOUNT>"}],
+  "extensions":{"recommendations":["mvextensions.mvbasic"]},
+  "settings":{
+    "files.associations":{"*":"mvbasic"},
+    "files.exclude":{
+      "**/.git": true,
+      "**/.vscode": true,
+      "**/node_modules": true,
+      "**/pom.xml": true},
+    "files.eol":"\n",
+    "MVBasic.ServerName":"<SESSIONID>",
+    "MVBasic.Account":"<ACCOUNT>",
+    "MVBasic.RestPath":"http://localhost:3181/mvsvr/restfs",
+    "MVBasic.UseRestFS":true,
+    "MVBasic.languageType":"<DIALECT>",
+    "MVBasic.RestFS.AutoConnect":true,
+    "MVBasic.RestFS.RestAPI":1,
+    "MVBasic.RestFS.MaxItems":250,
+    "MVBasic.RestFS.SelAttr":32976,
+    "MVBasic.RestFS.CaseSensitive":<CASE>,
+    "MVBasic.EditFiles":[
+<ITEMS>
+    ]
+    }
+  }
+}
+
+```
+As noted in the comments above, you can change the maximum number of items that AccuTerm should return to VS Code for populating the file explorer. Also, the attributes used to select files (shown as directories in the explorer) and items (shown as files in the explorer) can be adjusted. The `SelAttr` property is a bit mask, which is the sum of any of the following values.
+
+| attribute | value |
+| --------------- | ------------ |
+| Read only | 1 |
+| Hidden | 2 |
+| System | 4 |
+| Folder | 16 |
+| Q-pointer | 64 |
+| Normal item | 128 |
+| Data items only | 32768 |
+
+Common selection attributes are 32976 (folder, q-pointer, normal items, data only), 208 (folder, q-pointer, normal items), 215 (everything).
+
+*Note: if you see an exclamation mark next to your MV account name in the VS Code file explorer, with the hover message "unable to resolve workspace folder", it is probably because your MD / VOC or contains more files than `MaxItems`.*
+
+
 [(top)](#table-of-contents)
 
 ## 6. MV Developer Features
