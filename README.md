@@ -75,6 +75,7 @@ This extension would not be possible without the hard work by Grant Hart, Perry 
 - [@JeffTeter](https://github.com/JeffTeter)
 - [@mikes-zum](https://github.com/mikes-zum)
 - [@MVDBMS-Solutions](https://github.com/MVDBMS-Solutions)
+- [@kpowick](https://github.com/kpowick)
 
 [code_of_conduct]: https://github.com/mvextensions/.github/blob/master/CODE_OF_CONDUCT.md
 [contribution_guidelines]: https://github.com/mvextensions/.github/blob/master/CONTRIBUTING.md
