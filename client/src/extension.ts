@@ -102,7 +102,7 @@ export function activate(context: ExtensionContext) {
 		UsingRest = UsingRest || UseGateway;
 		if (UsingRest && RESTFS) {
 			RESTFS.max_items = RestMaxItems;
-			RESTFS.sel_attr = RestSelAttr;			
+			RESTFS.sel_attr = RestSelAttr;
 		}
 	}
 
@@ -243,7 +243,7 @@ export function activate(context: ExtensionContext) {
 	});
 
 
-	// Push the disposable to the context's subscriptions so that the 
+	// Push the disposable to the context's subscriptions so that the
 	// client can be deactivated on extension deactivation
 	context.subscriptions.push(mvonAdmin);
 	context.subscriptions.push(disposable);
@@ -367,8 +367,6 @@ export function activate(context: ExtensionContext) {
 					// ignore labels
 					if (rLabel.test(line.text.trim()) == true) { continue }
 
-
-
 					var indentation = 0
 
 					if (RowLevel[i] === undefined) { continue; }
@@ -383,7 +381,9 @@ export function activate(context: ExtensionContext) {
 					if (new RegExp("(^end else$)", "i").test(line.text.trim()) == true) {
 						indentation -= indent
 					}
-					if (indentation < 0 || formattingEnabled) {
+
+					var blankLine = line.text.replace(/\s/g, "")
+					if (indentation < 1 || blankLine.length == 0) {
 						edits.push(vscode.TextEdit.replace(line.range, line.text.trim()))
 					}
 					else {
