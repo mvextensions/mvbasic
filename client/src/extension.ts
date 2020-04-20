@@ -367,10 +367,6 @@ export function activate(context: ExtensionContext) {
 					// ignore labels
 					if (rLabel.test(line.text.trim()) == true) { continue }
 
-					// ignore blank lines or lines that only contain spaces
-					var blankLine = line.text.replace(/\s/g, "")
-					if (blankLine.length == 0) { continue }
-
 					var indentation = 0
 
 					if (RowLevel[i] === undefined) { continue; }
@@ -385,7 +381,9 @@ export function activate(context: ExtensionContext) {
 					if (new RegExp("(^end else$)", "i").test(line.text.trim()) == true) {
 						indentation -= indent
 					}
-					if (indentation < 1) {
+
+					var blankLine = line.text.replace(/\s/g, "")
+					if (indentation < 1 || blankLine.length == 0) {
 						edits.push(vscode.TextEdit.replace(line.range, line.text.trim()))
 					}
 					else {
