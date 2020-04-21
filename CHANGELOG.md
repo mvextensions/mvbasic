@@ -24,3 +24,9 @@
 - Improve Regex for comments, split lines and for/next
 - Improve docs
 - Add additional language syntax test files
+
+## 2.0.5
+
+- Fix formattingEnabled setting to correctly enable/disable auto formatting
+- Improve RestFS API
+- Fix formatting issue with spacing and blank lines
