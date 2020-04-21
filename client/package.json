@@ -4,6 +4,7 @@
   "description": "MV Basic",
   "version": "2.0.5",
   "publisher": "mvextensions",
+  "license": "MIT",
   "icon": "images/mvbasic-logo.png",
   "preview": false,
   "keywords": [
