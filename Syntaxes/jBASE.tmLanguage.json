@@ -2,7 +2,6 @@
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "jBASE PickBASIC",
 	"patterns": [
-		
 		{
 			"match": "(\"([^\"]|\"\")*\")|('([^']|'')*')|(\\\\([^\\\\]|\\\\\\\\)*\\\\)",
 			"name": "string.other.quoted-or-unquoted.jbase"
@@ -31,20 +30,12 @@
 					"match": "(?i)(?<!\\.\\$)(KEY|ABS|ABSS|ADDS|ALPHA|ANDS|ASCII|ASSIGNED|BITAND|BITCHANGE|bitcheck|BITLOAD|BITNOT|BITOR|BITRESET|BITSET|BITTEST|BITXOR|BYTELEN|CALLONEXIT|CATS|CHANGE|CHAR|CHARS|CHDIR|CHECKSUM|COL1|COL2|COMPARE|CONVERT|COUNT|COUNTS|DATE|DCOUNT|DECRYPT|DIR|DIV|DIVS|DOWNCASE|DQUOTE|DROUND|DTX|EBCDIC|ENCRYPT|EREPLACE|EXP|EXTRACT|EQS|FADD|FDIV|FIELD|FIELDS|FILEINFO|FMT|FMTS|FMUL|FOLD|FSUB|GES|GETCWD|GETENV|GROUP|ICONV|ICONVS|IFS|INDEX|INDICES|INMAT|\\$INSERT|INSERT|INT|IOCTL|ISALPHA|ISALNUM|ISCNTRL|ISDIGIT|ISPRINT|ISSPACE|ISUPPER|JBASECOREDUMP|KEYIN|LEFT|LEN|LENS|LENDP|LES|LN|LOCALDATE|LOCALTIME|LOWCASE|LOWER|MAKETIMESTAMP|MAXIMUM|MATCH|MATCHES|MATCHFIELD|MINIMUM|MOD|MODS|MSLEEP|MULS|NEG|NEGS|NES|NOT|NOTS|NUM|OCONV|OCONVS|ORS|PUTENV|PWR|QUOTE|RAISE|RECORDLOCKED|REGEXP|REMOVE|REPLACE|REMOVE|RIGHT|RND|SADD|SDIV|SENTENCE|SEQ|SEQS|SIN|SMUL|SORT|SOUNDEX|SPACE|SPACES|SPLICE|SQRT|SQUOTE|SSUB|STATUS|STR|STRS|SUBR|SUBS|SUBSTRINGS|SUM|SUMMATION|SWAP|SYSTEM|TIME|TIMEDATE|TIMEDIFF|TIMEOUT|TIMESTAMP|TRANS|TRIM|TRIMB|TRIMBS|TRIMF|TRIMFS|TRIMS|UNASSIGNED|UNIQUEKEY|UPCASE|UTF8|XTD)(?!\\.\\$)\\b"
 				},
 				{
-					"match": "(?i)(^\\*.+|^\\s+\\*.+|^!.+|^\\s+!.*|^!|^\\*|^\\s*REM\\s*.*|\\;\\*.+|\\;\\s+\\*.+)",
-					"name": "comment.line.asterisk.jbase"
+					"name": "comment.line.asterisk.jbase",
+					"match": "(?i)(^|;)\\s*(\\*|!|REM\\s+?).*"
 				},
 				{
-					"match": "((?<=([0-9+]))\\*.+)",
-					"name": "comment.line.asterisk.jbase"
-				},				
-				{
-					"match": "((?<=([0-9+]):)\\*.+)",
-					"name": "comment.line.asterisk.jbase"
-				},				
-				{
-					"match": "((?<=([0-9+])\\s)\\*.+)",
-					"name": "comment.line.asterisk.jbase"
+					"name": "comment.line.asterisk.jbase",
+					"match": "(?<=[\\w]:|[0-9])\\s*(\\*|!|(?i)REM\\s+?).*"
 				},
 				{
 					"name": "constant.language.jbase",
