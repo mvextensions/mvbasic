@@ -31,6 +31,7 @@ All other trademarks and service marks are property of their respective holders.
     - [5.2 Option 2 - AccuTerm](#52-option-2---accuterm)
       - [5.2.1 Install the Host Programs](#521-install-the-host-programs)
       - [5.2.2 Usage](#522-usage)
+      - [5.2.3 Configuration](#523-configuration)
   - [6. MV Developer Features](#6-mv-developer-features)
     - [6.1 Syntax](#61-syntax)
     - [6.2 Intellisense](#62-intellisense)
@@ -304,14 +305,14 @@ The default configuration for the `VSCODE` command is usable in most environment
 ```
 As noted in the comments above, you can change the maximum number of items that AccuTerm should return to VS Code for populating the file explorer. Also, the attributes used to select files (shown as directories in the explorer) and items (shown as files in the explorer) can be adjusted. The `SelAttr` property is a bit mask, which is the sum of any of the following values.
 
-| attribute | value |
-| --------------- | ------------ |
-| Read only | 1 |
-| Hidden | 2 |
-| System | 4 |
-| Folder | 16 |
-| Q-pointer | 64 |
-| Normal item | 128 |
+| attribute       | value |
+| --------------- | ----- |
+| Read only       | 1     |
+| Hidden          | 2     |
+| System          | 4     |
+| Folder          | 16    |
+| Q-pointer       | 64    |
+| Normal item     | 128   |
 | Data items only | 32768 |
 
 Common selection attributes are 32976 (folder, q-pointer, normal items, data only), 208 (folder, q-pointer, normal items), 215 (everything).
