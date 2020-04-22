@@ -254,8 +254,8 @@ function validateTextDocument(textDocument: TextDocument): void {
   let rEndLoop = new RegExp("(repeat$)", "i");
   let rEndCase = new RegExp("(^end case)", "i");
   let rElseEnd = new RegExp("^(end else\\s.+)", "i");
-  let rComment = new RegExp("(^\\s*\\*.*|^\\s*!.*|^\\s*REM.*)", "i"); // (Start-of-line 0-or-more whitespace {* ! REM} Anything)
-  let tComment = new RegExp("(^.+)(;\\s*\\*.*|;\\s*!.*|;\\s*REM.*)", "i"); // (something)(; {whitespace} {* ! REM} Anything)
+  let rComment = new RegExp("^\\s*(\\*|!|REM\\s+?).*", "i"); // Start-of-line 0-or-more whitespace {* ! REM<space>} Anything
+  let tComment = new RegExp(";\\s*(\\*|!|REM\\s+?).*", "i"); // (something); {0-or-more whitespace} {* ! REM<space>} Anything
   let lComment = new RegExp("(^\\s*[0-9]+)(\\s*\\*.*)"); // number label with comments after
   let trailingComment = new RegExp("(\\*.+)|(;+)");
   let qStrings = new RegExp(
@@ -572,7 +572,7 @@ function validateTextDocument(textDocument: TextDocument): void {
       let labelName = "";
       let checkLabel = "";
       let cnt = 0;
-      values.forEach(function(value) {
+      values.forEach(function (value) {
         cnt++;
         if (
           value.toLowerCase() == "goto" ||
@@ -591,7 +591,7 @@ function validateTextDocument(textDocument: TextDocument): void {
                 .replace("*", "")
                 .replace(":", "");
             }
-            LabelList.forEach(function(label) {
+            LabelList.forEach(function (label) {
               checkLabel = label.LabelName;
               if (checkLabel == labelName) {
                 found = true;
@@ -669,7 +669,7 @@ function validateTextDocument(textDocument: TextDocument): void {
     }
   }
   // check for unreferenced labels
-  LabelList.forEach(function(label) {
+  LabelList.forEach(function (label) {
     if (label.Referenced === false) {
       let diagnosic: Diagnostic = {
         severity: DiagnosticSeverity.Warning,

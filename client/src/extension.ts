@@ -281,8 +281,8 @@ export function activate(context: ExtensionContext) {
 				let rBlockEnd = new RegExp("^(end|repeat|next\\s.+)$", "i")
 				let rElseEnd = new RegExp("^(end else\\s.+)", "i")
 				let rLabel = new RegExp("(^[0-9]+\\s)|(^[0-9]+:\\s)|(^[\\w]+:)");
-				let rComment = new RegExp("(^\\*.+|^\\s+\\*.+|^!.+|^\\s+!.*|^REM.+|^\\s+REM.+)", "i")
-				let tComment = new RegExp("(;\\*.+|;\\s+\\*.+)", "i");
+				let rComment = new RegExp("^\\s*(\\*|!|REM\\s+?).*", "i")
+				let tComment = new RegExp(";\\s*(\\*|!|REM\\s+?).*", "i");
 				let lComment = new RegExp("(^[0-9]+\\s+\\*)|(^[0-9]+\\s+;)|(^[0-9]+\\*)|(^[0-9]+;)")  // number label with comments after
 				let trailingComment = new RegExp("(\\*.+)|(;+)")
 				let spaces = "                                                           "
