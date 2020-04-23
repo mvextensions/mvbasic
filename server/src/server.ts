@@ -36,7 +36,6 @@ let connection: IConnection = createConnection(
   new IPCMessageWriter(process)
 );
 
-let currentDocument = "";
 let useCamelcase = true;
 let ignoreGotoScope = false;
 let shouldSendDiagnosticRelatedInformation: boolean | undefined = false;
@@ -105,7 +104,6 @@ documents.onDidOpen(event => {
 // The content of a text document has changed. This event is emitted
 // when the text document first opened or when its content has changed.
 documents.onDidChangeContent(change => {
-  currentDocument = change.document.getText();
   validateTextDocument(change.document);
 });
 
@@ -839,10 +837,10 @@ connection.onCompletionResolve(
 connection.onReferences(params => {
   var locations: Location[] = [];
   let uri = params.textDocument.uri;
-  let doc = documents.get(uri);
   let xpos = params.position.character;
   let ypos = params.position.line;
-  let lines = currentDocument.split(/\r?\n/g);
+  let doc = documents.get(uri);
+  let lines = doc.getText().split(/\r?\n/g);
   let line = lines[ypos];
   // scan back to the begining of the word
   while (xpos > 0) {
@@ -953,10 +951,11 @@ connection.onDocumentSymbol(params => {
 });
 
 connection.onDefinition(params => {
-  let x = params.textDocument.uri;
+  let uri = params.textDocument.uri;
   let xpos = params.position.character;
   let ypos = params.position.line;
-  let lines = currentDocument.split(/\r?\n/g);
+  let doc = documents.get(uri);
+  let lines = doc.getText().split(/\r?\n/g);
   let line = lines[ypos];
 
   // scan back to the begining of the word
@@ -1013,8 +1012,8 @@ connection.onDefinition(params => {
     let parts = params.textDocument.uri.split("/");
     parts[parts.length - 1] = definition;
     parts[parts.length - 2] = previousWord;
-    x = parts.join("/");
-    let newProgram = Location.create(x, {
+    uri = parts.join("/");
+    let newProgram = Location.create(uri, {
       start: { line: 0, character: 0 },
       end: { line: 0, character: line.length }
     });
@@ -1028,8 +1027,8 @@ connection.onDefinition(params => {
   ) {
     let parts = params.textDocument.uri.split("/");
     parts[parts.length - 1] = definition;
-    x = parts.join("/");
-    let newProgram = Location.create(x, {
+    uri = parts.join("/");
+    let newProgram = Location.create(uri, {
       start: { line: 0, character: 0 },
       end: { line: 0, character: line.length }
     });
@@ -1051,7 +1050,7 @@ connection.onDefinition(params => {
         }
       }
       if (label == definition) {
-        return Location.create(x, {
+        return Location.create(uri, {
           start: { line: i, character: 0 },
           end: { line: i, character: label.length }
         });
@@ -1059,7 +1058,7 @@ connection.onDefinition(params => {
     }
   }
 
-  return Location.create(x, {
+  return Location.create(uri, {
     start: { line: params.position.line, character: params.position.character },
     end: { line: params.position.line, character: params.position.character }
   });
@@ -1069,9 +1068,11 @@ connection.onHover((params: TextDocumentPositionParams): Hover | undefined => {
   if (Intellisense === undefined) {
     return undefined;
   }
+  let uri = params.textDocument.uri;
   let xpos = params.position.character;
   let ypos = params.position.line;
-  let lines = currentDocument.split(/\r?\n/g);
+  let doc = documents.get(uri);
+  let lines = doc.getText().split(/\r?\n/g);
   let line = lines[ypos];
   while (xpos > 0) {
     let char = line.substr(xpos, 1);
@@ -1130,25 +1131,3 @@ connection.onHover((params: TextDocumentPositionParams): Hover | undefined => {
   }
   return undefined;
 });
-
-/* OLD CODE
-connection.onDidOpenTextDocument((params) => {
-	// A text document got opened in VSCode.
-	// params.uri uniquely identifies the document. For documents store on disk this is a file URI.
-	// params.text the initial full content of the document.
-	currentDocument = params.textDocument.text;
-	connection.console.log(`${params.textDocument.uri} opened.`);
-});
-connection.onDidChangeTextDocument((params) => {
-	// The content of a text document did change in VSCode.
-	// params.uri uniquely identifies the document.
-	// params.contentChanges describe the content changes to the document.
-	currentDocument = params.contentChanges[0].text
-
-	connection.console.log(`${params.textDocument.uri} changed: ${JSON.stringify(params.contentChanges)}`);
-});
-connection.onDidCloseTextDocument((params) => {
-	// A text document got closed in VSCode.
-	// params.uri uniquely identifies the document.
-	connection.console.log(`${params.textDocument.uri} closed.`);
-});*/
