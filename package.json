@@ -333,20 +333,21 @@
     "test": "sh ./scripts/e2e.sh"
   },
   "devDependencies": {
-    "@types/mocha": "^2.2.48",
-    "@types/node": "^6.14.6",
-    "typescript": "^3.6.2"
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.13.2",
+    "typescript": "^3.8.3"
   },
   "dependencies": {
-    "@types/socket.io": "^1.4.40",
-    "deasync": "^0.1.15",
+    "@types/socket.io": "^2.1.4",
+    "@types/vscode": "^1.44.0",
+    "deasync": "^0.1.19",
     "enum-values": "^1.2.1",
     "fs": "0.0.1-security",
-    "iconv-lite": "^0.4.24",
-    "npm": "^6.13.4",
+    "iconv-lite": "^0.5.1",
+    "npm": "^6.14.4",
     "socket-io": "^1.0.0",
     "socket-promise": "^1.0.1",
-    "socket.io": "^2.2.0",
-    "vsce": "^1.62.0"
+    "socket.io": "^2.3.0",
+    "vsce": "^1.75.0"
   }
 }
