@@ -566,7 +566,6 @@ function validateTextDocument(textDocument: TextDocument): void {
         line = line.replace(",", " ");
       }
       let values = line.replace(";", " ").split(" ");
-      let found = false;
       let labelName = "";
       let checkLabel = "";
       let cnt = 0;
@@ -589,15 +588,14 @@ function validateTextDocument(textDocument: TextDocument): void {
                 .replace("*", "")
                 .replace(":", "");
             }
-            LabelList.forEach(function (label) {
-              checkLabel = label.LabelName;
-              if (checkLabel == labelName) {
-                found = true;
+            if (labelName) {
+              let labelMatch = LabelList.find(label => label.LabelName === labelName);
+              if (labelMatch) {
                 // set the referened flag
-                label.Referenced = true;
+                labelMatch.Referenced = true;
                 if (
-                  label.Level != RowLevel[i] &&
-                  label.Level > 1 &&
+                  labelMatch.Level != RowLevel[i] &&
+                  labelMatch.Level > 1 &&
                   ignoreGotoScope === false
                 ) {
                   // jumping into or out of a loop
@@ -631,36 +629,39 @@ function validateTextDocument(textDocument: TextDocument): void {
                   }
                   diagnostics.push(diagnosic);
                 }
+              } else {
+                let index = line.indexOf(labelName);
+                let diagnosic: Diagnostic = {
+                  severity: DiagnosticSeverity.Error,
+                  range: {
+                    start: { line: i, character: index },
+                    end: { line: i, character: index + labelName.length }
+                  },
+                  message: `${labelName} is not defined as a label in the program`,
+                  source: "MV Basic"
+                };
+                if (shouldSendDiagnosticRelatedInformation) {
+                  diagnosic.relatedInformation = [
+                    {
+                      location: {
+                        uri: textDocument.uri,
+                        range: {
+                          start: { line: i, character: index },
+                          end: { line: i, character: index + labelName.length }
+                        }
+                      },
+                      message: "Invalid GOTO or GOSUB"
+                    }
+                  ];
+                }
+                diagnostics.push(diagnosic);
+
+                connection.console.log(
+                  `[Server(${process.pid})] CheckLabel: ${checkLabel} + MatchedLabel: ${labelMatch}`
+                );
               }
-            });
-            cnt++;
-            if (!found) {
-              let index = line.indexOf(labelName);
-              let diagnosic: Diagnostic = {
-                severity: DiagnosticSeverity.Error,
-                range: {
-                  start: { line: i, character: index },
-                  end: { line: i, character: index + labelName.length }
-                },
-                message: `${labelName} is not defined as a label in the program`,
-                source: "MV Basic"
-              };
-              if (shouldSendDiagnosticRelatedInformation) {
-                diagnosic.relatedInformation = [
-                  {
-                    location: {
-                      uri: textDocument.uri,
-                      range: {
-                        start: { line: i, character: index },
-                        end: { line: i, character: index + labelName.length }
-                      }
-                    },
-                    message: "Invalid GOTO or GOSUB"
-                  }
-                ];
-              }
-              diagnostics.push(diagnosic);
             }
+            cnt++;
           }
         }
       });
