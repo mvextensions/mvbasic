@@ -893,7 +893,7 @@ connection.onDocumentSymbol(params => {
     "^(include |\\$include |\\s+include |\\s+\\$include)",
     "i"
   );
-  let rGoto = new RegExp("(call )", "i");
+  let rGoto = /(?<![\p{Zs}\t]*(\*|!).*)(?<!\/\*(?:(?!\*\/)[\s\S\r])*?)\b(call )+(?=[^\"]*(\"[^\"]*\"[^\"]*)*$)\b/i;
 
   let ans: SymbolInformation[] = [];
 
