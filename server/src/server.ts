@@ -276,8 +276,7 @@ function validateTextDocument(textDocument: TextDocument): void {
     }
     // remove trailing comments with a semi-colon
     if (tComment.test(line.trim()) === true) {
-      let comment = tComment.exec(line.trim()); // This does the regex match again, but assigns the results to comment array
-      line = comment![1];
+      line = line.replace(tComment, "").trim();
     }
 
     // remove comments after label (no semi-colon)
