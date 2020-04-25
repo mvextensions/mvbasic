@@ -56,6 +56,12 @@ interface ExampleSettings {
   trace: any; // expect trace.server is string enum 'off', 'messages', 'verbose'
 }
 
+// Describes a line inside a document
+interface DocumentLine {
+  lineNumber: number;
+  lineOfCode: string;
+}
+
 let maxNumberOfProblems: number;
 let customWordList: string;
 let customWordPath: string;
@@ -223,13 +229,12 @@ function loadIntelliSense() {
 function validateTextDocument(textDocument: TextDocument): void {
   let diagnostics: Diagnostic[] = [];
 
-  let lines = textDocument.getText().split(/\r?\n/g);
+  let originalLines = textDocument.getText().split(/\r?\n/g);
+  let lines: DocumentLine[] = [];
+  originalLines.forEach((lineOfCode, index) => lines.push({ lineNumber: index, lineOfCode }));
   let problems = 0;
   LabelList.length = 0;
-  // regex of all functions
-  //let rFunctions = RegExp("\\b(ABS|ABSS|ACCEPTCONNECTION|ACCEPT.SOCKET.CONNECTION|ACTIVEDIRECTORY|ADD.ACCOUNT|ADD.SQL.DATABASE|ADDS|ADDAUTHENTICATIONRULE|ADDREQUESTPARAMETER|ALPHA|ANDS|ASCII|ASSIGNED|BASE64ENCODE|BASE64DECODE|BITXOR|BUILDJSON|CACHE|CLEARCACHE|CATALOGUED|CATS|FUNNY|CHANGE|CHECKSUM|CHAR|HELPME|CLOSESOCKET|COMPARE|CONVERT|COL1|COL2|COUNT|COUNTS|CREATE.SERVER.SOCKET|CREATE.FOLDER|CREATEREQUEST|CREATESECUREREQUEST|CREATESECURITYCONTEXT|DATE|DCOUNT|DELETE|DELETEU|DELETEPH|DIV|DIVS|DOWNCASE|DQUOTE|EBCDIC|EMAIL|ENCODE|ENCRYPT|EREPLACE|EXTRACT|EQS|FILE.COPY|FILE.MOVE|FILE.DELETE|GROUP|KEYIN|LEFT|LEN|LENS|LISTU|LOWER|NOT|FADD|FCORRELATIVE|FIELD|FIELDS|FIELDSTORE|FILE.COPY|FILE.DELETE|FILE.MOVE|FILEINFO|FIX|FMT|FMTS|FOLD|GETUSERNAME|GTS|GUID|ICONV|ICONVS|IFS|IN|INDEX|INDICES|INITSERVERSOCKET|INLIST|INMAT|INSERT|INT|ISNULL|ISINDEX|ITYPE|KEYIN|LOCATE|LISTU|LISTREADU|LISTREADF|LTS|MESSAGE|MATCHFIELD|MAX|MAXIMUM|MINIMUM|MOD|MULS|NEG|NEGS|NOT|NUM|OCONV|OCONVS|OPEN.QUEUE|OPEN.SOCKET|PARSEBASIC|PARSEJSON|PARSESTRING|PASSWD|PATTERNMATCH|PCLTOPDF|PDFADDIMAGE|PDFOVERLAY|PDFPROTECT|PROCESS|PROTOCOLLOGGING|PWR|QUEUE.LENGTH|QUOTE|RAISE|RANDOMIZE|READSOCKET|READ.QUEUE|READ.SOCKET|RECORDLOCKED|REMOVE|REPLACE|REUSE|RIGHT|REGEX|REM|RND|SELECTINFO|SENTENCE|SEQ|SET.SQLDATABASE|SETHTTPDEFAULT|SETREQUESTHEADER|SOCKET.LISTENING|SOCKET.ESTABLISHED|SPACE|SPACES|SPLICE|STACK.PUSH|STACK.POP|SQUOTE|SQRT|STATUS|STOREDPROCEDURE|STR|SUBMITREQUEST|SUBR|SUBS|SUBSTRINGS|SUM|SUMMATION|SYSTEM|TABLEADD|TABLEGET|TABLEFIND|TABLECLEAR|TABLEREMOVE|TIME|TIMEDATE|TRANS|TRIM|TRIMB|TRIMF|TRIMS|TRIMBS|UPCASE|UNASSIGNED|WRITESOCKET|WRITE.SOCKET|WRITE.QUEUE)(\\()")
   // regex to extract labels
-  //let rLabel = new RegExp("(^[0-9]+\\b)|(^[0-9]+)|(^[0-9]+:\\s)|(^[\\w\\.]+:)");
   let rLabel = new RegExp(
     "(^[0-9]+\\b)|(^[0-9]+)|(^[0-9]+:\\s)|(^[\\w\\.]+:(?!\\=))",
     "i"
@@ -271,18 +276,18 @@ function validateTextDocument(textDocument: TextDocument): void {
   for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
     let line = lines[i];
     // ignore all comment lines
-    if (rComment.test(line.trim()) === true) {
+    if (rComment.test(line.lineOfCode.trim()) === true) {
       continue;
     }
     // remove trailing comments with a semi-colon
-    if (tComment.test(line.trim()) === true) {
-      line = line.replace(tComment, "").trim();
+    if (tComment.test(line.lineOfCode.trim()) === true) {
+      line.lineOfCode = line.lineOfCode.replace(tComment, "").trim();
     }
 
     // remove comments after label (no semi-colon)
-    if (lComment.test(line.trim()) === true) {
-      let comment = lComment.exec(line.trim()); // This does the regex match again, but assigns the results to comment array
-      line = comment![1];
+    if (lComment.test(line.lineOfCode.trim()) === true) {
+      let comment = lComment.exec(line.lineOfCode.trim()); // This does the regex match again, but assigns the results to comment array
+      line.lineOfCode = comment![1];
     }
 
     /* Before we do anything else, split line on ; *except* inside strings or parens.
@@ -291,10 +296,10 @@ function validateTextDocument(textDocument: TextDocument): void {
 			 There may be a way to do this with regexp, but it gets super hairy.
 			 See: https://stackoverflow.com/questions/23589174/regex-pattern-to-match-excluding-when-except-between
 		*/
-    if (line.indexOf(";") > 0) {
+    if (line.lineOfCode.indexOf(";") > 0) {
       let inString = false;
-      for (var j = 0; j < line.length; j++) {
-        let ch = line.charAt(j);
+      for (var j = 0; j < line.lineOfCode.length; j++) {
+        let ch = line.lineOfCode.charAt(j);
         if (
           ch === '"' ||
           ch === "'" ||
@@ -305,20 +310,20 @@ function validateTextDocument(textDocument: TextDocument): void {
           inString = !inString;
         }
         if (ch === ";" && !inString) {
-          let left = line.slice(0, j);
-          let right = line.slice(j + 1);
+          let left = line.lineOfCode.slice(0, j);
+          let right = line.lineOfCode.slice(j + 1);
           // Push the right side into the array lines, and deal with it later (including more splitting)
-          lines[i] = left;
-          lines.splice(i + 1, 0, right);
-          line = left;
+          lines[i] = { lineNumber: line.lineNumber, lineOfCode: left };
+          lines.splice(i + 1, 0, { lineNumber: line.lineNumber, lineOfCode: right });
+          line = lines[i];
           break;
         }
       }
     }
 
     // check opening and closing block FOR/NEXT
-    if (rStartFor.test(line.trim())) {
-      let forvar = getWord(line.trim(), 2);
+    if (rStartFor.test(line.lineOfCode.trim())) {
+      let forvar = getWord(line.lineOfCode.trim(), 2);
       let o = forDict.get(forvar);
       if (typeof o == "undefined") {
         o = { ctr: 1, line: i };
@@ -327,8 +332,8 @@ function validateTextDocument(textDocument: TextDocument): void {
       }
       forDict.set(forvar, o);
     }
-    if (rEndFor.test(line.trim())) {
-      let nextvar = getWord(line.trim(), 2);
+    if (rEndFor.test(line.lineOfCode.trim())) {
+      let nextvar = getWord(line.lineOfCode.trim(), 2);
       let o = forDict.get(nextvar);
       if (typeof o == "undefined") {
         o = { ctr: -1, line: i };
@@ -339,52 +344,52 @@ function validateTextDocument(textDocument: TextDocument): void {
     }
 
     // Check for CASE/LOOP
-    if (rStartCase.test(line.trim()) == true) {
+    if (rStartCase.test(line.lineOfCode.trim()) == true) {
       noCase++;
     }
-    if (rEndCase.test(line.trim()) == true) {
+    if (rEndCase.test(line.lineOfCode.trim()) == true) {
       noEndCase++;
     }
-    if (rStartLoop.test(line.trim()) == true) {
+    if (rStartLoop.test(line.lineOfCode.trim()) == true) {
       noLoop++;
     }
-    if (rEndLoop.test(line.trim()) == true) {
+    if (rEndLoop.test(line.lineOfCode.trim()) == true) {
       noEndLoop++;
     }
     // check block statements
-    if (rBlockStart.test(line.trim()) == true) {
+    if (rBlockStart.test(line.lineOfCode.trim()) == true) {
       Level++;
-      if (rBlockContinue.test(line.trim()) == false) {
+      if (rBlockContinue.test(line.lineOfCode.trim()) == false) {
         // single line statement
         Level--;
       }
     }
-    ``;
-    if (rBlockAlways.test(line.trim())) {
+
+    if (rBlockAlways.test(line.lineOfCode.trim())) {
       Level++;
     }
-    if (rBlockEnd.test(line.trim())) {
+    if (rBlockEnd.test(line.lineOfCode.trim())) {
       Level--;
     }
-    if (rElseEnd.test(line.trim()) == true) {
+    if (rElseEnd.test(line.lineOfCode.trim()) == true) {
       // decrement 1 to cater for end else stements
       Level--;
     }
     // 10  10:  start: labels
-    if (rLabel.test(line.trim()) === true) {
+    if (rLabel.test(line.lineOfCode.trim()) === true) {
       let label = "";
       if (line !== null) {
-        let labels = rLabel.exec(line.trim());
+        let labels = rLabel.exec(line.lineOfCode.trim());
         if (labels !== null) {
           label = labels[0].trim().replace(":", "");
         }
       }
-      LabelList.push(new Label(label, i, Level, false));
+      LabelList.push(new Label(label, line.lineNumber, Level, false));
     }
     RowLevel[i] = Level;
   }
-  // if we have unmatched specific blocks then display error
-  // First FOR/NEXT unbalanced
+
+  // Missing FOR/NEXT statements
   for (let forvar of forDict.keys()) {
     let o = forDict.get(forvar);
     let errorMsg = "";
@@ -394,12 +399,12 @@ function validateTextDocument(textDocument: TextDocument): void {
       } else {
         errorMsg = "Missing FOR Statement - NEXT " + forvar;
       }
-      let lineNo = o.line;
+      let line = lines[o.line];
       let diagnosic: Diagnostic = {
         severity: DiagnosticSeverity.Error,
         range: {
-          start: { line: lineNo, character: 0 },
-          end: { line: lineNo, character: lines[lineNo].length }
+          start: { line: line.lineNumber, character: 0 },
+          end: { line: line.lineNumber, character: line.lineOfCode.length }
         },
         message: errorMsg,
         source: "MV Basic"
@@ -410,8 +415,8 @@ function validateTextDocument(textDocument: TextDocument): void {
             location: {
               uri: textDocument.uri,
               range: {
-                start: { line: lineNo, character: 0 },
-                end: { line: lineNo, character: lines[lineNo].length }
+                start: { line: line.lineNumber, character: 0 },
+                end: { line: line.lineNumber, character: line.lineOfCode.length }
               }
             },
             message: errorMsg
@@ -422,89 +427,89 @@ function validateTextDocument(textDocument: TextDocument): void {
     }
   }
 
+  // Missing END CASE statement
   if (noCase != noEndCase) {
     // find the innermost for
-    let line = "";
     for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
-      line = lines[i];
-      if (rStartCase.test(line.trim()) == true) {
+      let line = lines[i];
+      if (rStartCase.test(line.lineOfCode.trim()) == true) {
         noCase--;
       }
       if (noCase == 0) {
-        break;
+        let diagnosic: Diagnostic = {
+          severity: DiagnosticSeverity.Error,
+          range: {
+            start: { line: line.lineNumber, character: 0 },
+            end: { line: line.lineNumber, character: line.lineOfCode.length }
+          },
+          message: `Missing END CASE statement`,
+          source: "MV Basic"
+        };
+        if (shouldSendDiagnosticRelatedInformation) {
+          diagnosic.relatedInformation = [
+            {
+              location: {
+                uri: textDocument.uri,
+                range: {
+                  start: { line: line.lineNumber, character: 0 },
+                  end: { line: line.lineNumber, character: line.lineOfCode.length }
+                }
+              },
+              message: "Missing END CASE statement"
+            }
+          ];
+        }
+        diagnostics.push(diagnosic);
       }
     }
-    let diagnosic: Diagnostic = {
-      severity: DiagnosticSeverity.Error,
-      range: {
-        start: { line: i, character: 0 },
-        end: { line: i, character: lines[i].length }
-      },
-      message: `Missing END CASE statement`,
-      source: "MV Basic"
-    };
-    if (shouldSendDiagnosticRelatedInformation) {
-      diagnosic.relatedInformation = [
-        {
-          location: {
-            uri: textDocument.uri,
-            range: {
-              start: { line: i, character: 0 },
-              end: { line: i, character: lines[i].length }
-            }
-          },
-          message: "Missing END CASE statement"
-        }
-      ];
-    }
-    diagnostics.push(diagnosic);
   }
+
+  // Missing REPEAT statement
   if (noLoop != noEndLoop) {
     // find the innermost for
-    let line = "";
     for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
-      line = lines[i];
-      if (rStartLoop.test(line.trim()) == true) {
+      let line = lines[i];
+      if (rStartLoop.test(line.lineOfCode.trim()) == true) {
         noLoop--;
       }
       if (noLoop == 0) {
-        break;
+        let diagnosic: Diagnostic = {
+          severity: DiagnosticSeverity.Error,
+          range: {
+            start: { line: line.lineNumber, character: 0 },
+            end: { line: line.lineNumber, character: line.lineOfCode.length }
+          },
+          message: `Missing REPEAT statement`,
+          source: "MV Basic"
+        };
+        if (shouldSendDiagnosticRelatedInformation) {
+          diagnosic.relatedInformation = [
+            {
+              location: {
+                uri: textDocument.uri,
+                range: {
+                  start: { line: line.lineNumber, character: 0 },
+                  end: { line: line.lineNumber, character: line.lineOfCode.length }
+                }
+              },
+              message: "Missing REPEAT statement"
+            }
+          ];
+        }
+        diagnostics.push(diagnosic);
       }
     }
-    let diagnosic: Diagnostic = {
-      severity: DiagnosticSeverity.Error,
-      range: {
-        start: { line: i, character: 0 },
-        end: { line: i, character: lines[i].length }
-      },
-      message: `Missing REPEAT statement`,
-      source: "MV Basic"
-    };
-    if (shouldSendDiagnosticRelatedInformation) {
-      diagnosic.relatedInformation = [
-        {
-          location: {
-            uri: textDocument.uri,
-            range: {
-              start: { line: i, character: 0 },
-              end: { line: i, character: lines[i].length }
-            }
-          },
-          message: "Missing REPEAT statement"
-        }
-      ];
-    }
-    diagnostics.push(diagnosic);
   }
+
+  // Missing END, END CASE or REPEAT statements
   // if Level is != 0, we have mis matched code blocks
   if (Level > 0) {
-    let lastLineLength = lines[lines.length - 1].length;
-
+    let lastLine = lines[lines.length - 1];
     let diagnosic: Diagnostic = {
       severity: DiagnosticSeverity.Error,
       range: {
-        start: { line: lines.length, character: 0 },
-        end: { line: lines.length, character: lastLineLength }
+        start: { line: lastLine.lineNumber, character: 0 },
+        end: { line: lastLine.lineNumber, character: lastLine.lineOfCode.length }
       },
       message: `Missing END, END CASE or REPEAT statements`,
       source: "ex"
@@ -515,8 +520,8 @@ function validateTextDocument(textDocument: TextDocument): void {
           location: {
             uri: textDocument.uri,
             range: {
-              start: { line: lines.length, character: 0 },
-              end: { line: i, character: lastLineLength }
+              start: { line: lastLine.lineNumber, character: 0 },
+              end: { line: lastLine.lineNumber, character: lastLine.lineOfCode.length }
             }
           },
           message: "One of the code blocks is missing an END"
@@ -525,46 +530,48 @@ function validateTextDocument(textDocument: TextDocument): void {
     }
     diagnostics.push(diagnosic);
   }
+
+  // Missing GO, GO TO, GOTO, GOSUB
   // regex to check for goto/gosub in a line
   let rGoto = new RegExp("((gosub|goto|go|go to)\\s\\w+)", "ig");
   for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
     let line = lines[i];
     // ignore comment lines
-    if (rComment.test(line.trim()) == true) {
+    if (rComment.test(line.lineOfCode.trim()) == true) {
       continue;
     }
     // remove trailing comments
-    if (tComment.test(line.trim()) == true) {
-      let comment = tComment.exec(line.trim());
+    if (tComment.test(line.lineOfCode.trim()) == true) {
+      let comment = tComment.exec(line.lineOfCode.trim());
       if (comment !== null) {
-        line = line.trim().replace(comment[0], "");
+        line.lineOfCode = line.lineOfCode.trim().replace(comment[0], "");
       }
     }
     lComment.lastIndex = 0;
-    if (lComment.test(line.trim()) === true) {
-      let comment = trailingComment.exec(line.trim());
+    if (lComment.test(line.lineOfCode.trim()) === true) {
+      let comment = trailingComment.exec(line.lineOfCode.trim());
       if (comment !== null) {
-        line = line.trim().replace(comment[0], "");
+        line.lineOfCode = line.lineOfCode.trim().replace(comment[0], "");
       }
     }
     // remove any quoted string
     qStrings.lastIndex = 0;
-    while (qStrings.test(line) == true) {
+    while (qStrings.test(line.lineOfCode) == true) {
       qStrings.lastIndex = 0;
-      let str = qStrings.exec(line);
+      let str = qStrings.exec(line.lineOfCode);
       if (str !== null) {
-        line = line.replace(str[0], "");
+        line.lineOfCode = line.lineOfCode.replace(str[0], "");
       }
       qStrings.lastIndex = 0;
     }
 
     // check any gosubs or goto's to ensure label is present
     rGoto.lastIndex = 0;
-    if (rGoto.test(line.trim()) == true) {
-      while (line.indexOf(",") > -1) {
-        line = line.replace(",", " ");
+    if (rGoto.test(line.lineOfCode.trim()) == true) {
+      while (line.lineOfCode.indexOf(",") > -1) {
+        line.lineOfCode = line.lineOfCode.replace(",", " ");
       }
-      let values = line.replace(";", " ").split(" ");
+      let values = line.lineOfCode.replace(";", " ").split(" ");
       let labelName = "";
       let checkLabel = "";
       let cnt = 0;
@@ -598,12 +605,12 @@ function validateTextDocument(textDocument: TextDocument): void {
                   ignoreGotoScope === false
                 ) {
                   // jumping into or out of a loop
-                  let index = line.indexOf(labelName);
+                  let index = line.lineOfCode.indexOf(labelName);
                   let diagnosic: Diagnostic = {
                     severity: DiagnosticSeverity.Error,
                     range: {
-                      start: { line: i, character: index },
-                      end: { line: i, character: index + labelName.length }
+                      start: { line: line.lineNumber, character: index },
+                      end: { line: line.lineNumber, character: index + labelName.length }
                     },
                     message: `${labelName} is trying to go out of scope`,
                     source: "ex"
@@ -614,9 +621,9 @@ function validateTextDocument(textDocument: TextDocument): void {
                         location: {
                           uri: textDocument.uri,
                           range: {
-                            start: { line: i, character: index },
+                            start: { line: line.lineNumber, character: index },
                             end: {
-                              line: i,
+                              line: line.lineNumber,
                               character: index + labelName.length
                             }
                           }
@@ -629,12 +636,12 @@ function validateTextDocument(textDocument: TextDocument): void {
                   diagnostics.push(diagnosic);
                 }
               } else {
-                let index = line.indexOf(labelName);
+                let index = line.lineOfCode.indexOf(labelName);
                 let diagnosic: Diagnostic = {
                   severity: DiagnosticSeverity.Error,
                   range: {
-                    start: { line: i, character: index },
-                    end: { line: i, character: index + labelName.length }
+                    start: { line: line.lineNumber, character: index },
+                    end: { line: line.lineNumber, character: index + labelName.length }
                   },
                   message: `${labelName} is not defined as a label in the program`,
                   source: "MV Basic"
@@ -645,8 +652,8 @@ function validateTextDocument(textDocument: TextDocument): void {
                       location: {
                         uri: textDocument.uri,
                         range: {
-                          start: { line: i, character: index },
-                          end: { line: i, character: index + labelName.length }
+                          start: { line: line.lineNumber, character: index },
+                          end: { line: line.lineNumber, character: index + labelName.length }
                         }
                       },
                       message: "Invalid GOTO or GOSUB"
@@ -666,7 +673,8 @@ function validateTextDocument(textDocument: TextDocument): void {
       });
     }
   }
-  // check for unreferenced labels
+
+  // Missing Labels
   LabelList.forEach(function (label) {
     if (label.Referenced === false) {
       let diagnosic: Diagnostic = {
