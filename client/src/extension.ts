@@ -271,7 +271,7 @@ export function activate(context: ExtensionContext) {
 			var edits: vscode.TextEdit[] = []
 
 			if (formattingEnabled) {
-				let rBlockStart = new RegExp("^(lock |key\\(|if |commit |rollback |readnext |open |write |writeu |writeuv |read |readv |readu |readvu |matreadu |locate |locate\\(|openseq |matread |create |readlist |openpath |find |findstr |bscan)", "i")
+				let rBlockStart = new RegExp("^(lock |key\\(|if |commit |rollback |readnext |open |write |writeu |writev |writevu |read |readv |readu |readvu |matreadu |locate |locate\\(|openseq |matread |create |readlist |openpath |find |findstr |bscan)", "i")
 				let rBlockCase = new RegExp("(^begin case)", "i")
 				let rBlockTransaction = new RegExp("(^begin transaction|^begin work)", "i")
 				let rBlockEndCase = new RegExp("(^end case)", "i")
