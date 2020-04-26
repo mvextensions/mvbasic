@@ -245,11 +245,8 @@ function validateTextDocument(textDocument: TextDocument): void {
     "i"
   );
   let rBlockAlways = new RegExp("(^for |^loop)", "i");
-  let rBlockContinue = new RegExp("(then$|else$|case$|on error$)", "i");
-  let rBlockEnd = new RegExp(
-    "^(end|end case|repeat|.+repeat$|next\\s.+)$",
-    "i"
-  );
+  let rBlockContinue = new RegExp("(then$|else$|case$|on error$|locked$)", "i");
+  let rBlockEnd = new RegExp("^(end|end case|repeat|.+repeat$|next\\s.+)$", "i");
   let rStartFor = new RegExp("^(for )", "i");
   let rStartLoop = new RegExp("(^loop)", "i");
   let rStartCase = new RegExp("(^begin case)", "i");
