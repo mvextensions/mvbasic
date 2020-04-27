@@ -241,7 +241,7 @@ function validateTextDocument(textDocument: TextDocument): void {
   );
   // regex for statements that start a block
   let rBlockStart = new RegExp(
-    "(^if |begin case|^readnext |open |read |readv |readu |locate |openseq |matread |create |readlist |openpath |find |findstr )",
+    "(^if |begin case|^readnext |open |read |readv |readu |readt |locate |openseq |matread |create |readlist |openpath |find |findstr )",
     "i"
   );
   let rBlockAlways = new RegExp("(^for |^loop)", "i");
