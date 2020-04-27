@@ -2,8 +2,9 @@
   "name": "mvbasic",
   "displayName": "MV Basic",
   "description": "MV Basic",
-  "version": "2.0.1",
+  "version": "2.0.5",
   "publisher": "mvextensions",
+  "license": "MIT",
   "icon": "images/mvbasic-logo.png",
   "preview": false,
   "keywords": [
@@ -32,6 +33,7 @@
     "postinstall": "vscode-install"
   },
   "dependencies": {
+    "minimatch": "^3.0.4",
     "sync-request": "^6.1.0",
     "vscode": "^1.1.14",
     "vscode-languageclient": "^4.1.3"

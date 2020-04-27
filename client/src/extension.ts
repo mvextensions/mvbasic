@@ -7,26 +7,44 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 
-const request = require("sync-request");
-import { RestFS } from "./RestFS"
+import { RestFS } from "./RestFS";
+import { RestFSAttr } from "./RestFS";
 
 import { workspace, ExtensionContext } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient';
 import fs = require('fs')
 
-
-
-
-var UsingRest: Boolean = false;
-
+// Init our config types--could use cleanup (TODO)
+var RESTFS: RestFS;
+var RemoteHost: string;
+var UserName: string;
+var Password: string;
+var Account: string;
+var AccountPath: string;
+var AccountPassword: string;
+var ServerName: string;
+var GatewayType: string;
+var UseGateway: boolean;
+var UsingRest: boolean;
+var margin: number;
+var indent: number;
+var formattingEnabled: boolean;
+var editFiles: any;
+var customWordColor: any;
+var customWordlist: string;
+var customWordPath: any;
+var RestPath: any;
+var AutoConnect: boolean;
+var RestAPIVersion: number;
+var RestMaxItems: number;
+var RestSelAttr: number;
+var RestCaseSensitive: boolean;
+var logLevel: string;
 
 export function activate(context: ExtensionContext) {
 
-	// initialise Remote REST FileSystem
-
-	const RESTFS = new RestFS();
-	context.subscriptions.push(vscode.workspace.registerFileSystemProvider('RestFS', RESTFS, { isCaseSensitive: true }));
-
+	// Load config straight away
+	loadConfig();
 
 	// The server is implemented in node
 	let serverModule = context.asAbsolutePath(
@@ -54,25 +72,50 @@ export function activate(context: ExtensionContext) {
 		}
 	}
 
-	let RemoteHost: string = vscode.workspace.getConfiguration("MVBasic").get("RemoteHost");
-	let UserName: string = vscode.workspace.getConfiguration("MVBasic").get("UserName");
-	let Password: string = vscode.workspace.getConfiguration("MVBasic").get("Password");
-	let Account: string = vscode.workspace.getConfiguration("MVBasic").get("Account")
-	let AccountPath: string = vscode.workspace.getConfiguration("MVBasic").get("AccountPath")
-	let AccountPassword: string = vscode.workspace.getConfiguration("MVBasic").get("AccountPassword")
-	let GatewayType: string = vscode.workspace.getConfiguration("MVBasic").get("GatewayType");
-	let UseGateway: string = vscode.workspace.getConfiguration("MVBasic").get("UseGateway");
-	//let HomePath: string = vscode.workspace.getConfiguration("MVBasic").get("homePath");
-	//let codePage: string = vscode.workspace.getConfiguration("MVBasic").get("encoding");
-	let margin: number = vscode.workspace.getConfiguration("MVBasic").get("margin");
-	let indent: number = vscode.workspace.getConfiguration("MVBasic").get("indent");
-	let formattingEnabled: boolean = vscode.workspace.getConfiguration("MVBasic").get("formattingEnabled");
-	let additionalFiles: any = vscode.workspace.getConfiguration("MVBasic").get("additionalFiles");
-	//let gatewayDebug: any = vscode.workspace.getConfiguration("MVBasic").get("gatewayDebug");
-	let customWordColor: any = vscode.workspace.getConfiguration("MVBasic").get("customWordColor");
-	let customWordlist: string = vscode.workspace.getConfiguration("MVBasic").get("customWords");
-	let customWordPath: any = vscode.workspace.getConfiguration("MVBasic").get("customWordPath");
-	let RestPath: any = vscode.workspace.getConfiguration("MVBasic").get("RestPath");
+	// Function to pull user's configs into our local variables
+	function loadConfig() {
+		RemoteHost = vscode.workspace.getConfiguration("MVBasic").get("RemoteHost");
+		UserName = vscode.workspace.getConfiguration("MVBasic").get("UserName");
+		Password = vscode.workspace.getConfiguration("MVBasic").get("Password");
+		Account = vscode.workspace.getConfiguration("MVBasic").get("Account")
+		AccountPath = vscode.workspace.getConfiguration("MVBasic").get("AccountPath")
+		AccountPassword = vscode.workspace.getConfiguration("MVBasic").get("AccountPassword")
+		ServerName = vscode.workspace.getConfiguration("MVBasic").get("ServerName");
+		GatewayType = vscode.workspace.getConfiguration("MVBasic").get("GatewayType");
+		UseGateway = vscode.workspace.getConfiguration("MVBasic").get("UseGateway");
+		UsingRest = vscode.workspace.getConfiguration("MVBasic").get("UseRestFS");
+		margin = vscode.workspace.getConfiguration("MVBasic").get("margin");
+		indent = vscode.workspace.getConfiguration("MVBasic").get("indent");
+		formattingEnabled = vscode.workspace.getConfiguration("MVBasic").get("formattingEnabled");
+		editFiles = vscode.workspace.getConfiguration("MVBasic").get("EditFiles");
+		customWordColor = vscode.workspace.getConfiguration("MVBasic").get("customWordColor");
+		customWordlist = vscode.workspace.getConfiguration("MVBasic").get("customWords");
+		customWordPath = vscode.workspace.getConfiguration("MVBasic").get("customWordPath");
+		RestPath = vscode.workspace.getConfiguration("MVBasic").get("RestPath");
+		AutoConnect = vscode.workspace.getConfiguration("MVBasic").get("RestFS.AutoConnect");
+		RestAPIVersion = vscode.workspace.getConfiguration("MVBasic").get("RestFS.RestAPI", 0);
+		RestMaxItems = vscode.workspace.getConfiguration("MVBasic").get("RestFS.MaxItems", 0);
+		RestSelAttr = vscode.workspace.getConfiguration("MVBasic").get("RestFS.SelAttr", 0);
+		RestCaseSensitive = vscode.workspace.getConfiguration("MVBasic").get("RestFS.CaseSensitive");
+		logLevel = vscode.workspace.getConfiguration("MVBasic").get("trace.server", "off");
+		// gateway implies RestFS
+		UsingRest = UsingRest || UseGateway;
+		if (UsingRest && RESTFS) {
+			RESTFS.max_items = RestMaxItems;
+			RESTFS.sel_attr = RestSelAttr;
+		}
+	}
+
+	// Reload the config if changes are made
+	vscode.workspace.onDidChangeConfiguration(event => {
+		if (event.affectsConfiguration("MVBasic")) {
+			loadConfig();
+		}
+	});
+
+	// default MV dir selection: file (folder), item (file), q-pointers (symlink), ignore items in dictionary level files
+	if (RestSelAttr === 0)
+		RestSelAttr = RestFSAttr.ATTR_FOLDER | RestFSAttr.ATTR_FILE | RestFSAttr.ATTR_SYMLINK | RestFSAttr.ATTR_DATAONLY;
 
 	let timeout: NodeJS.Timer | null = null;
 	var customWordDict = new Map();
@@ -91,68 +134,79 @@ export function activate(context: ExtensionContext) {
 	}
 
 
-
 	// Create the language client and start the client.
 	let disposable = new LanguageClient('mvbasic', 'MV Basic Server', serverOptions, clientOptions).start();
 
 
+	// initialise Remote REST FileSystem
+	if (UsingRest) {
 
+		RESTFS = new RestFS(RestAPIVersion);
+		context.subscriptions.push(vscode.workspace.registerFileSystemProvider('RestFS', RESTFS, { isCaseSensitive: RestCaseSensitive }));
 
-	let initialiseRestFS = vscode.commands.registerCommand('extension.initialiseRestFS', async () => {
-		// Check we have credentials and server details
-		let rPath = await vscode.window.showInputBox({ prompt: "Enter or select the REST path ", value: RestPath });
-		if (rPath != undefined) {
-			RestPath = rPath;
-			vscode.workspace.getConfiguration("MVBasic").update("RestPath", RestPath, false);
-		}
-		if (RestPath === "") {
-			vscode.window.showInformationMessage('Please configure the RESTFul Path in the workspace settings');
-			return;
-		}
-		RESTFS.RestPath = RestPath;
-		RESTFS.RestAccount = Account;
-		if (UseGateway) {
+		const connectRestFS = async function (): Promise<boolean> {
 
-			// send credentials if we are using the gateway
-			let login = {
-				"ServerIP": RemoteHost,
-				"ServerType": GatewayType,
-				"UserId": UserName,
-				"Password": Password,
-				"AccountName": Account,
-				"AccountPath": AccountPath,
-				"AccountPassword": AccountPassword
+			try {
+				RESTFS.initRestFS(RestPath, Account, { case_insensitive: !RestCaseSensitive, max_items: RestMaxItems, sel_attr: RestSelAttr, log_level: logLevel });
+
+				// send credentials (some of these are specific to the gateway)
+				const login = {
+					"ServerIP": RemoteHost,
+					"ServerType": GatewayType,
+					"ServerName": ServerName,
+					"UserId": UserName,
+					"Password": Password,
+					"AccountName": Account,
+					"AccountPath": AccountPath,
+					"AccountPassword": AccountPassword
+				};
+				await RESTFS.login(login);
+
+				// Display a message box to the user
+				vscode.window.showInformationMessage('Connected to RestFS server ' + RestPath);
+
+				// The next line ensures the file explorer will be loaded correctly
+				vscode.commands.executeCommand('workbench.files.action.refreshFilesExplorer');
+
+				// auto-open files
+				if (editFiles && (typeof editFiles == 'string' || editFiles instanceof Array)) {
+					if (typeof editFiles == 'string')
+						editFiles = [editFiles];
+					editFiles.forEach(async function (item: any) {
+						if (typeof item == 'string') {
+							let doc = await vscode.workspace.openTextDocument(vscode.Uri.parse('RestFS://' + item));
+							await vscode.window.showTextDocument(doc, { preview: false });
+						}
+					});
+				}
+				editFiles = undefined; // only once
+
+			} catch (e) {
+				vscode.window.showInformationMessage('Unable to connect to the RestFS server. Please check your settings.');
+				return false;
 			}
-			var log = request('POST', RestPath + "/login", { json: login });
-			if (log.statusCode != 200) {
-				vscode.window.showInformationMessage('Unable to connect to the REST server. Please check your settings');
+
+			return true;
+		};
+
+		if (AutoConnect) {
+			connectRestFS();
+		}
+
+		var initialiseRestFS = vscode.commands.registerCommand('extension.initialiseRestFS', async () => {
+			// Check we have credentials and server details
+			let rPath = await vscode.window.showInputBox({ prompt: "Enter or select the RestFS URI ", value: RestPath });
+			if (rPath != undefined) {
+				RestPath = rPath;
+				vscode.workspace.getConfiguration("MVBasic").update("RestPath", RestPath, false);
+			}
+			if (RestPath === "") {
+				vscode.window.showInformationMessage('Please configure the RestPath in the workspace settings.');
 				return;
 			}
-		}
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Using REST Path to ' + RestPath);
-		// get a list of files from the server
-		var files = request('GET', RestPath + "/dir/" + Account + "/");
-		if (files.statusCode != 200) {
-			vscode.window.showInformationMessage('Unable to retrieve file list. Please check your settings');
-			return;
-		}
-		var dirList = JSON.parse(files.body);
-		for (let i = 0; i < dirList.Directories.length; i++) {
-			if (dirList.Directories[i].Name.endsWith(".Lib")) {
-
-			}
-			else {
-				RESTFS.createDirectory(vscode.Uri.parse('RestFS:/' + dirList.Directories[i].Name + '/'));
-			}
-		}
-		// add any addional files specified in the config
-		for (let i = 0; i < additionalFiles.length; i++) {
-			RESTFS.createDirectory(vscode.Uri.parse('RestFS:/' + additionalFiles[i] + '/'));
-		}
-		UsingRest = true;
-		vscode.window.showInformationMessage("Connected");
-	});
+			connectRestFS();
+		});
+	}
 
 	let mvonAdmin = vscode.commands.registerCommand('extension.mvonAdmin', async () => {
 
@@ -189,217 +243,158 @@ export function activate(context: ExtensionContext) {
 	});
 
 
-	// Push the disposable to the context's subscriptions so that the 
+	// Push the disposable to the context's subscriptions so that the
 	// client can be deactivated on extension deactivation
 	context.subscriptions.push(mvonAdmin);
 	context.subscriptions.push(disposable);
 	context.subscriptions.push(initialiseRestFS);
 
-
-	let compile = vscode.commands.registerCommand('extension.compileProgram', async () => {
-		let filePath = vscode.window.activeTextEditor.document.fileName
-		// handle linux and OSX file paths
-		while (filePath.indexOf("/") > -1) {
-			filePath = filePath.replace("/", "\\");
-		}
-		let parts = filePath.split('\\')
-		let fileName = parts[parts.length - 1]
-		let programFile = parts[parts.length - 2]
-
-		if (UsingRest) {
-			var compile = request('GET', RestPath + "/compile/" + Account + "/" + programFile + "/" + fileName+"/")
-
-			var response = JSON.parse(compile.body);
-			if (response.Errors.length === 0) {
-				vscode.window.showInformationMessage(response.Result);
-			}
-			else {
-				vscode.window.showInformationMessage(response.Result);
-				for (let i = 0; i < response.Errors.length; i++) {
-					let errorMsg = "Line    : " + response.Errors[i].LineNo + "  \nError  : " + response.Errors[i].ErrorMessage + "  \nSource : " + response.Errors[i].Source
-					vscode.window.showErrorMessage(response.Result, errorMsg.split("\n")[0], errorMsg.split("\n")[1], errorMsg.split("\n")[2]);
-				}
-			}
-			return;
-		}
-	});
-
-	let catalog = vscode.commands.registerCommand('extension.catalogProgram', async () => {
-		let filePath = vscode.window.activeTextEditor.document.fileName
-		// handle linux and OSX file paths
-		while (filePath.indexOf("/") > -1) {
-			filePath = filePath.replace("/", "\\");
-		}
-		let parts = filePath.split('\\')
-		let fileName = parts[parts.length - 1]
-		let programFile = parts[parts.length - 2]
-		if (UsingRest) {
-			var catalog = request('GET', RestPath + "/catalog/" + Account + "/" + programFile + "/" + fileName+"/")
-			var msg = JSON.parse(catalog.body);
-			vscode.window.showInformationMessage(msg);
-			return;
-		}
-	});
-
-	let compileDebug = vscode.commands.registerCommand('extension.compileDebug', async () => {
-		let filePath = vscode.window.activeTextEditor.document.fileName
-		// handle linux and OSX file paths
-		while (filePath.indexOf("/") > -1) {
-			filePath = filePath.replace("/", "\\");
-		}
-		let parts = filePath.split('\\')
-		let fileName = parts[parts.length - 1]
-		let programFile = parts[parts.length - 2]
-		if (UsingRest) {
-			var compile = request('GET', RestPath + "/compile/" + Account + "/" + programFile + "/" + fileName + "/dg/")
-
-			var response = JSON.parse(compile.body);
-			if (response.Errors.length === 0) {
-				vscode.window.showInformationMessage(response.Result);
-			}
-			else {
-				vscode.window.showInformationMessage(response.Result);
-				for (let i = 0; i < response.Errors.length; i++) {
-					let errorMsg = "Line    : " + response.Errors[i].LineNo + "  \nError  : " + response.Errors[i].ErrorMessage + "  \nSource : " + response.Errors[i].Source
-					vscode.window.showErrorMessage(response.Result, errorMsg.split("\n")[0], errorMsg.split("\n")[1], errorMsg.split("\n")[2]);
-				}
-			}
-			return;
-		}
-
-	});
-
-	context.subscriptions.push(catalog);
-	context.subscriptions.push(compile);
-	context.subscriptions.push(compileDebug);
+	if (UsingRest) {
+		let compile = vscode.commands.registerCommand('extension.compileProgram', async () => {
+			RESTFS.command('compile', vscode.window.activeTextEditor.document.uri);
+		});
+		let compileDebug = vscode.commands.registerCommand('extension.compileDebug', async () => {
+			RESTFS.command('compile', vscode.window.activeTextEditor.document.uri, { debug: true });
+		});
+		let catalog = vscode.commands.registerCommand('extension.catalogProgram', async () => {
+			RESTFS.command('catalog', vscode.window.activeTextEditor.document.uri);
+		});
+		context.subscriptions.push(catalog);
+		context.subscriptions.push(compile);
+		context.subscriptions.push(compileDebug);
+	}
 
 	vscode.languages.registerDocumentFormattingEditProvider('mvbasic', {
 		provideDocumentFormattingEdits(document: vscode.TextDocument): vscode.TextEdit[] {
 			// first work out indents
 			// regex for statements that start a block
 			var edits: vscode.TextEdit[] = []
-			let rBlockStart = new RegExp("^(lock |key\\(|if |commit |rollback |readnext |open |write |writeu |writeuv |read |readv |readu |readvu |matreadu |locate |locate\\(|openseq |matread |create |readlist |openpath |find |findstr |bscan)", "i")
-			let rBlockCase = new RegExp("(^begin case)", "i")
-			let rBlockTransaction = new RegExp("(^begin transaction|^begin work)", "i")
-			let rBlockEndCase = new RegExp("(^end case)", "i")
-			let rBlockEndTransaction = new RegExp("(^end transaction|^end work)", "i")
-			let rBlockAlways = new RegExp("^(for|loop)", "i")
-			let rBlockContinue = new RegExp("(then$|else$|case$|on error$|locked$)", "i")
-			let rBlockEnd = new RegExp("^(end|repeat|next\\s.+)$", "i")
-			let rElseEnd = new RegExp("^(end else\\s.+)", "i")
-			let rLabel = new RegExp("(^[0-9]+\\s)|(^[0-9]+:\\s)|(^[\\w]+:)");
-			let rComment = new RegExp("(^\\*.+|^\\s+\\*.+|^!.+|^\\s+!.*|^REM.+|^\\s+REM.+)", "i")
-			let tComment = new RegExp("(;\\*.+|;\\s+\\*.+)", "i");
-			let lComment = new RegExp("(^[0-9]+\\s+\\*)|(^[0-9]+\\s+;)|(^[0-9]+\\*)|(^[0-9]+;)")  // number label with comments after
-			let trailingComment = new RegExp("(\\*.+)|(;+)")
-			let spaces = "                                                           "
-			if (indent === undefined) { indent = 3 }
-			if (margin === undefined) { margin = 5 }
+
+			if (formattingEnabled) {
+				let rBlockStart = new RegExp("^(lock |key\\(|if |commit |rollback |readnext |open |write |writeu |writeuv |read |readv |readu |readvu |matreadu |locate |locate\\(|openseq |matread |create |readlist |openpath |find |findstr |bscan)", "i")
+				let rBlockCase = new RegExp("(^begin case)", "i")
+				let rBlockTransaction = new RegExp("(^begin transaction|^begin work)", "i")
+				let rBlockEndCase = new RegExp("(^end case)", "i")
+				let rBlockEndTransaction = new RegExp("(^end transaction|^end work)", "i")
+				let rBlockAlways = new RegExp("^(for|loop)", "i")
+				let rBlockContinue = new RegExp("(then$|else$|case$|on error$|locked$)", "i")
+				let rBlockEnd = new RegExp("^(end|repeat|next\\s.+)$", "i")
+				let rElseEnd = new RegExp("^(end else\\s.+)", "i")
+				let rLabel = new RegExp("(^[0-9]+\\s)|(^[0-9]+:\\s)|(^[\\w]+:)");
+				let rComment = new RegExp("(^\\*.+|^\\s+\\*.+|^!.+|^\\s+!.*|^REM.+|^\\s+REM.+)", "i")
+				let tComment = new RegExp("(;\\*.+|;\\s+\\*.+)", "i");
+				let lComment = new RegExp("(^[0-9]+\\s+\\*)|(^[0-9]+\\s+;)|(^[0-9]+\\*)|(^[0-9]+;)")  // number label with comments after
+				let trailingComment = new RegExp("(\\*.+)|(;+)")
+				let spaces = "                                                           "
+				if (indent === undefined) { indent = 3 }
+				if (margin === undefined) { margin = 5 }
 
 
-			// first build a list of labels in the program and indentation levels
-			let Level = 0
-			var RowLevel: number[] = []
-			for (var i = 0; i < document.lineCount; i++) {
+				// first build a list of labels in the program and indentation levels
+				let Level = 0
+				var RowLevel: number[] = []
+				for (var i = 0; i < document.lineCount; i++) {
 
-				let curLine = document.lineAt(i);
-				let line = curLine.text;
-				if (rComment.test(line.trim()) == true) { continue }
-				// TODO ignore comment lines and
-				if (line.trim().startsWith("$")) { continue }
-				// remove trailing comments
+					let curLine = document.lineAt(i);
+					let line = curLine.text;
+					if (rComment.test(line.trim()) == true) { continue }
+					// TODO ignore comment lines and
+					if (line.trim().startsWith("$")) { continue }
+					// remove trailing comments
 
-				if (tComment.test(line.trim()) == true) {
-					let comment = tComment.exec(line.trim());
-					line = line.trim().replace(comment[0], "");
-
-				}
-				lComment.lastIndex = 0;
-				if (lComment.test(line.trim()) === true) {
-					let comment = trailingComment.exec(line.trim());
-					if (comment != null) {
+					if (tComment.test(line.trim()) == true) {
+						let comment = tComment.exec(line.trim());
 						line = line.trim().replace(comment[0], "");
-					}
-				}
-				// check opening and closing block for types
-				// check block statements
-				var position = i
-				RowLevel[i] = Level
 
-				if (rBlockStart.test(line.trim()) == true) {
-					Level++
-					if (rBlockContinue.test(line.trim()) == false) {
-						// single line statement
+					}
+					lComment.lastIndex = 0;
+					if (lComment.test(line.trim()) === true) {
+						let comment = trailingComment.exec(line.trim());
+						if (comment != null) {
+							line = line.trim().replace(comment[0], "");
+						}
+					}
+					// check opening and closing block for types
+					// check block statements
+					var position = i
+					RowLevel[i] = Level
+
+					if (rBlockStart.test(line.trim()) == true) {
+						Level++
+						if (rBlockContinue.test(line.trim()) == false) {
+							// single line statement
+							Level--
+						}
+						position = i + 1
+					}
+					if (rBlockCase.test(line.trim()) == true) {
+						// increment 2 to cater for case statement
+						Level++
+						Level++
+						position = i + 1
+					}
+					if (rBlockEndCase.test(line.trim()) == true) {
+						// decrement 2 to cater for case statement
+						Level--
 						Level--
 					}
-					position = i + 1
+					if (rElseEnd.test(line.trim()) == true) {
+						// decrement 1 to cater for end else stements
+						Level--
+					}
+					if (rBlockTransaction.test(line.trim()) == true) {
+						// increment 2 to cater for case statement
+						Level++
+						position = i + 1
+					}
+					if (rBlockEndTransaction.test(line.trim()) == true) {
+						// decrement 2 to cater for case statement
+						Level--
+					}
+					if (rBlockAlways.test(line.trim())) {
+						Level++
+						position = i + 1
+					}
+					if (rBlockEnd.test(line.trim())) {
+						Level--
+						position = i
+					}
+					RowLevel[position] = Level
 				}
-				if (rBlockCase.test(line.trim()) == true) {
-					// increment 2 to cater for case statement
-					Level++
-					Level++
-					position = i + 1
-				}
-				if (rBlockEndCase.test(line.trim()) == true) {
-					// decrement 2 to cater for case statement
-					Level--
-					Level--
-				}
-				if (rElseEnd.test(line.trim()) == true) {
-					// decrement 1 to cater for end else stements
-					Level--
-				}
-				if (rBlockTransaction.test(line.trim()) == true) {
-					// increment 2 to cater for case statement
-					Level++
-					position = i + 1
-				}
-				if (rBlockEndTransaction.test(line.trim()) == true) {
-					// decrement 2 to cater for case statement
-					Level--
-				}
-				if (rBlockAlways.test(line.trim())) {
-					Level++
-					position = i + 1
-				}
-				if (rBlockEnd.test(line.trim())) {
-					Level--
-					position = i
-				}
-				RowLevel[position] = Level
-			}
-			for (var i = 0; i < document.lineCount; i++) {
+				for (var i = 0; i < document.lineCount; i++) {
 
-				const line = document.lineAt(i);
-				// ignore labels
-				if (rLabel.test(line.text.trim()) == true) { continue }
+					const line = document.lineAt(i);
+					// ignore labels
+					if (rLabel.test(line.text.trim()) == true) { continue }
 
+					var indentation = 0
 
+					if (RowLevel[i] === undefined) { continue; }
 
-				var indentation = 0
+					indentation = (RowLevel[i] * indent) + margin
+					if (new RegExp("(^case\\s)", "i").test(line.text.trim()) == true) {
+						indentation -= indent
+					}
+					if (new RegExp("(^while\\s|^until\\s)", "i").test(line.text.trim()) == true) {
+						indentation -= indent
+					}
+					if (new RegExp("(^end else$)", "i").test(line.text.trim()) == true) {
+						indentation -= indent
+					}
 
-				if (RowLevel[i] === undefined) { continue; }
-
-				indentation = (RowLevel[i] * indent) + margin
-				if (new RegExp("(^case\\s)", "i").test(line.text.trim()) == true) {
-					indentation -= indent
-				}
-				if (new RegExp("(^while\\s|^until\\s)", "i").test(line.text.trim()) == true) {
-					indentation -= indent
-				}
-				if (new RegExp("(^end else$)", "i").test(line.text.trim()) == true) {
-					indentation -= indent
-				}
-				if (indentation < 0 || formattingEnabled != true) {
-					edits.push(vscode.TextEdit.replace(line.range, line.text.trim()))
-				}
-				else {
-					var regEx = "\\s{" + indentation + "}"
-					var formattedLine = new RegExp(regEx).exec(spaces)[0] + line.text.trim()
-					var formatted = vscode.TextEdit.replace(line.range, formattedLine)
-					edits.push(formatted)
+					var blankLine = line.text.replace(/\s/g, "")
+					if (indentation < 1 || blankLine.length == 0) {
+						edits.push(vscode.TextEdit.replace(line.range, line.text.trim()))
+					}
+					else {
+						var regEx = "\\s{" + indentation + "}"
+						var formattedLine = new RegExp(regEx).exec(spaces)[0] + line.text.trim()
+						var formatted = vscode.TextEdit.replace(line.range, formattedLine)
+						edits.push(formatted)
+					}
 				}
 			}
+
 			return edits
 		}
 	});
@@ -457,4 +452,11 @@ export function activate(context: ExtensionContext) {
 		}
 		activeEditor.setDecorations(customDecoration, customWords);
 	}
+}
+
+export function deactivate() {
+	if (RESTFS) {
+		RESTFS.logout();
+	}
+	RESTFS = undefined;
 }

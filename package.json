@@ -2,8 +2,9 @@
   "name": "mvbasic",
   "displayName": "MV Basic",
   "description": "MV Basic",
-  "version": "2.0.1",
+  "version": "2.0.5",
   "publisher": "mvextensions",
+  "license": "MIT",
   "icon": "images/mvbasic-logo.png",
   "preview": false,
   "keywords": [
@@ -79,29 +80,29 @@
     "commands": [
       {
         "command": "extension.compileProgram",
-        "title": "Compile Basic Program"
+        "title": "MVBasic: Compile Basic Program"
       },
       {
         "command": "extension.initialiseRestFS",
-        "title": "Connect to MultiValue REST FS"
+        "title": "MVBasic: Connect to MultiValue REST FS"
       },
       {
         "command": "extension.compileDebug",
-        "title": "Compile Basic Program with Debug"
+        "title": "MVBasic: Compile Basic Program with Debug"
       },
       {
         "command": "extension.catalogProgram",
-        "title": "Catalog Basic Program"
+        "title": "MVBasic: Catalog Basic Program"
       },
       {
         "command": "extension.mvonAdmin",
-        "title": "MVON# Administrator"
+        "title": "MVBasic: MVON# Administrator"
       }
     ],
     "grammars": [
       {
         "language": "mvbasic",
-        "scopeName": "source.mvon",
+        "scopeName": "source.mvbasic",
         "path": "./Syntaxes/mvon.tmLanguage.json"
       }
     ],
@@ -160,7 +161,7 @@
           "scope": "resource",
           "type": "boolean",
           "default": true,
-          "description": "Set to false to disable code formatting."
+          "description": "Set to true to enable automatic code formatting on filesave."
         },
         "MVBasic.RemoteHost": {
           "scope": "resource",
@@ -216,17 +217,23 @@
           "default": "",
           "description": "The path the Unidata Account. This is only used for Unidata."
         },
+        "MVBasic.ServerName": {
+          "scope": "resource",
+          "type": "string",
+          "default": "",
+          "description": "The name of the AccuTerm FTSERVER session which handles the MVRest connection."
+        },
         "MVBasic.RemoteDebug": {
           "scope": "resource",
           "type": "boolean",
           "default": "false",
           "description": "Set to true when connecting to a Remote MVON# Host."
         },
-        "MVBasic.additionalFiles": {
+        "MVBasic.EditFiles": {
           "scope": "resource",
           "type": "array",
           "default": [],
-          "description": "Additional Files that must be including in the file list."
+          "description": "Files that should be opened in the editor."
         },
         "MVBasic.GatewayType": {
           "scope": "resource",
@@ -240,11 +247,47 @@
           "default": false,
           "description": "Connect to the MV Gateway."
         },
+        "MVBasic.UseRestFS": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": false,
+          "description": "Use the RestFS file system for accessing the MultiValue server."
+        },
         "MVBasic.RestPath": {
           "scope": "resource",
           "type": "string",
-          "default": "http://localhost/mvonrest",
-          "description": "The URL when connecting via the REST FileSystem"
+          "default": "http://localhost:9005/mvonrest",
+          "description": "The URL when connecting via the RestFS file system."
+        },
+        "MVBasic.RestFS.AutoConnect": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically connect to the RestFS server without requiring a Connect command."
+        },
+        "MVBasic.RestFS.CaseSensitive": {
+          "scope": "resource",
+          "type": "boolean",
+          "default": true,
+          "description": "The RestFS file system is case sensitive."
+        },
+        "MVBasic.RestFS.MaxItems": {
+          "scope": "resource",
+          "type": "number",
+          "default": 500,
+          "description": "The maximum number of items the RestFS file system can return when reading a directory."
+        },
+        "MVBasic.RestFS.SelAttr": {
+          "scope": "resource",
+          "type": "number",
+          "default": 0,
+          "description": "A bitmask of RestFSAttr which limits the items are returned when reading a directory. Default is: folder, file, symlink and data-only."
+        },
+        "MVBasic.RestFS.RestAPI": {
+          "scope": "resource",
+          "type": "number",
+          "default": 0,
+          "description": "The RestFS API version to use. 0 for original MVON# REST gateway, 1 for new gateway, mvConnect, AccuTerm connector."
         },
         "MVBasic.trace.server": {
           "scope": "window",
@@ -256,6 +299,18 @@
           ],
           "default": "off",
           "description": "Traces the communication between VSCode and the language server."
+        },
+        "MVBasic.languageType": {
+          "scope": "resource",
+          "type": "string",
+          "default": "MVON",
+          "enum": [
+            "MVON",
+            "jBASE",
+            "UniVerse",
+            "OpenQM"
+          ],
+          "description": "The flavor of PICK you are programming against, i.e. MVON, D3, jBASE."
         }
       }
     }
@@ -288,7 +343,7 @@
     "enum-values": "^1.2.1",
     "fs": "0.0.1-security",
     "iconv-lite": "^0.4.24",
-    "npm": "^6.9.0",
+    "npm": "^6.13.4",
     "socket-io": "^1.0.0",
     "socket-promise": "^1.0.1",
     "socket.io": "^2.2.0",
