@@ -848,7 +848,7 @@ export class RestFS implements IRestFS {
                 // so we don't end up treating D and F pointers as records)
                 if (this.ApiVersion > 0 || uri.path.split('/').length < 3) { // don't confuse dir/file for original API 
                     try {
-                        this._readDirectory(uri, true);
+                        this._readDirectory(uri);
                         entry = this._lookup(uri);
                     } catch(e) {
                         this.log_level>1 && getTraceChannel().appendLine("[RestFS] stat: readDirectory path=" + uri.path + ", exception=" + e.toString());
@@ -858,7 +858,7 @@ export class RestFS implements IRestFS {
                     // not in local cache, try to read file from server
                     if (this.ApiVersion > 0 || uri.path.split('/').length >= 3) { // don't confuse dir/file for original API 
                         try {
-                            this._readFile(uri, true);
+                            this._readFile(uri);
                             entry = this._lookup(uri);
                         } catch(e) {
                             this.log_level>1 && getTraceChannel().appendLine("[RestFS] stat: readFile path=" + uri.path + ", exception=" + e.toString());
