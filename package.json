@@ -326,14 +326,19 @@
   ],
   "main": "./client/out/extension",
   "scripts": {
-    "vscode:prepublish": "npm run compile",
+    "vscode:prepublish": "cd client && webpack --mode production && cd ../server && webpack --mode production",
+    "webpack": "cd client && webpack --mode development && cd ../server && webpack --mode development",
+    "webpack-dev": "cd client && webpack --mode development --watch && cd ../server && webpack --mode development --watch",
     "compile": "tsc -b",
     "watch": "tsc -b -w",
     "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
     "test": "sh ./scripts/e2e.sh"
   },
   "devDependencies": {
-    "typescript": "^3.8.3"
+    "ts-loader": "^7.0.1",
+    "typescript": "^3.8.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   },
   "dependencies": {}
 }

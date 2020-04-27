@@ -1091,16 +1091,14 @@ connection.onHover((params: TextDocumentPositionParams): Hover | undefined => {
   if (doc) {
     let lines = doc.getText().split(/\r?\n/g);
     let line = lines[ypos];
-    while (xpos > 0) {
-      let char = line.substr(xpos, 1);
+    let start = xpos;
+    while (start > 0) {
+      let char = line.substr(--start, 1);
       if (char == " ") {
+        start++;
         break;
       }
-      xpos--;
     }
-    let labelStart = xpos;
-    xpos = labelStart + 1;
-    let start = xpos;
     while (xpos < line.length) {
       if (line.substr(xpos, 1) == " ") {
         break;
