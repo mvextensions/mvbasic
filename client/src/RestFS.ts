@@ -7,6 +7,7 @@
 
 import * as path from 'path';
 import * as vscode from 'vscode';
+import { IRestFS, RestFSAttr } from './IRestFS';
 
 const request = require("sync-request");
 const Minimatch = require('minimatch').Minimatch;
@@ -57,26 +58,6 @@ export class Directory implements vscode.FileStat {
 
 export type Entry = File | Directory;
 
-// Note: these attribute values are roughly equivalent to MSDOS file
-// attributes and .NET FileAttributes. ATTR_SYMLINK would more correctly
-// be mapped to FileAttributes.ReparsePoint, but there is not a precise
-// correlation here. Hopefully a vscode update will provide a FileType
-// for ReadOnly.
-export const enum RestFSAttr {
-    ATTR_READONLY     = 0x0001, // item is read-only
-    ATTR_HIDDEN       = 0x0002, // item is hidden file or folder
-    ATTR_SYSTEM       = 0x0004, // item is a system file or folder
-    ATTR_VOLUME       = 0x0008, // unused (reserved)
-    ATTR_FOLDER       = 0x0010, // item is a "folder" (MV file - D, F or Q pointer)
-    ATTR_ARCHIVE      = 0x0020, // unused (reserved)
-    ATTR_SYMLINK      = 0x0040, // item is a symlink (MV Q-pointer)
-    ATTR_FILE         = 0x0080, // item is normal file (MV item)
-    ATTR_FIELD        = 0x0100, // item is a field definition (MV dictionary definition - A, S, I, V or D type)
-    ATTR_ACCOUNT      = 0x0200, // item is the account "folder" (MV account MD or VOC)
-    ATTR_ROOT         = 0x0400, // item is the root "folder"
-    ATTR_DATAONLY     = 0x8000  // when selecting files from MD, return only data (not dict) files
-}
-
 // define 3-level nested array used to represent MV dynamic array
 type SubArray = Array<string>;
 type ValArray = Array<string | SubArray>;
@@ -101,16 +82,17 @@ function getTraceChannel(): vscode.OutputChannel {
     return _trace_channel;
 }        
 
-export class RestFS implements vscode.FileSystemProvider {    
+export class RestFS implements IRestFS {    
 
-    private entries: Map<string, Entry>; // key = full path to dir or file
     public RestPath: string;
     public RestAccount: string;
     public ApiVersion: number;
+    public MaxItems: number; // max number of items to return using 'dir' action
+    public SelAttr: number; // default attributes to select using 'dir' action
+
+    private entries: Map<string, Entry>; // key = full path to dir or file
     private initialized: boolean;
     private case_insensitive: boolean;
-    public max_items: number; // max number of items to return using 'dir' action
-    public sel_attr: number; // default attributes to select using 'dir' action
     private auth: AuthInfo | {};
     private excludes: Array<any>;
     private root_refresh: boolean;
@@ -125,8 +107,8 @@ export class RestFS implements vscode.FileSystemProvider {
         this.RestPath = restPath.replace(/\/$/,''); // strip trailing slash if there is one
         this.RestAccount = restAccount;
         this.case_insensitive = (options && options.case_insensitive) || false;
-        this.max_items = (options && options.max_items) || 0;
-        this.sel_attr = (options && options.sel_attr) || 0;
+        this.MaxItems = (options && options.max_items) || 0;
+        this.SelAttr = (options && options.sel_attr) || 0;
         this.auth = undefined; // must call login to get auth token
         this.root_refresh = true; // refresh root directory on next readDirectory()
         switch ((options && options.log_level) || 'off') {
@@ -194,7 +176,7 @@ export class RestFS implements vscode.FileSystemProvider {
             }
         });
     }
-    _readDirectory(uri: vscode.Uri, quiet?: boolean): [string, vscode.FileType][] {
+    _readDirectory(uri: vscode.Uri): [string, vscode.FileType][] {
         
         // check if this directory is in our files.exclude
         if (this._excluded(uri)) {
@@ -220,18 +202,18 @@ export class RestFS implements vscode.FileSystemProvider {
         }
 
         // get directory & file list from server
-        const qs = "max_items=" + this.max_items + "&attr=" + this.sel_attr;
+        const qs = "max_items=" + this.MaxItems + "&attr=" + this.SelAttr;
         let res = request('GET', this.RestPath + path.posix.join("/dir", this.RestAccount, uri.path) + "?" + qs,
             { headers: this._request_headers() });
         if (res.statusCode != 200) {
             let message = "";
-            if ((!quiet) || (this.log_level>1)) {
+            if ((res.statusCode !== 404) || (this.log_level>1)) {
                 let resp = JSON.parse(res.body);
                 if (resp && resp.message) {
                     message = resp.message;
                     if (resp.code)
                         message += " (code=" + resp.code + ")";
-                    //if (!quiet)   // TODO: when we add attribute function to REST API, we can use this again to suppress unwanted noise
+                    if (res.statusCode != 404) // let vscode handle FileNotFound, but display error message for any other failure
                         vscode.window.showErrorMessage(message);
                 }
             }
@@ -310,7 +292,7 @@ export class RestFS implements vscode.FileSystemProvider {
             }
         });
     }
-    _readFile(uri: vscode.Uri, quiet?: boolean): Uint8Array {
+    _readFile(uri: vscode.Uri): Uint8Array {
 
         // check if this file is in our files.exclude
         if (this._excluded(uri)) {
@@ -328,13 +310,13 @@ export class RestFS implements vscode.FileSystemProvider {
             { headers: this._request_headers() });
         if (res.statusCode != 200) {
             let message = "";
-            if ((!quiet) || (this.log_level>1)) {
+            if ((res.statusCode !== 404) || (this.log_level>1)) {
                 let resp = JSON.parse(res.body);
                 if (resp && resp.message) {
                     message = resp.message;
                     if (resp.code)
                         message += "(code=" + resp.code + ")";
-                    if (!quiet)
+                    if (res.statusCode != 404) // let vscode handle FileNotFound, but display error message for any other failure                    
                         vscode.window.showErrorMessage(message);
                 }
             }
@@ -806,6 +788,49 @@ export class RestFS implements vscode.FileSystemProvider {
                 }
             }
         }
+    }
+
+    public call(func: string, ...args: any[]): any | Promise<any> {
+        if (!this.initialized) {
+            this.log_level>1 && getTraceChannel().appendLine("[RestFS] call: " + func + ", not initialized error");
+            throw Error("Call failed: RestFS not initialized");
+        }
+        getTraceChannel().appendLine("[RestFS] call: func=" + func + " " + args.length + " args");        
+        return new Promise((resolve, reject) => {
+            try {
+                resolve(this._call(func, args));
+            } catch(e) {
+                reject(e);
+            }
+        });
+    }
+    _call(func: string, args: any[]) : any {
+        getTraceChannel().appendLine("[RestFS] _call: func=" + func + " " + args.length + " args");        
+        if (this.ApiVersion == 0) {        
+            this.log_level>1 && getTraceChannel().appendLine("[RestFS] call: func=" + func + ", call not supported by gateway");
+            throw Error("Call not supported by gateway");
+        }
+        var res = request('POST', this.RestPath + path.posix.join('/call', func),
+        { json: {args: args}, headers: this._request_headers() });
+        if (res.statusCode != 200) {
+            let message = "";
+            let resp = JSON.parse(res.body);
+            if (resp && resp.message) {
+                message = resp.message;
+                if (resp.code)
+                    message += "(code=" + resp.code + ")";
+                vscode.window.showErrorMessage(message);
+            }
+            this.log_level>1 && getTraceChannel().appendLine("[RestFS] call: " + func + " request failed, status=" + res.statusCode + (message ? "\n" + message : ""));
+            throw Error("Failed to call " + func);
+        }
+        let results = JSON.parse(res.body);
+        if (!results.hasOwnProperty('result')) {
+            this.log_level>1 && getTraceChannel().appendLine("[RestFS] call " + func + ", no result found.");
+            throw Error("RestFS.call error - response from server has invalid format: result not found.");
+        }
+        this.log_level>1 && getTraceChannel().appendLine("[RestFS] call result: " + JSON.stringify(results.result));
+        return results.result;
     }
 
     // --- lookup

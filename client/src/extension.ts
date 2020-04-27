@@ -8,7 +8,7 @@ import * as path from 'path';
 import * as vscode from 'vscode';
 
 import { RestFS } from "./RestFS";
-import { RestFSAttr } from "./RestFS";
+import { RestFSAttr } from "./IRestFS";
 
 import { workspace, ExtensionContext } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient';
@@ -101,8 +101,8 @@ export function activate(context: ExtensionContext) {
 		// gateway implies RestFS
 		UsingRest = UsingRest || UseGateway;
 		if (UsingRest && RESTFS) {
-			RESTFS.max_items = RestMaxItems;
-			RESTFS.sel_attr = RestSelAttr;
+			RESTFS.MaxItems = RestMaxItems;
+			RESTFS.SelAttr = RestSelAttr;
 		}
 	}
 
@@ -452,6 +452,13 @@ export function activate(context: ExtensionContext) {
 		}
 		activeEditor.setDecorations(customDecoration, customWords);
 	}
+	
+	let api = {
+		getRestFS(): RestFS {
+			return RESTFS;
+		}		
+	};
+	return api;
 }
 
 export function deactivate() {
@@ -460,3 +467,4 @@ export function deactivate() {
 	}
 	RESTFS = undefined;
 }
+
