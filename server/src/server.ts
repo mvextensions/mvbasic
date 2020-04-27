@@ -10,7 +10,7 @@ import {
   createConnection,
   IConnection,
   TextDocuments,
-  TextDocument,
+  TextDocumentSyncKind,
   Diagnostic,
   DiagnosticSeverity,
   InitializeResult,
@@ -24,6 +24,10 @@ import {
   MarkedString,
   Hover
 } from "vscode-languageserver";
+
+import {
+  TextDocument
+} from 'vscode-languageserver-textdocument';
 
 import fs = require("fs");
 import * as path from "path";
@@ -92,7 +96,7 @@ var LabelList: Label[] = [];
 
 // Create a simple text document manager. The text document manager
 // supports full document sync only
-let documents: TextDocuments = new TextDocuments();
+let documents: TextDocuments<TextDocument> = new TextDocuments(TextDocument);
 
 // Make the text document manager listen on the connection
 // for open, change and close text document events
@@ -729,7 +733,7 @@ connection.onInitialize(
     return {
       capabilities: {
         // Tell the client that the server works in FULL text document sync mode
-        textDocumentSync: documents.syncKind,
+        textDocumentSync: TextDocumentSyncKind.Full,
         // Tell the client that the server support code complete
         completionProvider: {
           resolveProvider: true
@@ -785,35 +789,37 @@ connection.onCompletion(
     let lineNo = _textDocumentPosition.position.line;
     let charCount = _textDocumentPosition.position.character;
     let document = documents.get(_textDocumentPosition.textDocument.uri);
-    let lines = document.getText().split(/\r?\n/g);
-    let line = lines[lineNo].toLocaleLowerCase().replace("go to", "goto");
+    if (document) {
+      let lines = document.getText().split(/\r?\n/g);
+      let line = lines[lineNo].toLocaleLowerCase().replace("go to", "goto");
 
-    while (charCount > 0) {
-      charCount--;
-      let statement = "";
-      if (line[charCount] != " ") {
-        let wordStart = charCount;
-        while (charCount > 0) {
-          charCount--;
-          if (line[charCount] === " ") {
-            break;
+      while (charCount > 0) {
+        charCount--;
+        let statement = "";
+        if (line[charCount] != " ") {
+          let wordStart = charCount;
+          while (charCount > 0) {
+            charCount--;
+            if (line[charCount] === " ") {
+              break;
+            }
           }
-        }
-        if (charCount === 0) {
-          charCount--;
-        }
-        statement = line.substr(charCount + 1, wordStart - charCount);
+          if (charCount === 0) {
+            charCount--;
+          }
+          statement = line.substr(charCount + 1, wordStart - charCount);
 
-        if (
-          statement.toLocaleLowerCase() === "gosub" ||
-          statement.toLocaleLowerCase() === "goto"
-        ) {
-          for (let i = 0; i < LabelList.length; i++) {
-            Intellisense.push({
-              label: LabelList[i].LabelName,
-              kind: CompletionItemKind.Reference,
-              data: 999
-            });
+          if (
+            statement.toLocaleLowerCase() === "gosub" ||
+            statement.toLocaleLowerCase() === "goto"
+          ) {
+            for (let i = 0; i < LabelList.length; i++) {
+              Intellisense.push({
+                label: LabelList[i].LabelName,
+                kind: CompletionItemKind.Reference,
+                data: 999
+              });
+            }
           }
         }
       }
@@ -845,113 +851,116 @@ connection.onReferences(params => {
   let xpos = params.position.character;
   let ypos = params.position.line;
   let doc = documents.get(uri);
-  let lines = doc.getText().split(/\r?\n/g);
-  let line = lines[ypos];
-  // scan back to the begining of the word
-  while (xpos > 0) {
-    let char = line.substr(xpos, 1);
-    if (" +-*/><".indexOf(char) != -1) {
-      break;
+  if (doc) {
+    let lines = doc.getText().split(/\r?\n/g);
+    let line = lines[ypos];
+    // scan back to the begining of the word
+    while (xpos > 0) {
+      let char = line.substr(xpos, 1);
+      if (" +-*/><".indexOf(char) != -1) {
+        break;
+      }
+      xpos--;
     }
-    xpos--;
-  }
-  let labelStart = xpos;
-  xpos = labelStart + 1;
-  let start = xpos;
-  while (xpos < line.length) {
-    if (line.substr(xpos, 1) == " ") {
-      break;
+    let labelStart = xpos;
+    xpos = labelStart + 1;
+    let start = xpos;
+    while (xpos < line.length) {
+      if (line.substr(xpos, 1) == " ") {
+        break;
+      }
+      if (line.substr(xpos, 1) == "(") {
+        break;
+      }
+      if (line.substr(xpos, 1) == "<") {
+        break;
+      }
+      if (line.substr(xpos, 1) == "[") {
+        break;
+      }
+      if (line.substr(xpos, 1) == "/") {
+        break;
+      }
+      xpos++;
     }
-    if (line.substr(xpos, 1) == "(") {
-      break;
+    let word = line.substring(start, xpos);
+    let startPos = 0;
+    while (doc.getText().indexOf(word, startPos) != -1) {
+      startPos = doc.getText().indexOf(word, startPos);
+      let loc = Location.create(
+        uri,
+        convertRange(doc, { start: startPos, length: word.length })
+      );
+      locations.push(loc);
+      startPos++;
     }
-    if (line.substr(xpos, 1) == "<") {
-      break;
-    }
-    if (line.substr(xpos, 1) == "[") {
-      break;
-    }
-    if (line.substr(xpos, 1) == "/") {
-      break;
-    }
-    xpos++;
-  }
-  let word = line.substring(start, xpos);
-  let startPos = 0;
-  while (doc.getText().indexOf(word, startPos) != -1) {
-    startPos = doc.getText().indexOf(word, startPos);
-    let loc = Location.create(
-      uri,
-      convertRange(doc, { start: startPos, length: word.length })
-    );
-    locations.push(loc);
-    startPos++;
   }
   return locations;
 });
 
 connection.onDocumentSymbol(params => {
+  let ans: SymbolInformation[] = [];
   let uri = params.textDocument.uri;
   let doc = documents.get(uri);
-  let lines = doc.getText().split(/\r?\n/g);
-  let rInclude = new RegExp(
-    "^(include |\\$include |\\s+include |\\s+\\$include)",
-    "i"
-  );
-  let rGoto = /(?<![\p{Zs}\t]*(\*|!).*)(?<!\/\*(?:(?!\*\/)[\s\S\r])*?)\b(call )+(?=[^\"]*(\"[^\"]*\"[^\"]*)*$)\b/i;
-
-  let ans: SymbolInformation[] = [];
-
-  for (let i = 0; i < LabelList.length; i++) {
-    let lr: Range = Range.create(
-      LabelList[i].LineNumber,
-      0,
-      LabelList[i].LineNumber,
-      9999
+  if (doc) {
+    let lines = doc.getText().split(/\r?\n/g);
+    let rInclude = new RegExp(
+      "^(include |\\$include |\\s+include |\\s+\\$include)",
+      "i"
     );
-    let l: SymbolInformation = SymbolInformation.create(
-      LabelList[i].LabelName,
-      SymbolKind.Method,
-      lr,
-      params.textDocument.uri,
-      "Internal Subroutines"
-    );
-    ans.push(l);
-  }
-  for (let i = 0; i < lines.length; i++) {
-    let line = lines[i];
-    rGoto.lastIndex = 0;
-    if (rGoto.test(line.trim()) === true) {
-      let words = line.trim().split(" ");
-      for (let j = 0; j < words.length; j++) {
-        if (words[j].toLowerCase() === "call") {
-          let items = words[j + 1].split("(");
-          let li: Range = Range.create(i, 0, i, 9999);
-          let l: SymbolInformation = SymbolInformation.create(
-            items[0],
-            SymbolKind.Field,
-            li
-          );
-          ans.push(l);
-        }
-      }
-    }
-    if (rInclude.test(line.trim()) === true) {
-      let words = line.trim().split(" ");
-      let li: Range = Range.create(i, 0, i, 9999);
-      let includeName = words[1];
-      if (words.length > 2) {
-        includeName += "," + words[2];
-      }
+    let rGoto = /(?<![\p{Zs}\t]*(\*|!).*)(?<!\/\*(?:(?!\*\/)[\s\S\r])*?)\b(call )+(?=[^\"]*(\"[^\"]*\"[^\"]*)*$)\b/i;
+
+    for (let i = 0; i < LabelList.length; i++) {
+      let lr: Range = Range.create(
+        LabelList[i].LineNumber,
+        0,
+        LabelList[i].LineNumber,
+        9999
+      );
       let l: SymbolInformation = SymbolInformation.create(
-        includeName,
-        SymbolKind.File,
-        li
+        LabelList[i].LabelName,
+        SymbolKind.Method,
+        lr,
+        params.textDocument.uri,
+        "Internal Subroutines"
       );
       ans.push(l);
     }
-  }
+    for (let i = 0; i < lines.length; i++) {
+      let line = lines[i];
+      rGoto.lastIndex = 0;
+      if (rGoto.test(line.trim()) === true) {
+        let words = line.trim().split(" ");
+        for (let j = 0; j < words.length; j++) {
+          if (words[j].toLowerCase() === "call") {
+            let items = words[j + 1].split("(");
+            let li: Range = Range.create(i, 0, i, 9999);
+            let l: SymbolInformation = SymbolInformation.create(
+              items[0],
+              SymbolKind.Field,
+              li
+            );
+            ans.push(l);
+          }
+        }
+      }
+      if (rInclude.test(line.trim()) === true) {
+        let words = line.trim().split(" ");
+        let li: Range = Range.create(i, 0, i, 9999);
+        let includeName = words[1];
+        if (words.length > 2) {
+          includeName += "," + words[2];
+        }
+        let l: SymbolInformation = SymbolInformation.create(
+          includeName,
+          SymbolKind.File,
+          li
+        );
+        ans.push(l);
+      }
+    }
 
+  }
   return ans;
 });
 
@@ -960,105 +969,107 @@ connection.onDefinition(params => {
   let xpos = params.position.character;
   let ypos = params.position.line;
   let doc = documents.get(uri);
-  let lines = doc.getText().split(/\r?\n/g);
-  let line = lines[ypos];
+  if (doc) {
+    let lines = doc.getText().split(/\r?\n/g);
+    let line = lines[ypos];
 
-  // scan back to the begining of the word
-  while (xpos > 0) {
-    let char = line.substr(xpos, 1);
-    if (char == " ") {
-      break;
-    }
-    xpos--;
-  }
-  let labelStart = xpos;
-  xpos--;
-  // scan back to see if the previous word is a CALL
-  while (xpos > 0) {
-    let char = line.substr(xpos, 1);
-    if (char == " ") {
-      break;
-    }
-    xpos--;
-  }
-  if (xpos === 0) {
-    xpos = -1;
-  } // word is at begining of line
-  let previousWord = line.substr(xpos + 1, labelStart - xpos - 1);
-  let previousStart = xpos;
-  xpos--;
-  // could be using the format include nb.bp common so we need to check another word back
-  while (xpos > 0) {
-    let char = line.substr(xpos, 1);
-    if (char == " ") {
-      break;
-    }
-    xpos--;
-  }
-  if (xpos === 0) {
-    xpos = -1;
-  } // word is at begining of line
-  let thirdWord = line.substr(xpos + 1, previousStart - xpos - 1);
-  // scan forward to end of word
-
-  xpos = labelStart + 1;
-  let start = xpos;
-  while (xpos < line.length) {
-    if (line.substr(xpos, 1) == " ") {
-      break;
-    }
-    if (line.substr(xpos, 1) == "(") {
-      break;
-    }
-    xpos++;
-  }
-  let definition = line.substring(start, xpos);
-  if (thirdWord.toLocaleLowerCase().endsWith("include")) {
-    let parts = params.textDocument.uri.split("/");
-    parts[parts.length - 1] = definition;
-    parts[parts.length - 2] = previousWord;
-    uri = parts.join("/");
-    let newProgram = Location.create(uri, {
-      start: { line: 0, character: 0 },
-      end: { line: 0, character: line.length }
-    });
-    return newProgram;
-  }
-  // if we have a call, try and load program
-  if (
-    previousWord.toLocaleLowerCase() === "call" ||
-    previousWord.toLocaleLowerCase().endsWith("include") ||
-    previousWord.toLocaleLowerCase() === "chain"
-  ) {
-    let parts = params.textDocument.uri.split("/");
-    parts[parts.length - 1] = definition;
-    uri = parts.join("/");
-    let newProgram = Location.create(uri, {
-      start: { line: 0, character: 0 },
-      end: { line: 0, character: line.length }
-    });
-    return newProgram;
-  }
-  //let rLabel = new RegExp("(^[0-9]+\\s)|(^[0-9]+:\\s)|(^[\\w\\.]+:)", "i");
-  let rLabel = new RegExp(
-    "(^[0-9]+\\b)|(^[0-9]+)|(^[0-9]+:\\s)|(^[\\w\\.]+:(?!\\=))",
-    "i"
-  );
-  for (var i = 0; i < lines.length; i++) {
-    line = lines[i];
-    if (rLabel.test(line.trim()) == true) {
-      let label = "";
-      if (line !== null) {
-        let labels = rLabel.exec(line.trim());
-        if (labels !== null) {
-          label = labels[0].trim().replace(":", "");
-        }
+    // scan back to the begining of the word
+    while (xpos > 0) {
+      let char = line.substr(xpos, 1);
+      if (char == " ") {
+        break;
       }
-      if (label == definition) {
-        return Location.create(uri, {
-          start: { line: i, character: 0 },
-          end: { line: i, character: label.length }
-        });
+      xpos--;
+    }
+    let labelStart = xpos;
+    xpos--;
+    // scan back to see if the previous word is a CALL
+    while (xpos > 0) {
+      let char = line.substr(xpos, 1);
+      if (char == " ") {
+        break;
+      }
+      xpos--;
+    }
+    if (xpos === 0) {
+      xpos = -1;
+    } // word is at begining of line
+    let previousWord = line.substr(xpos + 1, labelStart - xpos - 1);
+    let previousStart = xpos;
+    xpos--;
+    // could be using the format include nb.bp common so we need to check another word back
+    while (xpos > 0) {
+      let char = line.substr(xpos, 1);
+      if (char == " ") {
+        break;
+      }
+      xpos--;
+    }
+    if (xpos === 0) {
+      xpos = -1;
+    } // word is at begining of line
+    let thirdWord = line.substr(xpos + 1, previousStart - xpos - 1);
+    // scan forward to end of word
+
+    xpos = labelStart + 1;
+    let start = xpos;
+    while (xpos < line.length) {
+      if (line.substr(xpos, 1) == " ") {
+        break;
+      }
+      if (line.substr(xpos, 1) == "(") {
+        break;
+      }
+      xpos++;
+    }
+    let definition = line.substring(start, xpos);
+    if (thirdWord.toLocaleLowerCase().endsWith("include")) {
+      let parts = params.textDocument.uri.split("/");
+      parts[parts.length - 1] = definition;
+      parts[parts.length - 2] = previousWord;
+      uri = parts.join("/");
+      let newProgram = Location.create(uri, {
+        start: { line: 0, character: 0 },
+        end: { line: 0, character: line.length }
+      });
+      return newProgram;
+    }
+    // if we have a call, try and load program
+    if (
+      previousWord.toLocaleLowerCase() === "call" ||
+      previousWord.toLocaleLowerCase().endsWith("include") ||
+      previousWord.toLocaleLowerCase() === "chain"
+    ) {
+      let parts = params.textDocument.uri.split("/");
+      parts[parts.length - 1] = definition;
+      uri = parts.join("/");
+      let newProgram = Location.create(uri, {
+        start: { line: 0, character: 0 },
+        end: { line: 0, character: line.length }
+      });
+      return newProgram;
+    }
+    //let rLabel = new RegExp("(^[0-9]+\\s)|(^[0-9]+:\\s)|(^[\\w\\.]+:)", "i");
+    let rLabel = new RegExp(
+      "(^[0-9]+\\b)|(^[0-9]+)|(^[0-9]+:\\s)|(^[\\w\\.]+:(?!\\=))",
+      "i"
+    );
+    for (var i = 0; i < lines.length; i++) {
+      line = lines[i];
+      if (rLabel.test(line.trim()) == true) {
+        let label = "";
+        if (line !== null) {
+          let labels = rLabel.exec(line.trim());
+          if (labels !== null) {
+            label = labels[0].trim().replace(":", "");
+          }
+        }
+        if (label == definition) {
+          return Location.create(uri, {
+            start: { line: i, character: 0 },
+            end: { line: i, character: label.length }
+          });
+        }
       }
     }
   }
@@ -1077,61 +1088,63 @@ connection.onHover((params: TextDocumentPositionParams): Hover | undefined => {
   let xpos = params.position.character;
   let ypos = params.position.line;
   let doc = documents.get(uri);
-  let lines = doc.getText().split(/\r?\n/g);
-  let line = lines[ypos];
-  while (xpos > 0) {
-    let char = line.substr(xpos, 1);
-    if (char == " ") {
-      break;
-    }
-    xpos--;
-  }
-  let labelStart = xpos;
-  xpos = labelStart + 1;
-  let start = xpos;
-  while (xpos < line.length) {
-    if (line.substr(xpos, 1) == " ") {
-      break;
-    }
-    if (line.substr(xpos, 1) == "(") {
-      break;
-    }
-    xpos++;
-  }
-  let definition = line.substring(start, xpos);
-  for (let i = 0; i < Intellisense.length; i++) {
-    if (
-      Intellisense[i].label == definition ||
-      Intellisense[i].label.toUpperCase() == definition.toUpperCase()
-    ) {
-      let currentDetail = Intellisense[i].detail;
-      let detail: String[] = [];
-      if (currentDetail !== undefined) {
-        detail = currentDetail.replace("\r", "").split("\n");
+  if (doc) {
+    let lines = doc.getText().split(/\r?\n/g);
+    let line = lines[ypos];
+    while (xpos > 0) {
+      let char = line.substr(xpos, 1);
+      if (char == " ") {
+        break;
       }
-      let currentDocumentation = Intellisense[i].documentation;
-      let documentation: String[] = [];
-      if (currentDocumentation !== undefined) {
-        documentation = currentDocumentation
-          .toString()
-          .replace("\r", "")
-          .split("\n");
+      xpos--;
+    }
+    let labelStart = xpos;
+    xpos = labelStart + 1;
+    let start = xpos;
+    while (xpos < line.length) {
+      if (line.substr(xpos, 1) == " ") {
+        break;
       }
-      let doc: MarkedString[] = [];
-      for (let i = 0; i < detail.length; i++) {
-        doc.push("```\r\n");
-        doc.push(detail[i] + "  \r\n\r\n");
-        doc.push("```\r\n");
+      if (line.substr(xpos, 1) == "(") {
+        break;
       }
-      doc.push("\r\n\r\n");
+      xpos++;
+    }
+    let definition = line.substring(start, xpos);
+    for (let i = 0; i < Intellisense.length; i++) {
+      if (
+        Intellisense[i].label == definition ||
+        Intellisense[i].label.toUpperCase() == definition.toUpperCase()
+      ) {
+        let currentDetail = Intellisense[i].detail;
+        let detail: String[] = [];
+        if (currentDetail !== undefined) {
+          detail = currentDetail.replace("\r", "").split("\n");
+        }
+        let currentDocumentation = Intellisense[i].documentation;
+        let documentation: String[] = [];
+        if (currentDocumentation !== undefined) {
+          documentation = currentDocumentation
+            .toString()
+            .replace("\r", "")
+            .split("\n");
+        }
+        let doc: MarkedString[] = [];
+        for (let i = 0; i < detail.length; i++) {
+          doc.push("```\r\n");
+          doc.push(detail[i] + "  \r\n\r\n");
+          doc.push("```\r\n");
+        }
+        doc.push("\r\n\r\n");
 
-      for (let i = 0; i < documentation.length; i++) {
-        doc.push(documentation[i] + "  \r\n\r\n");
-      }
+        for (let i = 0; i < documentation.length; i++) {
+          doc.push(documentation[i] + "  \r\n\r\n");
+        }
 
-      return {
-        contents: doc
-      };
+        return {
+          contents: doc
+        };
+      }
     }
   }
   return undefined;

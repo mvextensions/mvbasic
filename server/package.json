@@ -5,7 +5,7 @@
   "version": "2.0.6",
   "publisher": "mvextensions",
   "license": "MIT",
-  "icon": "images/mvbasic-logo.png",
+  "icon": "../images/mvbasic-logo.png",
   "preview": true,
   "keywords": [
     "MultiValue",
@@ -29,7 +29,11 @@
     "url": "https://github.com/mvextensions/mvbasic"
   },
   "dependencies": {
-    "vscode-languageserver": "^6.1.1"
+    "vscode-languageserver": "^6.1.1",
+    "vscode-languageserver-textdocument": "^1.0.1"
   },
-  "scripts": {}
+  "scripts": {},
+  "devDependencies": {
+    "@types/node": "^13.13.4"
+  }
 }
