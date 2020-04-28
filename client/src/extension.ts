@@ -275,7 +275,7 @@ export function activate(context: vscode.ExtensionContext) {
 				let rBlockTransaction = new RegExp("(^begin transaction|^begin work)", "i")
 				let rBlockEndCase = new RegExp("(^end case)", "i")
 				let rBlockEndTransaction = new RegExp("(^end transaction|^end work)", "i")
-				let rBlockAlways = new RegExp("^(for|loop)", "i")
+				let rBlockAlways = new RegExp("^(for |loop$|loop\\s+)", "i")
 				let rBlockContinue = new RegExp("(then$|else$|case$|on error$|locked$)", "i")
 				let rBlockEnd = new RegExp("^(end|repeat|next\\s.+)$", "i")
 				let rElseEnd = new RegExp("^(end else\\s.+)", "i")
