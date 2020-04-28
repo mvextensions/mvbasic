@@ -201,7 +201,7 @@
          {
             "key": "@Tm",
             "icon": 21,
-            "index": 16,
+            "index": 29,
             "documentation": "Return the text marker CHAR(251)",
             "detail": "@TM"
          },
@@ -234,16 +234,9 @@
             "detail": "END"
          },
          {
-            "key": "Gosub",
-            "icon": 3,
-            "index": 33,
-            "documentation": "The GOSUB statements transfers execution to the internal subroutine named. Exection is continued with the first statement after the GOSUB when a RETURN is encounterd",
-            "detail": "GOSUB label{:}"
-         },
-         {
             "key": "Upcase",
             "icon": 3,
-            "index": 2,
+            "index": 34,
             "documentation": "The UPCASE function converts an expression to all upper case characters.",
             "detail": "UPCASE(expression)"
          },
@@ -523,7 +516,7 @@
          {
             "key": "Not",
             "icon": 3,
-            "index":74,
+            "index": 74,
             "documentation": "Then NOT function return True (1) if the expression results in False or blank and False if the expression results in True or positive",
             "detail": "NOT(Expression)"
          },
@@ -547,6 +540,13 @@
             "index": 77,
             "documentation": "The FORMLIST statement converts a variable selectlist to a numbered selectlist",
             "detail": "FORMLIST variable TO Listnumber"
+         },
+         {
+            "key": "Gosub",
+            "icon": 3,
+            "index": 78,
+            "documentation": "The GOSUB statements transfers execution to the internal subroutine named. Exection is continued with the first statement after the GOSUB when a RETURN is encounterd",
+            "detail": "GOSUB label{:}"
          }
       ]
    }
