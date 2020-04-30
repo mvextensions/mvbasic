@@ -21,8 +21,9 @@ import {
   Range,
   SymbolInformation,
   SymbolKind,
-  MarkedString,
-  Hover
+  Hover,
+  MarkupContent,
+  MarkupKind
 } from "vscode-languageserver";
 
 import {
@@ -1127,20 +1128,19 @@ connection.onHover((params: TextDocumentPositionParams): Hover | undefined => {
             .replace("\r", "")
             .split("\n");
         }
-        let doc: MarkedString[] = [];
-        for (let i = 0; i < detail.length; i++) {
-          doc.push("```\r\n");
-          doc.push(detail[i] + "  \r\n\r\n");
-          doc.push("```\r\n");
-        }
-        doc.push("\r\n\r\n");
 
-        for (let i = 0; i < documentation.length; i++) {
-          doc.push(documentation[i] + "  \r\n\r\n");
-        }
+        let hoverContent: String[] = [];
+        hoverContent.push("```");
+        hoverContent.push(...detail);
+        hoverContent.push("```");
+        documentation.forEach(line => hoverContent.push(line + '\n'))
 
+        let markdownContent: MarkupContent = {
+          kind: MarkupKind.Markdown,
+          value: hoverContent.join('\n')
+        };
         return {
-          contents: doc
+          contents: markdownContent
         };
       }
     }
