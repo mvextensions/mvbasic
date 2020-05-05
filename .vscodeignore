@@ -3,3 +3,5 @@
 !file.ts
 **/*.vsix
 **/*.docx
+doc/
+tests/

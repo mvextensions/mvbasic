@@ -10,7 +10,6 @@ import * as vscode from 'vscode';
 import { RestFS } from "./RestFS";
 import { RestFSAttr } from "./RestFS";
 
-import { workspace, ExtensionContext } from 'vscode';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient';
 import fs = require('fs')
 
@@ -41,7 +40,7 @@ var RestSelAttr: number;
 var RestCaseSensitive: boolean;
 var logLevel: string;
 
-export function activate(context: ExtensionContext) {
+export function activate(context: vscode.ExtensionContext) {
 
 	// Load config straight away
 	loadConfig();
@@ -68,7 +67,7 @@ export function activate(context: ExtensionContext) {
 			// Synchronize the setting section 'languageServerExample' to the server
 			configurationSection: 'MVBasic',
 			// Notify the server about file changes to '.clientrc files contain in the workspace
-			fileEvents: workspace.createFileSystemWatcher('**/.clientrc')
+			fileEvents: vscode.workspace.createFileSystemWatcher('**/.clientrc')
 		}
 	}
 
@@ -271,18 +270,18 @@ export function activate(context: ExtensionContext) {
 			var edits: vscode.TextEdit[] = []
 
 			if (formattingEnabled) {
-				let rBlockStart = new RegExp("^(lock |key\\(|if |commit |rollback |readnext |open |write |writeu |writeuv |read |readv |readu |readvu |matreadu |locate |locate\\(|openseq |matread |create |readlist |openpath |find |findstr |bscan)", "i")
+				let rBlockStart = new RegExp("^(lock |key\\(|if |commit |rollback |readnext |open |write |writeu |writev |writevu |read |readv |readu |readt |readvu |matreadu |locate |locate\\(|openseq |matread |create |readlist |openpath |find |findstr |bscan)", "i")
 				let rBlockCase = new RegExp("(^begin case)", "i")
 				let rBlockTransaction = new RegExp("(^begin transaction|^begin work)", "i")
 				let rBlockEndCase = new RegExp("(^end case)", "i")
 				let rBlockEndTransaction = new RegExp("(^end transaction|^end work)", "i")
-				let rBlockAlways = new RegExp("^(for|loop)", "i")
+				let rBlockAlways = new RegExp("^(for |loop$|loop\\s+)", "i")
 				let rBlockContinue = new RegExp("(then$|else$|case$|on error$|locked$)", "i")
 				let rBlockEnd = new RegExp("^(end|repeat|next\\s.+)$", "i")
 				let rElseEnd = new RegExp("^(end else\\s.+)", "i")
 				let rLabel = new RegExp("(^[0-9]+\\s)|(^[0-9]+:\\s)|(^[\\w]+:)");
-				let rComment = new RegExp("(^\\*.+|^\\s+\\*.+|^!.+|^\\s+!.*|^REM.+|^\\s+REM.+)", "i")
-				let tComment = new RegExp("(;\\*.+|;\\s+\\*.+)", "i");
+				let rComment = new RegExp("^\\s*(\\*|!|REM\\s+?).*", "i")
+				let tComment = new RegExp(";\\s*(\\*|!|REM\\s+?).*", "i");
 				let lComment = new RegExp("(^[0-9]+\\s+\\*)|(^[0-9]+\\s+;)|(^[0-9]+\\*)|(^[0-9]+;)")  // number label with comments after
 				let trailingComment = new RegExp("(\\*.+)|(;+)")
 				let spaces = "                                                           "

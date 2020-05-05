@@ -2,7 +2,7 @@
   "name": "mvbasic",
   "displayName": "MV Basic",
   "description": "MV Basic",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "publisher": "mvextensions",
   "license": "MIT",
   "icon": "images/mvbasic-logo.png",
@@ -26,7 +26,7 @@
     "url": "https://github.com/mvextensions/mvbasic"
   },
   "engines": {
-    "vscode": "^1.23.0"
+    "vscode": "^1.44.0"
   },
   "categories": [
     "Programming Languages",
@@ -326,27 +326,19 @@
   ],
   "main": "./client/out/extension",
   "scripts": {
-    "vscode:prepublish": "cd client && npm run update-vscode && cd .. && npm run compile",
+    "vscode:prepublish": "cd client && webpack --mode production && cd ../server && webpack --mode production",
+    "webpack": "cd client && webpack --mode development && cd ../server && webpack --mode development",
+    "webpack-dev": "cd client && webpack --mode development --watch && cd ../server && webpack --mode development --watch",
     "compile": "tsc -b",
     "watch": "tsc -b -w",
     "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
     "test": "sh ./scripts/e2e.sh"
   },
   "devDependencies": {
-    "@types/mocha": "^2.2.48",
-    "@types/node": "^6.14.6",
-    "typescript": "^3.6.2"
+    "ts-loader": "^7.0.1",
+    "typescript": "^3.8.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   },
-  "dependencies": {
-    "@types/socket.io": "^1.4.40",
-    "deasync": "^0.1.15",
-    "enum-values": "^1.2.1",
-    "fs": "0.0.1-security",
-    "iconv-lite": "^0.4.24",
-    "npm": "^6.13.4",
-    "socket-io": "^1.0.0",
-    "socket-promise": "^1.0.1",
-    "socket.io": "^2.2.0",
-    "vsce": "^1.62.0"
-  }
+  "dependencies": {}
 }
