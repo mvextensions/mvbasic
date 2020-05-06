@@ -279,7 +279,7 @@ export function activate(context: vscode.ExtensionContext) {
 				let rBlockContinue = new RegExp("(then$|else$|case$|on error$|locked$)", "i")
 				let rBlockEnd = new RegExp("^(end|repeat|next\\s.+)$", "i")
 				let rElseEnd = new RegExp("^(end else\\s.+)", "i")
-				let rLabel = new RegExp("(^[0-9]+\\s)|(^[0-9]+:\\s)|(^[\\w]+:)");
+				let rLabel = new RegExp("^\\s*([\\w.]+:(?!=)|[0-9]+)");
 				let rComment = new RegExp("^\\s*(\\*|!|REM\\s+?).*", "i")
 				let tComment = new RegExp(";\\s*(\\*|!|REM\\s+?).*", "i");
 				let lComment = new RegExp("(^[0-9]+\\s+\\*)|(^[0-9]+\\s+;)|(^[0-9]+\\*)|(^[0-9]+;)")  // number label with comments after
@@ -451,11 +451,11 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 		activeEditor.setDecorations(customDecoration, customWords);
 	}
-	
+
 	let api = {
 		getRestFS(): RestFS {
 			return RESTFS;
-		}		
+		}
 	};
 	return api;
 }

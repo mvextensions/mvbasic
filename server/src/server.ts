@@ -240,10 +240,7 @@ function validateTextDocument(textDocument: TextDocument): void {
   let problems = 0;
   LabelList.length = 0;
   // regex to extract labels
-  let rLabel = new RegExp(
-    "(^[0-9]+\\b)|(^[0-9]+)|(^[0-9]+:\\s)|(^[\\w\\.]+:(?!\\=))",
-    "i"
-  );
+  let rLabel = new RegExp("^\\s*([\\w.]+:(?!=)|[0-9]+)", "i");
   // regex for statements that start a block
   let rBlockStart = new RegExp(
     "(^if |begin case|^readnext |open |read |readv |readu |readt |locate |openseq |matread |create |readlist |openpath |find |findstr )",
