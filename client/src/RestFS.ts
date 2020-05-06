@@ -12,6 +12,8 @@ import { IRestFS, RestFSAttr } from './IRestFS';
 const request = require("sync-request");
 const Minimatch = require('minimatch').Minimatch;
 
+type FileInfo = {attr: RestFSAttr, size?: number, ctime?: number, mtime?: number};
+
 export class File implements vscode.FileStat {
 
     type: vscode.FileType;
@@ -23,14 +25,14 @@ export class File implements vscode.FileStat {
     attr: RestFSAttr;
     data: Uint8Array;
 
-    constructor(name: string, attr: RestFSAttr = RestFSAttr.ATTR_FILE, data: Uint8Array) {
+    constructor(name: string, info: FileInfo, data?: Uint8Array) {
         this.type = vscode.FileType.File;
-        this.ctime = Date.now();
-        this.mtime = Date.now();
         this.name = name;
-        this.attr = attr;
+        this.attr = info.attr || RestFSAttr.ATTR_FILE;
+        this.ctime = info.ctime || Date.now();
+        this.mtime = info.mtime || Date.now();
         this.data = data;
-        this.size = data.length;
+        this.size = data ? data.length : (info.size | 0);
     }
 }
 
@@ -45,13 +47,13 @@ export class Directory implements vscode.FileStat {
     attr: RestFSAttr;
     items: [string, vscode.FileType][];
 
-    constructor(name: string, attr: RestFSAttr = RestFSAttr.ATTR_FOLDER, items: [string, vscode.FileType][]) {
+    constructor(name: string, info: FileInfo, items?: [string, vscode.FileType][]) {
         this.type = vscode.FileType.Directory;
-        this.ctime = Date.now();
-        this.mtime = Date.now();
-        this.size = 0;
         this.name = name;
-        this.attr = attr;
+        this.attr = info.attr || RestFSAttr.ATTR_FOLDER;
+        this.ctime = info.ctime || Date.now();
+        this.mtime = info.mtime || Date.now();
+        this.size = items ? items.length : (info.size || 0);
         this.items = items;
     }
 }
@@ -97,6 +99,7 @@ export class RestFS implements IRestFS {
     private excludes: Array<any>;
     private root_refresh: boolean;
     private log_level: number;
+    private _stat_API_not_supported: boolean;
 
     constructor(apiVersion: number = 0) {
         this.ApiVersion = apiVersion;
@@ -141,7 +144,7 @@ export class RestFS implements IRestFS {
         if (!this.initialized) {
             if(uri.path === '/') {
                 this.log_level>1 && getTraceChannel().appendLine("[RestFS] stat: path=/, not initialized, return empty directory");
-                return new Directory('/', RestFSAttr.ATTR_FOLDER | RestFSAttr.ATTR_ROOT, []); // don't show ! icon in explorer heading
+                return new Directory('/', {attr: RestFSAttr.ATTR_FOLDER | RestFSAttr.ATTR_ROOT}, []); // don't show ! icon in explorer heading
             }
             this.log_level>1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", not initialized, error=FileNotFound");
             throw vscode.FileSystemError.FileNotFound(uri);
@@ -197,8 +200,10 @@ export class RestFS implements IRestFS {
                 this.log_level>1 && getTraceChannel().appendLine("[RestFS] readDirectory: path=" + uri.path + " is a file, not a directory");
                 throw vscode.FileSystemError.FileNotADirectory(uri);
             }
-            this.log_level>1 && getTraceChannel().appendLine("[RestFS] readDirectory: path=" + uri.path + ", found in local cache, " + entry.items.length + " items");
-            return entry.items;
+            if (entry.items) {
+                this.log_level>1 && getTraceChannel().appendLine("[RestFS] readDirectory: path=" + uri.path + ", found in local cache, " + entry.items.length + " items");
+                return entry.items;
+            }
         }
 
         // get directory & file list from server
@@ -270,7 +275,12 @@ export class RestFS implements IRestFS {
                 this.root_refresh = true;
             }, 10000);
         }
-        entry = new Directory(name, attr, result);
+        if (!entry) {
+            entry = new Directory(name, {attr: attr}, result);
+        } else {
+            entry.items = result;
+            entry.size = result.length;
+        }
         this.entries.set(name, entry);
         this.log_level>1 && getTraceChannel().appendLine("[RestFS] readDirectory: path=" + uri.path + ", 'dir' request succeeded, " + entry.items.length + " items");            
         return result;
@@ -301,8 +311,10 @@ export class RestFS implements IRestFS {
         }
         let entry = this._lookupAsFile(uri);
         if (entry) {
-            this.log_level>1 && getTraceChannel().appendLine("[RestFS] readFile: path=" + uri.path + ", found in local cache, " + entry.size + " bytes");
-            return entry.data;
+            if (entry.data) {
+                this.log_level>1 && getTraceChannel().appendLine("[RestFS] readFile: path=" + uri.path + ", found in local cache, " + entry.size + " bytes");
+                return entry.data;
+            }
         }
 
         // file not cached so load it from server using RESTFS API
@@ -361,7 +373,12 @@ export class RestFS implements IRestFS {
         let name = uri.path;
         if (this.case_insensitive)
             name = name.toUpperCase();
-        entry = new File(name, attr, Buffer.from(program));
+        if (!entry) {
+            entry = new File(name, {attr: attr, size: program.length}, Buffer.from(program));
+        } else {
+            entry.data = Buffer.from(program);
+            entry.size = program.length;
+        }
         this.entries.set(name, entry);
         this._fireSoon({ type: vscode.FileChangeType.Changed, uri });
         this.log_level>1 && getTraceChannel().appendLine("[RestFS] readFile: path=" + uri.path + ", 'file' request succeeded, " + entry.size + " bytes");            
@@ -384,7 +401,7 @@ export class RestFS implements IRestFS {
     _writeFile(uri: vscode.Uri, content: Uint8Array, options: { create: boolean, overwrite: boolean }): void {
     
         this.log_level>1 && getTraceChannel().appendLine("[RestFS] writeFile: path=" + uri.path + ", get entry type (may call readFile)");
-        let entry = this._stat(uri); // may cause read from server
+        let entry = this._stat(uri); // may cause lookup from server
         if (entry instanceof Directory) {
             this.log_level>1 && getTraceChannel().appendLine("[RestFS] writeFile: path=" + uri.path + " is a directory, error=FileIsADirectory");
             throw vscode.FileSystemError.FileIsADirectory(uri);
@@ -464,7 +481,7 @@ export class RestFS implements IRestFS {
             let name = uri.path;
             if (this.case_insensitive)
                 name = name.toUpperCase();
-            entry = new File(name, RestFSAttr.ATTR_FILE, content);
+            entry = new File(name, {attr: RestFSAttr.ATTR_FILE, size: content.length}, content);
             this.entries.set(name, entry);
             this._fireSoon({ type: vscode.FileChangeType.Created, uri });
         } else {
@@ -629,7 +646,7 @@ export class RestFS implements IRestFS {
         let name = uri.path;
         if (this.case_insensitive)
             name = name.toUpperCase();
-        entry = new Directory(name, RestFSAttr.ATTR_FOLDER, []);
+        entry = new Directory(name, {attr: RestFSAttr.ATTR_FOLDER, size: 0, ctime: Date.now()}, []);
         this.entries.set(name, entry);
         this._fireSoon({ type: vscode.FileChangeType.Changed, uri: dirname }, { type: vscode.FileChangeType.Created, uri });
         this.log_level>1 && getTraceChannel().appendLine("[RestFS] createDirectory: path=" + uri.path + " 'create' request succeeded");            
@@ -835,28 +852,65 @@ export class RestFS implements IRestFS {
 
     // --- lookup
 
-    // TODO: when attribute function added to REST API, use it instead of readFile/readDirectory
     private _stat(uri: vscode.Uri): Entry | undefined {       
         let entry: Entry | undefined = undefined;
+        let message: string;
         if(!this._excluded(uri)) {
             // see if file / directory is in local cache      
             entry = this._lookup(uri);
             if (entry) {
-                this.log_level>1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", found in local cache");
+                this.log_level>1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + " type=" + (entry ? (entry.type===vscode.FileType.Directory?"directory":"file") : "none") + " (local cache)");
             } else {
-                // not in local cache, try to read directory from server (try directory before file,
-                // so we don't end up treating D and F pointers as records)
-                if (this.ApiVersion > 0 || uri.path.split('/').length < 3) { // don't confuse dir/file for original API 
+                // not in local cache, try to read attributes from server
+                if (this.ApiVersion > 0 && !this._stat_API_not_supported) {
+                    let resp = request('GET', this.RestPath + path.posix.join("/stat", this.RestAccount, uri.path),
+                    { headers: this._request_headers() });
+                    if (resp.statusCode === 404) {
+                        if (resp.message)
+                            message = resp.message;
+                        this.log_level>1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", not found, status=" + resp.statusCode + (message ? "\n" + message : ""));
+                    } else if (resp.statusCode === 200) {
+                        const result = JSON.parse(resp.body);
+                        const attr: RestFSAttr = result.attr | 0;
+                        let name = uri.path;
+                        if (this.case_insensitive)
+                            name = name.toUpperCase();
+                        if (attr & RestFSAttr.ATTR_FOLDER) {
+                            entry = new Directory(name, <FileInfo>result);
+                        } else if (attr & RestFSAttr.ATTR_FILE) {
+                            entry = new File(name, <FileInfo>result);
+                        }
+                        if (entry) {                        
+                            this.entries.set(name, entry);
+                            this.log_level>1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", request succeeded, attr=" + attr);            
+                        }
+                    } else if (resp.statusCode !== 400) {
+                        message = "";
+                        const result = JSON.parse(resp.body);
+                        if (result && result.message)
+                            message = result.message;
+                        if (result && result.code)
+                            message += "(code=" + result.code + ")";
+                        vscode.window.showErrorMessage(message ? message : "File system 'stat' API failed (status=" + resp.statusCode + ")");
+                        this.log_level>1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", request failed, status=" + resp.statusCode + (message ? "\n" + message : ""));
+                    } else {
+                        this._stat_API_not_supported = true; // don't try 'stat' again - use readFile / readDir instead
+                    }
+                } else {
+                    this._stat_API_not_supported = true;
+                }            
+                // Not in local cache, 'stat' API not available, so try to read directory
+                // from server. If directory fails, then try to read file from server. Try
+                // directory before file, so we don't end up treating D and F pointers as records.
+                if (this._stat_API_not_supported) {
                     try {
                         this._readDirectory(uri);
                         entry = this._lookup(uri);
                     } catch(e) {
                         this.log_level>1 && getTraceChannel().appendLine("[RestFS] stat: readDirectory path=" + uri.path + ", exception=" + e.toString());
                     }
-                }            
-                if (!entry) {
-                    // not in local cache, try to read file from server
-                    if (this.ApiVersion > 0 || uri.path.split('/').length >= 3) { // don't confuse dir/file for original API 
+                    if (!entry) {
+                        // not a directory, try to read file from server
                         try {
                             this._readFile(uri);
                             entry = this._lookup(uri);
