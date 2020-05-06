@@ -30,3 +30,15 @@
 - Fix formattingEnabled setting to correctly enable/disable auto formatting
 - Improve RestFS API
 - Fix formatting issue with spacing and blank lines
+
+## 2.0.6
+
+- Crushed many Regex bugs with the language server
+- Better recognition of keywords
+- Fixed erroneous warnings and errors
+- Fixed language server JavaScript errors
+- Fixed incorrect line matching for legitimate warnings and errors
+- Fixed bug that introduced spaces to blank lines
+- Introduced webpack to bundle the extension
+- Removed docs from the bundled extension (they can still be accessed online at the repo)
+- Improvements to RestFS API
