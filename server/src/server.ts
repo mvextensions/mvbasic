@@ -293,22 +293,23 @@ function validateTextDocument(textDocument: TextDocument): void {
 		   Ug! One problem with this approach is it throws off the line number in the error report...
 		   This helps deal with lines like: FOR F=1 TO 20;CRT "NEW;":REPLACE(REC<F>,1,0,0;'XX');NEXT F ;* COMMENT
 			 There may be a way to do this with regexp, but it gets super hairy.
-			 See: https://stackoverflow.com/questions/23589174/regex-pattern-to-match-excluding-when-except-between
+       See: https://stackoverflow.com/questions/23589174/regex-pattern-to-match-excluding-when-except-between
+       Should not split lines such as:
+         LEASE.TYPE=OCONV(ID,"TLS.MASTER,LS.BILLING;X;38;38")
+         locate(acontinent,continents,1;position;’al’) then crt acontinent:’ is already there’
 		*/
     if (line.lineOfCode.indexOf(";") > 0) {
       let inString = false;
+      let inParen = false;
       for (var j = 0; j < line.lineOfCode.length; j++) {
         let ch = line.lineOfCode.charAt(j);
-        if (
-          ch === '"' ||
-          ch === "'" ||
-          ch === "\\" ||
-          ch === "(" ||
-          ch === ")"
-        ) {
+        if (ch === '"' || ch === "'" || ch === "\\") {
           inString = !inString;
         }
-        if (ch === ";" && !inString) {
+        if (ch === "(" || ch === ")") {
+          inParen = !inParen;
+        }
+        if (ch === ";" && !inString && !inParen) {
           let left = line.lineOfCode.slice(0, j);
           let right = line.lineOfCode.slice(j + 1);
           // Push the right side into the array lines, and deal with it later (including more splitting)
