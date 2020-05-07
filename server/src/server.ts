@@ -260,10 +260,7 @@ function validateTextDocument(textDocument: TextDocument): void {
   let tComment = new RegExp(";\\s*(\\*|!|REM\\s+?).*", "i"); // (something); {0-or-more whitespace} {* ! REM<space>} Anything
   let lComment = new RegExp("(^\\s*[0-9]+)(\\s*\\*.*)"); // number label with comments after
   let trailingComment = new RegExp("(\\*.+)|(;+)");
-  let qStrings = new RegExp(
-    "(\"([^\"]|\"\")*\")|('([^']|'')*')|(\\\\([^\\\\]|\\\\\\\\)*\\\\)",
-    "g"
-  );
+  let qStrings = new RegExp("'.*?'|\".*?\"|\\\\.*?\\\\", "g");
   let noCase = 0;
   let noLoop = 0;
   let noEndLoop = 0;

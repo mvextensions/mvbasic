@@ -3,7 +3,7 @@
 	"name": "QM# BASIC",
 	"patterns": [
 		{
-			"match": "(\"([^\"]|\"\")*\")|('([^']|'')*')|(\\\\([^\\\\]|\\\\\\\\)*\\\\)",
+			"match": "'.*?'|\".*?\"|\\\\.*?\\\\",
 			"name": "string.other.quoted-or-unquoted.mvon"
 		},
 		{

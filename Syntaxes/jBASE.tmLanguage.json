@@ -3,7 +3,7 @@
 	"name": "jBASE PickBASIC",
 	"patterns": [
 		{
-			"match": "(\"([^\"]|\"\")*\")|('([^']|'')*')|(\\\\([^\\\\]|\\\\\\\\)*\\\\)",
+			"match": "'.*?'|\".*?\"|\\\\.*?\\\\",
 			"name": "string.other.quoted-or-unquoted.jbase"
 		},
 		{
