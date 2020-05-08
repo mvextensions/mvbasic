@@ -259,7 +259,6 @@ function validateTextDocument(textDocument: TextDocument): void {
   let rComment = new RegExp("^\\s*(\\*|!|REM\\s+?).*", "i"); // Start-of-line 0-or-more whitespace {* ! REM<space>} Anything
   let tComment = new RegExp(";\\s*(\\*|!|REM\\s+?).*", "i"); // (something); {0-or-more whitespace} {* ! REM<space>} Anything
   let lComment = new RegExp("(^\\s*[0-9]+)(\\s*\\*.*)"); // number label with comments after
-  let trailingComment = new RegExp("(\\*.+)|(;+)");
   let qStrings = new RegExp("'.*?'|\".*?\"|\\\\.*?\\\\", "g");
   let rParenthesis = new RegExp("\\(.*\\)", "g")
   let noCase = 0;
@@ -272,15 +271,18 @@ function validateTextDocument(textDocument: TextDocument): void {
   var RowLevel: number[] = [lines.length];
   for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
     let line = lines[i];
-    // ignore all comment lines
-    if (rComment.test(line.lineOfCode) === true) {
-      continue;
-    }
+
+    // Begin cleanup lines[] array -- Remove and replace irrelevant code.
+
+    // replace comment line with blank line
+    line.lineOfCode = line.lineOfCode.replace(rComment, "");
+
     // remove comments after label (no semi-colon)
-    if (lComment.test(line.lineOfCode) === true) {
-      let comment = lComment.exec(line.lineOfCode); // This does the regex match again, but assigns the results to comment array
+    if (lComment.test(line.lineOfCode)) {
+      let comment = lComment.exec(line.lineOfCode);
       line.lineOfCode = comment![1];
     }
+
     // remove trailing comments with a semi-colon
     line.lineOfCode = line.lineOfCode.replace(tComment, "");
 
@@ -288,10 +290,15 @@ function validateTextDocument(textDocument: TextDocument): void {
     line.lineOfCode = line.lineOfCode.replace(rParenthesis, "()");
 
     // replace quoted strings with empty ones ''
-    line.lineOfCode = line.lineOfCode.replace(qStrings, "''")
+    line.lineOfCode = line.lineOfCode.replace(qStrings, "''");
 
-    // trim() then final line
+    // trim() the final lineOfCode
     line.lineOfCode = line.lineOfCode.trim();
+
+    // Save cleaned line
+    lines[i] = line;
+
+    // End cleanup of lines[] cleanup
 
     /* Before we do anything else, split line on semicolon ;
 		   This helps deal with lines like: FOR F=1 TO 20;CRT "NEW;":REPLACE(REC<F>,1,0,0;'XX');NEXT F ;* COMMENT
@@ -317,7 +324,7 @@ function validateTextDocument(textDocument: TextDocument): void {
     }
 
     // check opening and closing block FOR/NEXT
-    if (rStartFor.test(line.lineOfCode.trim())) {
+    if (rStartFor.test(line.lineOfCode)) {
       let forvar = getWord(line.lineOfCode.trim(), 2);
       let o = forDict.get(forvar);
       if (typeof o == "undefined") {
@@ -327,7 +334,7 @@ function validateTextDocument(textDocument: TextDocument): void {
       }
       forDict.set(forvar, o);
     }
-    if (rEndFor.test(line.lineOfCode.trim())) {
+    if (rEndFor.test(line.lineOfCode)) {
       let nextvar = getWord(line.lineOfCode.trim(), 2);
       let o = forDict.get(nextvar);
       if (typeof o == "undefined") {
@@ -339,39 +346,39 @@ function validateTextDocument(textDocument: TextDocument): void {
     }
 
     // Check for CASE/LOOP
-    if (rStartCase.test(line.lineOfCode.trim()) == true) {
+    if (rStartCase.test(line.lineOfCode)) {
       noCase++;
     }
-    if (rEndCase.test(line.lineOfCode.trim()) == true) {
+    if (rEndCase.test(line.lineOfCode)) {
       noEndCase++;
     }
-    if (rStartLoop.test(line.lineOfCode.trim()) == true) {
+    if (rStartLoop.test(line.lineOfCode)) {
       noLoop++;
     }
-    if (rEndLoop.test(line.lineOfCode.trim()) == true) {
+    if (rEndLoop.test(line.lineOfCode)) {
       noEndLoop++;
     }
     // check block statements
-    if (rBlockStart.test(line.lineOfCode.trim()) == true) {
+    if (rBlockStart.test(line.lineOfCode)) {
       Level++;
-      if (rBlockContinue.test(line.lineOfCode.trim()) == false) {
+      if (rBlockContinue.test(line.lineOfCode) === false) {
         // single line statement
         Level--;
       }
     }
 
-    if (rBlockAlways.test(line.lineOfCode.trim())) {
+    if (rBlockAlways.test(line.lineOfCode)) {
       Level++;
     }
-    if (rBlockEnd.test(line.lineOfCode.trim())) {
+    if (rBlockEnd.test(line.lineOfCode)) {
       Level--;
     }
-    if (rElseEnd.test(line.lineOfCode.trim()) == true) {
+    if (rElseEnd.test(line.lineOfCode)) {
       // decrement 1 to cater for end else stements
       Level--;
     }
     // 10  10:  start: labels
-    if (rLabel.test(line.lineOfCode.trim()) === true) {
+    if (rLabel.test(line.lineOfCode)) {
       let label = "";
       if (line !== null) {
         let labels = rLabel.exec(line.lineOfCode.trim());
@@ -427,7 +434,7 @@ function validateTextDocument(textDocument: TextDocument): void {
     // find the innermost for
     for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
       let line = lines[i];
-      if (rStartCase.test(line.lineOfCode.trim()) == true) {
+      if (rStartCase.test(line.lineOfCode)) {
         noCase--;
       }
       if (noCase == 0) {
@@ -464,7 +471,7 @@ function validateTextDocument(textDocument: TextDocument): void {
     // find the innermost for
     for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
       let line = lines[i];
-      if (rStartLoop.test(line.lineOfCode.trim()) == true) {
+      if (rStartLoop.test(line.lineOfCode)) {
         noLoop--;
       }
       if (noLoop == 0) {
@@ -528,41 +535,12 @@ function validateTextDocument(textDocument: TextDocument): void {
 
   // Missing GO, GO TO, GOTO, GOSUB
   // regex to check for goto/gosub in a line
-  let rGoto = new RegExp("((gosub|goto|go|go to)\\s\\w+)", "ig");
+  let rGoto = new RegExp("((gosub|goto|go|go to)\\s*\\w+)", "ig");
   for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
     let line = lines[i];
-    // ignore comment lines
-    if (rComment.test(line.lineOfCode.trim()) == true) {
-      continue;
-    }
-    // remove trailing comments
-    if (tComment.test(line.lineOfCode.trim()) == true) {
-      let comment = tComment.exec(line.lineOfCode.trim());
-      if (comment !== null) {
-        line.lineOfCode = line.lineOfCode.trim().replace(comment[0], "");
-      }
-    }
-    lComment.lastIndex = 0;
-    if (lComment.test(line.lineOfCode.trim()) === true) {
-      let comment = trailingComment.exec(line.lineOfCode.trim());
-      if (comment !== null) {
-        line.lineOfCode = line.lineOfCode.trim().replace(comment[0], "");
-      }
-    }
-    // remove any quoted string
-    qStrings.lastIndex = 0;
-    while (qStrings.test(line.lineOfCode) == true) {
-      qStrings.lastIndex = 0;
-      let str = qStrings.exec(line.lineOfCode);
-      if (str !== null) {
-        line.lineOfCode = line.lineOfCode.replace(str[0], "");
-      }
-      qStrings.lastIndex = 0;
-    }
-
     // check any gosubs or goto's to ensure label is present
     rGoto.lastIndex = 0;
-    if (rGoto.test(line.lineOfCode.trim()) == true) {
+    if (rGoto.test(line.lineOfCode)) {
       while (line.lineOfCode.indexOf(",") > -1) {
         line.lineOfCode = line.lineOfCode.replace(",", " ");
       }
@@ -923,7 +901,7 @@ connection.onDocumentSymbol(params => {
     for (let i = 0; i < lines.length; i++) {
       let line = lines[i];
       rGoto.lastIndex = 0;
-      if (rGoto.test(line.trim()) === true) {
+      if (rGoto.test(line)) {
         let words = line.trim().split(" ");
         for (let j = 0; j < words.length; j++) {
           if (words[j].toLowerCase() === "call") {
@@ -938,7 +916,7 @@ connection.onDocumentSymbol(params => {
           }
         }
       }
-      if (rInclude.test(line.trim()) === true) {
+      if (rInclude.test(line)) {
         let words = line.trim().split(" ");
         let li: Range = Range.create(i, 0, i, 9999);
         let includeName = words[1];
@@ -1050,7 +1028,7 @@ connection.onDefinition(params => {
     );
     for (var i = 0; i < lines.length; i++) {
       line = lines[i];
-      if (rLabel.test(line.trim()) == true) {
+      if (rLabel.test(line)) {
         let label = "";
         if (line !== null) {
           let labels = rLabel.exec(line.trim());
