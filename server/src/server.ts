@@ -261,6 +261,7 @@ function validateTextDocument(textDocument: TextDocument): void {
   let lComment = new RegExp("(^\\s*[0-9]+)(\\s*\\*.*)"); // number label with comments after
   let trailingComment = new RegExp("(\\*.+)|(;+)");
   let qStrings = new RegExp("'.*?'|\".*?\"|\\\\.*?\\\\", "g");
+  let rParenthesis = new RegExp("\\(.*\\)", "g")
   let noCase = 0;
   let noLoop = 0;
   let noEndLoop = 0;
@@ -272,22 +273,27 @@ function validateTextDocument(textDocument: TextDocument): void {
   for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
     let line = lines[i];
     // ignore all comment lines
-    if (rComment.test(line.lineOfCode.trim()) === true) {
+    if (rComment.test(line.lineOfCode) === true) {
       continue;
     }
-    // remove trailing comments with a semi-colon
-    if (tComment.test(line.lineOfCode.trim()) === true) {
-      line.lineOfCode = line.lineOfCode.replace(tComment, "").trim();
-    }
-
     // remove comments after label (no semi-colon)
-    if (lComment.test(line.lineOfCode.trim()) === true) {
-      let comment = lComment.exec(line.lineOfCode.trim()); // This does the regex match again, but assigns the results to comment array
+    if (lComment.test(line.lineOfCode) === true) {
+      let comment = lComment.exec(line.lineOfCode); // This does the regex match again, but assigns the results to comment array
       line.lineOfCode = comment![1];
     }
+    // remove trailing comments with a semi-colon
+    line.lineOfCode = line.lineOfCode.replace(tComment, "");
 
-    /* Before we do anything else, split line on ; *except* inside strings or parens.
-		   Ug! One problem with this approach is it throws off the line number in the error report...
+    // replace Parenthesis with empty ones
+    line.lineOfCode = line.lineOfCode.replace(rParenthesis, "()");
+
+    // replace quoted strings with empty ones ''
+    line.lineOfCode = line.lineOfCode.replace(qStrings, "''")
+
+    // trim() then final line
+    line.lineOfCode = line.lineOfCode.trim();
+
+    /* Before we do anything else, split line on semicolon ;
 		   This helps deal with lines like: FOR F=1 TO 20;CRT "NEW;":REPLACE(REC<F>,1,0,0;'XX');NEXT F ;* COMMENT
 			 There may be a way to do this with regexp, but it gets super hairy.
        See: https://stackoverflow.com/questions/23589174/regex-pattern-to-match-excluding-when-except-between
@@ -296,17 +302,9 @@ function validateTextDocument(textDocument: TextDocument): void {
          locate(acontinent,continents,1;position;’al’) then crt acontinent:’ is already there’
 		*/
     if (line.lineOfCode.indexOf(";") > 0) {
-      let inString = false;
-      let inParen = false;
       for (var j = 0; j < line.lineOfCode.length; j++) {
         let ch = line.lineOfCode.charAt(j);
-        if (ch === '"' || ch === "'" || ch === "\\") {
-          inString = !inString;
-        }
-        if (ch === "(" || ch === ")") {
-          inParen = !inParen;
-        }
-        if (ch === ";" && !inString && !inParen) {
+        if (ch === ";") {
           let left = line.lineOfCode.slice(0, j);
           let right = line.lineOfCode.slice(j + 1);
           // Push the right side into the array lines, and deal with it later (including more splitting)
