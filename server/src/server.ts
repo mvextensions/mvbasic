@@ -246,13 +246,13 @@ function validateTextDocument(textDocument: TextDocument): void {
     "(^if |begin case|^readnext |open |read |readv |readu |readt |locate |openseq |matread |create |readlist |openpath |find |findstr )",
     "i"
   );
-  let rBlockAlways = new RegExp("^(for |loop$|loop\\s+)", "i");
+  let rBlockAlways = new RegExp("^(for\\s+|loop$|loop\\s+)", "i");
   let rBlockContinue = new RegExp("(then$|else$|case$|on error$|locked$)", "i");
-  let rBlockEnd = new RegExp("^(end|end case|repeat|.+repeat$|next\\s.+)$", "i");
-  let rStartFor = new RegExp("^(for )", "i");
+  let rBlockEnd = new RegExp("^(end|end case|repeat|.+repeat|next|next\\s+.+)$", "i");
+  let rStartFor = new RegExp("^(for\\s+)", "i");
+  let rEndFor = new RegExp("^(next|next\\s+.+)$", "i");
   let rStartLoop = new RegExp("^(loop$|loop\\s+)", "i");
   let rStartCase = new RegExp("(^begin case)", "i");
-  let rEndFor = new RegExp("(^next\\s)", "i");
   let rEndLoop = new RegExp("(repeat$)", "i");
   let rEndCase = new RegExp("(^end case)", "i");
   let rElseEnd = new RegExp("^(end else\\s.+)", "i");
@@ -260,7 +260,8 @@ function validateTextDocument(textDocument: TextDocument): void {
   let tComment = new RegExp(";\\s*(\\*|!|REM\\s+?).*", "i"); // (something); {0-or-more whitespace} {* ! REM<space>} Anything
   let lComment = new RegExp("(^\\s*[0-9]+)(\\s*\\*.*)"); // number label with comments after
   let qStrings = new RegExp("'.*?'|\".*?\"|\\\\.*?\\\\", "g");
-  let rParenthesis = new RegExp("\\(.*\\)", "g")
+  let rParenthesis = new RegExp("\\(.*\\)", "g");
+  let rWhitespace = new RegExp("\\s{2,}");
   let noCase = 0;
   let noLoop = 0;
   let noEndLoop = 0;
@@ -292,8 +293,11 @@ function validateTextDocument(textDocument: TextDocument): void {
     // replace quoted strings with empty ones ''
     line.lineOfCode = line.lineOfCode.replace(qStrings, "''");
 
-    // trim() the final lineOfCode
+    // trim() all leading and trailing whitespace
     line.lineOfCode = line.lineOfCode.trim();
+
+    // replace more than 2 spaces with 1
+    line.lineOfCode = line.lineOfCode.replace(rWhitespace, " ");
 
     // Save cleaned line
     lines[i] = line;
@@ -535,7 +539,7 @@ function validateTextDocument(textDocument: TextDocument): void {
 
   // Missing GO, GO TO, GOTO, GOSUB
   // regex to check for goto/gosub in a line
-  let rGoto = new RegExp("((gosub|goto|go|go to)\\s*\\w+)", "ig");
+  let rGoto = new RegExp("((gosub|goto|go|go to)\\s+\\w+)", "ig");
   for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
     let line = lines[i];
     // check any gosubs or goto's to ensure label is present
