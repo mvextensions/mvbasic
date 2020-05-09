@@ -239,29 +239,28 @@ function validateTextDocument(textDocument: TextDocument): void {
   originalLines.forEach((lineOfCode, index) => lines.push({ lineNumber: index, lineOfCode }));
   let problems = 0;
   LabelList.length = 0;
-  // regex to extract labels
-  let rLabel = new RegExp("^\\s*([\\w.]+:(?!=)|[0-9]+)", "i");
-  // regex for statements that start a block
+
   let rBlockStart = new RegExp(
-    "(^if |begin case|^readnext |open |read |readv |readu |readt |locate |openseq |matread |create |readlist |openpath |find |findstr )",
+    "(^if |^begin case|readnext |open |read |readv |readu |readt |locate |openseq |matread |create |readlist |openpath |find |findstr )",
     "i"
   );
-  let rBlockAlways = new RegExp("^(for\\s+|loop$|loop\\s+)", "i");
-  let rBlockContinue = new RegExp("(then$|else$|case$|on error$|locked$)", "i");
-  let rBlockEnd = new RegExp("^(end|end case|repeat|.+repeat|next|next\\s+.+)$", "i");
-  let rStartFor = new RegExp("^(for\\s+)", "i");
-  let rEndFor = new RegExp("^(next|next\\s+.+)$", "i");
-  let rStartLoop = new RegExp("^(loop$|loop\\s+)", "i");
-  let rStartCase = new RegExp("(^begin case)", "i");
-  let rEndLoop = new RegExp("(repeat$)", "i");
-  let rEndCase = new RegExp("(^end case)", "i");
-  let rElseEnd = new RegExp("^(end else\\s.+)", "i");
+  let rBlockAlways = new RegExp("^(for |loop\\s*?)", "i");
+  let rBlockContinue = new RegExp("(then|else|case|on error|locked)$", "i");
+  let rBlockEnd = new RegExp("^(end|end case|repeat|.+\\s+?repeat|next|next\\s+?.+)$", "i");
+  let rStartFor = new RegExp("^for ", "i");
+  let rEndFor = new RegExp("^(next|next\\s+?.+)$", "i");
+  let rStartLoop = new RegExp("^loop\\s*?", "i");
+  let rEndLoop = new RegExp("^(repeat|.+\\s+?repeat)$", "i");
+  let rStartCase = new RegExp("^begin case", "i");
+  let rEndCase = new RegExp("^end case$", "i");
+  let rElseEnd = new RegExp("^end else\\s+?", "i");
+  let rLabel = new RegExp("^([\\w.]+:(?!=)|[0-9]+)", "i");
   let rComment = new RegExp("^\\s*(\\*|!|REM\\s+?).*", "i"); // Start-of-line 0-or-more whitespace {* ! REM<space>} Anything
   let tComment = new RegExp(";\\s*(\\*|!|REM\\s+?).*", "i"); // (something); {0-or-more whitespace} {* ! REM<space>} Anything
   let lComment = new RegExp("(^\\s*[0-9]+)(\\s*\\*.*)"); // number label with comments after
   let qStrings = new RegExp("'.*?'|\".*?\"|\\\\.*?\\\\", "g");
   let rParenthesis = new RegExp("\\(.*\\)", "g");
-  let rWhitespace = new RegExp("\\s{2,}");
+  let rWhitespace = new RegExp("\\s{2,}"); // 2 or more whitespace chars
   let noCase = 0;
   let noLoop = 0;
   let noEndLoop = 0;
@@ -287,13 +286,13 @@ function validateTextDocument(textDocument: TextDocument): void {
     // remove trailing comments with a semi-colon
     line.lineOfCode = line.lineOfCode.replace(tComment, "");
 
-    // replace Parenthesis with empty ones
+    // replace Parenthesis with empty ones ()
     line.lineOfCode = line.lineOfCode.replace(rParenthesis, "()");
 
     // replace quoted strings with empty ones ''
     line.lineOfCode = line.lineOfCode.replace(qStrings, "''");
 
-    // trim() all leading and trailing whitespace
+    // trim all leading and trailing spaces
     line.lineOfCode = line.lineOfCode.trim();
 
     // replace 2 or more spaces with 1
@@ -302,7 +301,7 @@ function validateTextDocument(textDocument: TextDocument): void {
     // Save cleaned line
     lines[i] = line;
 
-    // End cleanup of lines[] cleanup
+    // End cleanup of lines[] array
 
     /* Before we do anything else, split line on semicolon ;
 		   This helps deal with lines like: FOR F=1 TO 20;CRT "NEW;":REPLACE(REC<F>,1,0,0;'XX');NEXT F ;* COMMENT
