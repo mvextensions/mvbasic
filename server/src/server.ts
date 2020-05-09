@@ -296,7 +296,7 @@ function validateTextDocument(textDocument: TextDocument): void {
     // trim() all leading and trailing whitespace
     line.lineOfCode = line.lineOfCode.trim();
 
-    // replace more than 2 spaces with 1
+    // replace 2 or more spaces with 1
     line.lineOfCode = line.lineOfCode.replace(rWhitespace, " ");
 
     // Save cleaned line
