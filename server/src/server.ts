@@ -43,7 +43,6 @@ let connection: IConnection = createConnection(
 
 let useCamelcase = true;
 let ignoreGotoScope = false;
-let shouldSendDiagnosticRelatedInformation: boolean | undefined = false;
 
 // The settings interface describe the server relevant settings part
 interface Settings {
@@ -265,10 +264,13 @@ function validateTextDocument(textDocument: TextDocument): void {
   let noLoop = 0;
   let noEndLoop = 0;
   let noEndCase = 0;
-  let forDict = new Map<string, any>();
+
   // first build a list of labels in the program and indentation levels, strip comments, break up ; delimited lines
   let Level = 0;
   var RowLevel: number[] = [lines.length];
+  let forNext = []    // FOR statements list
+  let forNextErr = [] // FOR NEXT errors list
+
   for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
     let line = lines[i];
 
@@ -310,7 +312,7 @@ function validateTextDocument(textDocument: TextDocument): void {
        Should not split lines such as:
          LEASE.TYPE=OCONV(ID,"TLS.MASTER,LS.BILLING;X;38;38")
          locate(acontinent,continents,1;position;’al’) then crt acontinent:’ is already there’
-		*/
+    */
     if (line.lineOfCode.indexOf(";") > 0) {
       for (var j = 0; j < line.lineOfCode.length; j++) {
         let ch = line.lineOfCode.charAt(j);
@@ -326,26 +328,28 @@ function validateTextDocument(textDocument: TextDocument): void {
       }
     }
 
-    // check opening and closing block FOR/NEXT
+    // check opening and closing block FOR/NEXT - Track matches
+    // and build errors list (forNextErr[]).
     if (rStartFor.test(line.lineOfCode)) {
       let forvar = getWord(line.lineOfCode.trim(), 2);
-      let o = forDict.get(forvar);
-      if (typeof o == "undefined") {
-        o = { ctr: 1, line: i };
-      } else {
-        o = { ctr: o.ctr + 1, line: i };
-      }
-      forDict.set(forvar, o);
+      forNext.push({ forVar: forvar, forLine: i });
     }
     if (rEndFor.test(line.lineOfCode)) {
       let nextvar = getWord(line.lineOfCode.trim(), 2);
-      let o = forDict.get(nextvar);
-      if (typeof o == "undefined") {
-        o = { ctr: -1, line: i };
-      } else {
-        o = { ctr: o.ctr - 1, line: i };
+      if (nextvar.toLowerCase() == "next") {
+        nextvar = "";
       }
-      forDict.set(nextvar, o);
+      let spot = forNext.length - 1;
+      if (spot < 0) {
+        forNextErr.push({ errMsg: "Missing FOR statement - NEXT " + nextvar, errLine: i });
+      } else {
+        let o = forNext[spot];
+        if (nextvar != "" && o.forVar !== nextvar) {
+          forNextErr.push({ errMsg: "Missing NEXT statement - FOR " + o.forVar, errLine: o.forLine });
+          forNextErr.push({ errMsg: "Missing FOR statement - NEXT " + nextvar, errLine: i });
+        }
+        forNext.pop();
+      }
     }
 
     // Check for CASE/LOOP
@@ -394,43 +398,25 @@ function validateTextDocument(textDocument: TextDocument): void {
     RowLevel[i] = Level;
   }
 
-  // Missing FOR/NEXT statements
-  for (let forvar of forDict.keys()) {
-    let o = forDict.get(forvar);
-    let errorMsg = "";
-    if (o.ctr != 0) {
-      if (o.ctr > 0) {
-        errorMsg = "Missing NEXT Statement - FOR " + forvar;
-      } else {
-        errorMsg = "Missing FOR Statement - NEXT " + forvar;
-      }
-      let line = lines[o.line];
-      let diagnosic: Diagnostic = {
-        severity: DiagnosticSeverity.Error,
-        range: {
-          start: { line: line.lineNumber, character: 0 },
-          end: { line: line.lineNumber, character: line.lineOfCode.length }
-        },
-        message: errorMsg,
-        source: "MV Basic"
-      };
-      if (shouldSendDiagnosticRelatedInformation) {
-        diagnosic.relatedInformation = [
-          {
-            location: {
-              uri: textDocument.uri,
-              range: {
-                start: { line: line.lineNumber, character: 0 },
-                end: { line: line.lineNumber, character: line.lineOfCode.length }
-              }
-            },
-            message: errorMsg
-          }
-        ];
-      }
-      diagnostics.push(diagnosic);
+  // Missing NEXT errors. More FOR statements than NEXT values matched.
+  forNext.forEach(function (o) {
+    forNextErr.push({ errMsg: "Missing NEXT statement - FOR " + o.forVar, errLine: o.forLine });
+  });
+
+  forNextErr.forEach(o => {
+    let errorMsg = o.errMsg;
+    let line = lines[o.errLine];
+    let diagnosic: Diagnostic = {
+      severity: DiagnosticSeverity.Error,
+      range: {
+        start: { line: line.lineNumber, character: 0 },
+        end: { line: line.lineNumber, character: line.lineOfCode.length }
+      },
+      message: errorMsg,
+      source: "MV Basic"
     }
-  }
+    diagnostics.push(diagnosic)
+  })
 
   // Missing END CASE statement
   if (noCase != noEndCase) {
@@ -450,20 +436,6 @@ function validateTextDocument(textDocument: TextDocument): void {
           message: `Missing END CASE statement`,
           source: "MV Basic"
         };
-        if (shouldSendDiagnosticRelatedInformation) {
-          diagnosic.relatedInformation = [
-            {
-              location: {
-                uri: textDocument.uri,
-                range: {
-                  start: { line: line.lineNumber, character: 0 },
-                  end: { line: line.lineNumber, character: line.lineOfCode.length }
-                }
-              },
-              message: "Missing END CASE statement"
-            }
-          ];
-        }
         diagnostics.push(diagnosic);
       }
     }
@@ -487,20 +459,6 @@ function validateTextDocument(textDocument: TextDocument): void {
           message: `Missing REPEAT statement`,
           source: "MV Basic"
         };
-        if (shouldSendDiagnosticRelatedInformation) {
-          diagnosic.relatedInformation = [
-            {
-              location: {
-                uri: textDocument.uri,
-                range: {
-                  start: { line: line.lineNumber, character: 0 },
-                  end: { line: line.lineNumber, character: line.lineOfCode.length }
-                }
-              },
-              message: "Missing REPEAT statement"
-            }
-          ];
-        }
         diagnostics.push(diagnosic);
       }
     }
@@ -517,22 +475,8 @@ function validateTextDocument(textDocument: TextDocument): void {
         end: { line: lastLine.lineNumber, character: lastLine.lineOfCode.length }
       },
       message: `Missing END, END CASE or REPEAT statements`,
-      source: "ex"
+      source: "MV Basic"
     };
-    if (shouldSendDiagnosticRelatedInformation) {
-      diagnosic.relatedInformation = [
-        {
-          location: {
-            uri: textDocument.uri,
-            range: {
-              start: { line: lastLine.lineNumber, character: 0 },
-              end: { line: lastLine.lineNumber, character: lastLine.lineOfCode.length }
-            }
-          },
-          message: "One of the code blocks is missing an END"
-        }
-      ];
-    }
     diagnostics.push(diagnosic);
   }
 
@@ -588,27 +532,9 @@ function validateTextDocument(textDocument: TextDocument): void {
                       start: { line: line.lineNumber, character: index },
                       end: { line: line.lineNumber, character: index + labelName.length }
                     },
-                    message: `${labelName} is trying to go out of scope`,
-                    source: "ex"
+                    message: `${labelName} goes out of scope. Invalid GOTO or GOSUB`,
+                    source: "MV Basic"
                   };
-                  if (shouldSendDiagnosticRelatedInformation) {
-                    diagnosic.relatedInformation = [
-                      {
-                        location: {
-                          uri: textDocument.uri,
-                          range: {
-                            start: { line: line.lineNumber, character: index },
-                            end: {
-                              line: line.lineNumber,
-                              character: index + labelName.length
-                            }
-                          }
-                        },
-                        message:
-                          "Invalid GOTO or GOSUB, jumping into/out of a block"
-                      }
-                    ];
-                  }
                   diagnostics.push(diagnosic);
                 }
               } else {
@@ -619,23 +545,9 @@ function validateTextDocument(textDocument: TextDocument): void {
                     start: { line: line.lineNumber, character: index },
                     end: { line: line.lineNumber, character: index + labelName.length }
                   },
-                  message: `${labelName} is not defined as a label in the program`,
+                  message: `Label ${labelName} not found! - Invalid GOTO or GOSUB`,
                   source: "MV Basic"
                 };
-                if (shouldSendDiagnosticRelatedInformation) {
-                  diagnosic.relatedInformation = [
-                    {
-                      location: {
-                        uri: textDocument.uri,
-                        range: {
-                          start: { line: line.lineNumber, character: index },
-                          end: { line: line.lineNumber, character: index + labelName.length }
-                        }
-                      },
-                      message: "Invalid GOTO or GOSUB"
-                    }
-                  ];
-                }
                 diagnostics.push(diagnosic);
 
                 connection.console.log(
@@ -659,27 +571,9 @@ function validateTextDocument(textDocument: TextDocument): void {
           start: { line: label.LineNumber, character: 0 },
           end: { line: label.LineNumber, character: label.LabelName.length }
         },
-        message: `${label.LabelName} is not referenced in the program`,
+        message: `Label ${label.LabelName} is not referenced`,
         source: "MV Basic"
       };
-      if (shouldSendDiagnosticRelatedInformation) {
-        diagnosic.relatedInformation = [
-          {
-            location: {
-              uri: textDocument.uri,
-              range: {
-                start: { line: label.LineNumber, character: 0 },
-                end: {
-                  line: label.LineNumber,
-                  character: label.LabelName.length
-                }
-              }
-            },
-            message:
-              "Label not referenced in the program; consider removing if unnecessary."
-          }
-        ];
-      }
       diagnostics.push(diagnosic);
     }
   });
@@ -687,12 +581,15 @@ function validateTextDocument(textDocument: TextDocument): void {
   connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 }
 
+
 /* Connection Events */
 // Listen on the connection
 connection.listen();
 
 // After the server has started the client sends an initialize request. The server receives
 // in the passed params the rootPath of the workspace plus the client capabilities.
+let shouldSendDiagnosticRelatedInformation: boolean | undefined = false;
+if (shouldSendDiagnosticRelatedInformation) { null }
 connection.onInitialize(
   (_params): InitializeResult => {
     shouldSendDiagnosticRelatedInformation =
