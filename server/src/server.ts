@@ -403,7 +403,7 @@ function validateTextDocument(textDocument: TextDocument): void {
     forNextErr.push({ errMsg: "Missing NEXT statement - FOR " + o.forVar, errLine: o.forLine });
   });
 
-  forNextErr.forEach(o => {
+  forNextErr.forEach(function (o) {
     let errorMsg = o.errMsg;
     let line = lines[o.errLine];
     let diagnosic: Diagnostic = {
@@ -415,8 +415,8 @@ function validateTextDocument(textDocument: TextDocument): void {
       message: errorMsg,
       source: "MV Basic"
     }
-    diagnostics.push(diagnosic)
-  })
+    diagnostics.push(diagnosic);
+  });
 
   // Missing END CASE statement
   if (noCase != noEndCase) {
@@ -550,9 +550,11 @@ function validateTextDocument(textDocument: TextDocument): void {
                 };
                 diagnostics.push(diagnosic);
 
-                connection.console.log(
-                  `[Server(${process.pid})] CheckLabel: ${checkLabel} + MatchedLabel: ${labelMatch}`
-                );
+                if (logLevel) {
+                  connection.console.log(
+                    `[Server(${process.pid})] CheckLabel: ${checkLabel} + MatchedLabel: ${labelMatch}`
+                  );
+                }
               }
             }
             cnt++;
@@ -580,7 +582,6 @@ function validateTextDocument(textDocument: TextDocument): void {
   // Send the computed diagnostics to VSCode.
   connection.sendDiagnostics({ uri: textDocument.uri, diagnostics });
 }
-
 
 /* Connection Events */
 // Listen on the connection
