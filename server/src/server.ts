@@ -305,26 +305,21 @@ function validateTextDocument(textDocument: TextDocument): void {
 
     // End cleanup of lines[] array
 
-    /* Before we do anything else, split line on semicolon ;
-		   This helps deal with lines like: FOR F=1 TO 20;CRT "NEW;":REPLACE(REC<F>,1,0,0;'XX');NEXT F ;* COMMENT
-			 There may be a way to do this with regexp, but it gets super hairy.
-       See: https://stackoverflow.com/questions/23589174/regex-pattern-to-match-excluding-when-except-between
+    /* Before we do anything else, split line into statements on semicolon
+       Should split lines like:
+         FOR F=1 TO 20;CRT "NEW=":F;NEXT F ;* COMMENT
        Should not split lines such as:
          LEASE.TYPE=OCONV(ID,"TLS.MASTER,LS.BILLING;X;38;38")
          locate(acontinent,continents,1;position;’al’) then crt acontinent:’ is already there’
     */
     if (line.lineOfCode.indexOf(";") > 0) {
-      for (var j = 0; j < line.lineOfCode.length; j++) {
-        let ch = line.lineOfCode.charAt(j);
-        if (ch === ";") {
-          let left = line.lineOfCode.slice(0, j);
-          let right = line.lineOfCode.slice(j + 1);
-          // Push the right side into the array lines, and deal with it later (including more splitting)
-          lines[i] = { lineNumber: line.lineNumber, lineOfCode: left };
-          lines.splice(i + 1, 0, { lineNumber: line.lineNumber, lineOfCode: right });
-          line = lines[i];
-          break;
-        }
+      let a=line.lineOfCode.split(";");
+      // Replace line i with the first statement
+      lines[i] = { lineNumber: line.lineNumber, lineOfCode: a[0] };
+      line = lines[i];
+      // Insert new lines for each subsequent statement, but keep line.lineNumber the same
+      for (let j=1; j < a.length; j++) {
+        lines.splice(i + j, 0, { lineNumber: line.lineNumber, lineOfCode: a[j] });
       }
     }
 
