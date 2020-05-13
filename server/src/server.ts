@@ -129,20 +129,18 @@ function convertRange(
 }
 
 function getWord(line: string, wordCount: number): string {
-  let xpos = 0;
-  let startpos = 0;
-  while (xpos < line.length) {
-    if (line.substr(xpos, 1) == " " || line.substr(xpos, 1) == "=") {
-      wordCount--;
-      if (wordCount == 0) {
-        return line.substr(startpos, xpos - startpos);
-      }
-      startpos = xpos + 1;
-    }
-
-    xpos++;
+  if (line.length == 0 || wordCount < 1) {
+    return line;
   }
-  return line.substr(startpos, xpos - startpos);
+  let rWhitespace = new RegExp("\\s{2,}"); // 2 or more whitespace chars
+  line = line.replace(rWhitespace, " ").trim();
+  let words = line.split(" ");
+
+  if (wordCount > words.length) {
+    return "";
+  }
+
+  return words[wordCount - 1];
 }
 
 function loadIntelliSense() {
@@ -232,34 +230,29 @@ function loadIntelliSense() {
 
 function validateTextDocument(textDocument: TextDocument): void {
   let diagnostics: Diagnostic[] = [];
-
   let originalLines = textDocument.getText().split(/\r?\n/g);
   let lines: DocumentLine[] = [];
   originalLines.forEach((lineOfCode, index) => lines.push({ lineNumber: index, lineOfCode }));
   let problems = 0;
   LabelList.length = 0;
 
-  let rBlockStart = new RegExp(
-    "(^if |^begin case|readnext |open |read |readv |readu |readt |locate |openseq |matread |create |readlist |openpath |find |findstr )",
-    "i"
-  );
-  let rBlockAlways = new RegExp("^(for |loop\\s*?)", "i");
-  let rBlockContinue = new RegExp("(then|else|case|on error|locked)$", "i");
-  let rBlockEnd = new RegExp("^(end|end case|repeat|.+\\s+?repeat|next|next\\s+?.+)$", "i");
-  let rStartFor = new RegExp("^for ", "i");
-  let rEndFor = new RegExp("^(next|next\\s+?.+)$", "i");
-  let rStartLoop = new RegExp("^loop\\s*?", "i");
-  let rEndLoop = new RegExp("^(repeat|.+\\s+?repeat)$", "i");
-  let rStartCase = new RegExp("^begin case", "i");
-  let rEndCase = new RegExp("^end case$", "i");
-  let rElseEnd = new RegExp("^end else\\s+?", "i");
-  let rLabel = new RegExp("^([\\w.]+:(?!=)|[0-9]+)", "i");
+  let rBlockStart = new RegExp("^\\s*(begin case$|(if|readnext|open|read|readv|readu|readt|locate|openseq|matread|create|readlist|openpath|find|findstr)\\s+?)", "i");
+  let rBlockAlways = new RegExp("^\\s*(for |loop( |$))", "i");
+  let rBlockContinue = new RegExp(" (then|else|case|on error|locked)$", "i");
+  let rBlockEnd = new RegExp("^\\s*(end|end case|next|next\\s+.+|repeat)$| repeat$", "i");
+  let rStartFor = new RegExp("^\\s*for ", "i");
+  let rEndFor = new RegExp("(^| )next($|\\s+?)", "i");
+  let rStartLoop = new RegExp("^\\s*loop\\s*?", "i");
+  let rEndLoop = new RegExp("(^| )repeat\\s*$", "i");
+  let rStartCase = new RegExp("^\\s*begin case$", "i");
+  let rEndCase = new RegExp("^\\s*end case$", "i");
+  let rElseEnd = new RegExp("^\\s*end else$", "i");
+  let rLabel = new RegExp("^\\s*([\\w.]+:(?!=)|[0-9]+)", "i");
   let rComment = new RegExp("^\\s*(\\*|!|REM\\s+?).*", "i"); // Start-of-line 0-or-more whitespace {* ! REM<space>} Anything
   let tComment = new RegExp(";\\s*(\\*|!|REM\\s+?).*", "i"); // (something); {0-or-more whitespace} {* ! REM<space>} Anything
   let lComment = new RegExp("(^\\s*[0-9]+)(\\s*\\*.*)"); // number label with comments after
   let qStrings = new RegExp("'.*?'|\".*?\"|\\\\.*?\\\\", "g");
   let rParenthesis = new RegExp("\\(.*\\)", "g");
-  let rWhitespace = new RegExp("\\s{2,}"); // 2 or more whitespace chars
   let noCase = 0;
   let noLoop = 0;
   let noEndLoop = 0;
@@ -288,17 +281,24 @@ function validateTextDocument(textDocument: TextDocument): void {
     // remove trailing comments with a semi-colon
     line.lineOfCode = line.lineOfCode.replace(tComment, "");
 
-    // replace Parenthesis with empty ones ()
-    line.lineOfCode = line.lineOfCode.replace(rParenthesis, "()");
+    // replace contents of parenthesis with spaces, maintaining original
+    // character positions for intellisense error highlighting.
+    let v = rParenthesis.exec(line.lineOfCode);
+    if (v !== null) {
+      let value = "(" + " ".repeat(v[0].length - 2) + ")";
+      line.lineOfCode = line.lineOfCode.replace(rParenthesis, value);
+    }
 
-    // replace quoted strings with empty ones ''
-    line.lineOfCode = line.lineOfCode.replace(qStrings, "''");
+    // replace contents of quoted strings with spaces, maintaining original
+    // character positions for intellisense error highlighting.
+    v = qStrings.exec(line.lineOfCode);
+    if (v !== null) {
+      let value = "'" + " ".repeat(v[0].length - 2) + "'";
+      line.lineOfCode = line.lineOfCode.replace(qStrings, value);
+    }
 
-    // trim all leading and trailing spaces
-    line.lineOfCode = line.lineOfCode.trim();
-
-    // replace 2 or more spaces with 1
-    line.lineOfCode = line.lineOfCode.replace(rWhitespace, " ");
+    // Trim() trailing spaces
+    line.lineOfCode = line.lineOfCode.trimRight();
 
     // Save cleaned line
     lines[i] = line;
@@ -313,12 +313,12 @@ function validateTextDocument(textDocument: TextDocument): void {
          locate(acontinent,continents,1;position;’al’) then crt acontinent:’ is already there’
     */
     if (line.lineOfCode.indexOf(";") > 0) {
-      let a=line.lineOfCode.split(";");
+      let a = line.lineOfCode.split(";");
       // Replace line i with the first statement
       lines[i] = { lineNumber: line.lineNumber, lineOfCode: a[0] };
       line = lines[i];
       // Insert new lines for each subsequent statement, but keep line.lineNumber the same
-      for (let j=1; j < a.length; j++) {
+      for (let j = 1; j < a.length; j++) {
         lines.splice(i + j, 0, { lineNumber: line.lineNumber, lineOfCode: a[j] });
       }
     }
@@ -326,19 +326,16 @@ function validateTextDocument(textDocument: TextDocument): void {
     // check opening and closing block FOR/NEXT - Track matches
     // and build errors list (forNextErr[]).
     if (rStartFor.test(line.lineOfCode)) {
-      let forvar = getWord(line.lineOfCode.trim(), 2);
+      let forvar = getWord(line.lineOfCode, 2);
       forNext.push({ forVar: forvar, forLine: i });
     }
     if (rEndFor.test(line.lineOfCode)) {
-      let nextvar = getWord(line.lineOfCode.trim(), 2);
-      if (nextvar.toLowerCase() == "next") {
-        nextvar = "";
-      }
-      let spot = forNext.length - 1;
-      if (spot < 0) {
+      let nextvar = getWord(line.lineOfCode, 2);
+      let pos = forNext.length - 1;
+      if (pos < 0) {
         forNextErr.push({ errMsg: "Missing FOR statement - NEXT " + nextvar, errLine: i });
       } else {
-        let o = forNext[spot];
+        let o = forNext[pos];
         if (nextvar != "" && o.forVar !== nextvar) {
           forNextErr.push({ errMsg: "Missing NEXT statement - FOR " + o.forVar, errLine: o.forLine });
           forNextErr.push({ errMsg: "Missing FOR statement - NEXT " + nextvar, errLine: i });
