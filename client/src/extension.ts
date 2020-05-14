@@ -393,7 +393,10 @@ export function activate(context: vscode.ExtensionContext) {
 					if (new RegExp("(^while\\s|^until\\s)", "i").test(lineText)) {
 						indentation -= indent
 					}
-					if (new RegExp("(^end else$)", "i").test(lineText)) {
+
+					// remove trailing comments with a semi-colon
+					let tempLine = lineText.replace(tComment, "").trim();
+					if (new RegExp("(^end else$)", "i").test(tempLine)) {
 						indentation -= indent
 					}
 
