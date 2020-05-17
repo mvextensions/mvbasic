@@ -180,7 +180,7 @@ An introduction to how syntax highlights work in VSCode: https://code.visualstud
 
 A description of the various "scopes" typically used: https://macromates.com/manual/en/language_grammars#naming_conventions
 
-Using "Developer: Inspect TM Scopes" to see how a particular token is interpreted.  This will show both the source as well as the scope for any language elements selected.
+Using "Developer: Inspect Editor Token and Scopes" to see how a particular token is interpreted.  This will show both the source as well as the scope for any language elements selected.
 
 ![Dev Inspect Scopes](screenshots/devguide/dev_inspect_scopes.gif)
 
