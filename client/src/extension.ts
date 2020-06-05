@@ -125,10 +125,13 @@ export function activate(context: vscode.ExtensionContext) {
 		var lines = contents.replace('\r', '').split('\n');
 		for (let i = 0; i < lines.length; i++) {
 			let parts = lines[i].split(':')
-			customWordDict.set(parts[0].replace("\"", "").replace("\"", ""), parts[1].replace("\"", "").replace("\"", ""))
-			customWordlist += parts[0].replace('"', '').replace("\"", "") + "|";
+			if (parts.length >= 2) {
+				customWordDict.set(parts[0].replace("\"", "").replace("\"", ""), parts[1].replace("\"", "").replace("\"", ""))
+				customWordlist += parts[0].replace("\"", '').replace("\"", "") + "|";
+			}
 		}
-		customWordlist = customWordlist.substr(0, customWordlist.length - 1) + ")";
+		if (customWordlist.length > 1)
+			customWordlist = customWordlist.substr(0, customWordlist.length - 1) + ")";
 
 	}
 
