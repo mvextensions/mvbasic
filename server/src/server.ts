@@ -519,7 +519,7 @@ function validateTextDocument(textDocument: TextDocument): void {
                   // jumping into or out of a loop
                   let index = line.lineOfCode.indexOf(labelName);
                   let diagnosic: Diagnostic = {
-                    severity: DiagnosticSeverity.Error,
+                    severity: DiagnosticSeverity.Warning,
                     range: {
                       start: { line: line.lineNumber, character: index },
                       end: { line: line.lineNumber, character: index + labelName.length }
