@@ -7,7 +7,7 @@
 			"name": "string.other.quoted-or-unquoted.jbase"
 		},
 		{
-			"match": "^\\s*([\\w.]+:(?!=)|[0-9]+)",
+			"match": "^\\s*([\\w.]+:(?!=)|[0-9.]+)",
 			"name": "string.other.quoted-or-unquoted.jbase"
 		},
 		{

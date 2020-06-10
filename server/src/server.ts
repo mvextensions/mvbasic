@@ -236,21 +236,21 @@ function validateTextDocument(textDocument: TextDocument): void {
   let problems = 0;
   LabelList.length = 0;
 
-  let rBlockStart = new RegExp("^\\s*(begin case$|(if|readnext|open|read|readv|readu|readt|locate|openseq|matread|create|readlist|openpath|find|findstr)\\s+?)", "i");
-  let rBlockAlways = new RegExp("^\\s*(for |loop( |$))", "i");
+  let rBlockStart = new RegExp("(^| )(begin case$|(if|readnext|open|read|readv|readu|readt|locate|openseq|matread|create|readlist|openpath|find|findstr)\\s+?)", "i");
+  let rBlockAlways = new RegExp("(^| )(for |loop( |$))", "i");
   let rBlockContinue = new RegExp(" (then|else|case|on error|locked)$", "i");
-  let rBlockEnd = new RegExp("^\\s*(end|end case|next|next\\s+.+|repeat)$| repeat$", "i");
-  let rStartFor = new RegExp("^\\s*for ", "i");
-  let rEndFor = new RegExp("(^| )next($|\\s+?)", "i");
-  let rStartLoop = new RegExp("^\\s*loop\\s*?", "i");
+  let rBlockEnd = new RegExp("(^| )(end|end case|next|next\\s+.+|repeat)$", "i");
+  let rStartFor = new RegExp("(^| )for\\s+.+", "i");
+  let rEndFor = new RegExp("(^| )next($|\\s+.+$)", "i");
+  let rStartLoop = new RegExp("(^| )loop\\s*?", "i");
   let rEndLoop = new RegExp("(^| )repeat\\s*$", "i");
-  let rStartCase = new RegExp("^\\s*begin case$", "i");
+  let rStartCase = new RegExp("(^| )begin case$", "i");
   let rEndCase = new RegExp("^\\s*end case$", "i");
   let rElseEnd = new RegExp("^\\s*end else$", "i");
-  let rLabel = new RegExp("^\\s*([\\w.]+:(?!=)|[0-9]+)", "i");
+  let rLabel = new RegExp("^\\s*([\\w\\.]+:(?!=)|[0-9\\.]+)", "i");
   let rComment = new RegExp("^\\s*(\\*|!|REM\\s+?).*", "i"); // Start-of-line 0-or-more whitespace {* ! REM<space>} Anything
   let tComment = new RegExp(";\\s*(\\*|!|REM\\s+?).*", "i"); // (something); {0-or-more whitespace} {* ! REM<space>} Anything
-  let lComment = new RegExp("(^\\s*[0-9]+)(\\s*\\*.*)"); // number label with comments after
+  let lComment = new RegExp("^\\s*([\\w\\.]+:(?!=)|[0-9\\.]+)(\\s*(\\*|!|REM\\s+?).*)", "i");
   let qStrings = new RegExp("'.*?'|\".*?\"|\\\\.*?\\\\", "g");
   let rParenthesis = new RegExp("\\(.*\\)", "g");
   let noCase = 0;
@@ -315,22 +315,24 @@ function validateTextDocument(textDocument: TextDocument): void {
     if (line.lineOfCode.indexOf(";") > 0) {
       let a = line.lineOfCode.split(";");
       // Replace line i with the first statement
-      lines[i] = { lineNumber: line.lineNumber, lineOfCode: a[0] };
+      lines[i] = { lineNumber: line.lineNumber, lineOfCode: a[0].trimRight() };
       line = lines[i];
       // Insert new lines for each subsequent statement, but keep line.lineNumber the same
       for (let j = 1; j < a.length; j++) {
-        lines.splice(i + j, 0, { lineNumber: line.lineNumber, lineOfCode: a[j] });
+        lines.splice(i + j, 0, { lineNumber: line.lineNumber, lineOfCode: a[j].trimRight() });
       }
     }
 
     // check opening and closing block FOR/NEXT - Track matches
     // and build errors list (forNextErr[]).
-    if (rStartFor.test(line.lineOfCode)) {
-      let forvar = getWord(line.lineOfCode, 2);
+    let arrFor = rStartFor.exec(line.lineOfCode)
+    if (arrFor !== null) {
+      let forvar = getWord(arrFor[0], 2);
       forNext.push({ forVar: forvar, forLine: i });
     }
-    if (rEndFor.test(line.lineOfCode)) {
-      let nextvar = getWord(line.lineOfCode, 2);
+    let arrNext = rEndFor.exec(line.lineOfCode)
+    if (arrNext !== null) {
+      let nextvar = getWord(arrNext[0], 2);
       let pos = forNext.length - 1;
       if (pos < 0) {
         forNextErr.push({ errMsg: "Missing FOR statement - NEXT " + nextvar, errLine: i });
@@ -474,85 +476,68 @@ function validateTextDocument(textDocument: TextDocument): void {
 
   // Missing GO, GO TO, GOTO, GOSUB
   // regex to check for goto/gosub in a line
-  let rGoto = new RegExp("((gosub|goto|go|go to)\\s+\\w+)", "ig");
+  let rGoto = new RegExp("(^| )(go to|goto|go|gosub)(\\s+.*)", "i");
+
   for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
     let line = lines[i];
+    let labelName = "";
     // check any gosubs or goto's to ensure label is present
-    rGoto.lastIndex = 0;
-    if (rGoto.test(line.lineOfCode)) {
-      while (line.lineOfCode.indexOf(",") > -1) {
-        line.lineOfCode = line.lineOfCode.replace(",", " ");
-      }
-      let values = line.lineOfCode.replace(";", " ").split(" ");
-      let labelName = "";
-      let checkLabel = "";
-      let cnt = 0;
-      values.forEach(function (value) {
-        cnt++;
-        if (
-          value.toLowerCase() == "goto" ||
-          value.toLowerCase() == "gosub" ||
-          value.toLowerCase() == "go"
-        ) {
-          while (cnt < values.length) {
-            labelName = values[cnt]
-              .replace(";", "")
-              .replace("*", "")
-              .replace(":", "");
-            if (labelName === "to") {
-              cnt++;
-              labelName = values[cnt]
-                .replace(";", "")
-                .replace("*", "")
-                .replace(":", "");
-            }
-            if (labelName) {
-              let labelMatch = LabelList.find(label => label.LabelName === labelName);
-              if (labelMatch) {
-                // set the referened flag
-                labelMatch.Referenced = true;
-                if (
-                  labelMatch.Level != RowLevel[i] &&
-                  labelMatch.Level > 1 &&
-                  ignoreGotoScope === false
-                ) {
-                  // jumping into or out of a loop
-                  let index = line.lineOfCode.indexOf(labelName);
-                  let diagnosic: Diagnostic = {
-                    severity: DiagnosticSeverity.Warning,
-                    range: {
-                      start: { line: line.lineNumber, character: index },
-                      end: { line: line.lineNumber, character: index + labelName.length }
-                    },
-                    message: `${labelName} goes out of scope. Invalid GOTO or GOSUB`,
-                    source: "MV Basic"
-                  };
-                  diagnostics.push(diagnosic);
-                }
-              } else {
-                let index = line.lineOfCode.indexOf(labelName);
-                let diagnosic: Diagnostic = {
-                  severity: DiagnosticSeverity.Error,
-                  range: {
-                    start: { line: line.lineNumber, character: index },
-                    end: { line: line.lineNumber, character: index + labelName.length }
-                  },
-                  message: `Label ${labelName} not found! - Invalid GOTO or GOSUB`,
-                  source: "MV Basic"
-                };
-                diagnostics.push(diagnosic);
+    let text = line.lineOfCode;
+    text.split(rGoto)
+    let arrLabels = rGoto.exec(text);
+    if (arrLabels == null) { continue }
+    text = arrLabels[3];
+    let labels = text.split(",");
 
-                if (logLevel) {
-                  connection.console.log(
-                    `[Server(${process.pid})] CheckLabel: ${checkLabel} + MatchedLabel: ${labelMatch}`
-                  );
-                }
-              }
-            }
-            cnt++;
-          }
+    for (let ndx = 0; ndx < labels.length; ndx++) {
+      const item = labels[ndx];
+      labelName = getWord(item, 1);
+      if (labelName.toLocaleLowerCase() == "to") {
+        labelName = getWord(item, 2);
+      }
+
+      let checkLabel = "";
+      let labelMatch = LabelList.find(label => label.LabelName === labelName);
+      if (labelMatch) {
+        // set the referened flag
+        labelMatch.Referenced = true;
+        if (
+          labelMatch.Level != RowLevel[i] &&
+          labelMatch.Level > 1 &&
+          ignoreGotoScope === false
+        ) {
+          // jumping into or out of a loop
+          let index = line.lineOfCode.indexOf(labelName);
+          let diagnosic: Diagnostic = {
+            severity: DiagnosticSeverity.Warning,
+            range: {
+              start: { line: line.lineNumber, character: index },
+              end: { line: line.lineNumber, character: index + labelName.length }
+            },
+            message: `${labelName} goes out of scope. Invalid GOTO or GOSUB`,
+            source: "MV Basic"
+          };
+          diagnostics.push(diagnosic);
         }
-      });
+      } else {
+        let index = line.lineOfCode.indexOf(labelName);
+        let diagnosic: Diagnostic = {
+          severity: DiagnosticSeverity.Error,
+          range: {
+            start: { line: line.lineNumber, character: index },
+            end: { line: line.lineNumber, character: index + labelName.length }
+          },
+          message: `Label ${labelName} not found! - Invalid GOTO or GOSUB`,
+          source: "MV Basic"
+        };
+        diagnostics.push(diagnosic);
+
+        if (logLevel) {
+          connection.console.log(
+            `[Server(${process.pid})] CheckLabel: ${checkLabel} + MatchedLabel: ${labelMatch}`
+          );
+        }
+      }
     }
   }
 
@@ -676,6 +661,8 @@ connection.onCompletion(
 
           if (
             statement.toLocaleLowerCase() === "gosub" ||
+            statement.toLocaleLowerCase() === "go" ||
+            statement.toLocaleLowerCase() === "go to" ||
             statement.toLocaleLowerCase() === "goto"
           ) {
             for (let i = 0; i < LabelList.length; i++) {
