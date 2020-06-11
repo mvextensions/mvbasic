@@ -52,3 +52,7 @@
 - Improved linting (#98)
 - Improved label detection with GOTO/GOSUB (#99)
 - Fixed bug with FOR/NEXT linting with labels (#104)
+
+## 2.0.8
+
+- Fixed a bug with FOR/NEXT recognition and spacing (#107)

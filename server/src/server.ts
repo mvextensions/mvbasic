@@ -240,7 +240,7 @@ function validateTextDocument(textDocument: TextDocument): void {
   let rBlockAlways = new RegExp("(^| )(for |loop( |$))", "i");
   let rBlockContinue = new RegExp(" (then|else|case|on error|locked)$", "i");
   let rBlockEnd = new RegExp("(^| )(end|end case|next|next\\s+.+|repeat)$", "i");
-  let rStartFor = new RegExp("(^| )for\\s+.+", "i");
+  let rStartFor = new RegExp("(^| )for\\s+[\\w.]+\\s*=", "i");
   let rEndFor = new RegExp("(^| )next($|\\s+.+$)", "i");
   let rStartLoop = new RegExp("(^| )loop\\s*?", "i");
   let rEndLoop = new RegExp("(^| )repeat\\s*$", "i");
@@ -327,7 +327,8 @@ function validateTextDocument(textDocument: TextDocument): void {
     // and build errors list (forNextErr[]).
     let arrFor = rStartFor.exec(line.lineOfCode)
     if (arrFor !== null) {
-      let forvar = getWord(arrFor[0], 2);
+      let sFor = arrFor[0].split("=");
+      let forvar = getWord(sFor[0], 2);
       forNext.push({ forVar: forvar, forLine: i });
     }
     let arrNext = rEndFor.exec(line.lineOfCode)
@@ -901,7 +902,6 @@ connection.onDefinition(params => {
       });
       return newProgram;
     }
-    //let rLabel = new RegExp("(^[0-9]+\\s)|(^[0-9]+:\\s)|(^[\\w\\.]+:)", "i");
     let rLabel = new RegExp(
       "(^[0-9]+\\b)|(^[0-9]+)|(^[0-9]+:\\s)|(^[\\w\\.]+:(?!\\=))",
       "i"
