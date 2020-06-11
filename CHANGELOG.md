@@ -42,3 +42,13 @@
 - Introduced webpack to bundle the extension
 - Removed docs from the bundled extension (they can still be accessed online at the repo)
 - Improvements to RestFS API
+
+## 2.0.7
+
+- Fixed a bug with the "customWordPath" option (#24)
+- Fixed auto-formatting bug (#45)
+- Added documentation for the RestFS API (#89)
+- Fixed bug with space-prefixed labels (#96)
+- Improved linting (#98)
+- Improved label detection with GOTO/GOSUB (#99)
+- Fixed bug with FOR/NEXT linting with labels (#104)
