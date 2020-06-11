@@ -125,10 +125,13 @@ export function activate(context: vscode.ExtensionContext) {
 		var lines = contents.replace('\r', '').split('\n');
 		for (let i = 0; i < lines.length; i++) {
 			let parts = lines[i].split(':')
-			customWordDict.set(parts[0].replace("\"", "").replace("\"", ""), parts[1].replace("\"", "").replace("\"", ""))
-			customWordlist += parts[0].replace('"', '').replace("\"", "") + "|";
+			if (parts.length >= 2) {
+				customWordDict.set(parts[0].replace("\"", "").replace("\"", ""), parts[1].replace("\"", "").replace("\"", ""))
+				customWordlist += parts[0].replace("\"", '').replace("\"", "") + "|";
+			}
 		}
-		customWordlist = customWordlist.substr(0, customWordlist.length - 1) + ")";
+		if (customWordlist.length > 1)
+			customWordlist = customWordlist.substr(0, customWordlist.length - 1) + ")";
 
 	}
 
@@ -270,24 +273,23 @@ export function activate(context: vscode.ExtensionContext) {
 			var edits: vscode.TextEdit[] = []
 
 			if (formattingEnabled) {
-				let rBlockStart = new RegExp("^(lock |key\\(|if |commit |rollback |readnext |open |write |writeu |writev |writevu |read |readv |readu |readt |readvu |matreadu |locate |locate\\(|openseq |matread |create |readlist |openpath |find |findstr |bscan)", "i")
-				let rBlockCase = new RegExp("(^begin case)", "i")
-				let rBlockTransaction = new RegExp("(^begin transaction|^begin work)", "i")
-				let rBlockEndCase = new RegExp("(^end case)", "i")
-				let rBlockEndTransaction = new RegExp("(^end transaction|^end work)", "i")
-				let rBlockAlways = new RegExp("^(for |loop$|loop\\s+)", "i")
-				let rBlockContinue = new RegExp("(then$|else$|case$|on error$|locked$)", "i")
-				let rBlockEnd = new RegExp("^(end|repeat|next\\s.+)$", "i")
-				let rElseEnd = new RegExp("^(end else\\s.+)", "i")
-				let rLabel = new RegExp("(^[0-9]+\\s)|(^[0-9]+:\\s)|(^[\\w]+:)");
+				let rBlockStart = new RegExp("^(begin case$|lock |key\\(|if |commit |rollback |readnext |open |write |writeu |writev |writevu |read |readv |readu |readt |readvu |matreadu |locate |locate\\(|openseq |matread |create |readlist |openpath |find |findstr |bscan)", "i")
+				let rBlockAlways = new RegExp("^(for |loop( |$))", "i")
+				let rBlockContinue = new RegExp(" (then|else|case|on error|locked)$", "i")
+				let rBlockEnd = new RegExp("^(end|end case|next|next\\s+.+|repeat)$| repeat$", "i")
+				let rBlockCase = new RegExp("^begin case$", "i")
+				let rBlockEndCase = new RegExp("^end case$", "i")
+				let rBlockTransaction = new RegExp("^(begin transaction|begin work)", "i")
+				let rBlockEndTransaction = new RegExp("^(end transaction|end work)", "i")
+				let rElseEnd = new RegExp("^end else\\s+?.+?", "i")
+				let rLabel = new RegExp("^([\\w\\.]+:(?!=)|[0-9\\.]+)");
 				let rComment = new RegExp("^\\s*(\\*|!|REM\\s+?).*", "i")
 				let tComment = new RegExp(";\\s*(\\*|!|REM\\s+?).*", "i");
-				let lComment = new RegExp("(^[0-9]+\\s+\\*)|(^[0-9]+\\s+;)|(^[0-9]+\\*)|(^[0-9]+;)")  // number label with comments after
-				let trailingComment = new RegExp("(\\*.+)|(;+)")
-				let spaces = "                                                           "
+				let lComment = new RegExp("^\\s*([\\w\\.]+:(?!=)|[0-9\\.]+)(\\s*(\\*|!|REM\\s+?).*)", "i") // a label with comments after
+				let qStrings = new RegExp("'.*?'|\".*?\"|\\\\.*?\\\\", "g");
+				let rParenthesis = new RegExp("\\(.*\\)", "g");
 				if (indent === undefined) { indent = 3 }
 				if (margin === undefined) { margin = 5 }
-
 
 				// first build a list of labels in the program and indentation levels
 				let Level = 0
@@ -296,58 +298,71 @@ export function activate(context: vscode.ExtensionContext) {
 
 					let curLine = document.lineAt(i);
 					let line = curLine.text;
-					if (rComment.test(line.trim()) == true) { continue }
-					// TODO ignore comment lines and
-					if (line.trim().startsWith("$")) { continue }
-					// remove trailing comments
 
-					if (tComment.test(line.trim()) == true) {
-						let comment = tComment.exec(line.trim());
-						line = line.trim().replace(comment[0], "");
+					// replace comment line with blank line
+					line = line.replace(rComment, "");
 
+					// remove comments after label (no semi-colon)
+					if (lComment.test(line)) {
+						let comment = lComment.exec(line);
+						line = comment![1];
 					}
-					lComment.lastIndex = 0;
-					if (lComment.test(line.trim()) === true) {
-						let comment = trailingComment.exec(line.trim());
-						if (comment != null) {
-							line = line.trim().replace(comment[0], "");
-						}
+
+					// remove trailing comments with a semi-colon
+					line = line.replace(tComment, "");
+
+					// replace contents of parenthesis with spaces, maintaining original
+					// character positions for intellisense error highlighting.
+					let v = rParenthesis.exec(line);
+					if (v !== null) {
+						let value = "(" + " ".repeat(v[0].length - 2) + ")";
+						line = line.replace(rParenthesis, value);
 					}
+
+					// replace contents of quoted strings with spaces, maintaining original
+					// character positions for intellisense error highlighting.
+					v = qStrings.exec(line);
+					if (v !== null) {
+						let value = "'" + " ".repeat(v[0].length - 2) + "'";
+						line = line.replace(qStrings, value);
+					}
+
+					// Trim() leading & trailing spaces
+					line = line.trim();
+
 					// check opening and closing block for types
 					// check block statements
 					var position = i
 					RowLevel[i] = Level
 
-					if (rBlockStart.test(line.trim()) == true) {
+					if (rBlockStart.test(line)) {
 						Level++
-						if (rBlockContinue.test(line.trim()) == false) {
+						if (!rBlockContinue.test(line)) {
 							// single line statement
 							Level--
 						}
 						position = i + 1
 					}
-					if (rBlockCase.test(line.trim()) == true) {
-						// increment 2 to cater for case statement
-						Level++
+					if (rBlockCase.test(line)) {
+						// increment to cater for case statement
 						Level++
 						position = i + 1
 					}
-					if (rBlockEndCase.test(line.trim()) == true) {
-						// decrement 2 to cater for case statement
-						Level--
+					if (rBlockEndCase.test(line)) {
+						// decrement to cater for case statement
 						Level--
 					}
-					if (rElseEnd.test(line.trim()) == true) {
+					if (rElseEnd.test(line)) {
 						// decrement 1 to cater for end else stements
 						Level--
 					}
-					if (rBlockTransaction.test(line.trim()) == true) {
-						// increment 2 to cater for case statement
+					if (rBlockTransaction.test(line)) {
+						// increment for transaction statement
 						Level++
 						position = i + 1
 					}
-					if (rBlockEndTransaction.test(line.trim()) == true) {
-						// decrement 2 to cater for case statement
+					if (rBlockEndTransaction.test(line)) {
+						// decrement for transaction statement
 						Level--
 					}
 					if (rBlockAlways.test(line.trim())) {
@@ -360,40 +375,45 @@ export function activate(context: vscode.ExtensionContext) {
 					}
 					RowLevel[position] = Level
 				}
+
+				// Output formatted lines
 				for (var i = 0; i < document.lineCount; i++) {
 
 					const line = document.lineAt(i);
+					let lineText = line.text.trim();
+
 					// ignore labels
-					if (rLabel.test(line.text.trim()) == true) { continue }
+					if (rLabel.test(lineText)) { continue }
 
 					var indentation = 0
 
 					if (RowLevel[i] === undefined) { continue; }
 
 					indentation = (RowLevel[i] * indent) + margin
-					if (new RegExp("(^case\\s)", "i").test(line.text.trim()) == true) {
+					if (new RegExp("(^case\\s)", "i").test(lineText)) {
 						indentation -= indent
 					}
-					if (new RegExp("(^while\\s|^until\\s)", "i").test(line.text.trim()) == true) {
-						indentation -= indent
-					}
-					if (new RegExp("(^end else$)", "i").test(line.text.trim()) == true) {
+					if (new RegExp("(^while\\s|^until\\s)", "i").test(lineText)) {
 						indentation -= indent
 					}
 
-					var blankLine = line.text.replace(/\s/g, "")
+					// remove trailing comments with a semi-colon
+					let tempLine = lineText.replace(tComment, "").trim();
+					if (new RegExp("(^end else$)", "i").test(tempLine)) {
+						indentation -= indent
+					}
+
+					var blankLine = lineText.replace(/\s/g, "")
 					if (indentation < 1 || blankLine.length == 0) {
-						edits.push(vscode.TextEdit.replace(line.range, line.text.trim()))
+						edits.push(vscode.TextEdit.replace(line.range, lineText))
 					}
 					else {
-						var regEx = "\\s{" + indentation + "}"
-						var formattedLine = new RegExp(regEx).exec(spaces)[0] + line.text.trim()
+						var formattedLine = " ".repeat(indentation) + lineText
 						var formatted = vscode.TextEdit.replace(line.range, formattedLine)
 						edits.push(formatted)
 					}
 				}
 			}
-
 			return edits
 		}
 	});
@@ -451,11 +471,11 @@ export function activate(context: vscode.ExtensionContext) {
 		}
 		activeEditor.setDecorations(customDecoration, customWords);
 	}
-	
+
 	let api = {
 		getRestFS(): RestFS {
 			return RESTFS;
-		}		
+		}
 	};
 	return api;
 }
