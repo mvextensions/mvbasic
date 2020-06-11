@@ -19,7 +19,6 @@
     - [3.1.3 Code Formatting](#313-code-formatting)
     - [3.1.4 Intellisense](#314-intellisense)
     - [3.1.5 Code Snippets](#315-code-snippets)
-  - [3.2 MV REST File System](#32-mv-rest-file-system)
 - [4. Syntax definitions / theming](#4-syntax-definitions--theming)
   - [4.1 Resources](#41-resources)
   - [4.2 Changing/Adding Scopes](#42-changingadding-scopes)
@@ -171,10 +170,6 @@ Hovering over a statement or function, or pressing Ctrl+Space, will provide a "t
 
 ### 3.1.5 Code Snippets
 Code snippets are user-defined short-cuts that can be used for any commonly repeated set of keystrokes.  For example, you could type "prog" or "sub", Ctrl+Space, and a standard code header could be inserted, and prompts for the variable parts filled in.  They are not part of the extension, but depending on what you have loaded in snippets, can confuse tooltops and command completion.
-
-## 3.2 MV REST File System
-
-The MVBasic extension includes its own File System Provider which provides access to the MV file system. The MV REST File System API is documented [here](MV%20REST%20File%20System%20API.md). Currently, the AccuTerm RestFS Connector implements this API. Other implementations are welcome.
 
 [(top)](#table-of-contents)
 # 4. Syntax definitions / theming
