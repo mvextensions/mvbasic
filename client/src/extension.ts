@@ -382,6 +382,9 @@ export function activate(context: vscode.ExtensionContext) {
 					const line = document.lineAt(i);
 					let lineText = line.text.trim();
 
+					// ignore comment lines
+					if (rComment.test(lineText)) { continue }
+
 					// ignore labels
 					if (rLabel.test(lineText)) { continue }
 
