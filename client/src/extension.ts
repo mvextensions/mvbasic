@@ -27,6 +27,7 @@ var UseGateway: boolean;
 var UsingRest: boolean;
 var margin: number;
 var indent: number;
+var indentComment: string;
 var formattingEnabled: boolean;
 var editFiles: any;
 var customWordColor: any;
@@ -85,6 +86,7 @@ export function activate(context: vscode.ExtensionContext) {
 		UsingRest = vscode.workspace.getConfiguration("MVBasic").get("UseRestFS");
 		margin = vscode.workspace.getConfiguration("MVBasic").get("margin");
 		indent = vscode.workspace.getConfiguration("MVBasic").get("indent");
+		indentComment = vscode.workspace.getConfiguration("MVBasic").get("indentComment");
 		formattingEnabled = vscode.workspace.getConfiguration("MVBasic").get("formattingEnabled");
 		editFiles = vscode.workspace.getConfiguration("MVBasic").get("EditFiles");
 		customWordColor = vscode.workspace.getConfiguration("MVBasic").get("customWordColor");
@@ -382,9 +384,6 @@ export function activate(context: vscode.ExtensionContext) {
 					const line = document.lineAt(i);
 					let lineText = line.text.trim();
 
-					// ignore comment lines
-					if (rComment.test(lineText)) { continue }
-
 					// ignore labels
 					if (rLabel.test(lineText)) { continue }
 
@@ -393,6 +392,32 @@ export function activate(context: vscode.ExtensionContext) {
 					if (RowLevel[i] === undefined) { continue; }
 
 					indentation = (RowLevel[i] * indent) + margin
+
+					// Comment indent rules
+					if (rComment.test(lineText)) {
+						switch (indentComment) {
+							case "left": {
+								// Indent comment to margin position 0
+								indentation = 0;
+								break;
+							}
+							case "margin": {
+								// Indent comment to margin position
+								indentation = margin;
+								break;
+							}
+							case "code": {
+								// Indent comment with code
+								break;
+							}
+							default: {
+								// No change to indent if indentComment = "ignore",
+								// is missing, or has an invalid value.
+								continue;
+							}
+						}
+					}
+
 					if (new RegExp("(^case\\s)", "i").test(lineText)) {
 						indentation -= indent
 					}

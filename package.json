@@ -145,6 +145,12 @@
           "default": 3,
           "description": "The number of characters to use when indenting code blocks."
         },
+        "MVBasic.indentComment": {
+          "scope": "resource",
+          "type": "string",
+          "default": "ignore",
+          "description": "Indentation of comment lines.  Set to: left, margin, code, or ignore."
+        },
         "MVBasic.maxNumberOfProblems": {
           "scope": "resource",
           "type": "number",
