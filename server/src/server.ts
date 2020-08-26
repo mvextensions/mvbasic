@@ -233,7 +233,6 @@ function loadIntelliSense() {
         label: functions[i].key,
         insertText: functions[i].insertText,
         kind: functions[i].kind,
-        data: functions[i].index,
         detail: functions[i].detail,
         documentation: functions[i].documentation
       });
