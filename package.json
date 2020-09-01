@@ -139,6 +139,11 @@
           "type": "string",
           "description": "Path to a file that contains key value pairs for custom words"
         },
+        "MVBasic.customFunctionPath": {
+          "scope": "resource",
+          "type": "string",
+          "description": "Path to a file that contains key value pairs for custom functions"
+        },
         "MVBasic.indent": {
           "scope": "resource",
           "type": "number",

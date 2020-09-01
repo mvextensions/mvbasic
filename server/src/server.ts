@@ -56,6 +56,8 @@ interface ExampleSettings {
   ignoreGotoScope: boolean;
   customWords: string;
   customWordPath: string;
+  customFunctions: string;
+  customFunctionPath: string;
   languageType: string;
   trace: any; // expect trace.server is string enum 'off', 'messages', 'verbose'
 }
@@ -69,6 +71,7 @@ interface DocumentLine {
 let maxNumberOfProblems: number;
 let customWordList: string;
 let customWordPath: string;
+let customFunctionPath: string;
 let languageType: string;
 let logLevel: number;
 let Intellisense: CompletionItem[] = [];
@@ -219,7 +222,23 @@ function loadIntelliSense() {
       });
     }
   }
-
+  
+  // Load CustomFunction definition
+  if (customFunctionPath !== "") {
+    var functionDefinition = fs.readFileSync(customFunctionPath, "utf8");
+    var customFunctionList = JSON.parse(functionDefinition);
+    var functions = customFunctionList.Language.functions;
+    for (let i = 0; i < functions.length; i++) {
+      Intellisense.push({
+        label: functions[i].key,
+        insertText: functions[i].insertText,
+        kind: functions[i].kind,
+        detail: functions[i].detail,
+        documentation: functions[i].documentation
+      });
+    }
+  }
+  
   if (logLevel) {
     connection.console.log(
       `[Server(${process.pid})] Language definition loaded for ${languageType}`

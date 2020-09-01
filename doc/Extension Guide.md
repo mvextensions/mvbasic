@@ -40,6 +40,7 @@ All other trademarks and service marks are property of their respective holders.
     - [6.5 Internal Subroutine lookup](#65-internal-subroutine-lookup)
     - [6.6 Compiling and Cataloging your programs](#66-compiling-and-cataloging-your-programs)
     - [6.7 Formatting Programs](#67-formatting-programs)
+    - [6.8 Custom functions and subroutines](#68-custom-functions-and-subroutines)
   - [7. Sample Settings Files](#7-sample-settings-files)
     - [7.1 Universe](#71-universe)
     - [7.2 Unidata](#72-unidata)
@@ -373,6 +374,34 @@ After the option is selected, results are displayed in the `MV Basic` Output win
 ### 6.7 Formatting Programs
 
 **Right clicking** and selecting `Format Document`, will format your BASIC program. The formatting is based on the 2 settings, `MVBasic.indent` and `MVBasic.margin` that have default values of 3 and 5.
+
+### 6.8 Custom functions and subroutines
+This allows you to autocomplete and document your popular functions and subroutines.
+
+This is a sample of the autocompleted function that is also displaying the documentation on hover:
+![Find References](screenshots/sampleFunctions.png)
+
+This is a sample of the json file that you use to document the functions and subroutines:
+```
+{
+   "Language": {
+      "Type": "customFunctions",
+      "functions": [
+         {
+            "key": "SampleFunctionName",
+            "insertText":"SampleFunctionName('var1')",
+            "index": 1,
+            "detail": "function description that will display in the hover",
+            "documentation": "function documentaion that will display in the hover\r\nThis is line 2"
+         }
+      ]
+   }
+}
+```
+This is the MVBasic extension setting that points to the above json file:
+|Setting|Value|Description|
+|-----|-----|-----|
+|MVBasic.customFunctionPath|c:\users\user\customFunctions.json|Path to a file that contains key value pairs for custom functions|
 
 [(top)](#table-of-contents)
 
