@@ -376,21 +376,23 @@ After the option is selected, results are displayed in the `MV Basic` Output win
 **Right clicking** and selecting `Format Document`, will format your BASIC program. The formatting is based on the 2 settings, `MVBasic.indent` and `MVBasic.margin` that have default values of 3 and 5.
 
 ### 6.8 Custom functions and subroutines
+
 This allows you to autocomplete and document your popular functions and subroutines.
 
 This is a sample of the autocompleted function that is also displaying the documentation on hover:
 ![Find References](screenshots/sampleFunctions.png)
 
 This is a sample of the json file that you use to document the functions and subroutines:
-```
+
+``` json
 {
    "Language": {
-      "Type": "customFunctions",
+      "Type": "customFunctionPath",
       "functions": [
          {
             "key": "SampleFunctionName",
             "insertText":"SampleFunctionName('var1')",
-            "index": 1,
+            "kind": 2,
             "detail": "function description that will display in the hover",
             "documentation": "function documentaion that will display in the hover\r\nThis is line 2"
          }
@@ -398,10 +400,13 @@ This is a sample of the json file that you use to document the functions and sub
    }
 }
 ```
+
+> Note, the `kind` property should map to the [CompletionItemKind](https://code.visualstudio.com/api/references/vscode-api#CompletionItemKind) enumerator from the VS Code api. Typically you will likely set this to `2` to classify items as a _function_ definition.
+
 This is the MVBasic extension setting that points to the above json file:
-|Setting|Value|Description|
-|-----|-----|-----|
-|MVBasic.customFunctionPath|c:\users\user\customFunctions.json|Path to a file that contains key value pairs for custom functions|
+| Setting                    | Value                              | Description                                                       |
+| -------------------------- | ---------------------------------- | ----------------------------------------------------------------- |
+| MVBasic.customFunctionPath | c:\users\user\customFunctions.json | Path to a file that contains key value pairs for custom functions |
 
 [(top)](#table-of-contents)
 

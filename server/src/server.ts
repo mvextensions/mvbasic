@@ -56,7 +56,6 @@ interface ExampleSettings {
   ignoreGotoScope: boolean;
   customWords: string;
   customWordPath: string;
-  customFunctions: string;
   customFunctionPath: string;
   languageType: string;
   trace: any; // expect trace.server is string enum 'off', 'messages', 'verbose'
@@ -222,7 +221,7 @@ function loadIntelliSense() {
       });
     }
   }
-  
+
   // Load CustomFunction definition
   if (customFunctionPath !== "") {
     var functionDefinition = fs.readFileSync(customFunctionPath, "utf8");
@@ -238,7 +237,7 @@ function loadIntelliSense() {
       });
     }
   }
-  
+
   if (logLevel) {
     connection.console.log(
       `[Server(${process.pid})] Language definition loaded for ${languageType}`
@@ -261,8 +260,8 @@ function validateTextDocument(textDocument: TextDocument): void {
   let rBlockEnd = new RegExp("(^| )(end|end case|next|next\\s+.+|repeat)$", "i");
   let rStartFor = new RegExp("(^| )for\\s+[\\w.]+\\s*=", "i");
   let rEndFor = new RegExp("(^| )next($|\\s+.+$)", "i");
-  let rStartLoop = new RegExp("(^| )loop\\s*?", "i");
-  let rEndLoop = new RegExp("(^| )repeat\\s*$", "i");
+  let rStartLoop = new RegExp("(^| )loop( |$)\\s*?", "i");
+  let rEndLoop = new RegExp("(^| )repeat( |$)\\s*$", "i");
   let rStartCase = new RegExp("(^| )begin case$", "i");
   let rEndCase = new RegExp("^\\s*end case$", "i");
   let rElseEnd = new RegExp("^\\s*end else$", "i");
