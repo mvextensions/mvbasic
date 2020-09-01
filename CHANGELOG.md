@@ -56,3 +56,10 @@
 ## 2.0.8
 
 - Fixed a bug with FOR/NEXT recognition and spacing (#107)
+
+## 2.0.9
+
+- Fixed a bug with LOOP/REPEAT recognition and spacing (no issue)
+- Fixed a bug with formatting for comment lines (#110)
+- Added new indentComment setting to control comment indentation (#111)
+- Added new customFunctionPath setting to allow users to contribute custom functions/subroutines for IntelliSense and linting (#113)

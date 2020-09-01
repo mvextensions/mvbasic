@@ -2,7 +2,7 @@
   "name": "mvbasic",
   "displayName": "MV Basic",
   "description": "MV Basic",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "publisher": "mvextensions",
   "license": "MIT",
   "icon": "images/mvbasic-logo.png",
@@ -139,11 +139,22 @@
           "type": "string",
           "description": "Path to a file that contains key value pairs for custom words"
         },
+        "MVBasic.customFunctionPath": {
+          "scope": "resource",
+          "type": "string",
+          "description": "Path to a file that contains key value pairs for custom functions"
+        },
         "MVBasic.indent": {
           "scope": "resource",
           "type": "number",
           "default": 3,
           "description": "The number of characters to use when indenting code blocks."
+        },
+        "MVBasic.indentComment": {
+          "scope": "resource",
+          "type": "string",
+          "default": "ignore",
+          "description": "Indentation of comment lines.  Set to: left, margin, code, or ignore."
         },
         "MVBasic.maxNumberOfProblems": {
           "scope": "resource",

@@ -56,6 +56,7 @@ interface ExampleSettings {
   ignoreGotoScope: boolean;
   customWords: string;
   customWordPath: string;
+  customFunctionPath: string;
   languageType: string;
   trace: any; // expect trace.server is string enum 'off', 'messages', 'verbose'
 }
@@ -69,6 +70,7 @@ interface DocumentLine {
 let maxNumberOfProblems: number;
 let customWordList: string;
 let customWordPath: string;
+let customFunctionPath: string;
 let languageType: string;
 let logLevel: number;
 let Intellisense: CompletionItem[] = [];
@@ -220,6 +222,22 @@ function loadIntelliSense() {
     }
   }
 
+  // Load CustomFunction definition
+  if (customFunctionPath !== "") {
+    var functionDefinition = fs.readFileSync(customFunctionPath, "utf8");
+    var customFunctionList = JSON.parse(functionDefinition);
+    var functions = customFunctionList.Language.functions;
+    for (let i = 0; i < functions.length; i++) {
+      Intellisense.push({
+        label: functions[i].key,
+        insertText: functions[i].insertText,
+        kind: functions[i].kind,
+        detail: functions[i].detail,
+        documentation: functions[i].documentation
+      });
+    }
+  }
+
   if (logLevel) {
     connection.console.log(
       `[Server(${process.pid})] Language definition loaded for ${languageType}`
@@ -242,8 +260,8 @@ function validateTextDocument(textDocument: TextDocument): void {
   let rBlockEnd = new RegExp("(^| )(end|end case|next|next\\s+.+|repeat)$", "i");
   let rStartFor = new RegExp("(^| )for\\s+[\\w.]+\\s*=", "i");
   let rEndFor = new RegExp("(^| )next($|\\s+.+$)", "i");
-  let rStartLoop = new RegExp("(^| )loop\\s*?", "i");
-  let rEndLoop = new RegExp("(^| )repeat\\s*$", "i");
+  let rStartLoop = new RegExp("(^| )loop( |$)\\s*?", "i");
+  let rEndLoop = new RegExp("(^| )repeat( |$)\\s*$", "i");
   let rStartCase = new RegExp("(^| )begin case$", "i");
   let rEndCase = new RegExp("^\\s*end case$", "i");
   let rElseEnd = new RegExp("^\\s*end else$", "i");

@@ -40,6 +40,7 @@ All other trademarks and service marks are property of their respective holders.
     - [6.5 Internal Subroutine lookup](#65-internal-subroutine-lookup)
     - [6.6 Compiling and Cataloging your programs](#66-compiling-and-cataloging-your-programs)
     - [6.7 Formatting Programs](#67-formatting-programs)
+    - [6.8 Custom functions and subroutines](#68-custom-functions-and-subroutines)
   - [7. Sample Settings Files](#7-sample-settings-files)
     - [7.1 Universe](#71-universe)
     - [7.2 Unidata](#72-unidata)
@@ -240,9 +241,9 @@ Content-Type: application/json
 
 ### 5.2 Option 2 - AccuTerm
 
-To use AccuTerm to connect the MV Basic extension to your MV server, you must be running AccuTerm 7.1 or above (with [this add-on](https://zdownload.blob.core.windows.net/accuterm/Miscellaneous/Windows/x86/1.0.5.0/accuterm-vscode-connector.exe)) or AccuTerm [8.0.1020](https://zdownload.blob.core.windows.net/accuterm/Standard/Windows/x86/8.0.1020.0/atwin_8.0.1020.exe) or above (no add-on required).
+To use AccuTerm to connect the MV Basic extension to your MV server, you must be running AccuTerm 7.1 or above (with [this add-on](https://zdownload.blob.core.windows.net/accuterm/Miscellaneous/Windows/x86/1.0.6.0/accuterm-vscode-connector.exe)) or AccuTerm [8.0.1020](https://zdownload.blob.core.windows.net/accuterm/Standard/Windows/x86/8.0.1020.0/atwin_8.0.1020.exe) or above (no add-on required).
 
-The latest version of the AccuTerm host programs should be used with this connector (8.0.7). You can verify your version by typing FTABOUT at a command prompt (TCL) in the ACCUTERM account. You can download version 8.0.7 with [this link](https://zdownload.blob.core.windows.net/accuterm/Host-Programs/Windows/x86/8.0.7.0/pickbp.exe).
+The latest version of the AccuTerm host programs should be used with this connector (8.0.7). You can verify your version by typing FTABOUT at a command prompt (TCL) in the ACCUTERM account. You can download version 8.0.10 with [this link](https://zdownload.blob.core.windows.net/accuterm/Host-Programs/Windows/x86/8.0.10.0/pickbp.exe).
 
 *Note: the 8.0.1020 release of AccuTerm 8 **does not** include the latest host programs. You should update the host programs after installing 8.0.1020. See above.*
 
@@ -373,6 +374,39 @@ After the option is selected, results are displayed in the `MV Basic` Output win
 ### 6.7 Formatting Programs
 
 **Right clicking** and selecting `Format Document`, will format your BASIC program. The formatting is based on the 2 settings, `MVBasic.indent` and `MVBasic.margin` that have default values of 3 and 5.
+
+### 6.8 Custom functions and subroutines
+
+This allows you to autocomplete and document your popular functions and subroutines.
+
+This is a sample of the autocompleted function that is also displaying the documentation on hover:
+![Find References](screenshots/sampleFunctions.png)
+
+This is a sample of the json file that you use to document the functions and subroutines:
+
+``` json
+{
+   "Language": {
+      "Type": "customFunctionPath",
+      "functions": [
+         {
+            "key": "SampleFunctionName",
+            "insertText":"SampleFunctionName('var1')",
+            "kind": 2,
+            "detail": "function description that will display in the hover",
+            "documentation": "function documentaion that will display in the hover\r\nThis is line 2"
+         }
+      ]
+   }
+}
+```
+
+> Note, the `kind` property should map to the [CompletionItemKind](https://code.visualstudio.com/api/references/vscode-api#CompletionItemKind) enumerator from the VS Code api. Typically you will likely set this to `2` to classify items as a _function_ definition.
+
+This is the MVBasic extension setting that points to the above json file:
+| Setting                    | Value                              | Description                                                       |
+| -------------------------- | ---------------------------------- | ----------------------------------------------------------------- |
+| MVBasic.customFunctionPath | c:\users\user\customFunctions.json | Path to a file that contains key value pairs for custom functions |
 
 [(top)](#table-of-contents)
 
