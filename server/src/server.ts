@@ -228,8 +228,9 @@ function loadIntelliSense() {
     var customFunctionList = JSON.parse(functionDefinition);
     var functions = customFunctionList.Language.functions;
     for (let i = 0; i < functions.length; i++) {
+      let IntellisensePosition=(Object.keys(Intellisense).length);
       Intellisense.push({
-        data: i+1,
+        data: IntellisensePosition+1,
         label: functions[i].key,
         insertText: functions[i].insertText,
         kind: functions[i].kind,
