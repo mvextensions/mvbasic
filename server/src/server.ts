@@ -229,6 +229,7 @@ function loadIntelliSense() {
     var functions = customFunctionList.Language.functions;
     for (let i = 0; i < functions.length; i++) {
       Intellisense.push({
+        data: i+1,
         label: functions[i].key,
         insertText: functions[i].insertText,
         kind: functions[i].kind,
