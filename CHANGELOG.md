@@ -63,3 +63,7 @@
 - Fixed a bug with formatting for comment lines (#110)
 - Added new indentComment setting to control comment indentation (#111)
 - Added new customFunctionPath setting to allow users to contribute custom functions/subroutines for IntelliSense and linting (#113)
+
+### 2.0.10
+
+- Fixed bug with customFunctionPath
