@@ -628,6 +628,7 @@ connection.onDidChangeConfiguration(change => {
   ignoreGotoScope = settings.MVBasic.ignoreGotoScope;
   customWordList = settings.MVBasic.customWords;
   customWordPath = settings.MVBasic.customWordPath;
+  customFunctionPath = settings.MVBasic.customFunctionPath;
   languageType = settings.MVBasic.languageType;
   const _logLevel = <string>(settings.MVBasic.trace && settings.MVBasic.trace.server) || 'off';
   switch (_logLevel) {
