@@ -184,17 +184,17 @@ function loadIntelliSense() {
   for (let i = 0; i < keywords.length; i++) {
     if (useCamelcase === true) {
       Intellisense.push({
+        data: Intellisense.length + 1,
         label: keywords[i].key,
         kind: keywords[i].icon,
-        data: keywords[i].index,
         detail: keywords[i].detail,
         documentation: keywords[i].documentation
       });
     } else {
       Intellisense.push({
+        data: Intellisense.length + 1,
         label: keywords[i].key.toUpperCase(),
         kind: keywords[i].icon,
-        data: keywords[i].index,
         detail: keywords[i].detail,
         documentation: keywords[i].documentation
       });
@@ -215,9 +215,9 @@ function loadIntelliSense() {
     var items = customWordList.split("|");
     for (let i = 0; i < items.length; i++) {
       Intellisense.push({
+        data: Intellisense.length + 1,
         label: items[i],
-        kind: CompletionItemKind.Interface,
-        data: 999
+        kind: CompletionItemKind.Interface
       });
     }
   }
@@ -229,6 +229,7 @@ function loadIntelliSense() {
     var functions = customFunctionList.Language.functions;
     for (let i = 0; i < functions.length; i++) {
       Intellisense.push({
+        data: Intellisense.length + 1,
         label: functions[i].key,
         insertText: functions[i].insertText,
         kind: functions[i].kind,

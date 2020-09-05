@@ -67,3 +67,7 @@
 ### 2.0.10
 
 - Fixed bug with customFunctionPath
+
+### 2.0.11
+
+- Fixed bug with customFunctionPath and improved jBASELanguage.json
