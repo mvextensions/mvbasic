@@ -411,7 +411,7 @@ This is the MVBasic extension setting that points to the above json file:
 
 ### 6.9 Intellisense User Variables
 
-This setting will enable MB Basic to update Intellisense with the variables from your program.
+This setting will enable MVBasic to update Intellisense with the variables from your program.
 If this code is in your program:
 userVariable = 'test'
 The variable name `userVariable` will be included in Intellisense so that it will be auto suggested to you.
