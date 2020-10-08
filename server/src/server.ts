@@ -42,6 +42,7 @@ let connection: IConnection = createConnection(
 );
 
 let useCamelcase = true;
+let userVariablesEnabled = false;
 let ignoreGotoScope = false;
 
 // The settings interface describe the server relevant settings part
@@ -53,6 +54,7 @@ interface Settings {
 interface ExampleSettings {
   maxNumberOfProblems: number;
   useCamelCase: boolean;
+  userVariablesEnabled: boolean;
   ignoreGotoScope: boolean;
   customWords: string;
   customWordPath: string;
@@ -143,6 +145,67 @@ function getWord(line: string, wordCount: number): string {
   }
 
   return words[wordCount - 1];
+}
+
+//Find variables in lineOfCode
+function getVariableName(lineOfCode: any) {
+  let variableName='';
+  let position;
+  let wordArray;
+  if (lineOfCode.length < 3) {return variableName;}
+  if (lineOfCode.includes(" case ") || lineOfCode.includes(" CASE ")) {return variableName;}
+  //get variables from a READ
+  if (lineOfCode.includes(" from ") || lineOfCode.includes(" FROM ")) {
+    wordArray=lineOfCode.split(" ");
+    position=wordArray.indexOf("from");
+    if (position > -1) {
+      variableName=wordArray[position-1].trim();
+      return variableName;
+    }
+    position=wordArray.indexOf("FROM");
+    if (position > -1) {
+      variableName=wordArray[position-1].trim();
+      return variableName;
+    }
+  }
+  //get variables from a OPEN
+  if (lineOfCode.includes("open ") || lineOfCode.includes("OPEN ")) {
+    wordArray=lineOfCode.split(" ");
+    position=wordArray.indexOf("to");
+    if (position > -1) {
+      variableName=wordArray[position+1].trim();
+      return variableName;
+    }
+    position=wordArray.indexOf("TO");
+    if (position > -1) {
+      variableName=wordArray[position+1].trim();
+      return variableName;
+    }
+  }
+  //Check after THEN
+  if (lineOfCode.includes(" then")) {
+    lineOfCode=lineOfCode.split(" then")[1];
+  }
+  if (lineOfCode.includes(" THEN")) {
+    lineOfCode=lineOfCode.split(" THEN")[1];
+  }
+  position=lineOfCode.indexOf("=");
+  if (position > 0) {
+    var variables = lineOfCode.split("=");
+    for (var i = 0; i < variables.length; i++) {
+      let thisString = variables[i].trim();;
+      let lastCharacter=thisString.substr(thisString.length - 1);
+      if (lastCharacter==":" || lastCharacter=="+" || lastCharacter=="-") { continue; }
+      if (thisString.includes("(")) { continue; }
+      if (thisString.includes("<")) { continue; }
+      if (thisString.includes("else") || thisString.includes("ELSE")) { continue; }
+      if (thisString.includes("then") || thisString.includes("THEN")) { continue; }
+      if (thisString.includes("if") || thisString.includes("IF")) { continue; }
+      variableName = thisString.trim();
+      return variableName;
+    }
+  }
+  return variableName;
 }
 
 function loadIntelliSense() {
@@ -277,6 +340,16 @@ function validateTextDocument(textDocument: TextDocument): void {
   let noEndLoop = 0;
   let noEndCase = 0;
 
+  // Remove all variables from Intellisense to start clean
+  if (userVariablesEnabled === true) {
+    var i = Intellisense.length;
+    while (i--) {
+      if (Intellisense[i].kind === CompletionItemKind.Variable) {
+        Intellisense.splice(i, 1);
+      }
+    }
+  }
+
   // first build a list of labels in the program and indentation levels, strip comments, break up ; delimited lines
   let Level = 0;
   var RowLevel: number[] = [lines.length];
@@ -339,6 +412,21 @@ function validateTextDocument(textDocument: TextDocument): void {
       // Insert new lines for each subsequent statement, but keep line.lineNumber the same
       for (let j = 1; j < a.length; j++) {
         lines.splice(i + j, 0, { lineNumber: line.lineNumber, lineOfCode: a[j].trimRight() });
+      }
+    }
+
+    //Check for variable names to add to Intellisens if it does not already exist
+    if (userVariablesEnabled === true) {
+      let variableName = getVariableName(line.lineOfCode);
+      if (variableName != '') {
+        var checkVariables = Intellisense.filter(IntellisenseFilter => IntellisenseFilter.label === variableName);
+        if (checkVariables.length < 1) {
+          Intellisense.push({
+            data: Intellisense.length + 1,
+            label: variableName,
+            kind: CompletionItemKind.Variable
+          });
+        }
       }
     }
 
@@ -626,6 +714,7 @@ connection.onDidChangeConfiguration(change => {
   let settings = <Settings>change.settings;
   maxNumberOfProblems = settings.MVBasic.maxNumberOfProblems || 100;
   useCamelcase = settings.MVBasic.useCamelCase;
+  userVariablesEnabled = settings.MVBasic.userVariablesEnabled;
   ignoreGotoScope = settings.MVBasic.ignoreGotoScope;
   customWordList = settings.MVBasic.customWords;
   customWordPath = settings.MVBasic.customWordPath;

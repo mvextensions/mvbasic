@@ -41,6 +41,7 @@ All other trademarks and service marks are property of their respective holders.
     - [6.6 Compiling and Cataloging your programs](#66-compiling-and-cataloging-your-programs)
     - [6.7 Formatting Programs](#67-formatting-programs)
     - [6.8 Custom functions and subroutines](#68-custom-functions-and-subroutines)
+    - [6.9 Intellisense User Variables](#69-intellisense-user-variables)
   - [7. Sample Settings Files](#7-sample-settings-files)
     - [7.1 Universe](#71-universe)
     - [7.2 Unidata](#72-unidata)
@@ -407,6 +408,21 @@ This is the MVBasic extension setting that points to the above json file:
 | Setting                    | Value                              | Description                                                       |
 | -------------------------- | ---------------------------------- | ----------------------------------------------------------------- |
 | MVBasic.customFunctionPath | c:\users\user\customFunctions.json | Path to a file that contains key value pairs for custom functions |
+
+### 6.9 Intellisense User Variables
+
+This setting will enable MVBasic to update Intellisense with the variables from your program.
+If this code is in your program:
+userVariable = 'test'
+The variable name `userVariable` will be included in Intellisense so that it will be auto suggested to you.
+This also works with jBase objects:
+response->data->value = 'test'
+The variable name `response->data->value` will be included in Intellisense so that it will be auto suggested to you.
+
+This is the MVBasic extension setting that controls this feature:
+| Setting                    | Default Value                              | Description                                                       |
+| -------------------------- | ---------------------------------- | ----------------------------------------------------------------- |
+| MVBasic.userVariablesEnabled | false | set to `true` to enable this feature |
 
 [(top)](#table-of-contents)
 
