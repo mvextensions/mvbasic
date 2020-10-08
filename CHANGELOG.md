@@ -71,3 +71,7 @@
 ### 2.0.11
 
 - Fixed bug with customFunctionPath and improved jBASELanguage.json
+
+### 2.1.0
+
+- Added userVariablesEnabled setting which allows the language server to parse your code for variable names to use in IntelliSense (#128)
