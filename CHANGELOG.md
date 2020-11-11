@@ -75,3 +75,11 @@
 ### 2.1.0
 
 - Added userVariablesEnabled setting which allows the language server to parse your code for variable names to use in IntelliSense (#128)
+
+### 2.1.1
+
+- Added improvements to dynamic user variable Intellisense to now include
+  - Arguments from a `CALL` or `SUBROUTINE`
+  - Variables from a `FOR ... TO`
+  - Variables from a `EQU ... TO`
+  - Variables from a `EQUATE ... TO`
