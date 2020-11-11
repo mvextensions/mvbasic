@@ -149,22 +149,92 @@ function getWord(line: string, wordCount: number): string {
 
 //Find variables in lineOfCode
 function getVariableName(lineOfCode: any) {
-  let variableName='';
+  let variableName: string[];
+  variableName = [];
   let position;
   let wordArray;
   if (lineOfCode.length < 3) {return variableName;}
   if (lineOfCode.includes(" case ") || lineOfCode.includes(" CASE ")) {return variableName;}
+  //get arguments from a CALL or SUBROUTINE as variables
+  if (lineOfCode.includes("call ") || lineOfCode.includes("CALL ") || lineOfCode.includes("subroutine ") || lineOfCode.includes("SUBROUTINE ")) {
+    let argumentString = lineOfCode.substring(lineOfCode.lastIndexOf("(") + 1, lineOfCode.lastIndexOf(")"));
+    if (argumentString!=null) {
+      position=lineOfCode.indexOf(",");
+      if (position > 0) {
+        var argumentList = argumentString.split("=");
+        for (var i = 0; i < argumentList.length; i++) {
+          variableName.push(argumentString[i].trim());
+        }
+        return variableName;
+      } else {
+        variableName.push(argumentString.trim());
+        return variableName;
+      }
+    }
+  }
   //get variables from a READ
   if (lineOfCode.includes(" from ") || lineOfCode.includes(" FROM ")) {
     wordArray=lineOfCode.split(" ");
     position=wordArray.indexOf("from");
     if (position > -1) {
-      variableName=wordArray[position-1].trim();
+      variableName.push(wordArray[position-1].trim());
       return variableName;
     }
     position=wordArray.indexOf("FROM");
     if (position > -1) {
-      variableName=wordArray[position-1].trim();
+      variableName.push(wordArray[position-1].trim());
+      return variableName;
+    }
+  }
+  //get variables from a FOR TO
+  if ((lineOfCode.includes("for ") || lineOfCode.includes("FOR ")) && (lineOfCode.includes(" to ") || lineOfCode.includes("TO ")) && lineOfCode.includes("=")) {
+    wordArray=lineOfCode.split(" ");
+    position=wordArray.indexOf("for");
+    if (position > -1) {
+      let thisString=wordArray[position+1]
+      thisString=thisString.split("=");
+      thisString=thisString[0].trim()
+      if (thisString!=null) {
+        variableName.push(thisString);
+        return variableName;
+      }
+    }
+    position=wordArray.indexOf("FOR");
+    if (position > -1) {
+      let thisString=wordArray[position+1]
+      thisString=thisString.split("=");
+      thisString=thisString[0].trim()
+      if (thisString!=null) {
+        variableName.push(thisString);
+        return variableName;
+      }
+    }
+  }
+  //get variables from a EQUATE TO
+  if ((lineOfCode.includes("equate ") || lineOfCode.includes("EQUATE ")) && (lineOfCode.includes(" to ") || lineOfCode.includes("TO "))) {
+    wordArray=lineOfCode.split(" ");
+    position=wordArray.indexOf("equate");
+    if (position > -1) {
+      variableName.push(wordArray[position+1].trim());
+      return variableName;
+    }
+    position=wordArray.indexOf("EQUATE");
+    if (position > -1) {
+      variableName.push(wordArray[position+1].trim());
+      return variableName;
+    }
+  }
+  //get variables from a EQU TO
+  if ((lineOfCode.includes("equ ") || lineOfCode.includes("EQU ")) && (lineOfCode.includes(" to ") || lineOfCode.includes("TO "))) {
+    wordArray=lineOfCode.split(" ");
+    position=wordArray.indexOf("equ");
+    if (position > -1) {
+      variableName.push(wordArray[position+1].trim());
+      return variableName;
+    }
+    position=wordArray.indexOf("EQU");
+    if (position > -1) {
+      variableName.push(wordArray[position+1].trim());
       return variableName;
     }
   }
@@ -173,12 +243,12 @@ function getVariableName(lineOfCode: any) {
     wordArray=lineOfCode.split(" ");
     position=wordArray.indexOf("to");
     if (position > -1) {
-      variableName=wordArray[position+1].trim();
+      variableName.push(wordArray[position+1].trim());
       return variableName;
     }
     position=wordArray.indexOf("TO");
     if (position > -1) {
-      variableName=wordArray[position+1].trim();
+      variableName.push(wordArray[position+1].trim());
       return variableName;
     }
   }
@@ -201,7 +271,7 @@ function getVariableName(lineOfCode: any) {
       if (thisString.includes("else") || thisString.includes("ELSE")) { continue; }
       if (thisString.includes("then") || thisString.includes("THEN")) { continue; }
       if (thisString.includes("if") || thisString.includes("IF")) { continue; }
-      variableName = thisString.trim();
+      variableName.push(thisString.trim());
       return variableName;
     }
   }
@@ -417,15 +487,20 @@ function validateTextDocument(textDocument: TextDocument): void {
 
     //Check for variable names to add to Intellisens if it does not already exist
     if (userVariablesEnabled === true) {
-      let variableName = getVariableName(line.lineOfCode);
-      if (variableName != '') {
-        var checkVariables = Intellisense.filter(IntellisenseFilter => IntellisenseFilter.label === variableName);
-        if (checkVariables.length < 1) {
-          Intellisense.push({
-            data: Intellisense.length + 1,
-            label: variableName,
-            kind: CompletionItemKind.Variable
-          });
+      let variableNames = getVariableName(line.lineOfCode);
+      if (variableNames != null) {
+        for (var vc = 0; vc < variableNames.length; vc++) {
+          let variableName = variableNames[vc];
+          if (variableName != '') {
+            var checkVariables = Intellisense.filter(IntellisenseFilter => IntellisenseFilter.label === variableName);
+            if (checkVariables.length < 1) {
+              Intellisense.push({
+                data: Intellisense.length + 1,
+                label: variableName,
+                kind: CompletionItemKind.Variable
+              });
+            }
+          }
         }
       }
     }
