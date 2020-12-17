@@ -476,15 +476,17 @@ export class RestFS implements IRestFS {
             throw vscode.FileSystemError.FileNotFound(uri);
         }
 
-        // update local file cache with changed file
         if (!entry) {
+            // update local file cache with new file
             let name = uri.path;
             if (this.case_insensitive)
                 name = name.toUpperCase();
             entry = new File(name, {attr: RestFSAttr.ATTR_FILE, size: content.length}, content);
             this.entries.set(name, entry);
+            this._addToParentItems(uri, entry); // fixup items array in parent
             this._fireSoon({ type: vscode.FileChangeType.Created, uri });
         } else {
+            // update local file cache with updated file
             entry.mtime = Date.now();
             entry.data = content;
             entry.size = content.byteLength;
@@ -546,6 +548,8 @@ export class RestFS implements IRestFS {
             this.entries.delete(oldName);
             entry.name = newName;
             this.entries.set(newName, entry);
+            this._removeFromParentItems(oldUri); // fixup items array in parent
+            this._addToParentItems(newUri, entry); // fixup items array in parent
         }
         this._fireSoon(
             { type: vscode.FileChangeType.Deleted, uri: oldUri },
@@ -589,8 +593,9 @@ export class RestFS implements IRestFS {
         let entry = this._lookup(uri);
         if (entry) {
             this.entries.delete(entry.name);
+            this._removeFromParentItems(uri); // fixup items array in parent
         }
-        this._fireSoon({ type: vscode.FileChangeType.Changed, uri: uri.with( {path: path.posix.dirname(uri.path) } )}, { type: vscode.FileChangeType.Deleted, uri });
+        this._fireSoon({ type: vscode.FileChangeType.Deleted, uri });
         this.log_level>1 && getTraceChannel().appendLine("[RestFS] delete: path=" + uri.path + " 'file' request succeeded");            
     }
 
@@ -648,7 +653,8 @@ export class RestFS implements IRestFS {
             name = name.toUpperCase();
         entry = new Directory(name, {attr: RestFSAttr.ATTR_FOLDER, size: 0, ctime: Date.now()}, []);
         this.entries.set(name, entry);
-        this._fireSoon({ type: vscode.FileChangeType.Changed, uri: dirname }, { type: vscode.FileChangeType.Created, uri });
+        this._addToParentItems(uri, entry); // fixup items array in parent
+        this._fireSoon({ type: vscode.FileChangeType.Created, uri });
         this.log_level>1 && getTraceChannel().appendLine("[RestFS] createDirectory: path=" + uri.path + " 'create' request succeeded");            
     }
 
@@ -877,6 +883,8 @@ export class RestFS implements IRestFS {
                             name = name.toUpperCase();
                         if (attr & RestFSAttr.ATTR_FOLDER) {
                             entry = new Directory(name, <FileInfo>result);
+                            if (uri.path === "/")
+                                entry.attr |= RestFSAttr.ATTR_ROOT; // indicate this is the root, otherwise refresh does not work
                         } else if (attr & RestFSAttr.ATTR_FILE) {
                             entry = new File(name, <FileInfo>result);
                         }
@@ -948,6 +956,61 @@ export class RestFS implements IRestFS {
             return entry;
         }
         return undefined;
+    }
+
+    // --- fixup local directory cache for new, deleted or renamed files --- //
+    private _addToParentItems(uri: vscode.Uri, entry: File | Directory) {
+        const parent_uri = uri.with( {path: path.posix.dirname(uri.path)} );
+        let parent_entry = this._lookupAsDirectory(parent_uri);
+        if (parent_entry) {
+            let name = path.posix.basename(uri.path);
+            const item: [string, vscode.FileType] = [name, entry.attr & RestFSAttr.ATTR_FOLDER ? vscode.FileType.Directory : vscode.FileType.File];
+            if (this.case_insensitive) {
+                name = name.toUpperCase();
+            }
+            const nocase = this.case_insensitive;
+            let i = parent_entry.items.findIndex(function(element: [string, vscode.FileType]) {
+                if (nocase) {
+                    return (element[0].toUpperCase() === name);
+                } else {
+                    return (element[0] === name);
+                }
+            });
+            if (i === -1) {
+                // parent 'items' array does not contain this entry, so add it
+                parent_entry.items.push(item);
+                parent_entry.size++;
+                this._fireSoon({ type: vscode.FileChangeType.Created, uri: parent_uri });
+                this.log_level>1 && getTraceChannel().appendLine("[RestFS] add " + name + " to " + parent_uri.path + " items");            
+            }
+        }
+
+    }
+
+    private _removeFromParentItems(uri: vscode.Uri) {
+        const parent_uri = uri.with( {path: path.posix.dirname(uri.path)} );
+        let parent_entry = this._lookupAsDirectory(parent_uri);
+        if (parent_entry) {
+            let name = path.posix.basename(uri.path);
+            if (this.case_insensitive) {
+                name = name.toUpperCase();
+            }
+            const nocase = this.case_insensitive;
+            let i = parent_entry.items.findIndex(function(element: [string, vscode.FileType]) {
+                if (nocase) {
+                    return (element[0].toUpperCase() === name);
+                } else {
+                    return (element[0] === name);
+                }
+            });
+            if (i !== -1) {
+                // parent 'items' array contains this entry, so remove it
+                parent_entry.items.splice(i, 1);
+                parent_entry.size--;
+                this._fireSoon({ type: vscode.FileChangeType.Created, uri: parent_uri });
+                this.log_level>1 && getTraceChannel().appendLine("[RestFS] remove " + name + " from " + parent_uri.path + " items");            
+            }
+        }
     }
 
     // --- excluded directories / files
