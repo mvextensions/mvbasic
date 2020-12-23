@@ -34,6 +34,6 @@
   },
   "scripts": {},
   "devDependencies": {
-    "@types/node": "^13.13.4"
+    "@types/node": "^13.13.36"
   }
 }
