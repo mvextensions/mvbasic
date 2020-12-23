@@ -1,0 +1,10 @@
+node_modules/**
+client/node_modules/**
+client/out/**
+doc/**
+gateway/**
+images/**
+server/node_modules/**
+server/out/**
+Syntaxes/**
+tests/**
