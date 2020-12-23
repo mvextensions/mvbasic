@@ -5,14 +5,14 @@
 "use strict";
 
 import {
-  IPCMessageReader,
-  IPCMessageWriter,
   createConnection,
   IConnection,
   TextDocuments,
   TextDocumentSyncKind,
   Diagnostic,
   DiagnosticSeverity,
+  ProposedFeatures,
+  InitializeParams,
   InitializeResult,
   TextDocumentPositionParams,
   CompletionItem,
@@ -23,7 +23,8 @@ import {
   SymbolKind,
   Hover,
   MarkupContent,
-  MarkupKind
+  MarkupKind,
+  DidChangeConfigurationNotification
 } from "vscode-languageserver";
 
 import {
@@ -36,14 +37,7 @@ import * as path from "path";
 /* Initialize Variables */
 
 // Create a connection for the server. The connection uses Node's IPC as a transport
-let connection: IConnection = createConnection(
-  new IPCMessageReader(process),
-  new IPCMessageWriter(process)
-);
-
-let useCamelcase = true;
-let userVariablesEnabled = false;
-let ignoreGotoScope = false;
+let connection: IConnection = createConnection(ProposedFeatures.all);
 
 // The settings interface describe the server relevant settings part
 interface Settings {
@@ -69,11 +63,6 @@ interface DocumentLine {
   lineOfCode: string;
 }
 
-let maxNumberOfProblems: number;
-let customWordList: string;
-let customWordPath: string;
-let customFunctionPath: string;
-let languageType: string;
 let logLevel: number;
 let Intellisense: CompletionItem[] = [];
 
@@ -278,14 +267,14 @@ function getVariableName(lineOfCode: any) {
   return variableName;
 }
 
-function loadIntelliSense() {
+function loadIntelliSense(): CompletionItem[] {
   // Load new IntelliSense
   Intellisense = [];
   var filePath = __dirname;
 
   // Use the Language Type setting to drive the language file used for Intellisense
   // MW: Ugly but let's try it for now
-  switch (languageType) {
+  switch (settings.MVBasic.languageType) {
     case "jBASE":
       filePath =
         filePath +
@@ -315,7 +304,7 @@ function loadIntelliSense() {
   var keywords = languageDefinitionList.Language.Keywords;
 
   for (let i = 0; i < keywords.length; i++) {
-    if (useCamelcase === true) {
+    if (settings.MVBasic.useCamelCase === true) {
       Intellisense.push({
         data: Intellisense.length + 1,
         label: keywords[i].key,
@@ -335,17 +324,17 @@ function loadIntelliSense() {
   }
 
   // Load CustomWord definition
-  if (customWordPath !== "") {
-    var contents = fs.readFileSync(customWordPath, "utf8");
-    customWordList = "(";
+  if (settings.MVBasic.customWordPath !== "") {
+    var contents = fs.readFileSync(settings.MVBasic.customWordPath, "utf8");
+    settings.MVBasic.customWords = "(";
     var lines = contents.replace("\r", "").split("\n");
     for (let i = 0; i < lines.length; i++) {
       let parts = lines[i].split(":");
-      customWordList += parts[0].replace('"', "").replace('"', "") + "|";
+      settings.MVBasic.customWords += parts[0].replace('"', "").replace('"', "") + "|";
     }
-    customWordList = customWordList.substr(0, customWordList.length - 1) + ")";
+    settings.MVBasic.customWords = settings.MVBasic.customWords.substr(0, settings.MVBasic.customWords.length - 1) + ")";
 
-    var items = customWordList.split("|");
+    var items = settings.MVBasic.customWords.split("|");
     for (let i = 0; i < items.length; i++) {
       Intellisense.push({
         data: Intellisense.length + 1,
@@ -356,8 +345,8 @@ function loadIntelliSense() {
   }
 
   // Load CustomFunction definition
-  if (customFunctionPath !== "") {
-    var functionDefinition = fs.readFileSync(customFunctionPath, "utf8");
+  if (settings.MVBasic.customFunctionPath !== "") {
+    var functionDefinition = fs.readFileSync(settings.MVBasic.customFunctionPath, "utf8");
     var customFunctionList = JSON.parse(functionDefinition);
     var functions = customFunctionList.Language.functions;
     for (let i = 0; i < functions.length; i++) {
@@ -374,13 +363,13 @@ function loadIntelliSense() {
 
   if (logLevel) {
     connection.console.log(
-      `[Server(${process.pid})] Language definition loaded for ${languageType}`
+      `[Server(${process.pid})] Language definition loaded for ${settings.MVBasic.languageType}`
     );
   }
   return Intellisense;
 }
 
-function validateTextDocument(textDocument: TextDocument): void {
+async function validateTextDocument(textDocument: TextDocument): Promise<void> {
   let diagnostics: Diagnostic[] = [];
   let originalLines = textDocument.getText().split(/\r?\n/g);
   let lines: DocumentLine[] = [];
@@ -411,7 +400,7 @@ function validateTextDocument(textDocument: TextDocument): void {
   let noEndCase = 0;
 
   // Remove all variables from Intellisense to start clean
-  if (userVariablesEnabled === true) {
+  if (settings.MVBasic.userVariablesEnabled === true) {
     var i = Intellisense.length;
     while (i--) {
       if (Intellisense[i].kind === CompletionItemKind.Variable) {
@@ -426,7 +415,7 @@ function validateTextDocument(textDocument: TextDocument): void {
   let forNext = []    // FOR statements list
   let forNextErr = [] // FOR NEXT errors list
 
-  for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
+  for (var i = 0; i < lines.length && problems < settings.MVBasic.maxNumberOfProblems; i++) {
     let line = lines[i];
 
     // Begin cleanup lines[] array -- Remove and replace irrelevant code.
@@ -486,7 +475,7 @@ function validateTextDocument(textDocument: TextDocument): void {
     }
 
     //Check for variable names to add to Intellisens if it does not already exist
-    if (userVariablesEnabled === true) {
+    if (settings.MVBasic.userVariablesEnabled === true) {
       let variableNames = getVariableName(line.lineOfCode);
       if (variableNames != null) {
         for (var vc = 0; vc < variableNames.length; vc++) {
@@ -577,13 +566,9 @@ function validateTextDocument(textDocument: TextDocument): void {
 
   // Missing NEXT errors. More FOR statements than NEXT values matched.
   forNext.forEach(function (o) {
-    forNextErr.push({ errMsg: "Missing NEXT statement - FOR " + o.forVar, errLine: o.forLine });
-  });
-
-  forNextErr.forEach(function (o) {
-    let errorMsg = o.errMsg;
-    let line = lines[o.errLine];
-    let diagnosic: Diagnostic = {
+    let errorMsg = "Missing NEXT statement - FOR " + o.forVar;
+    let line = lines[o.forLine];
+    let diagnostic: Diagnostic = {
       severity: DiagnosticSeverity.Error,
       range: {
         start: { line: line.lineNumber, character: 0 },
@@ -591,20 +576,31 @@ function validateTextDocument(textDocument: TextDocument): void {
       },
       message: errorMsg,
       source: "MV Basic"
-    }
-    diagnostics.push(diagnosic);
+    };
+    if (hasDiagnosticRelatedInformationCapability) {
+			diagnostic.relatedInformation = [
+				{
+					location: {
+						uri: textDocument.uri,
+						range: Object.assign({}, diagnostic.range)
+					},
+					message: 'NEXT is a required closure for the FOR construct'
+				}
+			];
+		}
+    diagnostics.push(diagnostic);
   });
 
   // Missing END CASE statement
   if (noCase != noEndCase) {
     // find the innermost for
-    for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
+    for (var i = 0; i < lines.length && problems < settings.MVBasic.maxNumberOfProblems; i++) {
       let line = lines[i];
       if (rStartCase.test(line.lineOfCode)) {
         noCase--;
       }
       if (noCase == 0) {
-        let diagnosic: Diagnostic = {
+        let diagnostic: Diagnostic = {
           severity: DiagnosticSeverity.Error,
           range: {
             start: { line: line.lineNumber, character: 0 },
@@ -613,7 +609,18 @@ function validateTextDocument(textDocument: TextDocument): void {
           message: `Missing END CASE statement`,
           source: "MV Basic"
         };
-        diagnostics.push(diagnosic);
+        if (hasDiagnosticRelatedInformationCapability) {
+          diagnostic.relatedInformation = [
+            {
+              location: {
+                uri: textDocument.uri,
+                range: Object.assign({}, diagnostic.range)
+              },
+              message: 'END CASE is a required closure for the BEGIN CASE construct'
+            }
+          ];
+        }
+        diagnostics.push(diagnostic);
       }
     }
   }
@@ -621,13 +628,13 @@ function validateTextDocument(textDocument: TextDocument): void {
   // Missing REPEAT statement
   if (noLoop != noEndLoop) {
     // find the innermost for
-    for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
+    for (var i = 0; i < lines.length && problems < settings.MVBasic.maxNumberOfProblems; i++) {
       let line = lines[i];
       if (rStartLoop.test(line.lineOfCode)) {
         noLoop--;
       }
       if (noLoop == 0) {
-        let diagnosic: Diagnostic = {
+        let diagnostic: Diagnostic = {
           severity: DiagnosticSeverity.Error,
           range: {
             start: { line: line.lineNumber, character: 0 },
@@ -636,7 +643,18 @@ function validateTextDocument(textDocument: TextDocument): void {
           message: `Missing REPEAT statement`,
           source: "MV Basic"
         };
-        diagnostics.push(diagnosic);
+        if (hasDiagnosticRelatedInformationCapability) {
+          diagnostic.relatedInformation = [
+            {
+              location: {
+                uri: textDocument.uri,
+                range: Object.assign({}, diagnostic.range)
+              },
+              message: 'REPEAT is a required closure for the LOOP construct'
+            }
+          ];
+        }
+        diagnostics.push(diagnostic);
       }
     }
   }
@@ -645,7 +663,7 @@ function validateTextDocument(textDocument: TextDocument): void {
   // if Level is != 0, we have mis matched code blocks
   if (Level > 0) {
     let lastLine = lines[lines.length - 1];
-    let diagnosic: Diagnostic = {
+    let diagnostic: Diagnostic = {
       severity: DiagnosticSeverity.Error,
       range: {
         start: { line: lastLine.lineNumber, character: 0 },
@@ -654,14 +672,14 @@ function validateTextDocument(textDocument: TextDocument): void {
       message: `Missing END, END CASE or REPEAT statements`,
       source: "MV Basic"
     };
-    diagnostics.push(diagnosic);
+    diagnostics.push(diagnostic);
   }
 
   // Missing GO, GO TO, GOTO, GOSUB
   // regex to check for goto/gosub in a line
   let rGoto = new RegExp("(^| )(go to|goto|go|gosub)(\\s+.*)", "i");
 
-  for (var i = 0; i < lines.length && problems < maxNumberOfProblems; i++) {
+  for (var i = 0; i < lines.length && problems < settings.MVBasic.maxNumberOfProblems; i++) {
     let line = lines[i];
     let labelName = "";
     // check any gosubs or goto's to ensure label is present
@@ -687,11 +705,11 @@ function validateTextDocument(textDocument: TextDocument): void {
         if (
           labelMatch.Level != RowLevel[i] &&
           labelMatch.Level > 1 &&
-          ignoreGotoScope === false
+          settings.MVBasic.ignoreGotoScope === false
         ) {
           // jumping into or out of a loop
           let index = line.lineOfCode.indexOf(labelName);
-          let diagnosic: Diagnostic = {
+          let diagnostic: Diagnostic = {
             severity: DiagnosticSeverity.Warning,
             range: {
               start: { line: line.lineNumber, character: index },
@@ -700,11 +718,22 @@ function validateTextDocument(textDocument: TextDocument): void {
             message: `${labelName} goes out of scope. Invalid GOTO or GOSUB`,
             source: "MV Basic"
           };
-          diagnostics.push(diagnosic);
+          if (hasDiagnosticRelatedInformationCapability) {
+            diagnostic.relatedInformation = [
+              {
+                location: {
+                  uri: textDocument.uri,
+                  range: Object.assign({}, diagnostic.range)
+                },
+                message: 'GOTO and GOSUB should not be used within loops'
+              }
+            ];
+          }
+          diagnostics.push(diagnostic);
         }
       } else {
         let index = line.lineOfCode.indexOf(labelName);
-        let diagnosic: Diagnostic = {
+        let diagnostic: Diagnostic = {
           severity: DiagnosticSeverity.Error,
           range: {
             start: { line: line.lineNumber, character: index },
@@ -713,7 +742,18 @@ function validateTextDocument(textDocument: TextDocument): void {
           message: `Label ${labelName} not found! - Invalid GOTO or GOSUB`,
           source: "MV Basic"
         };
-        diagnostics.push(diagnosic);
+        if (hasDiagnosticRelatedInformationCapability) {
+          diagnostic.relatedInformation = [
+            {
+              location: {
+                uri: textDocument.uri,
+                range: Object.assign({}, diagnostic.range)
+              },
+              message: 'Labels must be defined in order for a GOTO or GOSUB to function'
+            }
+          ];
+        }
+        diagnostics.push(diagnostic);
 
         if (logLevel) {
           connection.console.log(
@@ -727,7 +767,7 @@ function validateTextDocument(textDocument: TextDocument): void {
   // Missing Labels
   LabelList.forEach(function (label) {
     if (label.Referenced === false) {
-      let diagnosic: Diagnostic = {
+      let diagnostic: Diagnostic = {
         severity: DiagnosticSeverity.Warning,
         range: {
           start: { line: label.LineNumber, character: 0 },
@@ -736,7 +776,18 @@ function validateTextDocument(textDocument: TextDocument): void {
         message: `Label ${label.LabelName} is not referenced`,
         source: "MV Basic"
       };
-      diagnostics.push(diagnosic);
+      if (hasDiagnosticRelatedInformationCapability) {
+        diagnostic.relatedInformation = [
+          {
+            location: {
+              uri: textDocument.uri,
+              range: Object.assign({}, diagnostic.range)
+            },
+            message: 'Labels should only be defined when needed for a GOTO or GOSUB'
+          }
+        ];
+      }
+      diagnostics.push(diagnostic);
     }
   });
   // Send the computed diagnostics to VSCode.
@@ -747,27 +798,38 @@ function validateTextDocument(textDocument: TextDocument): void {
 // Listen on the connection
 connection.listen();
 
-// After the server has started the client sends an initialize request. The server receives
-// in the passed params the rootPath of the workspace plus the client capabilities.
-let shouldSendDiagnosticRelatedInformation: boolean | undefined = false;
-if (shouldSendDiagnosticRelatedInformation) { null }
+let hasConfigurationCapability: boolean = false;
+let hasWorkspaceFolderCapability: boolean = false;
+let hasDiagnosticRelatedInformationCapability: boolean = false;
+
 connection.onInitialize(
-  (_params): InitializeResult => {
-    shouldSendDiagnosticRelatedInformation =
-      _params.capabilities &&
-      _params.capabilities.textDocument &&
-      _params.capabilities.textDocument.publishDiagnostics &&
-      _params.capabilities.textDocument.publishDiagnostics.relatedInformation;
+  (params: InitializeParams): InitializeResult => {
+    let capabilities = params.capabilities;
+
+    // Does the client support the `workspace/configuration` request?
+    // If not, we fall back using global settings.
+    hasConfigurationCapability = !!(
+      capabilities.workspace && !!capabilities.workspace.configuration
+    );
+    hasWorkspaceFolderCapability = !!(
+      capabilities.workspace && !!capabilities.workspace.workspaceFolders
+    );
+    hasDiagnosticRelatedInformationCapability = !!(
+      capabilities.textDocument &&
+      capabilities.textDocument.publishDiagnostics &&
+      capabilities.textDocument.publishDiagnostics.relatedInformation
+    );
+
     if (logLevel) {
       connection.console.log(
         `[Server(${process.pid})] Started and initialize received`
       );
     }
-    return {
+    
+    const result: InitializeResult = {
       capabilities: {
-        // Tell the client that the server works in FULL text document sync mode
-        textDocumentSync: TextDocumentSyncKind.Full,
-        // Tell the client that the server support code complete
+        textDocumentSync: TextDocumentSyncKind.Incremental,
+        // Tell the client that this server supports code completion.
         completionProvider: {
           resolveProvider: true
         },
@@ -777,35 +839,70 @@ connection.onInitialize(
         hoverProvider: true
       }
     };
+
+    if (hasWorkspaceFolderCapability) {
+      result.capabilities.workspace = {
+        workspaceFolders: {
+          supported: true
+        }
+      };
+    }
+
+    return result;
   }
 );
+
+connection.onInitialized(() => {
+	if (hasConfigurationCapability) {
+		// Register for all configuration changes.
+		connection.client.register(DidChangeConfigurationNotification.type, undefined);
+	}
+	if (hasWorkspaceFolderCapability) {
+		connection.workspace.onDidChangeWorkspaceFolders(_event => {
+			connection.console.log('Workspace folder change event received.');
+		});
+	}
+});
 
 // The settings have changed. Is send on server activation as well.
 connection.onNotification("languagePath", (path: string) => {
   path = path + "";
 });
 
-connection.onDidChangeConfiguration(change => {
-  let settings = <Settings>change.settings;
-  maxNumberOfProblems = settings.MVBasic.maxNumberOfProblems || 100;
-  useCamelcase = settings.MVBasic.useCamelCase;
-  userVariablesEnabled = settings.MVBasic.userVariablesEnabled;
-  ignoreGotoScope = settings.MVBasic.ignoreGotoScope;
-  customWordList = settings.MVBasic.customWords;
-  customWordPath = settings.MVBasic.customWordPath;
-  customFunctionPath = settings.MVBasic.customFunctionPath;
-  languageType = settings.MVBasic.languageType;
-  const _logLevel = <string>(settings.MVBasic.trace && settings.MVBasic.trace.server) || 'off';
-  switch (_logLevel) {
-    case 'messages': logLevel = 1; break;
-    case 'verbose': logLevel = 2; break;
-    default: logLevel = 0;
+// The global settings, used when the `workspace/configuration` request is not supported by the client.
+// Please note that this is not the case when using this server with the client provided in this example
+// but could happen with other clients.
+const defaultSettings: Settings = { 
+  MVBasic: {
+    maxNumberOfProblems: 100,
+    useCamelCase: true,
+    userVariablesEnabled: false,
+    ignoreGotoScope: false,
+    customWords: "",
+    customWordPath: "",
+    customFunctionPath: "",
+    languageType: "MVON",
+    trace: "off"
   }
-  loadIntelliSense();
+ };
+let settings: Settings = defaultSettings;
 
-  // Revalidate any open text documents
-  documents.all().forEach(validateTextDocument);
+connection.onDidChangeConfiguration(change => {
+  if (change.settings) {
+    settings = <Settings>change.settings;
+    const _logLevel = <string>(settings.MVBasic.trace && settings.MVBasic.trace.server);
+    switch (_logLevel) {
+      case 'messages': logLevel = 1; break;
+      case 'verbose': logLevel = 2; break;
+      default: logLevel = 0;
+    }
+    loadIntelliSense();
+
+    // Revalidate any open text documents
+    documents.all().forEach(validateTextDocument);
+  }
 });
+
 
 connection.onDidChangeWatchedFiles(_change => {
   // Monitored files have change in VSCode
