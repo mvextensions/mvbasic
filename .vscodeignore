@@ -1,4 +1,5 @@
 .vscode/**
+.vscode-test/**
 **/*.ts
 **/*.map
 .gitignore

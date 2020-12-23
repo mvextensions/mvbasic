@@ -349,7 +349,7 @@
     "compile": "tsc -b",
     "watch": "tsc -b -w",
     "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
-    "test": "sh ./scripts/e2e.sh"
+    "test": "bash ./scripts/e2e.sh"
   },
   "devDependencies": {
     "@types/mocha": "^8.0.3",
