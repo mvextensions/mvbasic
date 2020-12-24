@@ -6,26 +6,25 @@
 
 import {
   createConnection,
-  IConnection,
   TextDocuments,
-  TextDocumentSyncKind,
   Diagnostic,
   DiagnosticSeverity,
   ProposedFeatures,
   InitializeParams,
-  InitializeResult,
-  TextDocumentPositionParams,
+  DidChangeConfigurationNotification,
   CompletionItem,
   CompletionItemKind,
+  TextDocumentPositionParams,
+  TextDocumentSyncKind,
+  InitializeResult,
   Location,
   Range,
   SymbolInformation,
   SymbolKind,
   Hover,
   MarkupContent,
-  MarkupKind,
-  DidChangeConfigurationNotification
-} from "vscode-languageserver";
+  MarkupKind
+} from "vscode-languageserver/node";
 
 import {
   TextDocument
@@ -37,7 +36,7 @@ import * as path from "path";
 /* Initialize Variables */
 
 // Create a connection for the server. The connection uses Node's IPC as a transport
-let connection: IConnection = createConnection(ProposedFeatures.all);
+let connection = createConnection(ProposedFeatures.all);
 
 // The settings interface describe the server relevant settings part
 interface Settings {
