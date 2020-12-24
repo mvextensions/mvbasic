@@ -8,9 +8,8 @@
 import * as path from 'path';
 import * as vscode from 'vscode';
 import { IRestFS, RestFSAttr } from './IRestFS';
-
-const request = require("sync-request");
-const Minimatch = require('minimatch').Minimatch;
+import * as Minimatch from 'minimatch';
+import request, { HttpVerb } from 'sync-request';
 
 type FileInfo = {attr: RestFSAttr, size?: number, ctime?: number, mtime?: number};
 
@@ -127,11 +126,11 @@ export class RestFS implements IRestFS {
                 if (value === true) {
                     // make minimatch work like vscode glob
                     if (key.substr(-1, 1) === '/') {
-                        this.excludes.push(new Minimatch(key.slice(0, -1), { dot: true, nonegate: true }));
-                        this.excludes.push(new Minimatch(key + "**", { dot: true, nonegate: true }));
+                        this.excludes.push(new Minimatch.Minimatch(key.slice(0, -1), { dot: true, nonegate: true }));
+                        this.excludes.push(new Minimatch.Minimatch(key + "**", { dot: true, nonegate: true }));
                     } else {
-                        this.excludes.push(new Minimatch(key, { dot: true, nonegate: true }));
-                        this.excludes.push(new Minimatch(key + "/**", { dot: true, nonegate: true }));
+                        this.excludes.push(new Minimatch.Minimatch(key, { dot: true, nonegate: true }));
+                        this.excludes.push(new Minimatch.Minimatch(key + "/**", { dot: true, nonegate: true }));
                     }
                 }
             }
@@ -209,11 +208,11 @@ export class RestFS implements IRestFS {
         // get directory & file list from server
         const qs = "max_items=" + this.MaxItems + "&attr=" + this.SelAttr;
         let res = request('GET', this.RestPath + path.posix.join("/dir", this.RestAccount, uri.path) + "?" + qs,
-            { headers: this._request_headers() });
+            { headers: this._request_headers() as any });
         if (res.statusCode != 200) {
             let message = "";
             if ((res.statusCode !== 404) || (this.log_level>1)) {
-                let resp = JSON.parse(res.body);
+                let resp = JSON.parse(res.body.toString());
                 if (resp && resp.message) {
                     message = resp.message;
                     if (resp.code)
@@ -227,7 +226,7 @@ export class RestFS implements IRestFS {
         }
 
         // parse the returned data
-        let rtn = JSON.parse(res.body);
+        let rtn = JSON.parse(res.body.toString());
         let fileList: [{Name: string, Type: number}]; // Original RESTFS API
         let itemList: [{id: string, attr: number}]; // RESTFS API version 1
         let numItems: number;
@@ -319,11 +318,11 @@ export class RestFS implements IRestFS {
 
         // file not cached so load it from server using RESTFS API
         let res = request('GET', this.RestPath + path.posix.join("/file", this.RestAccount, uri.path),
-            { headers: this._request_headers() });
+            { headers: this._request_headers() as any });
         if (res.statusCode != 200) {
             let message = "";
             if ((res.statusCode !== 404) || (this.log_level>1)) {
-                let resp = JSON.parse(res.body);
+                let resp = JSON.parse(res.body.toString());
                 if (resp && resp.message) {
                     message = resp.message;
                     if (resp.code)
@@ -335,7 +334,7 @@ export class RestFS implements IRestFS {
             this.log_level>1 && getTraceChannel().appendLine("[RestFS] readFile: path=" + uri.path + ", 'file' request failed, status=" + res.statusCode + (message ? "\n" + message : ""));
             throw vscode.FileSystemError.FileNotFound(uri);
         }
-        let result = JSON.parse(res.body);
+        let result = JSON.parse(res.body.toString());
 
         let attr: RestFSAttr = 0;
         let program: string;
@@ -444,7 +443,7 @@ export class RestFS implements IRestFS {
                     }                    
                 });
             }
-            let method, action;
+            let method: HttpVerb, action;
             if (entry) {
                 method = 'PUT';
                 action = '/file';
@@ -453,7 +452,7 @@ export class RestFS implements IRestFS {
                 action = '/create';
             }
             res = request(method, this.RestPath + path.posix.join(action, this.RestAccount, uri.path),
-                { json: {id: path.posix.basename(uri.path), type: "array", data: dynarr}, headers: this._request_headers() } 
+                { json: {id: path.posix.basename(uri.path), type: "array", data: dynarr}, headers: this._request_headers() as any } 
             );
         } else {
             // update server using original RESTFS API
@@ -522,10 +521,10 @@ export class RestFS implements IRestFS {
         }
         let qs = "newname=" + path.posix.join(this.RestAccount, newUri.path);
         let res = request('GET', this.RestPath + path.posix.join("/rename", this.RestAccount, oldUri.path) + "?" + qs,
-            { headers: this._request_headers() });
+            { headers: this._request_headers() as any });
         if (res.statusCode != 200) {
             let message = "";
-            let resp = JSON.parse(res.body);
+            let resp = JSON.parse(res.body.toString());
             if (resp && resp.message) {
                 message = resp.message;
                 if (resp.code)
@@ -577,10 +576,10 @@ export class RestFS implements IRestFS {
             throw vscode.FileSystemError.FileNotFound(uri); // original RESTFS API does not support 'delete'
         }
         let res = request('DELETE', this.RestPath + path.posix.join("/file", this.RestAccount, uri.path),
-            { headers: this._request_headers() });
+            { headers: this._request_headers() as any });
         if (res.statusCode != 200) {
             let message = "";
-            let resp = JSON.parse(res.body);
+            let resp = JSON.parse(res.body.toString());
             if (resp && resp.message) {
                 message = resp.message;
                 if (resp.code)
@@ -635,10 +634,10 @@ export class RestFS implements IRestFS {
         // send 'create' request to server
         let qs = "dir=true";
         let res = request('POST', this.RestPath + path.posix.join("/create", this.RestAccount, uri.path) + "?" + qs,
-            { headers: this._request_headers() });
+            { headers: this._request_headers() as any });
         if (res.statusCode != 200) {
             let message = "";
-            let resp = JSON.parse(res.body);
+            let resp = JSON.parse(res.body.toString());
             if (resp && resp.message) {
                 message = resp.message;
                 if (resp.code)
@@ -677,10 +676,10 @@ export class RestFS implements IRestFS {
         let my_login_params = {...login_params, Client: "vscode.restfs"};
         this.log_level>1 && getTraceChannel().appendLine("[RestFS] login: parameters= " + JSON.stringify(my_login_params));
         let res = request('POST', this.RestPath + "/login",
-            { json: my_login_params, headers: this._request_headers() });
+            { json: my_login_params, headers: this._request_headers() as any });
         if (res.statusCode != 200) { 
             let message = "";
-            let resp = JSON.parse(res.body);
+            let resp = JSON.parse(res.body.toString());
             if (resp && resp.message) {
                 message = resp.message;
                 if (resp.code)
@@ -692,7 +691,7 @@ export class RestFS implements IRestFS {
         }
         if (res.body) {
             try {
-                this.auth = JSON.parse(res.body);
+                this.auth = JSON.parse(res.body.toString());
             } catch (e) {
                 this.log_level && getTraceChannel().appendLine("[RestFS] login: failed to parse response, error=" + e.toString());
                 throw Error("Login failed: " + e);
@@ -718,7 +717,7 @@ export class RestFS implements IRestFS {
             let path = this.RestPath + "/logout";
             let headers = this._request_headers();
             this.auth = undefined;               
-            request('GET', path, { headers: headers });
+            request('GET', path, { headers: headers as any });
             this.log_level && getTraceChannel().appendLine("[RestFS] logout: 'logout' request sent (status not checked)");
         } catch (e) {
             this.log_level && getTraceChannel().appendLine("[RestFS] logout: 'logout' request error (ignored) " + e.toString());
@@ -743,15 +742,15 @@ export class RestFS implements IRestFS {
             let cmdpath = uri ? path.posix.join(this.RestAccount, uri.path) : "";
             let opts = options ? options : {};
             var res = request('POST', this.RestPath + path.posix.join("/cmd", command, cmdpath),
-                { json: opts, headers: this._request_headers() });
+                { json: opts, headers: this._request_headers() as any });
         } else {
             let dg = options && options.debug ? "dg" : "";
             var res = request('GET', this.RestPath + path.posix.join("/", command, this.RestAccount, uri.path, dg),
-                { headers: this._request_headers() });
+                { headers: this._request_headers() as any });
         }
         if (res.statusCode != 200) {
             let message = "";
-            let resp = JSON.parse(res.body);
+            let resp = JSON.parse(res.body.toString());
             if (resp && resp.message) {
                 message = resp.message;
                 if (resp.code)
@@ -761,7 +760,7 @@ export class RestFS implements IRestFS {
             this.log_level>1 && getTraceChannel().appendLine("[RestFS] command: " + (this.ApiVersion>0 ? "'cmd/"+command+"'" : "'"+command+"'") + " request failed, status=" + res.statusCode + (message ? "\n" + message : ""));
             throw Error("Failed to execute " + command + " for " + uri.path);
         }
-        let results = JSON.parse(res.body);
+        let results = JSON.parse(res.body.toString());
         if (this.ApiVersion > 0) {
             if (results.message) {
                 vscode.window.showInformationMessage(results.message);
@@ -834,10 +833,10 @@ export class RestFS implements IRestFS {
             throw Error("Call not supported by gateway");
         }
         var res = request('POST', this.RestPath + path.posix.join('/call', func),
-        { json: {args: args}, headers: this._request_headers() });
+        { json: {args: args}, headers: this._request_headers() as any });
         if (res.statusCode != 200) {
             let message = "";
-            let resp = JSON.parse(res.body);
+            let resp = JSON.parse(res.body.toString());
             if (resp && resp.message) {
                 message = resp.message;
                 if (resp.code)
@@ -847,7 +846,7 @@ export class RestFS implements IRestFS {
             this.log_level>1 && getTraceChannel().appendLine("[RestFS] call: " + func + " request failed, status=" + res.statusCode + (message ? "\n" + message : ""));
             throw Error("Failed to call " + func);
         }
-        let results = JSON.parse(res.body);
+        let results = JSON.parse(res.body.toString());
         if (!results.hasOwnProperty('result')) {
             this.log_level>1 && getTraceChannel().appendLine("[RestFS] call " + func + ", no result found.");
             throw Error("RestFS.call error - response from server has invalid format: result not found.");
@@ -870,13 +869,13 @@ export class RestFS implements IRestFS {
                 // not in local cache, try to read attributes from server
                 if (this.ApiVersion > 0 && !this._stat_API_not_supported) {
                     let resp = request('GET', this.RestPath + path.posix.join("/stat", this.RestAccount, uri.path),
-                    { headers: this._request_headers() });
+                    { headers: this._request_headers() as any });
                     if (resp.statusCode === 404) {
-                        if (resp.message)
-                            message = resp.message;
+                        if (resp.body)
+                            message = resp.body.toString();
                         this.log_level>1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", not found, status=" + resp.statusCode + (message ? "\n" + message : ""));
                     } else if (resp.statusCode === 200) {
-                        const result = JSON.parse(resp.body);
+                        const result = JSON.parse(resp.body.toString());
                         const attr: RestFSAttr = result.attr | 0;
                         let name = uri.path;
                         if (this.case_insensitive)
@@ -894,7 +893,7 @@ export class RestFS implements IRestFS {
                         }
                     } else if (resp.statusCode !== 400) {
                         message = "";
-                        const result = JSON.parse(resp.body);
+                        const result = JSON.parse(resp.body.toString());
                         if (result && result.message)
                             message = result.message;
                         if (result && result.code)
