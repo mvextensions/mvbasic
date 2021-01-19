@@ -83,3 +83,9 @@
   - Variables from a `FOR ... TO`
   - Variables from a `EQU ... TO`
   - Variables from a `EQUATE ... TO`
+
+### 2.1.2
+
+- Bug fixes and performance enhancements to the AccuTerm connector (#133)
+- Package dependency updates
+- Light refactoring to match latest Microsoft sample language server code
