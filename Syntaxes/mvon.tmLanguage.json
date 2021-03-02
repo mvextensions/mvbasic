@@ -40,6 +40,14 @@
 				{
 					"name": "constant.language",
 					"match": "(\\+|\\-|\\*|\\\\|=|:|#)"
+				},
+				{
+					"name": "entity.name.function",
+					"match": "(?i)(?<=GOSUB|GOTO).*"
+				},
+				{
+					"name": "entity.name.function",
+					"match": "(?i)(?<=CALL).*(?=\\()"
 				}
 			]
 		}
