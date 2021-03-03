@@ -35,7 +35,7 @@
 				},
 				{
 					"name": "comment.line.asterisk.mvon",
-					"match": "(?<=[\\w]:|[0-9])\\s*(\\*|!|(?i)REM\\s+?).*"
+					"match": "(?<=[\\w]:|^[0-9]+)\\s*(\\*|!|(?i)REM\\s+?).*"
 				},
 				{
 					"name": "constant.language",
