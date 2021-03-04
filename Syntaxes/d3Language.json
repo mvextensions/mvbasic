@@ -1,0 +1,1892 @@
+[
+    {
+        "key": "$chain",
+        "icon": 14,
+        "documentation": "The $chain statement continues FlashBASIC or BASIC compilation in a different source item.",
+        "detail": "$chain $fileref $itemid"
+    },
+    {
+        "key": "$include",
+        "icon": 14,
+        "documentation": "The $include statement inserts FlashBASIC or BASIC code from a separate item (known as an include item) to be compiled as part of the object module of the current program or subroutine. The original source program is not altered.",
+        "detail": "$include $fileref $itemid"
+    },
+    {
+        "key": "$options",
+        "icon": 14,
+        "documentation": "The $options statement sets compatibility options for the FlashBASIC or BASIC compiler.",
+        "detail": "$options $tag"
+    },
+    {
+        "key": "%accept",
+        "icon": 3,
+        "documentation": "Upon successful completion, the new file descriptor is returned in code and the address and port FlashBASIC variables are updated. In the case of an error, a value of -1 is returned and the FlashBASIC system(0) function is set to the value of errno.",
+        "detail": "%accept(fd, &address, &port)"
+    },
+    {
+        "key": "%accept_ssl",
+        "icon": 3,
+        "documentation": "The %accept_ssl() function first calls the %accept() function to extract the first connection on the queue of pending connections, and then creates a new socket. Thereafter, the function will wait for a TLS/SSL Client to initiate the TLS/SSL handshake, and then create a secure SSL connection.",
+        "detail": "%accept_ssl(fd, &address, &port, certificate_file, privkey_file, &ssl_fd)"
+    },
+    {
+        "key": "%accept_starttls",
+        "icon": 3,
+        "documentation": "The %accept_starttls function provides the ability to elevate an unsecured connection to a secured connection.",
+        "detail": "%accept_starttls(fd, &address, certificate_file, privkey_file, &SSL)"
+    },
+    {
+        "key": "%alarm",
+        "icon": 3,
+        "documentation": "The %alarm() function instructs the alarm clock of the calling process to send the signal SIGALRM to the calling process.",
+        "detail": "%alarm(num)"
+    },
+    {
+        "key": "%bind",
+        "icon": 3,
+        "documentation": "The %bind() function binds a socket to a named resource. In case of a network, the resource would be an access point into the system.",
+        "detail": "%bind(fd, addr.family, address, port)"
+    },
+    {
+        "key": "%calloc",
+        "icon": 3,
+        "documentation": "Allocates and frees dynamic memory.",
+        "detail": "%calloc"
+    },
+    {
+        "key": "%chdir",
+        "icon": 3,
+        "documentation": "The %chdir() function changes the current directory to the one specified in str.",
+        "detail": "%chdir(str)"
+    },
+    {
+        "key": "%chmod",
+        "icon": 3,
+        "documentation": "The %chmod() function changes the mode of the file str to the value specified in mode.",
+        "detail": "%chmod(str, mode)"
+    },
+    {
+        "key": "%chown",
+        "icon": 3,
+        "documentation": "The %chown() function changes the owner-ID and group-ID of the file str to the values specified in owner and group respectively.",
+        "detail": "%chown(str, owner, group)"
+    },
+    {
+        "key": "%close",
+        "icon": 3,
+        "documentation": "The %close() function closes the UNIX file specified by file.descriptor returned by a previous call to %open(), %creat(), %dup(), %socket(), or %accept()",
+        "detail": "%close(file.descriptor)"
+    },
+    {
+        "key": "%close_ssl",
+        "icon": 3,
+        "documentation": "The %close_ssl function closes the socket specified by the fd file descriptor, as well as the secure connection specified by the ssl_fd descriptor. The fd file descriptor is returned by a previous call to %socket whereas the ssl_fd descriptor is returned buy a previous call to %accept_ssl() or %connect_ssl.",
+        "detail": "%close_ssl(fd, ssl_fd)"
+    },
+    {
+        "key": "%closeall",
+        "icon": 3,
+        "documentation": "The %closeall() function closes all opened file-descriptors, including sockets.",
+        "detail": "%closeall()"
+    },
+    {
+        "key": "%closesocket",
+        "icon": 3,
+        "documentation": "The %closesocket() function closes an existing socket.",
+        "detail": "%closesocket()"
+    },
+    {
+        "key": "%connect",
+        "icon": 3,
+        "documentation": "The %connect() function requests a connection between two sockets.",
+        "detail": "%connect(fd, addr.family, host, port)"
+    },
+    {
+        "key": "%connect_ssl",
+        "icon": 3,
+        "documentation": "The %connect_ssl() function requests a secure connection between two sockets.",
+        "detail": "%connect_ssl(fd, addr.family, host, port, &ssl_fd)"
+    },
+    {
+        "key": "%connect_starttls",
+        "icon": 3,
+        "documentation": "The %connect_starttls function provides the ability to elevate an unsecured connection to a secured connection.",
+        "detail": "%connect_starttls(fd, &SSL)"
+    },
+    {
+        "key": "%creat",
+        "icon": 3,
+        "documentation": "The %creat() function creates a new host OS file or prepares to rewrite an existing host OS file designated by str for write only.",
+        "detail": "%creat(str, mode)"
+    },
+    {
+        "key": "%decrypt",
+        "icon": 3,
+        "documentation": "The %decrypt() function decrypts a string. The OpenSSL and OpenSSL-devel libraries must be loaded to use this function.",
+        "detail": "%decrypt(params, inputstring, outputstring, &outputstring length)"
+    },
+    {
+        "key": "%dup",
+        "icon": 3,
+        "documentation": "The %dup() function returns a new file descriptor associated to the same file as the one associated with file.descriptor.",
+        "detail": "%dup(file.descriptor)"
+    },
+    {
+        "key": "%encrypt",
+        "icon": 3,
+        "documentation": "The %encrypt() function encrypts a string. The OpenSSL and OpenSSL-devel libraries must be loaded to use this function.",
+        "detail": "%encrypt(params, inputstring, outputstring, &outputstring length)"
+    },
+    {
+        "key": "%endlistilocks",
+        "icon": 3,
+        "documentation": "The %endlistilocks() function is used to release the handle allocated by the %startlistilocks() function.",
+        "detail": "%endlistilocks(handle)"
+    },
+    {
+        "key": "%fclose",
+        "icon": 3,
+        "documentation": "The %fclose() function closes the stream specified by stream returned by a previous call to %fopen().",
+        "detail": "%fclose((char*)stream)"
+    },
+    {
+        "key": "%fdopen",
+        "icon": 3,
+        "documentation": "The %fdopen() function associates a stream with the file.descriptor obtained from an %open(), %dup(), or %creat().",
+        "detail": "%fdopen(file.descriptor, type)"
+    },
+    {
+        "key": "%fgetc",
+        "icon": 3,
+        "documentation": "The %fgetc() function returns the next character from the named input stream.",
+        "detail": "%fgetc((char*)strea)m"
+    },
+    {
+        "key": "%fgets",
+        "icon": 3,
+        "documentation": "The %fgets() function reads characters from the named input stream into var until n-1 characters are read or a new line character is read and transferred to the string.",
+        "detail": "%fgets(var, n, (char*)stream)"
+    },
+    {
+        "key": "%filecheck",
+        "icon": 3,
+        "documentation": "The %filecheck() function can be run from the TCL to call the system fsck (file system check) command.",
+        "detail": "%filecheck(arg, error_count)"
+    },
+    {
+        "key": "%fopen",
+        "icon": 3,
+        "documentation": "The %fopen() function opens the host OS file designated by str and associates a stream with it.",
+        "detail": "%fopen(str, type)"
+    },
+    {
+        "key": "%fprintf",
+        "icon": 3,
+        "documentation": "The %fprintf() function writes formatted output on stream under control of format.",
+        "detail": "%fprintf((char*)stream, format, arg...)"
+    },
+    {
+        "key": "%fputc",
+        "icon": 3,
+        "documentation": "The %fputc() function writes the character specified by character on the named output stream.",
+        "detail": "%fputc(character, (char*)stream)"
+    },
+    {
+        "key": "%fputs",
+        "icon": 3,
+        "documentation": "The %fputs() function writes the string designated by str on the named output stream.",
+        "detail": "%fputs(str, (char*)stream)"
+    },
+    {
+        "key": "%fread",
+        "icon": 3,
+        "documentation": "Binary stream input/output.",
+        "detail": "%fread()"
+    },
+    {
+        "key": "%free",
+        "icon": 3,
+        "documentation": "The %free() function frees a block of memory allocated by a call to %malloc().",
+        "detail": "%free((char*)pointer)"
+    },
+    {
+        "key": "%freopen",
+        "icon": 3,
+        "documentation": "The %freopen() function substitutes the named file specified by str in place of the opened stream stream1.",
+        "detail": "%freopen(str, type, (char*)stream1)"
+    },
+    {
+        "key": "%fsize",
+        "icon": 3,
+        "documentation": "The %fsize() function returns the size in bytes of the file associated to the opened file.descriptor returned by a previous call to %open() or %creat().",
+        "detail": "%fsize(file.descriptor)"
+    },
+    {
+        "key": "%fwrite",
+        "icon": 3,
+        "documentation": "Binary stream input/output.",
+        "detail": "%fwrite()"
+    },
+    {
+        "key": "%getaddrinfo",
+        "icon": 3,
+        "documentation": "Front end to the socket %getaddrinfo() function.",
+        "detail": "%getaddrinfo(server, outlist)"
+    },
+    {
+        "key": "%getenv",
+        "icon": 3,
+        "documentation": "The %getenv() function searches the environment for a string of the form name=value and returns a pointer to value in the current environment if such a string is present, otherwise, a null is returned.",
+        "detail": "%getenv(name)"
+    },
+    {
+        "key": "%gethostid",
+        "icon": 3,
+        "documentation": "The %gethostid() function allows a FlashBASIC application to retrieve the unique 32-bit identifier for the current host. The ID is returned as a decimal number.",
+        "detail": "%gethostid()"
+    },
+    {
+        "key": "%gethostname",
+        "icon": 3,
+        "documentation": "The %gethostname() function retrieves the standard host name for the local computer.",
+        "detail": "%gethostname()"
+    },
+    {
+        "key": "%getnamedhost",
+        "icon": 3,
+        "documentation": "Front end to the socket %gethostbyname() function.",
+        "detail": "%getnamedhos(host)"
+    },
+    {
+        "key": "%getperfcount",
+        "icon": 3,
+        "documentation": "The %getperfcount() function returns the D3 performance counters.",
+        "detail": "%getperfcount(buffer, MAXBUF)"
+    },
+    {
+        "key": "%getpgrp",
+        "icon": 3,
+        "documentation": "The %getpgrp() function returns the UNIX process group ID of the calling process.",
+        "detail": "%getpgrp()"
+    },
+    {
+        "key": "%getpid",
+        "icon": 3,
+        "documentation": "The %getpid() function returns the Process-ID (PID) of the calling process.",
+        "detail": "%getpid()"
+    },
+    {
+        "key": "%getppid",
+        "icon": 3,
+        "documentation": "The %getppid() function returns the UNIX parent Process-ID of the calling process.",
+        "detail": "%getppid()"
+    },
+    {
+        "key": "%getsockopt",
+        "icon": 3,
+        "documentation": "The %getsockopt() function retrieves a socket option.",
+        "detail": "%getsockopt()"
+    },
+    {
+        "key": "%inet_addr",
+        "icon": 3,
+        "documentation": "The %inet_addr() function converts a string containing an IPv4 dotted-decimal address into a proper address for the IN_ADDR structure.",
+        "detail": "%inet_addr()"
+    },
+    {
+        "key": "%ioctl",
+        "icon": 3,
+        "documentation": "The %ioctl() function is a general purpose control function that passes the arguments request and arg to the device designated by file.descriptor.",
+        "detail": "%ioctl(file.descriptor, request, arg)"
+    },
+    {
+        "key": "%ioctlsocket",
+        "icon": 3,
+        "documentation": "The %ioctlsocket() function controls the I/O mode of a socket.",
+        "detail": "%ioctlsocket()"
+    },
+    {
+        "key": "%kill",
+        "icon": 3,
+        "documentation": "The %kill() function sends the signal specified in signal to the process pid.",
+        "detail": "%kill(pid, signal)"
+    },
+    {
+        "key": "%listen",
+        "icon": 3,
+        "documentation": "The %listen() function marks the specified socket as accepting incoming connections and limits the number of outstanding connections in the system queue.",
+        "detail": "%listen(fd, backlog)"
+    },
+    {
+        "key": "%listitemlocksfilter",
+        "icon": 3,
+        "documentation": "The listitemlocksfilter() function is used to get a list of the FSI item locks in a dynamic array format.",
+        "detail": "%listitemlocksfilter( handle, filter, buffer, bufferLength )"
+    },
+    {
+        "key": "%lseek",
+        "icon": 3,
+        "documentation": "The %lseek() function moves the read/write pointer. See your host OS system documentation.",
+        "detail": "%lseek(file.descriptor, offset, whence)"
+    },
+    {
+        "key": "%malloc",
+        "icon": 3,
+        "documentation": "The %malloc() function allocates a memory block of size bytes and returns the address of this block.",
+        "detail": "%malloc(size)"
+    },
+    {
+        "key": "%memccpy",
+        "icon": 3,
+        "documentation": "Copies the memory area.",
+        "detail": "%memcopy()"
+    },
+    {
+        "key": "%memchr",
+        "icon": 3,
+        "documentation": "Scans memory for a character.",
+        "detail": "%memchr()"
+    },
+    {
+        "key": "%memcopy",
+        "icon": 3,
+        "documentation": "The %memcopy() function copies characters from the memory area specified by s2 into s1, stopping after the first occurrence of the character designated by character has been copied, or after the number of characters specified by length have been copied, whichever comes first.",
+        "detail": "%memcopy(s1, s2, (char) character, length)"
+    },
+    {
+        "key": "%memcpy",
+        "icon": 3,
+        "documentation": "The %memcpy() function copies the number of characters specified by number from memory area s2 into s1.",
+        "detail": "%memcpy(s1, s2, length)"
+    },
+    {
+        "key": "%memxcpy",
+        "icon": 3,
+        "documentation": "The %memxcpy() function copies a specified number of characters from memory area s2 into s1, and converts each input character into two ASCII hexadecimal characters 0 through 9 and A through F.",
+        "detail": "%memxcpy(s1, s2, length)"
+    },
+    {
+        "key": "%open",
+        "icon": 3,
+        "documentation": "The %open() function opens the host OS file specified by str and sets the file status flags according to the value of oflag.",
+        "detail": "%open(str, oflag, pmode)"
+    },
+    {
+        "key": "%pause",
+        "icon": 3,
+        "documentation": "The %pause() function suspends the calling process until it receives a signal.",
+        "detail": "%pause()"
+    },
+    {
+        "key": "%pclose",
+        "icon": 3,
+        "documentation": "The %pclose() function closes the stream designated by stream opened by a %popen() and returns the exit status of the command.",
+        "detail": "%pclose((char*)stream)"
+    },
+    {
+        "key": "%pgetpid",
+        "icon": 3,
+        "documentation": "The %pgetpid() function returns the UNIX Process-ID (PID) associated to the D3 process line.",
+        "detail": "%pgetpid(line)"
+    },
+    {
+        "key": "%popen",
+        "icon": 3,
+        "documentation": "The %popen() function creates a pipe between the calling process and the command to be executed.",
+        "detail": "%popen(command, type)"
+    },
+    {
+        "key": "%printf",
+        "icon": 3,
+        "documentation": "Formatted output conversion",
+        "detail": "%printf()"
+    },
+    {
+        "key": "%putenv",
+        "icon": 3,
+        "documentation": "The %putenv() function makes the value of the environment variable name equal to the value designated by str, by altering an existing variable or by creating a new one.",
+        "detail": "%putenv(str)"
+    },
+    {
+        "key": "%rdhex",
+        "icon": 3,
+        "documentation": "The %rdhex() function reads the number of bytes designated by (size * 2) into var from the file specified in file.descriptor, converting each byte into two ASCII hexadecimal characters.",
+        "detail": "%rdhex(file.descriptor, var, size)"
+    },
+    {
+        "key": "%read",
+        "icon": 3,
+        "documentation": "The %read() function reads the number of bytes designated in size into var, from the file specified by file.descriptor. This file is returned by a previous call to %open(), %creat(), or %dup().",
+        "detail": "%read(file.descriptor, var, size)"
+    },
+    {
+        "key": "%read_ssl",
+        "icon": 3,
+        "documentation": "The %read_ssl() function reads the number of bytes designated in size into var, from the Secure connection specified by ssl_fd descriptor. This descriptor is returned by a previous call to %accept_ssl() or %connect_ssl.",
+        "detail": "%read_ssl(ssl_fd, var, size)"
+    },
+    {
+        "key": "%readregistry",
+        "icon": 3,
+        "documentation": "The %readregistry() function retrieves string values from the registry.",
+        "detail": "%readregistry(registryEntry, valueName, buffer, &bufferSize)"
+    },
+    {
+        "key": "%realloc",
+        "icon": 3,
+        "documentation": "The %realloc() function resizes the memory buffer specified to the specified size in bytes and returns a pointer to the resized buffer. The contents of the buffer are not changed. If buffer is null, this function behaves like the %malloc() function for the specified size. If the specified size is zero and the specified buffer is not null, the buffer memory is freed.",
+        "detail": "%realloc((char*)buffer, size)"
+    },
+    {
+        "key": "%recv",
+        "icon": 3,
+        "documentation": "The %recv() function receives data from a connected socket or a bound connectionless socket.",
+        "detail": "%recv()"
+    },
+    {
+        "key": "%recvfrom",
+        "icon": 3,
+        "documentation": "The %recvfrom() function receives a datagram from a bound socket and stores the information on the sender. If no errors occur, the number of bytes received is returned.",
+        "detail": "%recvfrom(socket, buffer, bufferLength, flags, &sourceAddress, &port)"
+    },
+    {
+        "key": "%semctl",
+        "icon": 3,
+        "documentation": "The %semctl() function performs semaphore control operations.",
+        "detail": "%semctl(sem-ID, semnum, cmd, arg)"
+    },
+    {
+        "key": "%semget",
+        "icon": 3,
+        "documentation": "The %semget() function creates a semaphore set.",
+        "detail": "%semget(key, nsems, semflg)"
+    },
+    {
+        "key": "%semop",
+        "icon": 3,
+        "documentation": "The %semop() function performs an array of semaphore operations on a set of semaphores.",
+        "detail": "%semop(sem-ID, sops, num)"
+    },
+    {
+        "key": "%send",
+        "icon": 3,
+        "documentation": "The %send() function sends data on a connected socket.",
+        "detail": "%send()"
+    },
+    {
+        "key": "%sendto",
+        "icon": 3,
+        "documentation": "The %sendto() sends data to a specified destination. If no errors occur, the total number of bytes sent is returned.",
+        "detail": "%sendto(socket, buffer, buflen, flags, HostName, port)"
+    },
+    {
+        "key": "%setflush",
+        "icon": 3,
+        "documentation": "The %setflush() function sets the flush periods.",
+        "detail": "%setflush(newp, newfp)"
+    },
+    {
+        "key": "%setsockopt",
+        "icon": 3,
+        "documentation": "The %setsockopt() function sets a socket option.",
+        "detail": "%setsockopt()"
+    },
+    {
+        "key": "%shell",
+        "icon": 3,
+        "documentation": "The %shell() function executes the MS-DOS command, command, and returns the exit code of the command.",
+        "detail": "%shell (command)"
+    },
+    {
+        "key": "%shellcapture",
+        "icon": 3,
+        "documentation": "The %shellcapture() function executes the MS-DOS command, command, and captures the result in the buffer variable, up to the maximum size. If the buffer is not large enough, the exceeding output is discarded.",
+        "detail": "%shellcapture(command, buffer, size, read)"
+    },
+    {
+        "key": "%shmat",
+        "icon": 3,
+        "documentation": "The %shmat() function attaches a shared memory segment associated with the shared memory identifier shmid and returns the address of the segment.",
+        "detail": "%shmat(shmid, (char*)shmaddr, shmflg)"
+    },
+    {
+        "key": "%shmctl",
+        "icon": 3,
+        "documentation": "Allows the user to receive information on a shared memory segment, set the owner, group, and  permissions of a shared memory segment, or destroy a segment.",
+        "detail": "%shmctl()"
+    },
+    {
+        "key": "%shmdt",
+        "icon": 3,
+        "documentation": "The %shmdt() function detaches the shared memory segment located at the address specified by shmaddr.",
+        "detail": "%shmdt((char*)shmaddr)"
+    },
+    {
+        "key": "%shmget",
+        "icon": 3,
+        "documentation": "The %shmget() function creates a shared memory segment and returns a shared memory identifier.",
+        "detail": "%shmget(key, size, shmflg)"
+    },
+    {
+        "key": "%shutdown",
+        "icon": 3,
+        "documentation": "The %shutdown() function disables sends or receives on a socket.",
+        "detail": "%shutdown()"
+    },
+    {
+        "key": "%socket",
+        "icon": 3,
+        "documentation": "The %socket() function creates a socket in the specified addr.family and of the specified type. A protocol can be specified or assigned by the system. If the protocol is left unspecified (with a value of 0), the system selects an appropriate protocol in the specified addr.family.",
+        "detail": "%socket(addr.family, type, protocol)"
+    },
+    {
+        "key": "%sprintf",
+        "icon": 3,
+        "documentation": "Formatted output conversion.",
+        "detail": "%sprintf()"
+    },
+    {
+        "key": "%startfileio",
+        "icon": 3,
+        "documentation": "Specifies that all input comes from the input file and all output goes to the output file.",
+        "detail": "%startfileio(file path names)"
+    },
+    {
+        "key": "%startlistilocks",
+        "icon": 3,
+        "documentation": "The %startlistilocks() function prepares for calls to the %listitemlocksfilter() function and the %endlistilocks() function.",
+        "detail": "%startlistilocks( hostFSI, &handle )"
+    },
+    {
+        "key": "%stopfileio",
+        "icon": 3,
+        "documentation": "Stops all input and output to and from the file. The FlashBASIC tab of the D3 Device Manager contains the default path of the input and output files (see the D3 System Administration Guide for more information).",
+        "detail": "%stopfileio()"
+    },
+    {
+        "key": "%strcat",
+        "icon": 3,
+        "documentation": "Concatenates two strings.",
+        "detail": "%strcat()"
+    },
+    {
+        "key": "%strcpy",
+        "icon": 3,
+        "documentation": "Copies a string.",
+        "detail": "%strcpy()"
+    },
+    {
+        "key": "%strlen",
+        "icon": 3,
+        "documentation": "Calculates the length of a string.",
+        "detail": "%strlen()"
+    },
+    {
+        "key": "%ttyname",
+        "icon": 3,
+        "documentation": "The %ttyname() function returns a pointer to a static area containing the null terminated path name of the terminal device associated to the file descriptor fd.",
+        "detail": "%ttyname(fd)"
+    },
+    {
+        "key": "%unlink",
+        "icon": 3,
+        "documentation": "The %unlink() function removes the directory entry named by the path name pointed to by path. The named file is unlinked, and when all the links have been removed, and the file is no longer open, the file is removed.",
+        "detail": "%unlink(path)"
+    },
+    {
+        "key": "%wait",
+        "icon": 3,
+        "documentation": "The %wait() function returns the exit code of the child processes created by the current process.",
+        "detail": "%wait(&status)"
+    },
+    {
+        "key": "%whex",
+        "icon": 3,
+        "documentation": "The %whex() function writes to the file specified by file.descriptor returned by a previous call to %open(), %creat(), or %dup() a string of bytes resulting from converting the ASCII string variable into binary.",
+        "detail": "%whex(file.descriptor, var)"
+    },
+    {
+        "key": "%write",
+        "icon": 3,
+        "documentation": "The %write() function writes the number of bytes designated by size from var to the file specified by file.descriptor returned by a previous call to %open(), %creat(), or %dup().",
+        "detail": "%write(file.descriptor, var, size)"
+    },
+    {
+        "key": "%write_ssl",
+        "icon": 3,
+        "documentation": "The %write_ssl() function writes the number of bytes designated by size from var to the Secure connection specified by ssl_fd descriptor. This descriptor is returned by a previous call to %accept_ssl() or %connect_ssl.",
+        "detail": "%write_ssl(ssl.fd, var, size)"
+    },
+    {
+        "key": "abort",
+        "icon": 14,
+        "documentation": "The abort statement immediately stops program execution and unconditionally returns to the TCL command prompt.",
+        "detail": "ABORT $messagenum, $expr"
+    },
+    {
+        "key": "abs",
+        "icon": 3,
+        "documentation": "The abs() function returns the absolute (positive) portion of the integer number derived from the given numeric expression.",
+        "detail": "ABS($math_expression)"
+    },
+    {
+        "key": "access",
+        "icon": 3,
+        "documentation": "The access() function provides data about the AQL or Update processor environments when the program is called from a dictionary.",
+        "detail": "ACCESS($numexp)"
+    },
+    {
+        "key": "alpha",
+        "icon": 3,
+        "documentation": "The alpha() function evaluates the expression and returns 1 (true) if every character in the string is alphabetical (that is, a\u2014z upper and lowercase), or 0 (false) if any character is nonalphabetical.",
+        "detail": "ALPHA($value)"
+    },
+    {
+        "key": "ascii",
+        "icon": 3,
+        "documentation": "The ascii() function converts a string of EBCDIC-encoded characters into their equivalent ASCII values.",
+        "detail": "ASCII($expr)"
+    },
+    {
+        "key": "assigned",
+        "icon": 3,
+        "documentation": "The assigned() function determines if the variable has been assigned a value.",
+        "detail": "ASSIGNED($variable)"
+    },
+    {
+        "key": "aux",
+        "icon": 14,
+        "documentation": "The aux statement enables or disables spooling to the auxiliary port.",
+        "detail": "AUX $exp"
+    },
+    {
+        "key": "begin case",
+        "icon": 14,
+        "documentation": "The begin case statement starts a case construct.",
+        "detail": "BEGIN CASE\n\tCASE $1\n\t\t$2\nEND CASE"
+    },
+    {
+        "key": "begin work",
+        "icon": 14,
+        "documentation": "The begin work statement starts a transaction.",
+        "detail": "BEGIN WORK $name THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "break",
+        "icon": 14,
+        "documentation": "The break statement enables or disables the BREAK key.",
+        "detail": "BREAK $1"
+    },
+    {
+        "key": "call",
+        "icon": 14,
+        "documentation": "The call statement transfers control to an external FlashBASIC or BASIC subroutine and optionally passes a list of arguments to it.",
+        "detail": "CALL $subroutine_name($arguments)"
+    },
+    {
+        "key": "casing",
+        "icon": 14,
+        "documentation": "The casing statement toggles case sensitivity relative to input data and string comparisons in the current program and any called subroutines.",
+        "detail": "CASING $1"
+    },
+    {
+        "key": "cfunction",
+        "icon": 14,
+        "documentation": "The cfunction statement provides access to C libraries from BASIC.",
+        "detail": "CFUNCTION $names"
+    },
+    {
+        "key": "chain",
+        "icon": 14,
+        "documentation": "The chain statement transfers processing control to TCL, which interprets and executes the statement defined in the expression.",
+        "detail": "CHAIN $expr"
+    },
+    {
+        "key": "change",
+        "icon": 3,
+        "documentation": "The change() function searches a string expression for the search string and then, if at the start occurrence, replaces search.str with replacement.str for the amount of occurrences specified in occurrences.",
+        "detail": "CHANGE($string, $search, $replace, $occurrence, $start)"
+    },
+    {
+        "key": "char",
+        "icon": 3,
+        "documentation": "The char() function converts a number between 0 and 255 to its corresponding ASCII character equivalent.",
+        "detail": "CHAR($expr)"
+    },
+    {
+        "key": "clear",
+        "icon": 14,
+        "documentation": "The clear statement sets all local and common variables to 0 in a main program.",
+        "detail": "CLEAR"
+    },
+    {
+        "key": "cleardata",
+        "icon": 14,
+        "documentation": "The cleardata statement clears the data stack.",
+        "detail": "CLEARDATA"
+    },
+    {
+        "key": "clearfile",
+        "icon": 14,
+        "documentation": "The clearfile statement deletes all items in the specified file variable previously opened with an open statement.",
+        "detail": "CLEARFILE $variable"
+    },
+    {
+        "key": "clearselect",
+        "icon": 14,
+        "documentation": "The clearselect statement clears the active select-list specified by the list.var and releases all overflow associated with that list. Any external select-list is also cleared if the list variable is not specified.",
+        "detail": "CLEARSELECT $ListName"
+    },
+    {
+        "key": "close",
+        "icon": 14,
+        "documentation": "The close statement closes the file identified by file.var. If file.var is not specified, the file referenced by the default file.var is closed.",
+        "detail": "CLOSE $variable"
+    },
+    {
+        "key": "col1",
+        "icon": 3,
+        "documentation": "The col1() function returns the numeric column position of the character immediately preceding the substring retrieved in the most recently executed field() function.",
+        "detail": "COL1()"
+    },
+    {
+        "key": "col2",
+        "icon": 3,
+        "documentation": "The col2() function returns the numeric column position of the character following the substring retrieved in the most recently executed field() function.",
+        "detail": "COL2()"
+    },
+    {
+        "key": "commit work",
+        "icon": 14,
+        "documentation": "The commit work operation commits a transaction.",
+        "detail": "COMMIT WORK THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "common",
+        "icon": 14,
+        "documentation": "The common statement declares data elements to share among different FlashBASIC or BASIC modules.",
+        "detail": "COMMON $1"
+    },
+    {
+        "key": "compare",
+        "icon": 14,
+        "documentation": "The compare statement compares two dynamic arrays.",
+        "detail": "COMPARE $str1 TO $str2"
+    },
+    {
+        "key": "continue",
+        "icon": 14,
+        "documentation": "The continue statement restarts a loop that is under for...next or loop...repeat control.",
+        "detail": "CONTINUE"
+    },
+    {
+        "key": "convert",
+        "icon": 14,
+        "documentation": "The convert statement searches a given variable and replaces each occurrence of a character by another.",
+        "detail": "CONVERT $fromchars TO $tostring IN $var"
+    },
+    {
+        "key": "convert",
+        "icon": 3,
+        "documentation": "The convert statement searches a given variable and replaces each occurrence of a character by another.",
+        "detail": "CONVERT $fromchars TO $tostring IN $var"
+    },
+    {
+        "key": "cos",
+        "icon": 3,
+        "documentation": "The cos() function calculates the trigonometric cosine of an angle of a specified numeric expression in the range 0 to 360 degrees.",
+        "detail": "COS($expr)"
+    },
+    {
+        "key": "count",
+        "icon": 3,
+        "documentation": "The count() function returns the number of occurrences of str.exp2 within str.exp1.",
+        "detail": "COUNT($expr, $delimiter)"
+    },
+    {
+        "key": "crt",
+        "icon": 14,
+        "documentation": "The crt statement outputs unconditionally to the terminal display, regardless of whether or not the printer on condition is in effect.",
+        "detail": "CRT $expr"
+    },
+    {
+        "key": "crt-device",
+        "icon": 14,
+        "documentation": "The crt-device statement forces BASIC and FlashBASIC to use the CRT terminal device instead of the printer device for the @ functions with the printer in the ON state.",
+        "detail": "crt-device  {([n|f]}"
+    },
+    {
+        "key": "data",
+        "icon": 14,
+        "documentation": "The data statement queues responses for use by subsequent input requests initiated from chain, enter, execute, or input statements. The data is taken from the queue in the order in which it was added.",
+        "detail": "DATA $expr"
+    },
+    {
+        "key": "date",
+        "icon": 3,
+        "documentation": "The date() function returns the current system date in internal format as an integer number representing the number of days that have elapsed since December 31, 1967 (day 0 on the D3 calendar).",
+        "detail": "DATE()"
+    },
+    {
+        "key": "dcount",
+        "icon": 3,
+        "documentation": "The dcount() function returns the number of occurrences of the delimiter specified in str.exp2 within str.exp1, plus one.",
+        "detail": "DCOUNT($expr, $delimiter)"
+    },
+    {
+        "key": "debug",
+        "icon": 14,
+        "documentation": "The debug statement temporarily suspends execution of a FlashBASIC or BASIC program and invokes the FlashBASIC or BASIC debugger.",
+        "detail": "DEBUG"
+    },
+    {
+        "key": "deffun",
+        "icon": 14,
+        "documentation": "Use the deffun statement to define a user-written function. You must declare a user-defined function before you can use it in a program. The deffun statement provides the compiler with information such as the function name, and the number and type of arguments. In a program, each user-written function must have a unique definition. Any subsequent deffun statement for a user-written function that is already defined causes a fatal error.",
+        "detail": "DEFFUN $name($args)"
+    },
+    {
+        "key": "del",
+        "icon": 14,
+        "documentation": "The del statement provides an alternate to the delete() function for deleting a location from a dynamic array.",
+        "detail": "DEL $variable"
+    },
+    {
+        "key": "delete",
+        "icon": 3,
+        "documentation": "The delete statement removes a specific item from a file.",
+        "detail": "DELETE $filevar,$recordkey"
+    },
+    {
+        "key": "delete",
+        "icon": 14,
+        "documentation": "The delete statement removes a specific item from a file.",
+        "detail": "DELETE $filevar,$recordkey"
+    },
+    {
+        "key": "dimension",
+        "icon": 14,
+        "documentation": "The dimension statement establishes a specific number of storage locations for a matrix of variables.",
+        "detail": "DIM $variable($numbers)"
+    },
+    {
+        "key": "dquote",
+        "icon": 3,
+        "documentation": "The dquote() function extracts a double-quoted string from str.exp.",
+        "detail": "DQUOTE($expr)"
+    },
+    {
+        "key": "dtx",
+        "icon": 3,
+        "documentation": "The dtx() function converts a given decimal number to its corresponding hexadecimal equivalent. The number is first converted to an integer by truncating the fractional part.",
+        "detail": "DTX($expr)"
+    },
+    {
+        "key": "ebcdic",
+        "icon": 3,
+        "documentation": "The ebcdic() function converts a string of ASCII-encoded characters into their equivalent EBCDIC values.",
+        "detail": "EBCDIC($expr)"
+    },
+    {
+        "key": "echo",
+        "icon": 14,
+        "documentation": "The echo statement toggles terminal echo on or off.",
+        "detail": "ECHO $expr"
+    },
+    {
+        "key": "enter",
+        "icon": 14,
+        "documentation": "The enter statement transfers control to another cataloged FlashBASIC or BASIC program.",
+        "detail": "ENTER $progname"
+    },
+    {
+        "key": "equate",
+        "icon": 14,
+        "documentation": "The equate statement is a compiler directive that declares a constant at compile time or a synonym of another variable or array element.",
+        "detail": "EQUATE $symbol TO $var"
+    },
+    {
+        "key": "ereplace",
+        "icon": 3,
+        "documentation": "The ereplace() function searches a string expression for the search string and then, if at the start occurrence, replaces search.str with replacement.str for the amount of occurrences specified in occurrences.",
+        "detail": "EREPLACE($expr, $searchstr, $replacement, $occurrence, $begin)"
+    },
+    {
+        "key": "error",
+        "icon": 3,
+        "documentation": "The error statement displays the error message from the messages file and continues execution of the program.",
+        "detail": "error message.num,\"parameter\"{,\"parameter\"...}"
+    },
+    {
+        "key": "exchange",
+        "icon": 3,
+        "documentation": "The exchange() function replaces the characters specified in str.exp1 with the characters specified in str.exp2.",
+        "detail": "EXCHANGE($var, $search, $replace)"
+    },
+    {
+        "key": "execute",
+        "icon": 14,
+        "documentation": "The execute statement temporarily pushes a level and performs any valid TCL expression, then continues execution of the FlashBASIC or BASIC program.",
+        "detail": "EXECUTE $expr"
+    },
+    {
+        "key": "exit",
+        "icon": 14,
+        "documentation": "The exit statement forces an early exit from a loop that is under for...next or loop...repeat control.",
+        "detail": "EXIT"
+    },
+    {
+        "key": "exp",
+        "icon": 3,
+        "documentation": "The exp() function returns the exponential of a numeric expression, that is, base e, which is 2.718281828 rounded to precision to the power of the numeric expression.",
+        "detail": "EXP($expr)"
+    },
+    {
+        "key": "extract",
+        "icon": 3,
+        "documentation": "The extract() function retrieves a specific attribute, value, or subvalue from a dimensioned or dynamic array.",
+        "detail": "EXTRACT($DynArr, $attr)"
+    },
+    {
+        "key": "field",
+        "icon": 3,
+        "documentation": "The field() function returns a substring from a string expression, by specifying a delimiter and the desired occurrence.",
+        "detail": "FIELD($string, $delimiter, $occurrence)"
+    },
+    {
+        "key": "file",
+        "icon": 14,
+        "documentation": "The file statement is a compiler directive that allows the use of attribute definition items in the file\u2019s dictionary while compiling a program.",
+        "detail": "FILE $name"
+    },
+    {
+        "key": "filelock",
+        "icon": 14,
+        "documentation": "The filelock statement sets an exclusive lock on an entire file.",
+        "detail": "FILELOCK filevar LOCKED $lock_statements "
+    },
+    {
+        "key": "fileunlock",
+        "icon": 14,
+        "documentation": "The fileunlock statement releases an exclusive lock set by the filelock statement on an entire file.",
+        "detail": "FILEUNLOCK $file_variable"
+    },
+    {
+        "key": "fmt",
+        "icon": 3,
+        "documentation": "The fmt() function is identical to performing a FlashBASIC or BASIC mask.",
+        "detail": "FMT($str, $mask)"
+    },
+    {
+        "key": "fold",
+        "icon": 3,
+        "documentation": "The fold() function folds a string expression into a string of a given length.",
+        "detail": "FOLD($str, $foldlen, $delim)"
+    },
+    {
+        "key": "footing",
+        "icon": 14,
+        "documentation": "The footing statement designates a text string composed of literals and special options to output at the bottom of each page.",
+        "detail": "FOOTING $str"
+    },
+    {
+        "key": "for...next",
+        "icon": 14,
+        "documentation": "The for...next statement is an iterative, incremental loop statement used to repeat a sequence of statements for a specific number of occurrences.",
+        "detail": "for var = num.exp1 to num.exp2{step num.exp3} {[while|until] logical.exp}\n\tstatement{s}\nnext var"
+    },
+    {
+        "key": "function",
+        "icon": 14,
+        "documentation": "A user-defined function statement looks, compiles, and catalogs like a callable subroutine, except the RETURN statement becomes \"RETURN X\", where X is the value to return (return_value).",
+        "detail": "FUNCTION $name($args)\n\t$statements\nRETURN $var"
+    },
+    {
+        "key": "get",
+        "icon": 14,
+        "documentation": "The get statement gets raw characters from the specified port.",
+        "detail": "GET $Var,$length SETTING $charcnt FROM $port UNTIL $termchar RETURNING $retTermChar WAITING $seconds THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "getx",
+        "icon": 14,
+        "documentation": "The getx statement receives input from an attached line in ASCII hexadecimal format. The statement returns an exploded ASCII hexadecimal string that allows binary data to contain a decimal 255 (x\u2019ff\u2019)",
+        "detail": "GETX $var,$length SETTING $charcnt FROM $portexp UNTIL $termchar RETURNING $retTermChar WAITING $seconds THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "gosub",
+        "icon": 14,
+        "documentation": "The gosub statement transfers control to a local subroutine identified by a statement label within the program. Control returns to the next statement after the gosub statement when the return statement is encountered.",
+        "detail": "GOSUB $label"
+    },
+    {
+        "key": "goto",
+        "icon": 14,
+        "documentation": "The goto statement transfers control to the location in the FlashBASIC or BASIC program that begins with the given statement label. On statement labels beginning with a nonnumeric value, the : following the statement.label is optional in the goto, but is required following the actual statement label.",
+        "detail": "GOTO $label"
+    },
+    {
+        "key": "heading",
+        "icon": 14,
+        "documentation": "The heading statement designates a text string composed of literals and special options to output at the top of each page.",
+        "detail": "HEADING $expr"
+    },
+    {
+        "key": "iconv",
+        "icon": 3,
+        "documentation": "The iconv() function converts a value from its external format to its internal equivalent, according to the processing code being applied.",
+        "detail": "ICONV($subject, $convcode)"
+    },
+    {
+        "key": "if",
+        "icon": 14,
+        "documentation": "The if statement tests the result of a logical expression. Depending on whether the expression evaluates to either true or false, the statements following the then or else clauses, respectively, are executed.",
+        "detail": "if expression then statement else statement"
+    },
+    {
+        "key": "ifr",
+        "icon": 14,
+        "documentation": "The ifr statement tests the result of a logical expression.",
+        "detail": "IFR $1 THEN\n\t$2\nEND ELSE\n\t$3\nEND"
+    },
+    {
+        "key": "in",
+        "icon": 14,
+        "documentation": "The in statement accepts a single raw character of input from the keyboard, without displaying a prompt character or requiring pressing ENTER following the input.",
+        "detail": "IN $var THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "index",
+        "icon": 3,
+        "documentation": "The index() function searches through a given str.exp for the occurrence of the character or substring specified by substr.exp and if found, returns the numeric position where the nth occurrence of the substring begins. Null strings are skipped.",
+        "detail": "INDEX($subject, $search, $occurrence)"
+    },
+    {
+        "key": "inmat",
+        "icon": 3,
+        "documentation": "The inmat() function returns information about arrays.",
+        "detail": "INMAT($array)"
+    },
+    {
+        "key": "input",
+        "icon": 14,
+        "documentation": "The input statement temporarily suspends execution of the program until a response is provided from the keyboard and assigns that response to a specified variable.",
+        "detail": "INPUT $var"
+    },
+    {
+        "key": "inputclear",
+        "icon": 14,
+        "documentation": "The inputclear statement clears the keyboard type-ahead buffer.",
+        "detail": "INPUTCLEAR"
+    },
+    {
+        "key": "inputctrl",
+        "icon": 14,
+        "documentation": "The inputctrl statement toggles on and off the ability to enter control characters on succeeding BASIC input statements.",
+        "detail": "INPUTCTRL $expr"
+    },
+    {
+        "key": "inputerr",
+        "icon": 14,
+        "documentation": "The inputerr statement displays a message on the status (bottom) line of the terminal. it meant to be used with the input@ statement.",
+        "detail": "INPUTERR $str"
+    },
+    {
+        "key": "inputif",
+        "icon": 14,
+        "documentation": "The inputif statement captures input from the type-ahead buffer and assigns the input to a variable.",
+        "detail": "inputif var {= expr} {,length-expr} {,fillchars} {_} {:} {from line-expr}\nthen/else statement\nend"
+    },
+    {
+        "key": "inputnull",
+        "icon": 14,
+        "documentation": "The inputnull statement is used with the input @ statement to define the character used to indicate a null input on subsequent input statements.",
+        "detail": "INPUTNULL $char"
+    },
+    {
+        "key": "inputparity",
+        "icon": 14,
+        "documentation": "The inputparity statement enables or disables the extended character set (xcs) for the current process.",
+        "detail": "INPUTPARITY $ON_OFF"
+    },
+    {
+        "key": "inputtrap off",
+        "icon": 14,
+        "documentation": "The inputtrap off statement cancels the previous inputtrap statement.",
+        "detail": "INPUTTRAP OFF"
+    },
+    {
+        "key": "inputtrap...gosub",
+        "icon": 14,
+        "documentation": "The inputtrap...gosub statement, using the str.exp, sets up an automatic computed gosub based on the next input @ statement data. The position of the character in the string expression corresponds to the position of the statement label in the list. This acts as a trap that causes a gosub on all subsequent input @ statements.",
+        "detail": "inputtrap str.exp gosub statement.label{,statement.label...}"
+    },
+    {
+        "key": "inputtrap...goto",
+        "icon": 14,
+        "documentation": "The inputtrap...goto statement, using the str.exp, sets up an automatic computed goto based on the next input @ statement’s data. The position of each character in the string expression corresponds to the position of the statement label in the list. This acts as a trap that causes a goto on all subsequent input @ statements and branches to a label in the current program.",
+        "detail": "inputtrap str.exp goto statement.label{,statement.label{,...}}"
+    },
+    {
+        "key": "ins",
+        "icon": 14,
+        "documentation": "The ins statement is an alternative to the insert() function for inserting a string expression into a dynamic array.",
+        "detail": "INS $expr BEFORE $Var<$attr, $value, $subvalue>"
+    },
+    {
+        "key": "insert",
+        "icon": 3,
+        "documentation": "The insert() function inserts the element referenced by str.exp into a specific attribute, value, or subvalue location in dyn.array.exp.",
+        "detail": "INSERT($DynArr, $attr, $value, $subvalue; $expr)"
+    },
+    {
+        "key": "int",
+        "icon": 3,
+        "documentation": "The int() function returns the numeric integer equivalent from a given expression.",
+        "detail": "INT($expr)"
+    },
+    {
+        "key": "key",
+        "icon": 14,
+        "documentation": "The key statement locates an item using a B-tree index key, and returns the item in a variable, providing the ability to sequentially search the items in the file based on the index.",
+        "detail": "KEY($operator, $rootvar, $indexkey, $itemid, $vcexp) THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "len",
+        "icon": 3,
+        "documentation": "The len() function returns the length of a string expression.",
+        "detail": "LEN($str)"
+    },
+    {
+        "key": "let",
+        "icon": 14,
+        "documentation": "The let statement assigns the value of an expression to a variable.",
+        "detail": "LET $var = $expr"
+    },
+    {
+        "key": "ln",
+        "icon": 3,
+        "documentation": "The ln() function returns the natural logarithm (base e, which is 2.718281828 rounded to precision) of a given numeric expression.",
+        "detail": "LN($expr)"
+    },
+    {
+        "key": "locate",
+        "icon": 3,
+        "documentation": "The locate statement searches for the location of a specific string expression and returns the location in position.var.",
+        "detail": "LOCATE $search IN $subject SETTING $pos THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "locate",
+        "icon": 14,
+        "documentation": "The locate statement searches for the location of a specific string expression and returns the location in position.var.",
+        "detail": "LOCATE $search IN $subject SETTING $pos THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "lock",
+        "icon": 14,
+        "documentation": "The lock statement sets one of 992 execution locks, in the range from 0 through 63. This prevents re-entry to the program, allowing only one process to run the program at any given time.",
+        "detail": "LOCK $expr THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "loop",
+        "icon": 14,
+        "documentation": "The loop statement repetitively executes (loops) until an ending condition is met. The first set of statements, if present, is executed at least once.",
+        "detail": "loop {statement.block1} [until|while] logical.exp{do} {statement.block2} repeat\nloop\n\t{statement.block1}\n[until|while] logical.exp{do}\n\t{statement.block2}\nrepeat\nloop {statement.block} repeat"
+    },
+    {
+        "key": "mat",
+        "icon": 14,
+        "documentation": "The mat statement assigns data to each element of a dimensioned array variable to a specific value in one operation.",
+        "detail": "MAT $array = $expr"
+    },
+    {
+        "key": "matbuild",
+        "icon": 14,
+        "documentation": "The matbuild statement converts a dimensioned array into a dynamic array.",
+        "detail": "MATBUILD $variable FROM $array, $startexpr, $endexpr"
+    },
+    {
+        "key": "matparse",
+        "icon": 14,
+        "documentation": "The matparse statement converts a dynamic array into a dimensioned array.",
+        "detail": "MATPARSE $mat FROM $str SETTING $var"
+    },
+    {
+        "key": "matread",
+        "icon": 14,
+        "documentation": "The matread statement reads the specified item from the optionally specified file.var, or if not specified, the default file.var, and stores one attribute per element in the dimensioned array.",
+        "detail": "MATREAD $mat FROM $filevar, $recordkey THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "matreadu",
+        "icon": 14,
+        "documentation": "The matreadu form of the matread statement tests if an item is already locked and locks the item if it is not. The item lock set by matreadu prevents the item from being read using the matreadu statement or updated by other processes while the lock is set.",
+        "detail": "MATREADU $mat FROM $filevar, $recordkey THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "matwrite",
+        "icon": 14,
+        "documentation": "The matwrite statement writes an item into the specified file.var.",
+        "detail": "MATWRITE $mat ON $filevar, $recordkey"
+    },
+    {
+        "key": "matwriteu",
+        "icon": 14,
+        "documentation": "The matwriteu statement is identical to the matwrite statement, except the item remains locked. The matwriteu form keeps the item locked if it was previously locked by a readu, readvu, or matwriteu statement within the same program.",
+        "detail": "MATWRITEU $mat ON $filevar, $recordkey"
+    },
+    {
+        "key": "maximum",
+        "icon": 3,
+        "documentation": "The maximum() function returns the maximum of a list of numbers delimited by attribute, value, or subvalue marks. If different orders of marks are present, the maximum() function returns the maximum of all fields, regardless of delimiter.",
+        "detail": "MAXIMUM($str)"
+    },
+    {
+        "key": "minimum",
+        "icon": 3,
+        "documentation": "The minimum() function returns the minimum of a list of numbers delimited by attribute, value, or subvalue marks. If different orders of marks are present, the minimum() function returns the minimum of all fields, regardless of delimiter.",
+        "detail": "MINIMUM($str)"
+    },
+    {
+        "key": "mod",
+        "icon": 3,
+        "documentation": "The mod() function returns the remainder portion of the result of dividing one number by another.",
+        "detail": "MOD($dividend, $divisor)"
+    },
+    {
+        "key": "next",
+        "icon": 14,
+        "documentation": "The next statement occurs at the end of a for...next construct and causes the iteration counter to increment and branches to the corresponding for statement to decide whether to terminate.",
+        "detail": "NEXT var"
+    },
+    {
+        "key": "not",
+        "icon": 3,
+        "documentation": "The not() function returns the logical inverse of the normal outcome of true and false generated by a logical expression.",
+        "detail": "NOT($expr)"
+    },
+    {
+        "key": "null",
+        "icon": 14,
+        "documentation": "The null statement performs no operation, other than to provide an instruction where one is required. This is usually used for program readability.",
+        "detail": "NULL"
+    },
+    {
+        "key": "num",
+        "icon": 3,
+        "documentation": "The num() function evaluates an expression and returns 1 (true) if it is a decimal numeric. Otherwise, it returns 0, if the expression contains any nonnumeric characters.",
+        "detail": "NUM($str)"
+    },
+    {
+        "key": "nxtkey",
+        "icon": 14,
+        "documentation": "The nxtkey statement scans forward through a key file along a key path.",
+        "detail": "NXTKEY result FROM filevar,a.code,key,n THEN/ELSE"
+    },
+    {
+        "key": "occurs",
+        "icon": 3,
+        "documentation": "The occurs() function searches a string for attributes or values that occur consecutively.",
+        "detail": "OCCURS($str, $num)"
+    },
+    {
+        "key": "oconv",
+        "icon": 3,
+        "documentation": "The oconv() function converts a value from its internal format to its external equivalent, according to the processing code being applied.",
+        "detail": "OCONV($subject, $conversion)"
+    },
+    {
+        "key": "on...gosub",
+        "icon": 14,
+        "documentation": "The on... gosub statement transfers control to a local subroutine designated by a specific statement label according to the positional value returned by the expression. The syntax can also be specified as on...go sub...(allowing a space between go and sub).",
+        "detail": "on exp gosub statement.label{,statement.label...}"
+    },
+    {
+        "key": "on...goto",
+        "icon": 14,
+        "documentation": "The on...goto statement transfers control to the line within the FlashBASIC or BASIC program that begins with the specified statement label, according to the positional value of the expression referenced by exp. The syntax can also be specified as on...go to...(allowing a space between go and to).",
+        "detail": "on exp goto statement.label{,statement.label...}"
+    },
+    {
+        "key": "open",
+        "icon": 14,
+        "documentation": "The open statement opens a specified file name and associates the file with the optional file.var.",
+        "detail": "OPEN $filename TO $filevar ELSE $else_statements"
+    },
+    {
+        "key": "out",
+        "icon": 14,
+        "documentation": "The out statement outputs a single ASCII character derived from a numeric expression in the range of 0 through 255, which indicates its corresponding position in the ASCII table.",
+        "detail": "OUT $num"
+    },
+    {
+        "key": "page",
+        "icon": 14,
+        "documentation": "The page statement terminates the current page of output, prints the optional footing, positions to the top of the form, and prints the optional heading.",
+        "detail": "PAGE $1"
+    },
+    {
+        "key": "precision",
+        "icon": 14,
+        "documentation": "The precision statement defines the number of fractional decimal places that a numerical value can hold.",
+        "detail": "PRECISION $int"
+    },
+    {
+        "key": "print",
+        "icon": 14,
+        "documentation": "The print statement directs output of an expression to the current output device.",
+        "detail": "PRINT $expr"
+    },
+    {
+        "key": "print on",
+        "icon": 14,
+        "documentation": "The print on statement directs output to one of 32,767 open print files.",
+        "detail": "print on print.file.num print.exp"
+    },
+    {
+        "key": "printchar",
+        "icon": 14,
+        "documentation": "The printchar statement prints the first character of the string expression to the screen or to the printer.",
+        "detail": "PRINTCHAR $str"
+    },
+    {
+        "key": "printer",
+        "icon": 14,
+        "documentation": "The printer statement controls the output from subsequent print, heading, footing, or page statements.",
+        "detail": "PRINTER $ON_OFF_CLOSE"
+    },
+    {
+        "key": "printerr",
+        "icon": 14,
+        "documentation": "The printerr statement allows BASIC programs to produce output messages using the Error Message Processor and the errmsg file.",
+        "detail": "printerr errmsg.id [, param1 [, param2 [, ...]]]"
+    },
+    {
+        "key": "procread",
+        "icon": 14,
+        "documentation": "The procread statement reads the calling Proc\u2019s primary input buffer and assigns its contents to a specified variable.",
+        "detail": "PROCREAD $variable THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "procwrite",
+        "icon": 14,
+        "documentation": "The procwrite statement writes a string expression variable to the calling Proc\u2019s primary input buffer.",
+        "detail": "PROCWRITE $expr"
+    },
+    {
+        "key": "program",
+        "icon": 14,
+        "documentation": "The program statement is optionally used on the first line of a program to indicate that this is a program.",
+        "detail": "PROGRAM $progname"
+    },
+    {
+        "key": "prompt",
+        "icon": 14,
+        "documentation": "The prompt statement indicates the single character to display during subsequent input statements that prompt for input from the keyboard.",
+        "detail": "PROMPT $expr"
+    },
+    {
+        "key": "prvkey",
+        "icon": 14,
+        "documentation": "The prvkey statement operates in the same manner as the nxtkey statement with the exception that the keys returned are those previous to the beginning key value key.",
+        "detail": "PRVKEY result FROM filevar,a.code,key,n THEN/ELSE"
+    },
+    {
+        "key": "pwr",
+        "icon": 3,
+        "documentation": "The pwr() function raises a value contained in an expression to the power of the value of a second expression.",
+        "detail": "PWR($expression1, $pwrexpr)"
+    },
+    {
+        "key": "read",
+        "icon": 14,
+        "documentation": "The read statement reads an item as a dynamic array and stores the item as a string. Each attribute is automatically an element of the dynamic array variable and can be referenced with the appropriate intrinsic functions.",
+        "detail": "READ $var FROM $filevar,$recordkey THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "readnext",
+        "icon": 14,
+        "documentation": "The readnext statement retrieves the next item-ID from an active list and assigns it to a specified variable.",
+        "detail": "READNEXT $var FROM $list"
+    },
+    {
+        "key": "readt",
+        "icon": 14,
+        "documentation": "The readt statement reads a tape record and assigns the value returned to a specified variable.",
+        "detail": "READT $var onerr $err_statements THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "readtx",
+        "icon": 14,
+        "documentation": "The readtx statement reads a tape record converts the tape record to hexadecimal and assigns the resulting hexadecimal value to a specified variable.",
+        "detail": "READTX $var onerr $err_statement THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "readv",
+        "icon": 14,
+        "documentation": "The readv statement reads an item from the optionally-specified file variable and assigns the value contained in the attribute number referenced in the attribute expression to the specified variable.",
+        "detail": "READV $var FROM $filevar,$recordkey,$attr THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "release",
+        "icon": 14,
+        "documentation": "The release statement clears locks on items locked with a previous matreadu, readu, or readvu statement.",
+        "detail": "RELEASE $filevar, $expr ON ERROR $err_statements"
+    },
+    {
+        "key": "rem",
+        "icon": 14,
+        "documentation": "The rem() function returns the remainder portion of the result of dividing one number by another.",
+        "detail": "REM($dividend, $divisor)"
+    },
+    {
+        "key": "rem",
+        "icon": 3,
+        "documentation": "The rem() function returns the remainder portion of the result of dividing one number by another.",
+        "detail": "REM($dividend, $divisor)"
+    },
+    {
+        "key": "remove",
+        "icon": 14,
+        "documentation": "The remove statement retrieves a substring delimited by a system delimiter from a dynamic array.",
+        "detail": "remove var from dyn.array at position.var setting delimiter.var"
+    },
+    {
+        "key": "repeat",
+        "icon": 14,
+        "documentation": "The repeat statement defines the end of a loop. See loop statement for more information.",
+        "detail": "REPEAT"
+    },
+    {
+        "key": "replace",
+        "icon": 3,
+        "documentation": "The replace statement maintains referential integrity between items that contain bidirectional bridges used by the Update processor by eliminating duplicate item-IDs.",
+        "detail": "replace file.var, item-ID.old with item-ID.new"
+    },
+    {
+        "key": "return",
+        "icon": 14,
+        "documentation": "The return statement terminates an internal or external subroutine and returns execution control to the statement following the invoking call or gosub statement.",
+        "detail": "RETURN $1"
+    },
+    {
+        "key": "rewind",
+        "icon": 14,
+        "documentation": "The rewind statement rewinds the currently attached magnetic tape unit to the beginning of the tape.",
+        "detail": "REWIND onerr $err_statements THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "rnd",
+        "icon": 3,
+        "documentation": "The rnd() function generates a random number.",
+        "detail": "RND($expr)"
+    },
+    {
+        "key": "rollback work",
+        "icon": 14,
+        "documentation": "The rollback work statement rolls back (or undoes) a transaction.",
+        "detail": "ROLLBACK WORK THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "root",
+        "icon": 14,
+        "documentation": "The root statement provides an interface to the B-tree indexes for subsequent references with the key statement.",
+        "detail": "ROOT $fileref, $acode TO $rootvar THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "rqm",
+        "icon": 14,
+        "documentation": "The rqm statement suspends processing for a specific number of seconds, or until a specific time.",
+        "detail": "RQM $seconds"
+    },
+    {
+        "key": "scan",
+        "icon": 3,
+        "documentation": "The scan() function searches through a specified str.exp for the first occurrence of up to three user-definable characters specified by search.delimiters in addition to the system delimiters value, subvalue, and attribute.",
+        "detail": "SCAN($str, $searchdelims)"
+    },
+    {
+        "key": "select",
+        "icon": 14,
+        "documentation": "The select statement creates an active list of item-IDs, allowing sequential access to each item in the file by use of the readnext statement.",
+        "detail": "SELECT $variable1 TO $list"
+    },
+    {
+        "key": "send",
+        "icon": 14,
+        "documentation": "The send statement sends output to a specified port.",
+        "detail": "SEND $str TO $port THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "sendx",
+        "icon": 14,
+        "documentation": "The sendx statement converts the exploded ASCII hexadecimal string results of str.exp to its binary equivalent and then transmits it to the specified port. The conversion process terminates when the first nonhexadecimal character is encountered. sendx suppresses the output of a CR\/LF pair. sendx does not allow the : to exist as part of the statement.",
+        "detail": "SENDX $str TO $portnum THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "sentence",
+        "icon": 3,
+        "documentation": "The sentence() function is identical to performing a tclread statement. It returns the TCL command used to activate the program into a variable.",
+        "detail": "SENTENCE()"
+    },
+    {
+        "key": "seq",
+        "icon": 3,
+        "documentation": "The seq() function converts any ASCII character to its corresponding numeric equivalent in the range 0 through 255.",
+        "detail": "SEQ($char)"
+    },
+    {
+        "key": "sin",
+        "icon": 3,
+        "documentation": "The sin() function calculates the sine of an angle specified in degrees.",
+        "detail": "SIN($expr)"
+    },
+    {
+        "key": "sleep",
+        "icon": 14,
+        "documentation": "The sleep statement places a process to sleep for a specific number of seconds, or, until a specific time.",
+        "detail": "SLEEP $seconds"
+    },
+    {
+        "key": "sort",
+        "icon": 3,
+        "documentation": "The sort() function sorts an attribute or value mark delimited str.exp in ascending order.",
+        "detail": "SORT($keycnt)"
+    },
+    {
+        "key": "soundex",
+        "icon": 3,
+        "documentation": "The soundex() function returns the 4-digit soundex code for a phonetic string expression.",
+        "detail": "SOUNDEX($str, $code)"
+    },
+    {
+        "key": "space",
+        "icon": 3,
+        "documentation": "The space() function generates a string of spaces of a length equal to the value of the numeric expression.",
+        "detail": "SPACE($cnt)"
+    },
+    {
+        "key": "spoolq",
+        "icon": 14,
+        "documentation": "The spoolq statement enables or disables the spooler entry number message.",
+        "detail": "SPOOLQ $1"
+    },
+    {
+        "key": "sqrt",
+        "icon": 3,
+        "documentation": "The sqrt() function calculates the square root of a given numeric expression.",
+        "detail": "SQRT($expr)"
+    },
+    {
+        "key": "squote",
+        "icon": 3,
+        "documentation": "The squote() function extracts a single-quoted string from str.exp.",
+        "detail": "SQUOTE($expr)"
+    },
+    {
+        "key": "status",
+        "icon": 3,
+        "documentation": "The status() function returns the value of system(0).",
+        "detail": "status()"
+    },
+    {
+        "key": "stop",
+        "icon": 14,
+        "documentation": "The stop statement stops program execution and returns to the invoking the process.",
+        "detail": "STOP $1"
+    },
+    {
+        "key": "str",
+        "icon": 3,
+        "documentation": "The str() function repeats a str.exp the number of times specified in num.exp.",
+        "detail": "STR($str, $cnt)"
+    },
+    {
+        "key": "subroutine",
+        "icon": 14,
+        "documentation": "The subroutine statement defines a program as an external subroutine.",
+        "detail": "subroutine subroutine.name{(arg.list)}"
+    },
+    {
+        "key": "sum",
+        "icon": 3,
+        "documentation": "The sum() function returns the sum of a list of numbers delimited by attribute, value, or subvalue marks. If different orders of marks are present, the sum() function computes the sum of each sublist.",
+        "detail": "SUM($DynArr)"
+    },
+    {
+        "key": "summation",
+        "icon": 3,
+        "documentation": "The summation() function returns the sum of a list of numbers delimited by attribute, value, or subvalue marks.",
+        "detail": "SUMMATION($expr)"
+    },
+    {
+        "key": "swap",
+        "icon": 3,
+        "documentation": "The swap() function searches a string expression for the search string and then, if at the start occurrence, replaces search.str with replacement.str for the amount of occurrences specified in occurrences.",
+        "detail": "SWAP($string, $old, $new, $occurrence, $start)"
+    },
+    {
+        "key": "system",
+        "icon": 3,
+        "documentation": "The system() function provides an interface to a number of system variables",
+        "detail": "SYSTEM($key)"
+    },
+    {
+        "key": "ta",
+        "icon": 3,
+        "documentation": "The ta statement toggles or resets the type-ahead buffer.",
+        "detail": "TA $1"
+    },
+    {
+        "key": "ta",
+        "icon": 14,
+        "documentation": "The ta statement toggles or resets the type-ahead buffer.",
+        "detail": "TA $1"
+    },
+    {
+        "key": "tan",
+        "icon": 3,
+        "documentation": "The tan() function calculates the trigonometric tangent of the angle specified in degrees.",
+        "detail": "TAN($expr)"
+    },
+    {
+        "key": "tcl",
+        "icon": 14,
+        "documentation": "The tcl statement executes any valid TCL command as a subroutine.",
+        "detail": "TCL $tclcmd"
+    },
+    {
+        "key": "tclread",
+        "icon": 14,
+        "documentation": "The tclread statement loads the TCL command used to activate the program into a variable.",
+        "detail": "TCLREAD $var"
+    },
+    {
+        "key": "time",
+        "icon": 3,
+        "documentation": "The time() function returns the current system time in its internal format, representing the number of seconds past midnight.",
+        "detail": "TIME()"
+    },
+    {
+        "key": "timedate",
+        "icon": 3,
+        "documentation": "The timedate() function returns the current system time and date in external format (hh:mm:ss dd mmm yyyy).",
+        "detail": "TIMEDATE()"
+    },
+    {
+        "key": "timeout",
+        "icon": 14,
+        "documentation": "mvBase Only: The timeout statement specifies the number of seconds the operating environment waits for terminal input before a timeout condition occurs.",
+        "detail": "timeout exp"
+    },
+    {
+        "key": "transaction",
+        "icon": 14,
+        "documentation": "The transaction statement enables or disables participation in a transaction.",
+        "detail": "TRANSACTION $expr"
+    },
+    {
+        "key": "transaction abort",
+        "icon": 14,
+        "documentation": "transaction abort statement",
+        "detail": "TRANSACTION ABORT"
+    },
+    {
+        "key": "transaction cache",
+        "icon": 14,
+        "documentation": "The transaction cache statement enables or disables the transaction read cache.",
+        "detail": "TRANSACTION CACHE $exp"
+    },
+    {
+        "key": "transaction commit",
+        "icon": 14,
+        "documentation": "transaction commit statement",
+        "detail": "TRANSACTION COMMIT"
+    },
+    {
+        "key": "transaction flush",
+        "icon": 14,
+        "documentation": "The transaction flush statement enables or disables the transaction flush mechanism.",
+        "detail": "TRANSACTION FLUSH $exp"
+    },
+    {
+        "key": "transaction rollback",
+        "icon": 3,
+        "documentation": "transaction rollback function",
+        "detail": "TRANSACTION ROLLBACK"
+    },
+    {
+        "key": "transaction start",
+        "icon": 3,
+        "documentation": "transaction start function",
+        "detail": "TRANSACTION START"
+    },
+    {
+        "key": "trim",
+        "icon": 3,
+        "documentation": "The trim() function removes leading, trailing, and\/or redundant characters from a string.",
+        "detail": "TRIM($str, $char, $mode)"
+    },
+    {
+        "key": "trimb",
+        "icon": 3,
+        "documentation": "The trimb() function removes trailing spaces from a string.",
+        "detail": "TRIMB($str)"
+    },
+    {
+        "key": "trimf",
+        "icon": 3,
+        "documentation": "The trimf() function removes leading spaces from a string.",
+        "detail": "TRIMF($str)"
+    },
+    {
+        "key": "uclose",
+        "icon": 14,
+        "documentation": "The uclose command closes a file variable previously opened with the uopen command.",
+        "detail": "UCLOSE $filehandle THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "ucreate",
+        "icon": 14,
+        "documentation": "The ucreate command creates and opens a specified file on the host system.",
+        "detail": "UCREATE $path TO $filehandle THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "udelete",
+        "icon": 14,
+        "documentation": "The udelete command removes the directory entry named by the path name.",
+        "detail": "UDELETE $path THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "uerror",
+        "icon": 3,
+        "documentation": "The uerror() function returns the error number that resulted from the previous inter-operating system command.",
+        "detail": "UERROR()"
+    },
+    {
+        "key": "uexecute",
+        "icon": 14,
+        "documentation": "The uexecute command allows users to execute various Windows programs from within mvBASIC.",
+        "detail": "UEXECUTE $cmd RETURNING $var"
+    },
+    {
+        "key": "ulock",
+        "icon": 14,
+        "documentation": "The ulock command locks or unlocks a file specified by a file variable.",
+        "detail": "ULOCK $filehandle $LOCK_UNLOCK FOR $n THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "ulseek",
+        "icon": 3,
+        "documentation": "The ulseek() function moves the file pointer in an open file and returns the position of the file pointer, which is the number of bytes from the beginning of the file.",
+        "detail": "ULSEEK($filehandle, $n, $pos)"
+    },
+    {
+        "key": "umessage",
+        "icon": 14,
+        "documentation": "The umessage command sends a Windows-style message to the client linked to the process executing the command. If the optional TO clause is used, the umessage command sends a Windows application launched by the uexecute command.",
+        "detail": "UMESSAGE TO $var, $exp1, $exp2, $exp3"
+    },
+    {
+        "key": "unassigned",
+        "icon": 3,
+        "documentation": "The unassigned() function indicates whether a variable has an assigned value.",
+        "detail": "unassigned(var)"
+    },
+    {
+        "key": "unlock",
+        "icon": 14,
+        "documentation": "The unlock statement resets an execution lock, in the range 0 to 991, previously set with a lock statement.",
+        "detail": "UNLOCK $locknum"
+    },
+    {
+        "key": "uopen",
+        "icon": 14,
+        "documentation": "The uopen command opens a given file name to a file variable.",
+        "detail": "UOPEN $path FOR $READWRITE_READ_WRITE TO $filehandle THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "uread",
+        "icon": 14,
+        "documentation": "The uread command reads data from a previously opened file on the host system.",
+        "detail": "UREAD $var FROM $filehandle FOR $n THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "ureadline",
+        "icon": 3,
+        "documentation": "The ureadline() function reads data from a previously opened file on the host system.",
+        "detail": "UREADLINE $var FROM $filehandle UNTIL $delim THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "usystem",
+        "icon": 3,
+        "documentation": "The usystem() function is used to obtain information from the underlying operating system environment.",
+        "detail": "USYSTEM($1)"
+    },
+    {
+        "key": "uwaitfor",
+        "icon": 14,
+        "documentation": "The uwaitfor command causes the process to wait until the Windows application, identified by the var variable, terminates or the time specified by the expr1 variable elapses.",
+        "detail": "UWAITFOR $var, $exp THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "uwrite",
+        "icon": 14,
+        "documentation": "The uwrite command writes data to a previously opened file on the host system.",
+        "detail": "UWRITE $var ON $filehandle THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "wakeup",
+        "icon": 14,
+        "documentation": "The wakeup statement is used for BASIC programs to wake up a different process that is either sleeping or waiting for input at an INPUT statement (which has an associated ELSE clause).",
+        "detail": "WAKEUP process.no THEN/ELSE ...."
+    },
+    {
+        "key": "weof",
+        "icon": 14,
+        "documentation": "The weof statement writes an eof (end of file) mark to the currently attached magnetic media.",
+        "detail": "WEOF $var THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "write",
+        "icon": 14,
+        "documentation": "The write statement writes the item specified in dyn.array.var into the specified file, using the item-ID specified in the ID.exp.",
+        "detail": "WRITE $var TO $filevar,$recordkey"
+    },
+    {
+        "key": "writet",
+        "icon": 14,
+        "documentation": "The writet statement writes a tape record to the attached magnetic media from the specified variable.",
+        "detail": "WRITET $exp THEN\n\t$then_statements\nEND ELSE\n\t$else_statements\nEND"
+    },
+    {
+        "key": "writeu",
+        "icon": 14,
+        "documentation": "The writeu form of the write statement writes a dynamic array into the specified file variable and keeps items locked that were locked by a previous readu or readvu statement.",
+        "detail": "WRITEU $var TO $filevar,$recordkey"
+    },
+    {
+        "key": "writev",
+        "icon": 14,
+        "documentation": "The writev statement writes the value of an expression into the attribute designated in the attribute expression parameter, using the item-ID specified in ID.exp.",
+        "detail": "WRITEV $var ON $filevar,$recordkey,$attr"
+    },
+    {
+        "key": "writevu",
+        "icon": 14,
+        "documentation": "The writevu form of this statement is identical to writev, except that the item remains locked.",
+        "detail": "WRITEVU $var TO $filevar,$recordkey,$attr"
+    },
+    {
+        "key": "writex",
+        "icon": 14,
+        "documentation": "The writex statement writes the item specified in dyn.array.var into the specified file, using the item-ID specified in the ID.exp. The writex statement will wait until the actual disk update takes place before continuing execution of the program. This is used for \"critical\" write-through, such as error-logging.",
+        "detail": "WRITEX $dynarr ON $filevar,$recordkey"
+    },
+    {
+        "key": "xtd",
+        "icon": 3,
+        "documentation": "The xtd() function converts an expression from its hexadecimal format into its equivalent decimal format.",
+        "detail": "XTD($expr)"
+    }
+]
