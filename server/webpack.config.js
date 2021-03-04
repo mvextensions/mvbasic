@@ -12,7 +12,7 @@ const config = {
     output: {
         // the bundle is stored in the 'out' folder (check package.json), 📖 -> https://webpack.js.org/configuration/output/
         path: path.resolve(__dirname, 'out'),
-        filename: 'server.js',
+        filename: 'extension.js',
         libraryTarget: 'commonjs2',
         devtoolModuleFilenameTemplate: '../[resource-path]'
     },

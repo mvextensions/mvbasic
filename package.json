@@ -2,7 +2,7 @@
   "name": "mvbasic",
   "displayName": "MV Basic",
   "description": "MV Basic",
-  "version": "2.1.2",
+  "version": "2.0.11",
   "publisher": "mvextensions",
   "license": "MIT",
   "icon": "images/mvbasic-logo.png",
@@ -349,18 +349,13 @@
     "compile": "tsc -b",
     "watch": "tsc -b -w",
     "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
-    "test": "bash ./scripts/e2e.sh"
+    "test": "sh ./scripts/e2e.sh"
   },
   "devDependencies": {
-    "@types/mocha": "^8.0.3",
-    "@types/node": "^14.14.16",
-    "@typescript-eslint/parser": "^2.3.0",
-    "eslint": "^6.4.0",
-    "mocha": "^8.1.1",
-    "ts-loader": "^8.0.12",
-    "typescript": "^4.0.2",
-    "webpack": "^5.11.0",
-    "webpack-cli": "^4.2.0"
+    "ts-loader": "^7.0.1",
+    "typescript": "^3.8.3",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11"
   },
   "dependencies": {}
 }

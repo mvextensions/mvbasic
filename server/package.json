@@ -2,7 +2,7 @@
   "name": "mvbasic",
   "displayName": "MV Basic",
   "description": "MV Basic",
-  "version": "2.1.2",
+  "version": "2.0.11",
   "publisher": "mvextensions",
   "license": "MIT",
   "icon": "../images/mvbasic-logo.png",
@@ -29,9 +29,11 @@
     "url": "https://github.com/mvextensions/mvbasic"
   },
   "dependencies": {
-    "vscode-languageserver": "^7.0.0",
+    "vscode-languageserver": "^6.1.1",
     "vscode-languageserver-textdocument": "^1.0.1"
   },
   "scripts": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/node": "^13.13.4"
+  }
 }

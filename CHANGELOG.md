@@ -71,21 +71,3 @@
 ### 2.0.11
 
 - Fixed bug with customFunctionPath and improved jBASELanguage.json
-
-### 2.1.0
-
-- Added userVariablesEnabled setting which allows the language server to parse your code for variable names to use in IntelliSense (#128)
-
-### 2.1.1
-
-- Added improvements to dynamic user variable Intellisense to now include
-  - Arguments from a `CALL` or `SUBROUTINE`
-  - Variables from a `FOR ... TO`
-  - Variables from a `EQU ... TO`
-  - Variables from a `EQUATE ... TO`
-
-### 2.1.2
-
-- Bug fixes and performance enhancements to the AccuTerm connector (#133)
-- Package dependency updates
-- Light refactoring to match latest Microsoft sample language server code

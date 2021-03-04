@@ -10,7 +10,7 @@ import * as vscode from 'vscode';
 import { RestFS } from "./RestFS";
 import { RestFSAttr } from "./IRestFS";
 
-import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient/node';
+import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'vscode-languageclient';
 import fs = require('fs')
 
 // Init our config types--could use cleanup (TODO)

@@ -2,7 +2,6 @@ client/server
 node_modules
 out
 .DS_Store
-.vscode-test
 
 # local env files
 .env.local

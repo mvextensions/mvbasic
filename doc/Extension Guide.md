@@ -242,9 +242,12 @@ Content-Type: application/json
 
 ### 5.2 Option 2 - AccuTerm
 
-To use AccuTerm to connect the MV Basic extension to your MV server, you must be running AccuTerm 7.1 or above (with [this add-on](https://zdownload.blob.core.windows.net/accuterm/Miscellaneous/Windows/x86/1.0.7.0/accuterm-vscode-connector.exe)) or AccuTerm 8.0.1020 or above (no add-on required). *Note: release 8.0.1020 is the oldest version of AccuTerm 8 that supports the VSCode connector, however it is recommended to use the latest version (currently [8.0.1023](https://zdownload.blob.core.windows.net/accuterm/Standard/Windows/x86/8.0.1023.0/atwin_8.0.1023.exe)) to get the latest bug fixes and other improvements.*
+To use AccuTerm to connect the MV Basic extension to your MV server, you must be running AccuTerm 7.1 or above (with [this add-on](https://zdownload.blob.core.windows.net/accuterm/Miscellaneous/Windows/x86/1.0.6.0/accuterm-vscode-connector.exe)) or AccuTerm [8.0.1020](https://zdownload.blob.core.windows.net/accuterm/Standard/Windows/x86/8.0.1020.0/atwin_8.0.1020.exe) or above (no add-on required).
 
-The latest version of the AccuTerm host programs should be used with this connector (8.0.11). You can verify your version by typing FTABOUT at a command prompt (TCL) in the ACCUTERM account. You can download version 8.0.11 with [this link](https://zdownload.blob.core.windows.net/accuterm/Host-Programs/Windows/x86/8.0.11.0/pickbp.exe).
+The latest version of the AccuTerm host programs should be used with this connector (8.0.7). You can verify your version by typing FTABOUT at a command prompt (TCL) in the ACCUTERM account. You can download version 8.0.10 with [this link](https://zdownload.blob.core.windows.net/accuterm/Host-Programs/Windows/x86/8.0.10.0/pickbp.exe).
+
+*Note: the 8.0.1020 release of AccuTerm 8 **does not** include the latest host programs. You should update the host programs after installing 8.0.1020. See above.*
+
 
 
 #### 5.2.1 Install the Host Programs
