@@ -947,17 +947,18 @@ connection.onCompletion(
             statement.toLocaleLowerCase() === "goto"
           ) {
             for (let i = 0; i < LabelList.length; i++) {
-              Intellisense.push({
-                label: LabelList[i].LabelName,
-                kind: CompletionItemKind.Reference,
-                data: 999
-              });
+              if (!Intellisense.some(statementLabel => statementLabel['label'] === LabelList[i].LabelName)) {
+                Intellisense.push({
+                  label: LabelList[i].LabelName,
+                  kind: CompletionItemKind.Reference,
+                  data: 999
+                });
+              }
             }
           }
         }
       }
     }
-
     return Intellisense;
   }
 );
