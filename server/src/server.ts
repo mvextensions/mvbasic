@@ -272,30 +272,11 @@ function loadIntelliSense(): CompletionItem[] {
   var filePath = __dirname;
 
   // Use the Language Type setting to drive the language file used for Intellisense
-  // MW: Ugly but let's try it for now
-  switch (settings.MVBasic.languageType) {
-    case "jBASE":
-      filePath =
-        filePath +
-        path.join("../", "../", "../", "Syntaxes", "jBASELanguage.json");
-      break;
-    case "OpenQM":
-      filePath =
-        filePath +
-        path.join("../", "../", "../", "Syntaxes", "QMLanguage.json");
-      break;
-    case "UniVerse":
-      filePath =
-        filePath +
-        path.join("../", "../", "../", "Syntaxes", "UniVerseLanguage.json");
-      break;
-    case "MVON":
-    default:
-      filePath =
-        filePath +
-        path.join("../", "../", "../", "Syntaxes", "MvLanguage.json");
-      break;
+  var languageSetting = settings.MVBasic.languageType;
+  if (languageSetting == "") {
+    languageSetting = "MVON";
   }
+  filePath += path.join("../", "../", "../", "Syntaxes", "Lang_" + languageSetting + ".json");
   filePath = path.normalize(filePath);
 
   var languageDefinition = fs.readFileSync(filePath, "utf8");
@@ -303,23 +284,26 @@ function loadIntelliSense(): CompletionItem[] {
   var keywords = languageDefinitionList.Language.Keywords;
 
   for (let i = 0; i < keywords.length; i++) {
+    let intelliKeyword = {
+      data: Intellisense.length + 1,
+      label: "",
+      kind: keywords[i].icon,
+      detail: keywords[i].detail,
+      documentation: keywords[i].documentation,
+      insertText: ""
+    };
+
     if (settings.MVBasic.useCamelCase === true) {
-      Intellisense.push({
-        data: Intellisense.length + 1,
-        label: keywords[i].key,
-        kind: keywords[i].icon,
-        detail: keywords[i].detail,
-        documentation: keywords[i].documentation
-      });
+      intelliKeyword.label = keywords[i].key;
     } else {
-      Intellisense.push({
-        data: Intellisense.length + 1,
-        label: keywords[i].key.toUpperCase(),
-        kind: keywords[i].icon,
-        detail: keywords[i].detail,
-        documentation: keywords[i].documentation
-      });
+      intelliKeyword.label =  keywords[i].key.toUpperCase();
     }
+
+    if (typeof keywords[i].snippet !== 'undefined') {
+      intelliKeyword.insertText = keywords[i].snippet;
+    }
+
+    Intellisense.push(intelliKeyword);  
   }
 
   // Load CustomWord definition
