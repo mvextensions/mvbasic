@@ -1,0 +1,64 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "d3 BASIC",
+	"patterns": [
+		{
+			"match": "'.*?'|\".*?\"|\\\\.*?\\\\",
+			"name": "string.other.quoted-or-unquoted.d3"
+		},
+		{
+			"match": "^\\s*([\\w.]+:(?!=)|[0-9.]+)",
+			"name": "string.other.quoted-or-unquoted.d3"
+		},
+		{
+			"include": "#keywords"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.d3",
+					"match": "(?i)(?<![\\w\\$\\.])(ABORT|AND|AUX|BEGIN CASE|BEGIN TRANSACTION|BEGIN WORK|BREAK|CALL|CAPTURING|CASE|CASING|CFUNCTION|CHAIN|CLEAR|CLEARDATA|CLEARFILE|CLEARSELECT|CLOSE|COMMIT|COM|COMMON|COMPARE|CONTINUE|CONVERT|CRT|CRT-DEVICE|DATA|DEBUG|DEFFUN|DEL|DELETE|DIM|DIMENSION|DISPLAY|DO|ECHO|ELSE|END|END CASE|EQU|EQUATE|ERROR|EXECUTE|EXIT|FILE|FILELOCK|FILEUNLOCK|FOOTING|FOR|FUNCTION|GET|GETX|GO|GOSUB|GOTO|HEADING|IF|IFR|IN|INCLUDE|\\$INCLUDE|INPUT|INPUTCLEAR|INPUT CTRL|INPUTERR|INPUTIF|INPUTNULL|INPUTPARITY|INPUTTRAP|INS|INSERT|KEY|LET|LOCATE|LOCK|LOCKED|LOOP|MAT|MATBUILD|MATPARSE|MATREAD|MATREADU|MATWRITE|MATWRITEU|NEXT|NULL|NXTKEY|OFF|ON|ONERR|ON ERROR|OPEN|OR|OUT|PAGE|PRECISION|PRINT|PRINT ON|PRINTCHAR|PRINTER|PRINTERR|PROCREAD|PROCWRITE|PROGRAM|PROMPT|PRVKEY|READ|READNEXT|READT|READTX|READU|READV|READVU|RELEASE|REMOVE|REPEAT|REPLACE|RETURN|REWIND|ROLLBACK WORK|ROOT|RQM|SELECT|SEND|SENDX|SETTING|SLEEP|SPOOLQ|STEP|STOP|SUBROUTINE|TA|TCL|TCLREAD|THEN|TIMEOUT|TO|TRANSACTION|TRANSACTION ABORT|TRANSACTION CACHE|TRANSACTION COMMIT|TRANSACTION FLUSH|TRANSACTION ROLLBACK|TRANSACTION START|UNLOCK|UNTIL|USING|WEOF|WHILE|WRITE|WRITET|WRITEU|WRITEV|WRITEVU|WRITEX)(?![\\.\\$])\\b"
+				},
+				{
+					"name": "constant.language.d3",
+					"match": "(?i)(\\s)(CAT|EQ|NE|GT|LT|GE|LE|MATCH|MATCHES)(\\s)"
+				},
+				{
+					"name": "support.function.d3",
+					"match": "(?i)(?<![\\w\\$\\.])(ABS|ACCESS|ALPHA|ASCII|ASSIGNED|CHANGE|SWAP|CHAR|COL1|COL2|CONVERT|COS|COUNT|DATE|DCOUNT|DELETE|DQUOTE|DTX|EBCDIC|EREPLACE|ERROR|EXCHANGE|EXP|EXTRACT|FIELD|FMT|FOLD|ICONV|INDEX|INMAT|INSERT|INT|LEN|LN|LOCATE|MAXIMUM|MINIMUM|MOD|NOT|NUM|OCCURS|OCONV|PWR|REM|REPLACE|RND|SCAN|SENTENCE|SEQ|SIN|SORT|SOUNDEX|SPACE|SQRT|SQUOTE|STATUS|STR|SUM|SUMMATION|SWAP|SYSTEM|TA|TAN|TIME|TIMEDATE|TRIM|TRIMB|TRIMF|UNASSIGNED|XTD)(?![\\.\\$])\\b"
+				},
+				{
+					"name": "support.function.d3",
+					"match": "(?i)(?<![\\w\\$\\.])(\\%accept|\\%accept_ssl|\\%accept_starttls|\\%alarm|\\%bind|\\%calloc|\\%chdir|\\%chmod|\\%chown|\\%close|\\%close_ssl|\\%closeall|\\%closesocket|\\%connect|\\%connect_ssl|\\%connect_starttls|\\%creat|\\%decrypt|\\%dup|\\%encrypt|\\%endlistilocks|\\%fclose|\\%fdopen|\\%fgetc|\\%fgets|\\%filecheck|\\%fopen|\\%fprintf|\\%fputc|\\%fputs|\\%fread|\\%free|\\%freopen|\\%fsize|\\%fwrite|\\%getaddrinfo|\\%getenv|\\%gethostid|\\%gethostname|\\%getnamedhost|\\%getperfcount|\\%getpgrp|\\%getpid|\\%getppid|\\%getsockopt|\\%inet_addr|\\%ioctl|\\%ioctlsocket|\\%kill|\\%listitemlocksfilter|\\%listen|\\%lseek|\\%malloc|\\%memccpy|\\%memchr|\\%memcopy|\\%memcpy|\\%memxcpy|\\%open|\\%pause|\\%pclose|\\%pgetpid|\\%popen|\\%printf|\\%putenv|\\%rdhex|\\%read|\\%read_ssl|\\%readregistry|\\%realloc|\\%recv|\\%recvfrom|\\%semctl|\\%semget|\\%semop|\\%send|\\%sendto|\\%setflush|\\%setsockopt|\\%shell|\\%shellcapture|\\%shmat|\\%shmctl|\\%shmdt|\\%shmget|\\%shutdown|\\%socket|\\%sprintf|\\%startfileio|\\%startlistilocks|\\%stopfileio|\\%strcat|\\%strcpy|\\%strlen|\\%ttyname|\\%unlink|\\%wait|\\%whex|\\%write|\\%write_ssl)(?![\\.\\$])\\b"
+				},
+				{
+					"name": "support.function.d3",
+					"match": "(?i)(?<![\\w\\$\\.])(uclose|ucreate|udelete|uerror|uexecute|ulock|ulseek|umessage|uopen|uread|ureadline|usystem|uwaitfor|uwrite)(?![\\.\\$])\\b"
+				},
+				{
+					"name": "comment.line",
+					"match": "(?i)(^|;)\\s*(\\*|!|REM\\s+?).*"
+				},
+				{
+					"name": "comment.line",
+					"match": "(?<=[\\w]:|^[0-9]+)\\s*(\\*|!|(?i)REM\\s+?).*"
+				},
+				{
+					"name": "constant.language",
+					"match": "(\\+|\\-|\\*|\\\\|=|:|#)"
+				},
+				{
+					"name": "entity.name.function",
+					"match": "(?i)(?<=GOSUB|GOTO).*"
+				},
+				{
+					"name": "support.function",
+					"match": "(?i)(?<=CALL).*(?=\\()"
+				}
+			]
+		}
+	},
+	"scopeName": "source.mvbasic"
+}
