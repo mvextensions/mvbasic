@@ -38,12 +38,6 @@
     "C:/Program files (x86)/ONGroup/MVON#/MVON#.d.ts"
   ],
   "contributes": {
-    "snippets": [
-      {
-        "language": "mvbasic",
-        "path": "./Syntaxes/snippets.json"
-      }
-    ],
     "languages": [
       {
         "id": "mvbasic",
