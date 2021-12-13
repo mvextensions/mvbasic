@@ -6,6 +6,7 @@
 'use strict';
 
 import * as vscode from 'vscode';
+import { AxiosInstance } from "axios";
 
 // Note: these attribute values are roughly equivalent to MSDOS file
 // attributes and .NET FileAttributes. ATTR_SYMLINK would more correctly
@@ -13,23 +14,24 @@ import * as vscode from 'vscode';
 // correlation here. Hopefully a vscode update will provide a FileType
 // for ReadOnly.
 export const enum RestFSAttr {
-    ATTR_READONLY     = 0x0001, // item is read-only
-    ATTR_HIDDEN       = 0x0002, // item is hidden file or folder
-    ATTR_SYSTEM       = 0x0004, // item is a system file or folder
-    ATTR_VOLUME       = 0x0008, // unused (reserved)
-    ATTR_FOLDER       = 0x0010, // item is a "folder" (MV file - D, F or Q pointer)
-    ATTR_ARCHIVE      = 0x0020, // unused (reserved)
-    ATTR_SYMLINK      = 0x0040, // item is a symlink (MV Q-pointer)
-    ATTR_FILE         = 0x0080, // item is normal file (MV item)
-    ATTR_FIELD        = 0x0100, // item is a field definition (MV dictionary definition - A, S, I, V or D type)
-    ATTR_ACCOUNT      = 0x0200, // item is the account "folder" (MV account MD or VOC)
-    ATTR_ROOT         = 0x0400, // item is the root "folder"
-    ATTR_DATAONLY     = 0x8000  // when selecting files from MD, return only data (not dict) files
+    ATTR_READONLY = 0x0001, // item is read-only
+    ATTR_HIDDEN = 0x0002, // item is hidden file or folder
+    ATTR_SYSTEM = 0x0004, // item is a system file or folder
+    ATTR_VOLUME = 0x0008, // unused (reserved)
+    ATTR_FOLDER = 0x0010, // item is a "folder" (MV file - D, F or Q pointer)
+    ATTR_ARCHIVE = 0x0020, // unused (reserved)
+    ATTR_SYMLINK = 0x0040, // item is a symlink (MV Q-pointer)
+    ATTR_FILE = 0x0080, // item is normal file (MV item)
+    ATTR_FIELD = 0x0100, // item is a field definition (MV dictionary definition - A, S, I, V or D type)
+    ATTR_ACCOUNT = 0x0200, // item is the account "folder" (MV account MD or VOC)
+    ATTR_ROOT = 0x0400, // item is the root "folder"
+    ATTR_DATAONLY = 0x8000  // when selecting files from MD, return only data (not dict) files
 }
 
 export interface IRestFS extends vscode.FileSystemProvider {
     RestPath: string;
     RestAccount: string;
+    RestClient: AxiosInstance;
     ApiVersion: number;
     MaxItems: number;
     SelAttr: number;
