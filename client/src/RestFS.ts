@@ -145,47 +145,21 @@ export class RestFS implements IRestFS {
         this.log_level && getTraceChannel().appendLine("[RestFS] initialized: path=" + this.RestPath + " account=" + this.RestAccount);
     }
 
-    public stat(uri: vscode.Uri): vscode.FileStat | Promise<vscode.FileStat> {
-        if (!this.initialized) {
-            if (uri.path === '/') {
-                this.log_level > 1 && getTraceChannel().appendLine("[RestFS] stat: path=/, not initialized, return empty directory");
-                return new Directory('/', { attr: RestFSAttr.ATTR_FOLDER | RestFSAttr.ATTR_ROOT }, []); // don't show ! icon in explorer heading
-            }
-            this.log_level > 1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", not initialized, error=FileNotFound");
-            throw vscode.FileSystemError.FileNotFound(uri);
-        }
-        return new Promise((resolve, reject) => {
-            try {
-                let entry = this._stat(uri);
-                if (!entry) {
-                    throw vscode.FileSystemError.FileNotFound(uri);
-                }
-                resolve(entry);
-            } catch (e) {
-                reject(e);
-            }
-        });
-    }
-
-    public readDirectory(uri: vscode.Uri): [string, vscode.FileType][] | Promise<[string, vscode.FileType][]> {
+    public async readDirectory(uri: vscode.Uri): Promise<[string, vscode.FileType][]> {
+        let result: any[] = []
         if (!this.initialized) {
             if (uri.path === '/') {
                 this.log_level > 1 && getTraceChannel().appendLine("[RestFS] readDirectory: path=/, not initialized, return empty directory");
-                return [];
+                return result
             }
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] readDirectory: path=" + uri.path + ", not initialized error");
             throw Error("Directory failed: RestFS not initialized");
         }
-        return new Promise((resolve, reject) => {
-            try {
-                resolve(this._readDirectory(uri));
-            } catch (e) {
-                reject(e);
-            }
-        });
+
+        return await this._readDirectory(uri)
     }
 
-    _readDirectory(uri: vscode.Uri): [string, vscode.FileType][] {
+    async _readDirectory(uri: vscode.Uri): Promise<[string, vscode.FileType][]> {
 
         // check if this directory is in our files.exclude
         if (this._excluded(uri)) {
@@ -214,110 +188,103 @@ export class RestFS implements IRestFS {
 
         // get directory & file list from server
         const qs = "max_items=" + this.MaxItems + "&attr=" + this.SelAttr;
-        const res = async () => {
-            var response = await this.RestClient
-                .get(path.posix.join("/dir", this.RestAccount, uri.path) + "?" + qs, {
-                    headers: this._request_headers() as any
-                })
+        return await this.RestClient
+            .get(path.posix.join("/dir", this.RestAccount, uri.path) + "?" + qs, {
+                headers: this._request_headers() as any
+            })
+            .then((response: any) => {
+                if (response.status !== 200) {
+                    let message = "";
+                    if ((response.status !== 404) || (this.log_level > 1)) {
+                        if (response.data && response.data.message) {
+                            message = response.data.message;
+                            if (response.data.code)
+                                message += " (code=" + response.data.code + ")";
+                            if (response.status !== 404) // let vscode handle FileNotFound, but display error message for any other failure
+                                vscode.window.showErrorMessage(message);
+                        }
+                    }
+                    this.log_level > 1 && getTraceChannel().appendLine("[RestFS] readDirectory: path=" + uri.path + ", 'dir' request failed, status=" + response.status + (message ? "\n" + message : ""));
+                    throw vscode.FileSystemError.FileNotFound(uri);
+                }
 
-            if (response.status !== 200) {
-                let message = "";
-                if ((response.status !== 404) || (this.log_level > 1)) {
-                    let resp = JSON.parse(response.data.toString());
-                    if (resp && resp.message) {
-                        message = resp.message;
-                        if (resp.code)
-                            message += " (code=" + resp.code + ")";
-                        if (response.status !== 404) // let vscode handle FileNotFound, but display error message for any other failure
-                            vscode.window.showErrorMessage(message);
+                // parse the returned data
+                let rtn = response.data;
+                let fileList: [{ Name: string, Type: number }]; // Original RESTFS API
+                let itemList: [{ id: string, attr: number }]; // RESTFS API version 1
+                let numItems: number;
+                if (this.ApiVersion > 0) {
+                    itemList = rtn.items; // RESTFS API version 1 returns 'items' array
+                    numItems = itemList.length;
+                } else {
+                    if (rtn.hasOwnProperty('Directories')) {
+                        fileList = rtn.Directories; // Original RESTFS API returns 'Directories' array for MD
+                        numItems = fileList.length;
+                    } else if (rtn.hasOwnProperty('Files')) {
+                        fileList = rtn.Files; // Original RESTFS API returns 'Files' array for dict or data files
+                        numItems = fileList.length;
+                    } else {
+                        throw vscode.FileSystemError.FileNotFound(uri); // punt! bad response!
                     }
                 }
-                this.log_level > 1 && getTraceChannel().appendLine("[RestFS] readDirectory: path=" + uri.path + ", 'dir' request failed, status=" + response.status + (message ? "\n" + message : ""));
+                this._fireSoon({ type: vscode.FileChangeType.Changed, uri });
+
+                // build result array & update directory entries                           
+                let result: [string, vscode.FileType][] = [];
+                let name: string;
+                let attr: RestFSAttr;
+                let type: vscode.FileType;
+                for (let i = 0; i < numItems; i++) {
+                    if (this.ApiVersion > 0) {
+                        name = itemList[i].id;
+                        type = itemList[i].attr & RestFSAttr.ATTR_FOLDER ? vscode.FileType.Directory : vscode.FileType.File;
+                    } else {
+                        name = fileList[i].Name;
+                        type = fileList[i].Type;
+                    }
+                    result.push([name, type]);
+                    this._fireSoon({ type: vscode.FileChangeType.Created, uri: uri.with({ path: path.posix.join(uri.path, name) }) });
+                }
+                name = uri.path;
+                if (this.case_insensitive)
+                    name = name.toUpperCase();
+                attr = RestFSAttr.ATTR_FOLDER;
+                if (name === '/') {
+                    attr |= RestFSAttr.ATTR_ROOT;
+                    // delay next refresh for 10 seconds (vscode may retrieve the root several times on startup)
+                    this.root_refresh = false;
+                    setTimeout(() => {
+                        this.root_refresh = true;
+                    }, 10000);
+                }
+                if (!entry) {
+                    entry = new Directory(name, { attr: attr }, result);
+                } else {
+                    entry.items = result;
+                    entry.size = result.length;
+                }
+                this.entries.set(name, entry);
+                this.log_level > 1 && getTraceChannel().appendLine("[RestFS] readDirectory: path=" + uri.path + ", 'dir' request succeeded, " + entry.items.length + " items");
+                return result;
+            })
+            .catch(() => {
                 throw vscode.FileSystemError.FileNotFound(uri);
-            } else {
-                return response.data;
-            }
-        }
-
-        // parse the returned data
-        let rtn = JSON.parse(res.toString());
-        let fileList: [{ Name: string, Type: number }]; // Original RESTFS API
-        let itemList: [{ id: string, attr: number }]; // RESTFS API version 1
-        let numItems: number;
-        if (this.ApiVersion > 0) {
-            itemList = rtn.items; // RESTFS API version 1 returns 'items' array
-            numItems = itemList.length;
-        } else {
-            if (rtn.hasOwnProperty('Directories')) {
-                fileList = rtn.Directories; // Original RESTFS API returns 'Directories' array for MD
-                numItems = fileList.length;
-            } else if (rtn.hasOwnProperty('Files')) {
-                fileList = rtn.Files; // Original RESTFS API returns 'Files' array for dict or data files
-                numItems = fileList.length;
-            } else {
-                throw vscode.FileSystemError.FileNotFound(uri); // punt! bad response!
-            }
-        }
-        this._fireSoon({ type: vscode.FileChangeType.Changed, uri });
-
-        // build result array & update directory entries                           
-        let result: [string, vscode.FileType][] = [];
-        let name: string;
-        let attr: RestFSAttr;
-        let type: vscode.FileType;
-        for (let i = 0; i < numItems; i++) {
-            if (this.ApiVersion > 0) {
-                name = itemList[i].id;
-                type = itemList[i].attr & RestFSAttr.ATTR_FOLDER ? vscode.FileType.Directory : vscode.FileType.File;
-            } else {
-                name = fileList[i].Name;
-                type = fileList[i].Type;
-            }
-            result.push([name, type]);
-            this._fireSoon({ type: vscode.FileChangeType.Created, uri: uri.with({ path: path.posix.join(uri.path, name) }) });
-        }
-        name = uri.path;
-        if (this.case_insensitive)
-            name = name.toUpperCase();
-        attr = RestFSAttr.ATTR_FOLDER;
-        if (name === '/') {
-            attr |= RestFSAttr.ATTR_ROOT;
-            // delay next refresh for 10 seconds (vscode may retrieve the root several times on startup)
-            this.root_refresh = false;
-            setTimeout(() => {
-                this.root_refresh = true;
-            }, 10000);
-        }
-        if (!entry) {
-            entry = new Directory(name, { attr: attr }, result);
-        } else {
-            entry.items = result;
-            entry.size = result.length;
-        }
-        this.entries.set(name, entry);
-        this.log_level > 1 && getTraceChannel().appendLine("[RestFS] readDirectory: path=" + uri.path + ", 'dir' request succeeded, " + entry.items.length + " items");
-        return result;
+            })
     }
 
     // --- manage file contents
 
     // TODO: save list of failed file lookups so we don't need to hit server every time?
-    public readFile(uri: vscode.Uri): Uint8Array | Promise<Uint8Array> {
+    public async readFile(uri: vscode.Uri): Promise<Uint8Array> {
         if (!this.initialized) {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] readFile: path=" + uri.path + ", not initialized error");
             throw Error("Read failed: RestFS not initialized");
         }
-        return new Promise((resolve, reject) => {
-            try {
-                resolve(this._readFile(uri));
-            } catch (e) {
-                reject(e);
-            }
-        });
+
+        return await this._readFile(uri)
     }
 
     async _readFile(uri: vscode.Uri): Promise<Uint8Array> {
-
         // check if this file is in our files.exclude
         if (this._excluded(uri)) {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] readFile: path=" + uri.path + " is excluded");
@@ -360,7 +327,7 @@ export class RestFS implements IRestFS {
                 if (this.ApiVersion > 0) {
                     // RESTFS API version 1 returns object {id: string, type: "array", attr: number, data: []}
                     attr |= result.attr; // if server sends any attributes, keep them
-                    if (result.type == "array") {
+                    if (result && result.type === "array") {
                         <DynArray>(result.data).forEach(function (element: ValArray, attnbr: number, atts: DynArray) {
                             if (element instanceof Array) {
                                 // attribute is multi-valued
@@ -400,28 +367,30 @@ export class RestFS implements IRestFS {
                 this.entries.set(name, entry);
                 this._fireSoon({ type: vscode.FileChangeType.Changed, uri });
                 this.log_level > 1 && getTraceChannel().appendLine("[RestFS] readFile: path=" + uri.path + ", 'file' request succeeded, " + entry.size + " bytes");
-                return entry.data;
             })
+            .catch((error: any) => {
+                this.log_level > 1 && getTraceChannel().appendLine("[RestFS] readFile: error=" + error)
+                throw vscode.FileSystemError.FileNotFound(uri);
+            })
+
+        return entry.data
     }
 
-    public writeFile(uri: vscode.Uri, content: Uint8Array, options: { create: boolean, overwrite: boolean }): void | Promise<void> {
+    public async writeFile(uri: vscode.Uri, content: Uint8Array, options: { create: boolean, overwrite: boolean }): Promise<void> {
         if (!this.initialized) {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] writeFile: path=" + uri.path + ", not initialized error");
             throw Error("Write failed: RestFS not initialized");
         }
-        return new Promise((resolve, reject) => {
-            try {
-                resolve(this._writeFile(uri, content, options));
-            } catch (e) {
-                reject(e);
-            }
-        });
+
+        await this._writeFile(uri, content, options);
     }
 
-    _writeFile(uri: vscode.Uri, content: Uint8Array, options: { create: boolean, overwrite: boolean }): void {
+    async _writeFile(uri: vscode.Uri, content: Uint8Array, options: { create: boolean, overwrite: boolean }): Promise<void> {
 
         this.log_level > 1 && getTraceChannel().appendLine("[RestFS] writeFile: path=" + uri.path + ", get entry type (may call readFile)");
-        let entry = this._stat(uri); // may cause lookup from server
+        let entry = await this._stat(uri);
+
+        // may cause lookup from server
         if (entry instanceof Directory) {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] writeFile: path=" + uri.path + " is a directory, error=FileIsADirectory");
             throw vscode.FileSystemError.FileIsADirectory(uri);
@@ -467,27 +436,19 @@ export class RestFS implements IRestFS {
 
             let action: string = entry ? '/file' : '/create';
 
-            res = async () => {
-                var response = await this.RestClient
-                    .post(path.posix.join(action, this.RestAccount, uri.path), {
-                        json: { id: path.posix.basename(uri.path), type: "array", data: dynarr },
-                        headers: this._request_headers() as any
-                    })
-
-                return response
-            }
+            res = await this.RestClient
+                .post(path.posix.join(action, this.RestAccount, uri.path), {
+                    json: { id: path.posix.basename(uri.path), type: "array", data: dynarr },
+                    headers: this._request_headers() as any
+                })
         } else {
             // update server using original RESTFS API
             data = JSON.stringify(content.toString().split(String.fromCharCode(10)));
             data = "{ \"ProgramLines\" :" + data + "}";
-            res = async () => {
-                var response = await this.RestClient
-                    .post(path.posix.join('/file', this.RestAccount, uri.path), {
-                        json: data // NOTE: this should really be body:data, not json:data, but this is how the original API works!
-                    })
-
-                return response
-            }
+            res = await this.RestClient
+                .post(path.posix.join('/file', this.RestAccount, uri.path), {
+                    json: data // NOTE: this should really be body:data, not json:data, but this is how the original API works!
+                })
         }
         if (res.status !== 200) {
             let message = "";
@@ -522,21 +483,15 @@ export class RestFS implements IRestFS {
     }
 
     // --- manage files/folders
-
-    public rename(oldUri: vscode.Uri, newUri: vscode.Uri, options: { overwrite: boolean }): void | Promise<void> {
+    public async rename(oldUri: vscode.Uri, newUri: vscode.Uri, options: { overwrite: boolean }): Promise<void> {
         if (!this.initialized) {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] rename: old path=" + oldUri.path + ", new path=" + newUri.path + ", not initialized error");
             throw Error("Rename failed: RestFS not initialized");
         }
-        return new Promise((resolve, reject) => {
-            try {
-                resolve(this._rename(oldUri, newUri, options));
-            } catch (e) {
-                reject(e);
-            }
-        });
+        await this._rename(oldUri, newUri, options)
     }
-    _rename(oldUri: vscode.Uri, newUri: vscode.Uri, options: { overwrite: boolean }): void {
+
+    async _rename(oldUri: vscode.Uri, newUri: vscode.Uri, options: { overwrite: boolean }): Promise<void> {
         if (this.ApiVersion == 0) {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] rename: old path=" + oldUri.path + ", new path=" + newUri.path + ", rename not supported by gateway");
             throw vscode.FileSystemError.FileNotFound(oldUri); // original RESTFS API does not support 'rename'
@@ -548,114 +503,98 @@ export class RestFS implements IRestFS {
         }
         let qs = "newname=" + path.posix.join(this.RestAccount, newUri.path);
 
-        async () => {
-            var response = await this.RestClient
-                .get(path.posix.join("/rename", this.RestAccount, oldUri.path) + "?" + qs, {
-                    headers: this._request_headers() as any
-                })
-
-            if (response.status !== 200) {
-                let message = "";
-                let resp = JSON.parse(response.data.toString());
-                if (resp && resp.message) {
-                    message = resp.message;
-                    if (resp.code)
-                        message += "(code=" + resp.code + ")";
-                    vscode.window.showErrorMessage(message);
+        await this.RestClient
+            .get(path.posix.join("/rename", this.RestAccount, oldUri.path) + "?" + qs, {
+                headers: this._request_headers() as any
+            })
+            .then((response: any) => {
+                if (response.status !== 200) {
+                    let message = "";
+                    let resp = response.data.toString();
+                    if (resp && resp.message) {
+                        message = resp.message;
+                        if (resp.code)
+                            message += "(code=" + resp.code + ")";
+                        vscode.window.showErrorMessage(message);
+                    }
+                    this.log_level > 1 && getTraceChannel().appendLine("[RestFS] rename: old path=" + oldUri.path + ", new path=" + newUri.path + " 'rename' request failed, status=" + response.status + (message ? "\n" + message : ""));
+                    throw vscode.FileSystemError.FileNotFound(newUri);
+                } else {
+                    // update local cache to match renamed file/directory
+                    let oldName = oldUri.path;
+                    let newName = newUri.path;
+                    if (this.case_insensitive) {
+                        oldName = oldName.toUpperCase();
+                        newName = newName.toUpperCase();
+                    }
+                    let entry = this._lookup(oldUri);
+                    if (entry) {
+                        this.entries.delete(oldName);
+                        entry.name = newName;
+                        this.entries.set(newName, entry);
+                        this._removeFromParentItems(oldUri); // fixup items array in parent
+                        this._addToParentItems(newUri, entry); // fixup items array in parent
+                    }
+                    this._fireSoon(
+                        { type: vscode.FileChangeType.Deleted, uri: oldUri },
+                        { type: vscode.FileChangeType.Created, uri: newUri }
+                    );
+                    this.log_level > 1 && getTraceChannel().appendLine("[RestFS] rename: old path=" + oldUri.path + ", new path=" + newUri.path + " 'rename' request succeeded");
                 }
-                this.log_level > 1 && getTraceChannel().appendLine("[RestFS] rename: old path=" + oldUri.path + ", new path=" + newUri.path + " 'rename' request failed, status=" + response.status + (message ? "\n" + message : ""));
-                throw vscode.FileSystemError.FileNotFound(newUri);
-            } else {
-                return response.data;
-            }
-        }
-
-        // update local cache to match renamed file/directory
-        let oldName = oldUri.path;
-        let newName = newUri.path;
-        if (this.case_insensitive) {
-            oldName = oldName.toUpperCase();
-            newName = newName.toUpperCase();
-        }
-        let entry = this._lookup(oldUri);
-        if (entry) {
-            this.entries.delete(oldName);
-            entry.name = newName;
-            this.entries.set(newName, entry);
-            this._removeFromParentItems(oldUri); // fixup items array in parent
-            this._addToParentItems(newUri, entry); // fixup items array in parent
-        }
-        this._fireSoon(
-            { type: vscode.FileChangeType.Deleted, uri: oldUri },
-            { type: vscode.FileChangeType.Created, uri: newUri }
-        );
-        this.log_level > 1 && getTraceChannel().appendLine("[RestFS] rename: old path=" + oldUri.path + ", new path=" + newUri.path + " 'rename' request succeeded");
+            })
     }
 
-    public delete(uri: vscode.Uri): void | Promise<void> {
+    public async delete(uri: vscode.Uri): Promise<void> {
         if (!this.initialized) {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] delete: path=" + uri.path + ", not initialized error");
             throw Error("Delete failed: RestFS not initialized");
         }
-        return new Promise((resolve, reject) => {
-            try {
-                resolve(this._delete(uri));
-            } catch (e) {
-                reject(e);
-            }
-        });
+        await this._delete(uri)
     }
-    _delete(uri: vscode.Uri): void {
+
+    async _delete(uri: vscode.Uri): Promise<void> {
         if (this.ApiVersion == 0) {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] delete: path=" + uri.path + ", delete not supported by gateway");
             throw vscode.FileSystemError.FileNotFound(uri); // original RESTFS API does not support 'delete'
         }
 
-        async () => {
-            var response = await this.RestClient
-                .delete(path.posix.join("/file", this.RestAccount, uri.path), {
-                    headers: this._request_headers() as any
-                })
-
-            if (response.status !== 200) {
-                let message = "";
-                let resp = JSON.parse(response.data.toString());
-                if (resp && resp.message) {
-                    message = resp.message;
-                    if (resp.code)
-                        message += "(code=" + resp.code + ")";
-                    vscode.window.showErrorMessage(message);
+        await this.RestClient
+            .delete(path.posix.join("/file", this.RestAccount, uri.path), {
+                headers: this._request_headers() as any
+            })
+            .then((response: any) => {
+                if (response.status !== 200) {
+                    let message = "";
+                    let resp = response.data.toString();
+                    if (resp && resp.message) {
+                        message = resp.message;
+                        if (resp.code)
+                            message += "(code=" + resp.code + ")";
+                        vscode.window.showErrorMessage(message);
+                    }
+                    this.log_level > 1 && getTraceChannel().appendLine("[RestFS] delete: path=" + uri.path + " 'file' request failed, status=" + response.status + (message ? "\n" + message : ""));
+                    throw vscode.FileSystemError.FileNotFound(uri);
+                } else {
+                    let entry = this._lookup(uri);
+                    if (entry) {
+                        this.entries.delete(entry.name);
+                        this._removeFromParentItems(uri); // fixup items array in parent
+                    }
+                    this._fireSoon({ type: vscode.FileChangeType.Deleted, uri });
+                    this.log_level > 1 && getTraceChannel().appendLine("[RestFS] delete: path=" + uri.path + " 'file' request succeeded");
                 }
-                this.log_level > 1 && getTraceChannel().appendLine("[RestFS] delete: path=" + uri.path + " 'file' request failed, status=" + response.status + (message ? "\n" + message : ""));
-                throw vscode.FileSystemError.FileNotFound(uri);
-            } else {
-                return response.data;
-            }
-        }
-
-        let entry = this._lookup(uri);
-        if (entry) {
-            this.entries.delete(entry.name);
-            this._removeFromParentItems(uri); // fixup items array in parent
-        }
-        this._fireSoon({ type: vscode.FileChangeType.Deleted, uri });
-        this.log_level > 1 && getTraceChannel().appendLine("[RestFS] delete: path=" + uri.path + " 'file' request succeeded");
+            })
     }
 
-    public createDirectory(uri: vscode.Uri): void | Promise<void> {
+    public async createDirectory(uri: vscode.Uri): Promise<void> {
         if (!this.initialized) {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] createDirectory: path=" + uri.path + ", not initialized error");
             throw Error("CreateDirectory failed: RestFS not initialized");
         }
-        return new Promise((resolve, reject) => {
-            try {
-                resolve(this._createDirectory(uri));
-            } catch (e) {
-                reject(e);
-            }
-        });
+        await this._createDirectory(uri)
     }
-    _createDirectory(uri: vscode.Uri): void {
+
+    async _createDirectory(uri: vscode.Uri): Promise<void> {
         if (this.ApiVersion == 0) {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] createDirectory: path=" + uri.path + ", create not supported by gateway");
             throw vscode.FileSystemError.FileNotFound(uri); // original RESTFS API does not support 'create'
@@ -663,65 +602,58 @@ export class RestFS implements IRestFS {
         let dirname = uri.with({ path: path.posix.dirname(uri.path) });
         // make sure there is a parent directory
         this.log_level > 1 && getTraceChannel().appendLine("[RestFS] createDirectory: path=" + uri.path + ", check if parent directory exists (may call readDirectory)");
-        let parent = this._stat(dirname);
+        let parent = await this._stat(dirname);
+
         if (parent === undefined || !(parent instanceof Directory)) {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] createDirectory: path=" + uri.path + ", parent does not exist, error=FileNotADirectory");
             throw vscode.FileSystemError.FileNotADirectory(dirname);
         }
         // make sure file or directory does not exist
         this.log_level > 1 && getTraceChannel().appendLine("[RestFS] createDirectory: path=" + uri.path + ", check if new directory exists (may call readDirectory)");
-        let entry = this._stat(uri);
+        let entry = await this._stat(uri);
+
         if (entry) {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] createDirectory: path=" + uri.path + ", new directory exists, error=FileExists");
             throw vscode.FileSystemError.FileExists(uri);
         }
         // send 'create' request to server
-        async () => {
-            var response = await this.RestClient
-                .post(path.posix.join("/create", this.RestAccount, uri.path) + "?dir=true", {
-                    headers: this._request_headers() as any
-                })
-
-            if (response.status !== 200) {
-                let message = "";
-                let resp = JSON.parse(response.data.toString());
-                if (resp && resp.message) {
-                    message = resp.message;
-                    if (resp.code)
-                        message += "(code=" + resp.code + ")";
-                    vscode.window.showErrorMessage(message);
+        await this.RestClient
+            .post(path.posix.join("/create", this.RestAccount, uri.path) + "?dir=true", {
+                headers: this._request_headers() as any
+            })
+            .then((response: any) => {
+                if (response.status !== 200) {
+                    let message = "";
+                    let resp = JSON.parse(response.data.toString());
+                    if (resp && resp.message) {
+                        message = resp.message;
+                        if (resp.code)
+                            message += "(code=" + resp.code + ")";
+                        vscode.window.showErrorMessage(message);
+                    }
+                    this.log_level > 1 && getTraceChannel().appendLine("[RestFS] createDirectory: path=" + uri.path + " 'create' request failed, status=" + response.status + (message ? "\n" + message : ""));
+                    throw vscode.FileSystemError.FileNotFound(uri);
+                } else {
+                    let name = uri.path;
+                    if (this.case_insensitive)
+                        name = name.toUpperCase();
+                    entry = new Directory(name, { attr: RestFSAttr.ATTR_FOLDER, size: 0, ctime: Date.now() }, []);
+                    this.entries.set(name, entry);
+                    this._addToParentItems(uri, entry); // fixup items array in parent
+                    this._fireSoon({ type: vscode.FileChangeType.Created, uri });
+                    this.log_level > 1 && getTraceChannel().appendLine("[RestFS] createDirectory: path=" + uri.path + " 'create' request succeeded");
                 }
-                this.log_level > 1 && getTraceChannel().appendLine("[RestFS] createDirectory: path=" + uri.path + " 'create' request failed, status=" + response.status + (message ? "\n" + message : ""));
-                throw vscode.FileSystemError.FileNotFound(uri);
-            } else {
-                return response.data;
-            }
-        }
-
-        let name = uri.path;
-        if (this.case_insensitive)
-            name = name.toUpperCase();
-        entry = new Directory(name, { attr: RestFSAttr.ATTR_FOLDER, size: 0, ctime: Date.now() }, []);
-        this.entries.set(name, entry);
-        this._addToParentItems(uri, entry); // fixup items array in parent
-        this._fireSoon({ type: vscode.FileChangeType.Created, uri });
-        this.log_level > 1 && getTraceChannel().appendLine("[RestFS] createDirectory: path=" + uri.path + " 'create' request succeeded");
+            })
     }
 
     // --- other API methods, not part of FileSystemProvider, but necessary
-
-    public login(login_params: object): Promise<void> {
+    public async login(login_params: object): Promise<void> {
         if (!this.initialized) {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] login, not initialized error");
             throw Error("Login failed: RestFS not initialized");
         }
-        return new Promise((resolve, reject) => {
-            try {
-                resolve(this._login(login_params));
-            } catch (e) {
-                reject(e);
-            }
-        });
+
+        await this._login(login_params)
     }
 
     async _login(login_params: object): Promise<void> {
@@ -761,73 +693,58 @@ export class RestFS implements IRestFS {
             })
     }
 
-    public logout(): Promise<void> {
-        return new Promise((resolve, reject) => {
-            try {
-                resolve(this._logout());
-            } catch (e) {
-                reject(e);
-            }
-        });
-    }
-    _logout(): void {
-        try {
-            async () => {
-                var response = await this.RestClient
-                    .get('/logout', { headers: this._request_headers() as any })
-
-                return response
-            }
-
-            this.log_level && getTraceChannel().appendLine("[RestFS] logout: 'logout' request sent (status not checked)");
-        } catch (e) {
-            this.log_level && getTraceChannel().appendLine("[RestFS] logout: 'logout' request error (ignored) " + e.toString());
-        }
+    public async logout(): Promise<void> {
+        await this._logout()
     }
 
-    public command(command: string, uri?: vscode.Uri, options?: any): Promise<void> {
+    async _logout(): Promise<void> {
+        await this.RestClient
+            .get('/logout', { headers: this._request_headers() as any })
+            .then(() => {
+                this.log_level && getTraceChannel().appendLine("[RestFS] logout: 'logout' request sent (status not checked)");
+            })
+            .catch((error) => {
+                this.log_level && getTraceChannel().appendLine("[RestFS] logout: 'logout' request error (ignored) " + error.toString());
+            })
+    }
+
+    public async command(command: string, uri?: vscode.Uri, options?: any): Promise<void> {
         if (!this.initialized) {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] command: " + command + ", not initialized error");
             throw Error("Command failed: RestFS not initialized");
         }
-        return new Promise((resolve, reject) => {
-            try {
-                resolve(this._command(command, uri, options));
-            } catch (e) {
-                reject(e);
-            }
-        });
+        await this._command(command, uri, options)
     }
-    _command(command: string, uri?: vscode.Uri, options?: any): void {
+
+    async _command(command: string, uri?: vscode.Uri, options?: any): Promise<void> {
         if (this.ApiVersion > 0) {
             let cmdpath = uri ? path.posix.join(this.RestAccount, uri.path) : "";
             let opts = options ? options : {};
-            async () => {
-                var response = await this.RestClient
-                    .post(path.posix.join("/cmd", command, cmdpath), {
-                        json: opts,
-                        headers: this._request_headers() as any
-                    })
-
-                return this.completeCommand(command, uri, response)
-            }
-        } else {
+            await this.RestClient
+                .post(path.posix.join("/cmd", command, cmdpath), {
+                    json: opts,
+                    headers: this._request_headers() as any
+                })
+                .then((response: any) => {
+                    this.completeCommand(command, uri, response)
+                })
+        }
+        else {
             let dg = options && options.debug ? "dg" : "";
-            async () => {
-                var response = await this.RestClient
-                    .get(path.posix.join("/", command, this.RestAccount, uri.path, dg), {
-                        headers: this._request_headers() as any
-                    })
-
-                return this.completeCommand(command, uri, response)
-            }
+            await this.RestClient
+                .get(path.posix.join("/", command, this.RestAccount, uri.path, dg), {
+                    headers: this._request_headers() as any
+                })
+                .then((response: any) => {
+                    this.completeCommand(command, uri, response)
+                })
         }
     }
 
     private completeCommand(command: string, uri: vscode.Uri, res: any) {
         if (res.statusCode !== 200) {
             let message = "";
-            let resp = JSON.parse(res.body.toString());
+            let resp = res.body.toString();
             if (resp && resp.message) {
                 message = resp.message;
                 if (resp.code)
@@ -837,7 +754,7 @@ export class RestFS implements IRestFS {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] command: " + (this.ApiVersion > 0 ? "'cmd/" + command + "'" : "'" + command + "'") + " request failed, status=" + res.statusCode + (message ? "\n" + message : ""));
             throw Error("Failed to execute " + command + " for " + uri.path);
         }
-        let results = JSON.parse(res.body.toString());
+        let results = res.body.toString();
         if (this.ApiVersion > 0) {
             if (results.message) {
                 vscode.window.showInformationMessage(results.message);
@@ -889,63 +806,66 @@ export class RestFS implements IRestFS {
         }
     }
 
-    public call(func: string, ...args: any[]): any | Promise<any> {
+    public async call(func: string, ...args: any[]): Promise<any> {
         if (!this.initialized) {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] call: " + func + ", not initialized error");
             throw Error("Call failed: RestFS not initialized");
         }
         getTraceChannel().appendLine("[RestFS] call: func=" + func + " " + args.length + " args");
-        return new Promise((resolve, reject) => {
-            try {
-                resolve(this._call(func, args));
-            } catch (e) {
-                reject(e);
-            }
-        });
+        await this._call(func, args)
     }
-    _call(func: string, args: any[]): any {
+
+    async _call(func: string, args: any[]): Promise<any> {
         getTraceChannel().appendLine("[RestFS] _call: func=" + func + " " + args.length + " args");
         if (this.ApiVersion == 0) {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] call: func=" + func + ", call not supported by gateway");
             throw Error("Call not supported by gateway");
         }
 
-        const res = async () => {
-            var response = await this.RestClient
-                .post(path.posix.join('/call', func), {
-                    json: { args: args },
-                    headers: this._request_headers() as any
-                })
+        await this.RestClient
+            .post(path.posix.join('/call', func), {
+                json: { args: args },
+                headers: this._request_headers() as any
+            })
+            .then((response: any) => {
+                if (response.status !== 200) {
+                    let message = "";
+                    let resp = JSON.parse(response.data.toString());
+                    if (resp && resp.message) {
+                        message = resp.message;
+                        if (resp.code)
+                            message += "(code=" + resp.code + ")";
+                        vscode.window.showErrorMessage(message);
+                    }
+                    this.log_level > 1 && getTraceChannel().appendLine("[RestFS] call: " + func + " request failed, status=" + response.status + (message ? "\n" + message : ""));
+                    throw Error("Failed to call " + func);
+                } else {
+                    if (!response.hasOwnProperty('result')) {
+                        this.log_level > 1 && getTraceChannel().appendLine("[RestFS] call " + func + ", no result found.");
+                        throw Error("RestFS.call error - response from server has invalid format: result not found.");
+                    }
 
-            if (response.status !== 200) {
-                let message = "";
-                let resp = JSON.parse(response.data.toString());
-                if (resp && resp.message) {
-                    message = resp.message;
-                    if (resp.code)
-                        message += "(code=" + resp.code + ")";
-                    vscode.window.showErrorMessage(message);
+                    this.log_level > 1 && getTraceChannel().appendLine("[RestFS] call result: " + JSON.stringify(response.result));
+                    return response.result;
                 }
-                this.log_level > 1 && getTraceChannel().appendLine("[RestFS] call: " + func + " request failed, status=" + response.status + (message ? "\n" + message : ""));
-                throw Error("Failed to call " + func);
-            } else {
-                return response.data;
+            })
+    }
+
+    public async stat(uri: vscode.Uri): Promise<vscode.FileStat> {
+        if (!this.initialized) {
+            if (uri.path === '/') {
+                this.log_level > 1 && getTraceChannel().appendLine("[RestFS] stat: path=/, not initialized, return empty directory");
+                return new Directory('/', { attr: RestFSAttr.ATTR_FOLDER | RestFSAttr.ATTR_ROOT }, []); // don't show ! icon in explorer heading
             }
+            this.log_level > 1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", not initialized, error=FileNotFound");
+            throw vscode.FileSystemError.FileNotFound(uri);
         }
 
-
-        let results = JSON.parse(res.toString());
-        if (!results.hasOwnProperty('result')) {
-            this.log_level > 1 && getTraceChannel().appendLine("[RestFS] call " + func + ", no result found.");
-            throw Error("RestFS.call error - response from server has invalid format: result not found.");
-        }
-        this.log_level > 1 && getTraceChannel().appendLine("[RestFS] call result: " + JSON.stringify(results.result));
-        return results.result;
+        return await this._stat(uri)
     }
 
     // --- lookup
-
-    private _stat(uri: vscode.Uri): Entry | undefined {
+    private async _stat(uri: vscode.Uri): Promise<Entry> | undefined {
         let entry: Entry | undefined = undefined;
         let message: string;
         if (!this._excluded(uri)) {
@@ -956,46 +876,49 @@ export class RestFS implements IRestFS {
             } else {
                 // not in local cache, try to read attributes from server
                 if (this.ApiVersion > 0 && !this._stat_API_not_supported) {
-                    async () => {
-                        var response = await this.RestClient
-                            .get(path.posix.join("/stat", this.RestAccount, uri.path), {
-                                headers: this._request_headers() as any
-                            })
-
-                        if (response.status === 404) {
-                            if (response.data)
-                                message = response.data.toString();
-                            this.log_level > 1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", not found, status=" + response.status + (message ? "\n" + message : ""));
-                        } else if (response.status === 200) {
-                            const result = JSON.parse(response.data.toString());
-                            const attr: RestFSAttr = result.attr | 0;
-                            let name = uri.path;
-                            if (this.case_insensitive)
-                                name = name.toUpperCase();
-                            if (attr & RestFSAttr.ATTR_FOLDER) {
-                                entry = new Directory(name, <FileInfo>result);
-                                if (uri.path === "/")
-                                    entry.attr |= RestFSAttr.ATTR_ROOT; // indicate this is the root, otherwise refresh does not work
-                            } else if (attr & RestFSAttr.ATTR_FILE) {
-                                entry = new File(name, <FileInfo>result);
+                    await this.RestClient
+                        .get(path.posix.join("/stat", this.RestAccount, uri.path), {
+                            headers: this._request_headers() as any
+                        })
+                        .then((response: any) => {
+                            if (response.status === 404) {
+                                if (response.data)
+                                    message = response.data.toString();
+                                this.log_level > 1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", not found, status=" + response.status + (message ? "\n" + message : ""));
+                            } else if (response.status === 200) {
+                                const result = response.data.toString();
+                                const attr: RestFSAttr = result.attr | 0;
+                                let name = uri.path;
+                                if (this.case_insensitive)
+                                    name = name.toUpperCase();
+                                if (attr & RestFSAttr.ATTR_FOLDER) {
+                                    entry = new Directory(name, <FileInfo>result);
+                                    if (uri.path === "/")
+                                        entry.attr |= RestFSAttr.ATTR_ROOT; // indicate this is the root, otherwise refresh does not work
+                                } else if (attr & RestFSAttr.ATTR_FILE) {
+                                    entry = new File(name, <FileInfo>result);
+                                }
+                                if (entry) {
+                                    this.entries.set(name, entry);
+                                    this.log_level > 1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", request succeeded, attr=" + attr);
+                                }
+                            } else if (response.status !== 400) {
+                                message = "";
+                                const result = JSON.parse(response.data.toString());
+                                if (result && result.message)
+                                    message = result.message;
+                                if (result && result.code)
+                                    message += "(code=" + result.code + ")";
+                                vscode.window.showErrorMessage(message ? message : "File system 'stat' API failed (status=" + response.status + ")");
+                                this.log_level > 1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", request failed, status=" + response.status + (message ? "\n" + message : ""));
+                            } else {
+                                this._stat_API_not_supported = true; // don't try 'stat' again - use readFile / readDir instead
                             }
-                            if (entry) {
-                                this.entries.set(name, entry);
-                                this.log_level > 1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", request succeeded, attr=" + attr);
-                            }
-                        } else if (response.status !== 400) {
-                            message = "";
-                            const result = JSON.parse(response.data.toString());
-                            if (result && result.message)
-                                message = result.message;
-                            if (result && result.code)
-                                message += "(code=" + result.code + ")";
-                            vscode.window.showErrorMessage(message ? message : "File system 'stat' API failed (status=" + response.status + ")");
-                            this.log_level > 1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", request failed, status=" + response.status + (message ? "\n" + message : ""));
-                        } else {
-                            this._stat_API_not_supported = true; // don't try 'stat' again - use readFile / readDir instead
-                        }
-                    }
+                        })
+                        .catch((error: any) => {
+                            this.log_level > 1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", request failed, error=" + error)
+                            throw vscode.FileSystemError.FileNotFound(uri);
+                        })
                 } else {
                     this._stat_API_not_supported = true;
                 }
@@ -1039,7 +962,7 @@ export class RestFS implements IRestFS {
         if (entry instanceof Directory) {
             return entry;
         }
-        return undefined;;
+        return undefined;
     }
 
     private _lookupAsFile(uri: vscode.Uri): File | undefined {
@@ -1155,5 +1078,4 @@ export class RestFS implements IRestFS {
             this._bufferedEvents.length = 0;
         }, 5);
     }
-
 }

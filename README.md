@@ -96,3 +96,10 @@ This extension would not be possible without the hard work by Grant Hart, Perry 
 [on_group]: http://www.ongroup.com
 [vs_code]: https://code.visualstudio.com/
 [vs_code_market]: https://marketplace.visualstudio.com/items?itemName=mvextensions.mvbasic
+
+
+
+## TODO
+
+ WARNING  Using '*' activation is usually a bad idea as it impacts performance.
+More info: https://code.visualstudio.com/api/references/activation-events#Start-up
