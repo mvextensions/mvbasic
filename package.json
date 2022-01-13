@@ -7,6 +7,11 @@
   "license": "MIT",
   "icon": "images/mvbasic-logo.png",
   "preview": false,
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
   "keywords": [
     "MultiValue",
     "Pick",
