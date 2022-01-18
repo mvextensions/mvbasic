@@ -100,6 +100,8 @@ export class RestFS implements IRestFS {
     private root_refresh: boolean;
     private log_level: number;
     private _stat_API_not_supported: boolean;
+
+    // a Promise to ensure 'login' has completed before other calls are allowed
     private init_auth: Promise<void>;
     private init_auth_resolve: () => void;
     private init_auth_reject: () => void;
@@ -120,12 +122,15 @@ export class RestFS implements IRestFS {
         this.MaxItems = (options && options.max_items) || 0;
         this.SelAttr = (options && options.sel_attr) || 0;
         this.auth = undefined; // must call login to get auth token
+        this.root_refresh = true; // refresh root directory on next readDirectory()
+
+        // initialize the auth Promise, setting external resolve & reject functions
         this.init_auth = new Promise<void>((resolve, reject) => {
             this.init_auth_resolve = resolve;
             this.init_auth_reject = reject;
         });
-        this.root_refresh = true; // refresh root directory on next readDirectory()
 
+        // set logging options
         switch ((options && options.log_level) || 'off') {
             case 'messages': this.log_level = 1; break;
             case 'verbose': this.log_level = 2; break;
@@ -197,14 +202,13 @@ export class RestFS implements IRestFS {
         const qs = "max_items=" + this.MaxItems + "&attr=" + this.SelAttr;
         await this.init_auth;
         return await this.RestClient
-            .get(path.posix.join("/dir", this.RestAccount, uri.path) + "?" + qs, {
-                headers: this._request_headers() as any
-            })
+            .get(path.posix.join("/dir", this.RestAccount, uri.path) + "?" + qs,
+                { headers: this._request_headers() as any })
             .then((response: any) => {
                 if (response.status !== 200) {
                     let message = "";
                     if ((response.status !== 404) || (this.log_level > 1)) {
-                        const resp = typeof response.data === 'object' ? response.data : JSON.parse(response.data.toString())
+                        const resp = this._response_object(response.data);
                         if (resp && resp.message) {
                             message = resp.message;
                             if (resp.code)
@@ -218,7 +222,7 @@ export class RestFS implements IRestFS {
                 }
 
                 // parse the returned data
-                let rtn = typeof response.data === 'object' ? response.data : JSON.parse(response.data.toString());
+                let rtn = this._response_object(response.data);
                 let fileList: [{ Name: string, Type: number }]; // Original RESTFS API
                 let itemList: [{ id: string, attr: number }]; // RESTFS API version 1
                 let numItems: number;
@@ -310,14 +314,13 @@ export class RestFS implements IRestFS {
         // file not cached so load it from server using RESTFS API
         await this.init_auth;
         await this.RestClient
-            .get(path.posix.join("/file", this.RestAccount, uri.path), {
-                headers: this._request_headers() as any
-            })
+            .get(path.posix.join("/file", this.RestAccount, uri.path),
+                { headers: this._request_headers() as any })
             .then((response: any) => {
                 if (response.status !== 200) {
                     let message = "";
                     if ((response.status !== 404) || (this.log_level > 1)) {
-                        let resp = typeof response.data === 'object' ? response.data : JSON.parse(response.data.toString());
+                        const resp = this._response_object(response.data);
                         if (resp && resp.message) {
                             message = resp.message;
                             if (resp.code)
@@ -330,7 +333,7 @@ export class RestFS implements IRestFS {
                     throw vscode.FileSystemError.FileNotFound(uri);
                 }
 
-                let result = typeof response.data === 'object' ? response.data : JSON.parse(response.data.toString());
+                const result = this._response_object(response.data);
 
                 let attr: RestFSAttr = 0;
                 let program: string;
@@ -443,15 +446,21 @@ export class RestFS implements IRestFS {
                     }
                 });
             }
-
-            let action: string = entry ? '/file' : '/create';
-
-            await this.init_auth;
-            res = await this.RestClient
-                .post(path.posix.join(action, this.RestAccount, uri.path), {
-                    json: { id: path.posix.basename(uri.path), type: "array", data: dynarr },
-                    headers: this._request_headers() as any
-                })
+            if (entry) {
+                // PUT file
+                await this.init_auth;
+                res = await this.RestClient
+                    .put(path.posix.join('/file', this.RestAccount, uri.path), 
+                    { id: path.posix.basename(uri.path), type: "array", data: dynarr },
+                    { headers: this._request_headers() as any })
+            } else {
+                // POST create
+                await this.init_auth;
+                res = await this.RestClient
+                    .post(path.posix.join('/create', this.RestAccount, uri.path), 
+                    { id: path.posix.basename(uri.path), type: "array", data: dynarr },
+                    { headers: this._request_headers() as any })
+            }
         } else {
             // update server using original RESTFS API
             data = JSON.stringify(content.toString().split(String.fromCharCode(10)));
@@ -462,9 +471,10 @@ export class RestFS implements IRestFS {
                     json: data // NOTE: this should really be body:data, not json:data, but this is how the original API works!
                 })
         }
+
         if (res.status !== 200) {
             let message = "";
-            let resp = typeof res.data === 'object' ? res.data : JSON.parse(res.data.toString());
+            const resp = this._response_object(res.data);
             if (resp && resp.message) {
                 message = resp.message;
                 if (resp.code)
@@ -517,13 +527,12 @@ export class RestFS implements IRestFS {
 
         await this.init_auth;
         await this.RestClient
-            .get(path.posix.join("/rename", this.RestAccount, oldUri.path) + "?" + qs, {
-                headers: this._request_headers() as any
-            })
+            .get(path.posix.join("/rename", this.RestAccount, oldUri.path) + "?" + qs,
+                { headers: this._request_headers() as any })
             .then((response: any) => {
                 if (response.status !== 200) {
                     let message = "";
-                    let resp = typeof response.data === 'object' ? response.data : JSON.parse(response.data.toString());
+                    const resp = this._response_object(response.data);
                     if (resp && resp.message) {
                         message = resp.message;
                         if (resp.code)
@@ -573,13 +582,12 @@ export class RestFS implements IRestFS {
 
         await this.init_auth;
         await this.RestClient
-            .delete(path.posix.join("/file", this.RestAccount, uri.path), {
-                headers: this._request_headers() as any
-            })
+            .delete(path.posix.join("/file", this.RestAccount, uri.path),
+                { headers: this._request_headers() as any })
             .then((response: any) => {
                 if (response.status !== 200) {
                     let message = "";
-                    let resp = typeof response.data === 'object' ? response.data : JSON.parse(response.data.toString());
+                    const resp = this._response_object(response.data);
                     if (resp && resp.message) {
                         message = resp.message;
                         if (resp.code)
@@ -633,13 +641,13 @@ export class RestFS implements IRestFS {
         // send 'create' request to server
         await this.init_auth;
         await this.RestClient
-            .post(path.posix.join("/create", this.RestAccount, uri.path) + "?dir=true", {
-                headers: this._request_headers() as any
-            })
+            .post(path.posix.join("/create", this.RestAccount, uri.path) + "?dir=true",
+                {},
+                { headers: this._request_headers() as any })
             .then((response: any) => {
                 if (response.status !== 200) {
                     let message = "";
-                    let resp = typeof response.data === 'object' ? response.data : JSON.parse(response.data.toString());
+                    const resp = this._response_object(response.data);
                     if (resp && resp.message) {
                         message = resp.message;
                         if (resp.code)
@@ -674,46 +682,46 @@ export class RestFS implements IRestFS {
     async _login(login_params: object): Promise<void> {
         let my_login_params = { ...login_params, Client: "vscode.restfs" };
         this.log_level > 1 && getTraceChannel().appendLine("[RestFS] login: parameters= " + JSON.stringify(my_login_params));
-try {
-        await this.RestClient
-            .post(path.posix.join("/login"), {
-                json: my_login_params,
-                headers: this._request_headers() as any
-            })
-            .then((response: any) => {
-                if (response.status !== 200) {
-                    let message = "";
-                    let resp = typeof response.data === 'object' ? response.data : JSON.parse(response.data.toString());
-                    if (resp && resp.message) {
-                        message = resp.message;
-                        if (resp.code)
-                            message += "(code=" + resp.code + ")";
-                        vscode.window.showErrorMessage(message);
+        try {
+            await this.RestClient
+                .post(path.posix.join("/login"),
+                    my_login_params,
+                    { headers: this._request_headers() as any })
+                .then((response: any) => {
+                    if (response.status !== 200) {
+                        let message = "";
+                        const resp = this._response_object(response.data);
+                        if (resp && resp.message) {
+                            message = resp.message;
+                            if (resp.code)
+                                message += "(code=" + resp.code + ")";
+                            vscode.window.showErrorMessage(message);
+                        }
+                        this.log_level && getTraceChannel().appendLine("[RestFS] login: 'login' request failed, status=" + response.status + (message ? "\n" + message : ""));
+                        throw Error("Login failed");
                     }
-                    this.log_level && getTraceChannel().appendLine("[RestFS] login: 'login' request failed, status=" + response.status + (message ? "\n" + message : ""));
-                    throw Error("Login failed");
-                }
-                let result = typeof response.data === 'object' ? response.data : JSON.parse(response.data.toString());
-                if (result) {
-                    try {
-                        this.auth = result;
-                    } catch (e) {
-                        this.log_level && getTraceChannel().appendLine("[RestFS] login: failed to parse response, error=" + e.toString());
-                        throw Error("Login failed: " + e);
+                    let result = this._response_object(response.data);
+                    if (result) {
+                        try {
+                            this.auth = result;
+                        } catch (e) {
+                            this.log_level && getTraceChannel().appendLine("[RestFS] login: failed to parse response, error=" + e.toString());
+                            throw Error("Login failed: " + e);
+                        }
+                    } else {
+                        this.auth = {}; //empty body with status 200 is OK (authorized)
                     }
-                } else {
-                    this.auth = {}; //empty body with status 200 is OK (authorized)
-                }
-                this.init_auth_resolve();
-                this.log_level && getTraceChannel().appendLine("[RestFS] login: 'login' request succeeded");
-                this.log_level > 1 && getTraceChannel().appendLine("[RestFS] login: auth=" + JSON.stringify(this.auth));
-            })
-} catch(e) {
-    this.init_auth_reject();
-    throw(e);
+                    this.init_auth_resolve(); // resolve the auth promise (allows other functions to proceed)
+                    this.log_level && getTraceChannel().appendLine("[RestFS] login: 'login' request succeeded");
+                    this.log_level > 1 && getTraceChannel().appendLine("[RestFS] login: auth=" + JSON.stringify(this.auth));
+                })
+        } catch(e) {
+            this.init_auth_reject(); // reject the auth promise
+            throw(e);
+        }
     }
-}
-public async logout(): Promise<void> {
+
+    public async logout(): Promise<void> {
         await this._logout()
     }
 
@@ -726,7 +734,8 @@ public async logout(): Promise<void> {
             .catch((error) => {
                 this.log_level && getTraceChannel().appendLine("[RestFS] logout: 'logout' request error (ignored) " + error.toString());
             })
-        this.init_auth = Promise.reject(new Error('Logged out'));
+        this.auth = undefined;
+        this.init_auth = Promise.reject(new Error('Logged out')); // after logout, other functions will fail
     }
 
     public async command(command: string, uri?: vscode.Uri, options?: any): Promise<void> {
@@ -738,48 +747,37 @@ public async logout(): Promise<void> {
     }
 
     async _command(command: string, uri?: vscode.Uri, options?: any): Promise<void> {
+        let res: any;
         if (this.ApiVersion > 0) {
             let cmdpath = uri ? path.posix.join(this.RestAccount, uri.path) : "";
             let opts = options ? options : {};
             await this.init_auth;
-            await this.RestClient
-                .post(path.posix.join("/cmd", command, cmdpath), {
-                    json: opts,
-                    headers: this._request_headers() as any
-                })
-                .then((response: any) => {
-                    this.completeCommand(command, uri, response)
-                })
+            res = await this.RestClient
+                .post(path.posix.join("/cmd", command, cmdpath),
+                    opts,
+                    { headers: this._request_headers() as any })
         }
         else {
             let dg = options && options.debug ? "dg" : "";
             await this.init_auth;
-            await this.RestClient
-                .get(path.posix.join("/", command, this.RestAccount, uri.path, dg), {
-                    headers: this._request_headers() as any
-                })
-                .then((response: any) => {
-                    this.completeCommand(command, uri, response)
-                })
+            res = await this.RestClient
+                .get(path.posix.join("/", command, this.RestAccount, uri.path, dg),
+                    { headers: this._request_headers() as any })
         }
-    }
-
-    private completeCommand(command: string, uri: vscode.Uri, res: any) {
-        if (res.statusCode !== 200) {
+        if (res.status !== 200) {
             let message = "";
-            let resp = typeof res.data === 'object' ? res.data : JSON.parse(res.data.toString());
+            const resp = this._response_object(res.data);
             if (resp && resp.message) {
                 message = resp.message;
                 if (resp.code)
                     message += "(code=" + resp.code + ")";
                 vscode.window.showErrorMessage(message);
             }
-            this.log_level > 1 && getTraceChannel().appendLine("[RestFS] command: " + (this.ApiVersion > 0 ? "'cmd/" + command + "'" : "'" + command + "'") + " request failed, status=" + res.statusCode + (message ? "\n" + message : ""));
+            this.log_level > 1 && getTraceChannel().appendLine("[RestFS] command: " + (this.ApiVersion > 0 ? "'cmd/" + command + "'" : "'" + command + "'") + " request failed, status=" + res.status + (message ? "\n" + message : ""));
             throw Error("Failed to execute " + command + " for " + uri.path);
         }
-
         if (this.ApiVersion > 0) {
-            let results = typeof res.data === 'object' ? res.data : JSON.parse(res.data.toString());
+            const results = this._response_object(res.data);
             if (results.message) {
                 vscode.window.showInformationMessage(results.message);
                 this.log_level > 1 && getTraceChannel().appendLine("[RestFS] command result: " + results.message);
@@ -812,7 +810,7 @@ public async logout(): Promise<void> {
             } else {
                 // Original API 'compile' command returns:
                 // {Result: string, Errors: [{LineNo: number, ErrorMessage: string, Source: string}]}
-                let results = typeof res.data === 'object' ? res.data : JSON.parse(res.data.toString());
+                const results = this._response_object(res.data);
                 if (results.Result) {
                     vscode.window.showInformationMessage(results.Result);
                 }
@@ -849,14 +847,13 @@ public async logout(): Promise<void> {
 
         await this.init_auth;
         await this.RestClient
-            .post(path.posix.join('/call', func), {
-                json: { args: args },
-                headers: this._request_headers() as any
-            })
+            .post(path.posix.join('/call', func),
+                { args: args },
+                { headers: this._request_headers() as any })
             .then((response: any) => {
                 if (response.status !== 200) {
                     let message = "";
-                    let resp = typeof response.data === 'object' ? response.data : JSON.parse(response.data.toString());
+                    const resp = this._response_object(response.data);
                     if (resp && resp.message) {
                         message = resp.message;
                         if (resp.code)
@@ -866,7 +863,7 @@ public async logout(): Promise<void> {
                     this.log_level > 1 && getTraceChannel().appendLine("[RestFS] call: " + func + " request failed, status=" + response.status + (message ? "\n" + message : ""));
                     throw Error("Failed to call " + func);
                 } else {
-                    let result = typeof response.data === 'object' ? response.data : JSON.parse(response.data.toString())
+                    const result = this._response_object(response.data);
                     if (!result.hasOwnProperty('result')) {
                         this.log_level > 1 && getTraceChannel().appendLine("[RestFS] call " + func + ", no result found.");
                         throw Error("RestFS.call error - response from server has invalid format: result not found.");
@@ -904,15 +901,14 @@ public async logout(): Promise<void> {
                 if (this.ApiVersion > 0 && !this._stat_API_not_supported) {
                     await this.init_auth;
                     await this.RestClient
-                        .get(path.posix.join("/stat", this.RestAccount, uri.path), {
-                            headers: this._request_headers() as any
-                        })
+                        .get(path.posix.join("/stat", this.RestAccount, uri.path),
+                            { headers: this._request_headers() as any })
                         .then((response: any) => {
                             if (response.status === 404) {                                
                                 message = (response.data && response.data.toString()) || "";
                                 this.log_level > 1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", not found, status=" + response.status + (message ? "\n" + message : ""));
                             } else if (response.status === 200) {
-                                const result = typeof response.data === 'object' ? response.data : JSON.parse(response.data.toString());
+                                const result = this._response_object(response.data);
                                 const attr: RestFSAttr = result.attr | 0;
                                 let name = uri.path;
                                 if (this.case_insensitive)
@@ -930,7 +926,7 @@ public async logout(): Promise<void> {
                                 }
                             } else if (response.status !== 400) {
                                 message = "";
-                                const result = typeof response.data === 'object' ? response.data : JSON.parse(response.data.toString());
+                                const result = this._response_object(response.data);
                                 if (result && result.message)
                                     message = result.message;
                                 if (result && result.code)
@@ -953,7 +949,7 @@ public async logout(): Promise<void> {
                 // directory before file, so we don't end up treating D and F pointers as records.
                 if (this._stat_API_not_supported) {
                     try {
-                        this._readDirectory(uri);
+                        await this._readDirectory(uri);
                         entry = this._lookup(uri);
                     } catch (e) {
                         this.log_level > 1 && getTraceChannel().appendLine("[RestFS] stat: readDirectory path=" + uri.path + ", exception=" + e.toString());
@@ -961,7 +957,7 @@ public async logout(): Promise<void> {
                     if (!entry) {
                         // not a directory, try to read file from server
                         try {
-                            this._readFile(uri);
+                            await this._readFile(uri);
                             entry = this._lookup(uri);
                         } catch (e) {
                             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] stat: readFile path=" + uri.path + ", exception=" + e.toString());
@@ -1077,6 +1073,26 @@ public async logout(): Promise<void> {
             }
         } catch (e) { } // ignore "cannot use 'in' operator to search for ..." error; auth might be a simple string from legacy gateway
         return { accept: "application/json" };
+    }
+
+    // --- check response format (in case non-conforming server, or intermediate server returns string instead of json)
+    private _response_object(response_body: any): any {
+        try {
+            if (typeof response_body === 'object') {
+                // response is JSON
+                return response_body;
+            } else if (typeof response_body === 'string') {
+                const str: string = response_body;
+                if (str.charAt(0) === '{') {
+                    try {
+                        return JSON.parse(str);
+                    } catch(e) {}
+                }
+                // response is a string, but not JSON, so assume its some sort of message
+                return { message: str };
+            }
+        } catch(e) {}
+        return {}; // give up!
     }
 
     // --- manage file events
