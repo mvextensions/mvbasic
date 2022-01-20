@@ -2,11 +2,16 @@
   "name": "mvbasic",
   "displayName": "MV Basic",
   "description": "MV Basic",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "publisher": "mvextensions",
   "license": "MIT",
   "icon": "images/mvbasic-logo.png",
   "preview": false,
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
   "keywords": [
     "MultiValue",
     "Pick",

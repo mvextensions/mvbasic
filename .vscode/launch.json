@@ -57,10 +57,11 @@
        "runtimeExecutable": "${execPath}",
        "args": [
          "--extensionDevelopmentPath=${workspaceFolder}",
-         "C:/projects/mvbasic/accuterm-mvsvr-restfs/sample.code-workspace"
+         "C:/projects/work/mvbasic/accuterm-mvsvr-restfs/sample.code-workspace"
        ],
-       "outFiles": ["${workspaceFolder}/client/out/test/**/*.js"]
-     }
+       "outFiles": ["${workspaceFolder}/client/out/**/*.js"],
+       "preLaunchTask": "npm: watch"
+      }
      ,
      {
        "name": "Gateway Test",

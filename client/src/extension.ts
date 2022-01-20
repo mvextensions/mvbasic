@@ -508,9 +508,9 @@ export function activate(context: vscode.ExtensionContext) {
 	return api;
 }
 
-export function deactivate() {
+export async function deactivate() {
 	if (RESTFS) {
-		RESTFS.logout();
+		await RESTFS.logout();
 	}
 	RESTFS = undefined;
 }

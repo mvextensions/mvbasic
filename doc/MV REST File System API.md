@@ -233,6 +233,30 @@ curl --location --request GET 'http://localhost:3181/mvsvr/restfs/logout' \
 }
 ```
 
+* OR
+
+  * **Code:** 404 Not Found
+  * **Content:** 
+```
+{
+    "status": 404,
+    "message": "file not found",
+    "code": "201"
+}
+```
+
+* OR
+
+  * **Code:** 404 Not Found
+  * **Content:** 
+```
+{
+    "status": 404,
+    "message": "item not found",
+    "code": "202"
+}
+```
+
 * **Sample Call:**
 
 ```
@@ -340,6 +364,29 @@ curl --location --request GET 'http://localhost:3181/mvsvr/restfs/dir/ACCUTERM8/
 ```
 {
     "status": 400,
+    "message": "item not found",
+    "code": "202"
+}
+```
+* OR
+
+  * **Code:** 404 Not Found
+  * **Content:** 
+```
+{
+    "status": 404,
+    "message": "file not found",
+    "code": "201"
+}
+```
+
+* OR
+
+  * **Code:** 404 Not Found
+  * **Content:** 
+```
+{
+    "status": 404,
     "message": "item not found",
     "code": "202"
 }
@@ -458,6 +505,31 @@ curl --location --request GET 'http://localhost:3181/mvsvr/restfs/file/ACCUTERM8
     "message": "update failed",
     "code": "261"
 }
+```
+
+* OR
+
+  * **Code:** 404 Not Found
+  * **Content:** 
+```
+{
+    "status": 404,
+    "message": "file not found",
+    "code": "201"
+}
+```
+
+* OR
+
+  * **Code:** 404 Not Found
+  * **Content:** 
+```
+{
+    "status": 404,
+    "message": "item not found",
+    "code": "202"
+}
+```
 
 * **Sample Call:**
 
@@ -609,6 +681,31 @@ curl --location --request PUT 'http://localhost:3181/mvsvr/restfs/file/ACCUTERM8
     "message": "update failed",
     "code": "261"
 }
+```
+
+* OR
+
+  * **Code:** 404 Not Found
+  * **Content:** 
+```
+{
+    "status": 404,
+    "message": "file not found",
+    "code": "201"
+}
+```
+
+* OR
+
+  * **Code:** 404 Not Found
+  * **Content:** 
+```
+{
+    "status": 404,
+    "message": "item not found",
+    "code": "202"
+}
+```
 
 * **Sample Call:**
 
@@ -738,6 +835,30 @@ curl --location --request POST 'http://localhost:3181/mvsvr/restfs/create/ACCUTE
 }
 ```
 
+* OR
+
+  * **Code:** 404 Not Found
+  * **Content:** 
+```
+{
+    "status": 404,
+    "message": "file not found",
+    "code": "201"
+}
+```
+
+* OR
+
+  * **Code:** 404 Not Found
+  * **Content:** 
+```
+{
+    "status": 404,
+    "message": "item not found",
+    "code": "202"
+}
+```
+
 * **Sample Call:**
 
 ```
@@ -857,6 +978,30 @@ curl --location --request DELETE 'http://localhost:3181/mvsvr/restfs/file/ACCUTE
 }
 ```
 
+* OR
+
+  * **Code:** 404 Not Found
+  * **Content:** 
+```
+{
+    "status": 404,
+    "message": "file not found",
+    "code": "201"
+}
+```
+
+* OR
+
+  * **Code:** 404 Not Found
+  * **Content:** 
+```
+{
+    "status": 404,
+    "message": "item not found",
+    "code": "202"
+}
+```
+
 * **Sample Call:**
 
 ```
@@ -869,6 +1014,138 @@ curl --location --request GET 'http://localhost:3181/mvsvr/restfs/rename/ACCUTER
 
   For AccuTerm RestFS Connector, rename cannot move files to different directories or accounts. Only the file name (MV item ID) may be renamed.
   
+  Error codes and messages shown here are only examples. Actual codes and message text are an implementation detail.
+
+## **Get File Status**
+----
+  Call the stat API to retreive file attributes.
+
+* **URL**
+
+  `/stat/<account>/<path>/<to>/<file>`
+
+* **Method:**
+
+  `GET`
+
+* **URL Params**
+  
+  \<account>
+  
+  The account where the file is located.
+  
+  \<path>/\<to>/\<file>
+  
+  The location of the file (or folder) within the account. Note that for MultiValue databases supporting this REST File System API, \<path>/\<to>/\<file> may be mapped to MV files or items in the MD or VOC of the account, a dictionary file or a data file.
+   
+* **Data Params**
+
+  None
+
+* **Success Response:**
+  * **Code:** 200 OK
+  * **Content:**
+```
+{
+    "attr": <file attributes>,
+    "size": <file size>
+}
+```
+  The file attributes is a bitmask, as defined in **File Attributes** in this document. The size is the approximate file size (different line endings may cause the actual size to be different). For directories, the size is the number of items in the directory, but may be zero if the count is unknown (implementation dependent).
+ 
+* **Error Response:**
+
+  * **Code:** 500 Internal Error
+  * **Content:**
+```
+{
+    "status": 500,
+    "message": "Session is not running FTSERVER program",
+    "code": "1027"
+}
+```
+
+* OR
+
+  * **Code:** 401 Unauthorized
+  * **Content:** 
+```
+{
+    "status": 401,
+    "message": "Authorization token must be included in the Authorization header"
+}
+```
+
+* OR
+
+  * **Code:** 400 Bad Request
+  * **Content:** 
+```
+{
+    "status": 400,
+    "message": "file name missing",
+    "code": "200"
+}
+```
+
+* OR
+
+  * **Code:** 400 Bad Request
+  * **Content:** 
+```
+{
+    "status": 400,
+    "message": "file not found",
+    "code": "201"
+}
+```
+
+* OR
+
+  * **Code:** 400 Bad Request
+  * **Content:** 
+```
+{
+    "status": 400,
+    "message": "item not found",
+    "code": "202"
+}
+```
+
+* OR
+
+  * **Code:** 404 Not Found
+  * **Content:** 
+```
+{
+    "status": 404,
+    "message": "file not found",
+    "code": "201"
+}
+```
+
+* OR
+
+  * **Code:** 404 Not Found
+  * **Content:** 
+```
+{
+    "status": 404,
+    "message": "item not found",
+    "code": "202"
+}
+```
+
+* **Sample Call:**
+
+```
+curl --location --request GET 'http://localhost:3181/mvsvr/restfs/stat/ACCUTERM8/SAMPLES/SAMPLES/NOTEPAD' \
+--header 'Accept: application/json' \
+--header 'Authorization: Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0=.eyJzaWQiOiI2In0='
+```
+
+* **Notes:**
+
   Error codes and messages shown here are only examples. Actual codes and message text are an implementation detail.
 
 ## **Command**
