@@ -14,7 +14,6 @@ import axios, { AxiosInstance } from "axios";
 type FileInfo = { attr: RestFSAttr, size?: number, ctime?: number, mtime?: number };
 
 export class File implements vscode.FileStat {
-
     type: vscode.FileType;
     ctime: number;
     mtime: number;
@@ -36,7 +35,6 @@ export class File implements vscode.FileStat {
 }
 
 export class Directory implements vscode.FileStat {
-
     type: vscode.FileType;
     ctime: number;
     mtime: number;
@@ -75,6 +73,7 @@ function getRestFSChannel(): vscode.OutputChannel {
     }
     return _restfs_channel;
 }
+
 let _trace_channel: vscode.OutputChannel;
 function getTraceChannel(): vscode.OutputChannel {
     if (!_trace_channel) {
@@ -84,7 +83,6 @@ function getTraceChannel(): vscode.OutputChannel {
 }
 
 export class RestFS implements IRestFS {
-
     public RestPath: string;
     public RestAccount: string;
     public RestClient: AxiosInstance;
@@ -172,7 +170,6 @@ export class RestFS implements IRestFS {
     }
 
     async _readDirectory(uri: vscode.Uri): Promise<[string, vscode.FileType][]> {
-
         // check if this directory is in our files.exclude
         if (this._excluded(uri)) {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] readDirectory: path=" + uri.path + " is excluded");
@@ -399,109 +396,109 @@ export class RestFS implements IRestFS {
     }
 
     async _writeFile(uri: vscode.Uri, content: Uint8Array, options: { create: boolean, overwrite: boolean }): Promise<void> {
-
         this.log_level > 1 && getTraceChannel().appendLine("[RestFS] writeFile: path=" + uri.path + ", get entry type (may call readFile)");
-        let entry = await this._stat(uri);
+        await this._stat(uri)
+            .then(async (entry) => {
+                // may cause lookup from server
+                if (entry instanceof Directory) {
+                    this.log_level > 1 && getTraceChannel().appendLine("[RestFS] writeFile: path=" + uri.path + " is a directory, error=FileIsADirectory");
+                    throw vscode.FileSystemError.FileIsADirectory(uri);
+                }
+                if (!entry && !options.create) {
+                    this.log_level > 1 && getTraceChannel().appendLine("[RestFS] writeFile: path=" + uri.path + " create not allowed and file does not exist, error=FileNotFound");
+                    throw vscode.FileSystemError.FileNotFound(uri);
+                }
+                if (entry && options.create && !options.overwrite) {
+                    this.log_level > 1 && getTraceChannel().appendLine("[RestFS] writeFile: path=" + uri.path + " attempt to create new file, but file already exists, error=FileExists");
+                    throw vscode.FileSystemError.FileExists(uri);
+                }
+                if (entry && (entry.attr & RestFSAttr.ATTR_READONLY)) {
+                    this.log_level > 1 && getTraceChannel().appendLine("[RestFS] writeFile: path=" + uri.path + " attempt to overwrite read-only file, error=NoPermissions");
+                    throw vscode.FileSystemError.NoPermissions(uri);
+                }
 
-        // may cause lookup from server
-        if (entry instanceof Directory) {
-            this.log_level > 1 && getTraceChannel().appendLine("[RestFS] writeFile: path=" + uri.path + " is a directory, error=FileIsADirectory");
-            throw vscode.FileSystemError.FileIsADirectory(uri);
-        }
-        if (!entry && !options.create) {
-            this.log_level > 1 && getTraceChannel().appendLine("[RestFS] writeFile: path=" + uri.path + " create not allowed and file does not exist, error=FileNotFound");
-            throw vscode.FileSystemError.FileNotFound(uri);
-        }
-        if (entry && options.create && !options.overwrite) {
-            this.log_level > 1 && getTraceChannel().appendLine("[RestFS] writeFile: path=" + uri.path + " attempt to create new file, but file already exists, error=FileExists");
-            throw vscode.FileSystemError.FileExists(uri);
-        }
-        if (entry && (entry.attr & RestFSAttr.ATTR_READONLY)) {
-            this.log_level > 1 && getTraceChannel().appendLine("[RestFS] writeFile: path=" + uri.path + " attempt to overwrite read-only file, error=NoPermissions");
-            throw vscode.FileSystemError.NoPermissions(uri);
-        }
-
-        let res: any;
-        let data: string;
-        if (this.ApiVersion > 0) {
-            // update server using RESTFS API version 1: {id: string, type: "array", data: []}
-            let dynarr: DynArray;;
-            data = content.toString();
-            dynarr = data.split(String.fromCharCode(10)); // only attributes, no multi-values
-            if (data.search(/[\uF8FC-\uF8FD]/) != -1) {
-                // multi-values and sub-values are nested arrays
-                dynarr.forEach(function (element: string, attnbr: number, atts: DynArray) {
-                    if (element.search(/uF8FD/) != -1) {
-                        // attribute has multi-values
-                        atts[attnbr] = element.split(String.fromCharCode(0xF8FD));
-                        (<ValArray>atts[attnbr]).forEach(function (val: string, valnbr: number, vals: ValArray) {
-                            if (val.search(/uF8FC/) != -1) {
-                                // value has multi-subvalues
-                                vals[valnbr] = val.split(String.fromCharCode(0xF8FC));
+                let res: any;
+                let data: string;
+                if (this.ApiVersion > 0) {
+                    // update server using RESTFS API version 1: {id: string, type: "array", data: []}
+                    let dynarr: DynArray;;
+                    data = content.toString();
+                    dynarr = data.split(String.fromCharCode(10)); // only attributes, no multi-values
+                    if (data.search(/[\uF8FC-\uF8FD]/) != -1) {
+                        // multi-values and sub-values are nested arrays
+                        dynarr.forEach(function (element: string, attnbr: number, atts: DynArray) {
+                            if (element.search(/uF8FD/) != -1) {
+                                // attribute has multi-values
+                                atts[attnbr] = element.split(String.fromCharCode(0xF8FD));
+                                (<ValArray>atts[attnbr]).forEach(function (val: string, valnbr: number, vals: ValArray) {
+                                    if (val.search(/uF8FC/) != -1) {
+                                        // value has multi-subvalues
+                                        vals[valnbr] = val.split(String.fromCharCode(0xF8FC));
+                                    }
+                                });
+                            } else if (element.search(/uF8FC/) != -1) {
+                                // attribute has multi-subvalues (but no multi-values implies one multi-value)
+                                atts[attnbr] = [element.split(String.fromCharCode(0xF8FC))];
                             }
                         });
-                    } else if (element.search(/uF8FC/) != -1) {
-                        // attribute has multi-subvalues (but no multi-values implies one multi-value)
-                        atts[attnbr] = [element.split(String.fromCharCode(0xF8FC))];
                     }
-                });
-            }
-            if (entry) {
-                // PUT file
-                await this.init_auth;
-                res = await this.RestClient
-                    .put(path.posix.join('/file', this.RestAccount, uri.path), 
-                    { id: path.posix.basename(uri.path), type: "array", data: dynarr },
-                    { headers: this._request_headers() as any })
-            } else {
-                // POST create
-                await this.init_auth;
-                res = await this.RestClient
-                    .post(path.posix.join('/create', this.RestAccount, uri.path), 
-                    { id: path.posix.basename(uri.path), type: "array", data: dynarr },
-                    { headers: this._request_headers() as any })
-            }
-        } else {
-            // update server using original RESTFS API
-            data = JSON.stringify(content.toString().split(String.fromCharCode(10)));
-            data = "{ \"ProgramLines\" :" + data + "}";
-            await this.init_auth;
-            res = await this.RestClient
-                .post(path.posix.join('/file', this.RestAccount, uri.path), {
-                    json: data // NOTE: this should really be body:data, not json:data, but this is how the original API works!
-                })
-        }
+                    if (entry) {
+                        // PUT file
+                        await this.init_auth;
+                        res = await this.RestClient
+                            .put(path.posix.join('/file', this.RestAccount, uri.path),
+                                { id: path.posix.basename(uri.path), type: "array", data: dynarr },
+                                { headers: this._request_headers() as any })
+                    } else {
+                        // POST create
+                        await this.init_auth;
+                        res = await this.RestClient
+                            .post(path.posix.join('/create', this.RestAccount, uri.path),
+                                { id: path.posix.basename(uri.path), type: "array", data: dynarr },
+                                { headers: this._request_headers() as any })
+                    }
+                } else {
+                    // update server using original RESTFS API
+                    data = JSON.stringify(content.toString().split(String.fromCharCode(10)));
+                    data = "{ \"ProgramLines\" :" + data + "}";
+                    await this.init_auth;
+                    res = await this.RestClient
+                        .post(path.posix.join('/file', this.RestAccount, uri.path), {
+                            json: data // NOTE: this should really be body:data, not json:data, but this is how the original API works!
+                        })
+                }
 
-        if (res.status !== 200) {
-            let message = "";
-            const resp = this._response_object(res.data);
-            if (resp && resp.message) {
-                message = resp.message;
-                if (resp.code)
-                    message += "(code=" + resp.code + ")";
-                vscode.window.showErrorMessage(message);
-            }
-            this.log_level > 1 && getTraceChannel().appendLine("[RestFS] writeFile: path=" + uri.path + ", 'file' request failed, status=" + res.status + (message ? "\n" + message : ""));
-            throw vscode.FileSystemError.FileNotFound(uri);
-        }
+                if (res.status !== 200) {
+                    let message = "";
+                    const resp = this._response_object(res.data);
+                    if (resp && resp.message) {
+                        message = resp.message;
+                        if (resp.code)
+                            message += "(code=" + resp.code + ")";
+                        vscode.window.showErrorMessage(message);
+                    }
+                    this.log_level > 1 && getTraceChannel().appendLine("[RestFS] writeFile: path=" + uri.path + ", 'file' request failed, status=" + res.status + (message ? "\n" + message : ""));
+                    throw vscode.FileSystemError.FileNotFound(uri);
+                }
 
-        if (!entry) {
-            // update local file cache with new file
-            let name = uri.path;
-            if (this.case_insensitive)
-                name = name.toUpperCase();
-            entry = new File(name, { attr: RestFSAttr.ATTR_FILE, size: content.length }, content);
-            this.entries.set(name, entry);
-            this._addToParentItems(uri, entry); // fixup items array in parent
-            this._fireSoon({ type: vscode.FileChangeType.Created, uri });
-        } else {
-            // update local file cache with updated file
-            entry.mtime = Date.now();
-            entry.data = content;
-            entry.size = content.byteLength;
-            this._fireSoon({ type: vscode.FileChangeType.Changed, uri });
-        }
-        this.log_level > 1 && getTraceChannel().appendLine("[RestFS] writeFile: path=" + uri.path + ", 'file' request succeeded, " + entry.size + " bytes");
+                if (!entry) {
+                    // update local file cache with new file
+                    let name = uri.path;
+                    if (this.case_insensitive)
+                        name = name.toUpperCase();
+                    entry = new File(name, { attr: RestFSAttr.ATTR_FILE, size: content.length }, content);
+                    this.entries.set(name, entry);
+                    this._addToParentItems(uri, entry); // fixup items array in parent
+                    this._fireSoon({ type: vscode.FileChangeType.Created, uri });
+                } else {
+                    // update local file cache with updated file
+                    entry.mtime = Date.now();
+                    entry.data = content;
+                    entry.size = content.byteLength;
+                    this._fireSoon({ type: vscode.FileChangeType.Changed, uri });
+                }
+                this.log_level > 1 && getTraceChannel().appendLine("[RestFS] writeFile: path=" + uri.path + ", 'file' request succeeded, " + entry.size + " bytes");
+            });
     }
 
     // --- manage files/folders
@@ -519,7 +516,7 @@ export class RestFS implements IRestFS {
             throw vscode.FileSystemError.FileNotFound(oldUri); // original RESTFS API does not support 'rename'
         }
         this.log_level > 1 && !options.overwrite && getTraceChannel().appendLine("[RestFS] rename: new path=" + newUri.path + ", check if exists (may call readFile)");
-        if (!options.overwrite && this._stat(newUri)) {
+        if (!options.overwrite && await this._stat(newUri)) {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] rename: new path=" + newUri.path + ", file exists, error=FileExists");
             throw vscode.FileSystemError.FileExists(newUri);
         }
@@ -715,9 +712,9 @@ export class RestFS implements IRestFS {
                     this.log_level && getTraceChannel().appendLine("[RestFS] login: 'login' request succeeded");
                     this.log_level > 1 && getTraceChannel().appendLine("[RestFS] login: auth=" + JSON.stringify(this.auth));
                 })
-        } catch(e) {
+        } catch (e) {
             this.init_auth_reject(); // reject the auth promise
-            throw(e);
+            throw (e);
         }
     }
 
@@ -904,7 +901,7 @@ export class RestFS implements IRestFS {
                         .get(path.posix.join("/stat", this.RestAccount, uri.path),
                             { headers: this._request_headers() as any })
                         .then((response: any) => {
-                            if (response.status === 404) {                                
+                            if (response.status === 404) {
                                 message = (response.data && response.data.toString()) || "";
                                 this.log_level > 1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", not found, status=" + response.status + (message ? "\n" + message : ""));
                             } else if (response.status === 200) {
@@ -939,7 +936,9 @@ export class RestFS implements IRestFS {
                         })
                         .catch((error: any) => {
                             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", request failed, error=" + error)
-                            throw vscode.FileSystemError.FileNotFound(uri);
+                            // Don't throw a hard error on 404
+                            if (error.response.status !== 404)
+                                throw vscode.FileSystemError.FileNotFound(uri);
                         })
                 } else {
                     this._stat_API_not_supported = true;
@@ -1086,12 +1085,12 @@ export class RestFS implements IRestFS {
                 if (str.charAt(0) === '{') {
                     try {
                         return JSON.parse(str);
-                    } catch(e) {}
+                    } catch (e) { }
                 }
                 // response is a string, but not JSON, so assume its some sort of message
                 return { message: str };
             }
-        } catch(e) {}
+        } catch (e) { }
         return {}; // give up!
     }
 
