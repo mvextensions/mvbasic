@@ -35,6 +35,7 @@ var customWordlist: string;
 var customWordPath: any;
 var RestPath: any;
 var AutoConnect: boolean;
+var AutoCloseRestFS: boolean;
 var RestAPIVersion: number;
 var RestMaxItems: number;
 var RestSelAttr: number;
@@ -94,6 +95,7 @@ export function activate(context: vscode.ExtensionContext) {
 		customWordPath = vscode.workspace.getConfiguration("MVBasic").get("customWordPath");
 		RestPath = vscode.workspace.getConfiguration("MVBasic").get("RestPath");
 		AutoConnect = vscode.workspace.getConfiguration("MVBasic").get("RestFS.AutoConnect");
+		AutoCloseRestFS = vscode.workspace.getConfiguration("MVBasic").get("RestFS.AutoClose");
 		RestAPIVersion = vscode.workspace.getConfiguration("MVBasic").get("RestFS.RestAPI", 0);
 		RestMaxItems = vscode.workspace.getConfiguration("MVBasic").get("RestFS.MaxItems", 0);
 		RestSelAttr = vscode.workspace.getConfiguration("MVBasic").get("RestFS.SelAttr", 0);
@@ -509,7 +511,7 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 export async function deactivate() {
-	if (RESTFS) {
+	if (RESTFS && AutoCloseRestFS) {
 		await RESTFS.logout();
 	}
 	RESTFS = undefined;
