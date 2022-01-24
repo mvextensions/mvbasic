@@ -95,4 +95,3 @@
 - Resolving issues from breaking changes in VS Code 1.62 (#162)
 - Refactor RestFS to use Axios
 - Bug fixes with jBASE syntax highlighting
-- Added setting, `MVBasic.RestFS.AutoClose` to close RestFS connection automatically when exiting VS Code

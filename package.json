@@ -281,12 +281,6 @@
           "default": "http://localhost:9005/mvonrest",
           "description": "The URL when connecting via the RestFS file system."
         },
-        "MVBasic.RestFS.AutoClose": {
-          "scope": "resource",
-          "type": "boolean",
-          "default": false,
-          "description": "Automatically close the RestFS connection upon exit of VS Code."
-        },
         "MVBasic.RestFS.AutoConnect": {
           "scope": "resource",
           "type": "boolean",
