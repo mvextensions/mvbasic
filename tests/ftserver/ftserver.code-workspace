@@ -1,0 +1,33 @@
+// AccuTerm FTSERVER Test Workspace
+//
+// To change the maximum number of items to list from any file,
+// change RestFS.MaxItems. To show items in a dictionary level
+// file, change RestFS.SelAttr to 208.
+{
+  "folders":[{"uri":"RestFS:/","name":"ACCUTERM"}],
+  "extensions":{"recommendations":["mvextensions.mvbasic"]},
+  "settings":{
+    "files.associations":{"*":"mvbasic"},
+    "files.exclude":{
+      "**/.git": true,
+      "**/.vscode": true,
+      "**/node_modules": true,
+      "**/pom.xml": true,
+      "**/AndroidManifest.xml": true},
+    "files.eol":"\n",
+	  "editor.wordSeparators":"`~!#%^&*()-=+[{]}\\|;:'\",<>/?",
+	  "MVBasic.trace.server":"verbose",
+    "MVBasic.ServerName":"@VSCODE",
+    "MVBasic.Account":"ACCUTERM",
+    "MVBasic.RestPath":"http://localhost:3181/mvsvr/restfs",
+    "MVBasic.UseRestFS":true,
+    "MVBasic.languageType":"QM",
+    "MVBasic.RestFS.AutoConnect":true,
+    "MVBasic.RestFS.RestAPI":1,
+    "MVBasic.RestFS.MaxItems":400,
+    "MVBasic.RestFS.SelAttr":32976,
+    "MVBasic.RestFS.CaseSensitive":true,
+    "MVBasic.EditFiles":[
+    ]
+  }
+}

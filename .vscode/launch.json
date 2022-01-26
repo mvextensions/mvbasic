@@ -49,19 +49,38 @@
     //   ],
     //   "outFiles": ["${workspaceFolder}/client/out/test/**/*.js"]
     // }
-     ,
-     {
-       "name": "FTSERVER Test",
-       "type": "extensionHost",
-       "request": "launch",
-       "runtimeExecutable": "${execPath}",
-       "args": [
-         "--extensionDevelopmentPath=${workspaceFolder}",
-         "C:/projects/work/mvbasic/accuterm-mvsvr-restfs/sample.code-workspace"
-       ],
-       "outFiles": ["${workspaceFolder}/client/out/**/*.js"],
-       "preLaunchTask": "npm: watch"
-      }
+    //
+    //
+    // The FTSERVER launch configuration is used for debugging the extension
+    // when using AccuTerm FTSERVER and atsocksvr as the RestFS server.
+    // AccuTerm normally creates the VSCode workspace dynamically, and
+    // automatically closes the server session when the extension is unloaded
+    // (logout called from extension deactivate event). To disable this behavior
+    // (useful for debugging):
+    //
+    //  - use this FTSERVER launch configuration for launching the debug enviornment
+    //  - run atsocksvr.exe from a command prompt, using -d1 or -d2 command line option
+    //  - start FTSERVER with session ID '@VSCODE' (just append the ID to the FTSERVER command)
+    //
+    // You may need to tweak the ftserver.code-workspace in the tests directory,
+    // adjusting the language type, account name, or other settings that are
+    // unique to your environment.
+    //
+    // Older versions of FTSERVER to not recognize the '@' prefix for session ID,
+    // Be sure AccuTerm host programs are version 8.0.14 or higher.
+    ,
+    {
+      "name": "FTSERVER Test",
+      "type": "extensionHost",
+      "request": "launch",
+      "runtimeExecutable": "${execPath}",
+      "args": [
+        "--extensionDevelopmentPath=${workspaceFolder}",
+        "${workspaceFolder}/tests/ftserver/ftserver.code-workspace"
+      ],
+      "outFiles": ["${workspaceFolder}/client/out/**/*.js"],
+      "preLaunchTask": "npm: watch"
+     }
      ,
      {
        "name": "Gateway Test",

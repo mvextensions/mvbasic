@@ -537,7 +537,7 @@ curl --location --request GET 'http://localhost:3181/mvsvr/restfs/file/ACCUTERM8
 curl --location --request PUT 'http://localhost:3181/mvsvr/restfs/file/ACCUTERM8/SAMPLES/SAMPLES/TESTING' \
 --header 'Accept: application/json' \
 --header 'Authorization: Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0=.eyJzaWQiOiI2In0=' \
---header 'Content-Type: text/plain' \
+--header 'Content-Type: application/json' \
 --data-raw '{
     "id": "TESTING",
     "type": "array",
@@ -714,7 +714,6 @@ curl --location --request POST 'http://localhost:3181/mvsvr/restfs/create/ACCUTE
 --header 'Accept: application/json' \
 --header 'Authorization: Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0=.eyJzaWQiOiI2In0=' \
 --header 'Content-Type: application/json' \
---header 'Content-Type: text/plain' \
 --data-raw '{
     "id": "NEW",
     "type": "array",
@@ -1195,7 +1194,7 @@ curl --location --request GET 'http://localhost:3181/mvsvr/restfs/stat/ACCUTERM8
   }
   ```
 
-  The status message is displayed in a message box in the VSCode editor window. Output lines are displayed in the extension's output channel. If a source line number is included, it becomes a clickable link to the line in the source code.
+  The status message is displayed in a message box in the VSCode editor window. Output lines are displayed in the extension's **MV Basic** output channel. If a source line number is included, it becomes a clickable link to the line in the source code.
 
 * **Error Response:**
 
@@ -1240,7 +1239,7 @@ curl --location --request POST 'http://localhost:3181/mvsvr/restfs/cmd/compile/A
 
 * **URL**
 
-  `/call/<subroutine>/<account>/path>/<to>/<file>`
+  `/call/<subroutine>`
 
 * **Method:**
 
@@ -1309,13 +1308,25 @@ curl --location --request POST 'http://localhost:3181/mvsvr/restfs/cmd/compile/A
 }
 ```
 
+* OR
+
+  * **Code:** 400 Bad Request
+  * **Content:** 
+```
+{
+    "status": 400,
+    "message": <ERRMSG>,
+    "code": <ERRNUM>
+}
+```
+
 * **Sample Call:**
 
 ```
 curl --location --request POST 'http://localhost:3181/mvsvr/restfs/call/FTFSDBG' \
 --header 'Accept: application/json' \
 --header 'Authorization: Bearer eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0=.eyJzaWQiOiIxIn0=' \
---header 'Content-Type: text/plain' \
+--header 'Content-Type: application/json' \
 --data-raw '{
 	"args": [
 		"NEWTEST"
@@ -1325,6 +1336,26 @@ curl --location --request POST 'http://localhost:3181/mvsvr/restfs/call/FTFSDBG'
 ```
 
 * **Notes:**
+
+  For AccuTerm RestFS Connector, the subroutine to be called must have the following arguments:
+  ```
+  SUBROUTINE MYSUB(DUMMY, DATA.IO, ERRNUM, ERRMSG)
+  * DATA.IO contains the 'args', converted from a JSON array to dynamic array.
+  *
+  *  Nested JSON arrays are converted to attribute, value, sub-value levels
+  *  in DATA.IO dynamic array.
+  *
+  *  Result is returned in DATA.IO. The result can be a dynamic array which will
+  *  converted to a JSON array.
+  RETURN
+  ```
+  If the subroutine call is successful, set ERRNUM = 0 before returning. Otherwise set
+  ERRNUM to an arbitrary error number, and set ERRMSG to a description of the failure.
+  When ERRNUM is non-zero, 400 (Bad Request) status is returned to the client, along with ERRNUM
+  and ERRMSG as shown above. 
+
+  *Older versions of the AccuTerm RestFS Connector require `args` elements to be strings.*
+  
 
   Error codes and messages shown here are only examples. Actual codes and message text are an implementation detail.
 

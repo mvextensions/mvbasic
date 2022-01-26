@@ -114,7 +114,10 @@ export class RestFS implements IRestFS {
         this.RestAccount = restAccount;
         this.RestClient = axios.create({
             baseURL: this.RestPath,
-            withCredentials: false
+            withCredentials: false,
+            validateStatus: function(status: number) {
+                return (status >= 200 && status <= 599); // let client handle typical status codes
+            }
         })
         this.case_insensitive = (options && options.case_insensitive) || false;
         this.MaxItems = (options && options.max_items) || 0;
@@ -321,7 +324,7 @@ export class RestFS implements IRestFS {
                         if (resp && resp.message) {
                             message = resp.message;
                             if (resp.code)
-                                message += "(code=" + resp.code + ")";
+                                message += " (code=" + resp.code + ")";
                             if (response.status !== 404) // let vscode handle FileNotFound, but display error message for any other failure                    
                                 vscode.window.showErrorMessage(message);
                         }
@@ -463,9 +466,9 @@ export class RestFS implements IRestFS {
                     data = "{ \"ProgramLines\" :" + data + "}";
                     await this.init_auth;
                     res = await this.RestClient
-                        .post(path.posix.join('/file', this.RestAccount, uri.path), {
-                            json: data // NOTE: this should really be body:data, not json:data, but this is how the original API works!
-                        })
+                        .post(path.posix.join('/file', this.RestAccount, uri.path),
+                            { json: data }, // NOTE: this should really be body:data, not json:data, but this is how the original API works!
+                            { headers: this._request_headers() as any })
                 }
 
                 if (res.status !== 200) {
@@ -474,7 +477,7 @@ export class RestFS implements IRestFS {
                     if (resp && resp.message) {
                         message = resp.message;
                         if (resp.code)
-                            message += "(code=" + resp.code + ")";
+                            message += " (code=" + resp.code + ")";
                         vscode.window.showErrorMessage(message);
                     }
                     this.log_level > 1 && getTraceChannel().appendLine("[RestFS] writeFile: path=" + uri.path + ", 'file' request failed, status=" + res.status + (message ? "\n" + message : ""));
@@ -521,7 +524,6 @@ export class RestFS implements IRestFS {
             throw vscode.FileSystemError.FileExists(newUri);
         }
         let qs = "newname=" + path.posix.join(this.RestAccount, newUri.path);
-
         await this.init_auth;
         await this.RestClient
             .get(path.posix.join("/rename", this.RestAccount, oldUri.path) + "?" + qs,
@@ -533,7 +535,7 @@ export class RestFS implements IRestFS {
                     if (resp && resp.message) {
                         message = resp.message;
                         if (resp.code)
-                            message += "(code=" + resp.code + ")";
+                            message += " (code=" + resp.code + ")";
                         vscode.window.showErrorMessage(message);
                     }
                     this.log_level > 1 && getTraceChannel().appendLine("[RestFS] rename: old path=" + oldUri.path + ", new path=" + newUri.path + " 'rename' request failed, status=" + response.status + (message ? "\n" + message : ""));
@@ -560,7 +562,7 @@ export class RestFS implements IRestFS {
                     );
                     this.log_level > 1 && getTraceChannel().appendLine("[RestFS] rename: old path=" + oldUri.path + ", new path=" + newUri.path + " 'rename' request succeeded");
                 }
-            })
+            });
     }
 
     public async delete(uri: vscode.Uri): Promise<void> {
@@ -588,7 +590,7 @@ export class RestFS implements IRestFS {
                     if (resp && resp.message) {
                         message = resp.message;
                         if (resp.code)
-                            message += "(code=" + resp.code + ")";
+                            message += " (code=" + resp.code + ")";
                         vscode.window.showErrorMessage(message);
                     }
                     this.log_level > 1 && getTraceChannel().appendLine("[RestFS] delete: path=" + uri.path + " 'file' request failed, status=" + response.status + (message ? "\n" + message : ""));
@@ -639,7 +641,7 @@ export class RestFS implements IRestFS {
         await this.init_auth;
         await this.RestClient
             .post(path.posix.join("/create", this.RestAccount, uri.path) + "?dir=true",
-                {},
+                { },
                 { headers: this._request_headers() as any })
             .then((response: any) => {
                 if (response.status !== 200) {
@@ -648,7 +650,7 @@ export class RestFS implements IRestFS {
                     if (resp && resp.message) {
                         message = resp.message;
                         if (resp.code)
-                            message += "(code=" + resp.code + ")";
+                            message += " (code=" + resp.code + ")";
                         vscode.window.showErrorMessage(message);
                     }
                     this.log_level > 1 && getTraceChannel().appendLine("[RestFS] createDirectory: path=" + uri.path + " 'create' request failed, status=" + response.status + (message ? "\n" + message : ""));
@@ -691,7 +693,7 @@ export class RestFS implements IRestFS {
                         if (resp && resp.message) {
                             message = resp.message;
                             if (resp.code)
-                                message += "(code=" + resp.code + ")";
+                                message += " (code=" + resp.code + ")";
                             vscode.window.showErrorMessage(message);
                         }
                         this.log_level && getTraceChannel().appendLine("[RestFS] login: 'login' request failed, status=" + response.status + (message ? "\n" + message : ""));
@@ -767,7 +769,7 @@ export class RestFS implements IRestFS {
             if (resp && resp.message) {
                 message = resp.message;
                 if (resp.code)
-                    message += "(code=" + resp.code + ")";
+                    message += " (code=" + resp.code + ")";
                 vscode.window.showErrorMessage(message);
             }
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] command: " + (this.ApiVersion > 0 ? "'cmd/" + command + "'" : "'" + command + "'") + " request failed, status=" + res.status + (message ? "\n" + message : ""));
@@ -831,12 +833,11 @@ export class RestFS implements IRestFS {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] call: " + func + ", not initialized error");
             throw Error("Call failed: RestFS not initialized");
         }
-        getTraceChannel().appendLine("[RestFS] call: func=" + func + " " + args.length + " args");
+
         await this._call(func, args)
     }
 
     async _call(func: string, args: any[]): Promise<any> {
-        getTraceChannel().appendLine("[RestFS] _call: func=" + func + " " + args.length + " args");
         if (this.ApiVersion == 0) {
             this.log_level > 1 && getTraceChannel().appendLine("[RestFS] call: func=" + func + ", call not supported by gateway");
             throw Error("Call not supported by gateway");
@@ -854,16 +855,16 @@ export class RestFS implements IRestFS {
                     if (resp && resp.message) {
                         message = resp.message;
                         if (resp.code)
-                            message += "(code=" + resp.code + ")";
+                            message += " (code=" + resp.code + ")";
                         vscode.window.showErrorMessage(message);
                     }
                     this.log_level > 1 && getTraceChannel().appendLine("[RestFS] call: " + func + " request failed, status=" + response.status + (message ? "\n" + message : ""));
-                    throw Error("Failed to call " + func);
+                    throw Error("RestFS function call failed (status " + response.status + ")");
                 } else {
                     const result = this._response_object(response.data);
                     if (!result.hasOwnProperty('result')) {
                         this.log_level > 1 && getTraceChannel().appendLine("[RestFS] call " + func + ", no result found.");
-                        throw Error("RestFS.call error - response from server has invalid format: result not found.");
+                        throw Error("RestFS function call failed (no result returned)");
                     }
                     this.log_level > 1 && getTraceChannel().appendLine("[RestFS] call result: " + JSON.stringify(result.result));
                     return result.result;
@@ -927,18 +928,12 @@ export class RestFS implements IRestFS {
                                 if (result && result.message)
                                     message = result.message;
                                 if (result && result.code)
-                                    message += "(code=" + result.code + ")";
+                                    message += " (code=" + result.code + ")";
                                 vscode.window.showErrorMessage(message ? message : "File system 'stat' API failed (status=" + response.status + ")");
                                 this.log_level > 1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", request failed, status=" + response.status + (message ? "\n" + message : ""));
                             } else {
                                 this._stat_API_not_supported = true; // don't try 'stat' again - use readFile / readDir instead
                             }
-                        })
-                        .catch((error: any) => {
-                            this.log_level > 1 && getTraceChannel().appendLine("[RestFS] stat: path=" + uri.path + ", request failed, error=" + error)
-                            // Don't throw a hard error on 404
-                            if (error.response.status !== 404)
-                                throw vscode.FileSystemError.FileNotFound(uri);
                         })
                 } else {
                     this._stat_API_not_supported = true;
