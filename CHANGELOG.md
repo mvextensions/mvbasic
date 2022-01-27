@@ -89,3 +89,9 @@
 - Bug fixes and performance enhancements to the AccuTerm connector (#133)
 - Package dependency updates
 - Light refactoring to match latest Microsoft sample language server code
+
+### 2.1.3
+
+- Resolving issues from breaking changes in VS Code 1.62 (#162)
+- Refactor RestFS to use Axios
+- Bug fixes with jBASE syntax highlighting
