@@ -1382,6 +1382,22 @@ curl --location --request POST 'http://localhost:3181/mvsvr/restfs/call/FTFSDBG'
 
 ATTR_DATAONLY is not a true attribute. For MultiValue systems using the AccuTerm RestFS connector, it is used to limit the response from a 'dir' request to items in a data level file. Items in the account (MD or VOC) or a dictionary level file are skipped.
 
+## **Error Codes**
+
+Common error codes returned by the AccuTerm RestFS connector were inspired by D3 error message numbers. These codes typically are returned when the request status is one of the 4xx codes.
+
+| Code | Description |
+|------|-----------------------------------------|
+| 200 | File name missing |
+| 201 | Invalid file name |
+| 202 | Item not found |
+| 203 | Item ID missing |
+| 223 | Item exists |
+| 235 | Record is locked |
+| 260 | Failed to lock record |
+| 261 | Update failed |
+
+
 ## **Resources**
 
 A Postman collection containing examples for each of the API functions:
