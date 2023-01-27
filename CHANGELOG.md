@@ -95,3 +95,7 @@
 - Resolving issues from breaking changes in VS Code 1.62 (#162)
 - Refactor RestFS to use Axios
 - Bug fixes with jBASE syntax highlighting
+
+### 2.1.4
+
+- Blowing the dust off with some package updates
