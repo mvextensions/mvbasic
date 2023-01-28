@@ -99,3 +99,7 @@
 ### 2.1.4
 
 - Blowing the dust off with some package updates
+
+### 2.1.5
+
+- See 2.1.4, but with updated badges in the README
