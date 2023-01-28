@@ -1,6 +1,6 @@
 # MVBasic Extension
 
-[![Badge for version for Visual Studio Code extension mvextensions.mvbasic](https://vsmarketplacebadge.apphb.com/version/mvextensions.mvbasic.svg)](https://marketplace.visualstudio.com/items?itemName=mvextensions.mvbasic) [![Badge for installs for Visual Studio Code extension mvextensions.mvbasic](https://vsmarketplacebadge.apphb.com/installs/mvextensions.mvbasic.svg)](https://marketplace.visualstudio.com/items?itemName=mvextensions.mvbasic)
+[![Badge for version for Visual Studio Code extension mvextensions.mvbasic](https://img.shields.io/visual-studio-marketplace/v/mvextensions.mvbasic.svg)](https://img.shields.io/visual-studio-marketplace/v/mvextensions.mvbasic) [![Badge for installs for Visual Studio Code extension mvextensions.mvbasic](https://img.shields.io/visual-studio-marketplace/i/mvextensions.mvbasic.svg)](https://img.shields.io/visual-studio-marketplace/i/mvextensions.mvbasic)
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
