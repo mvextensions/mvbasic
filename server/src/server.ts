@@ -388,7 +388,7 @@ async function validateTextDocument(textDocument: TextDocument): Promise<void> {
   let rStartCase = new RegExp("(^| )begin case$", "i");
   let rEndCase = new RegExp("^\\s*end case$", "i");
   let rElseEnd = new RegExp("^\\s*end else$", "i");
-  let rLabel = new RegExp("^\\s*([\\w\\.]+:(?!=)|[0-9\\.]+)", "i");
+  let rLabel = new RegExp("^\\s*([\\w\\.\\$]+:(?!=)|[0-9\\.]+)", "i");
   let rComment = new RegExp("^\\s*(\\*|!|REM\\s+?).*", "i"); // Start-of-line 0-or-more whitespace {* ! REM<space>} Anything
   let tComment = new RegExp(";\\s*(\\*|!|REM\\s+?).*", "i"); // (something); {0-or-more whitespace} {* ! REM<space>} Anything
   let lComment = new RegExp("^\\s*([\\w\\.]+:(?!=)|[0-9\\.]+)(\\s*(\\*|!|REM\\s+?).*)", "i");
