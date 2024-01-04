@@ -323,6 +323,7 @@ function loadIntelliSense(): CompletionItem[] {
   }
 
   // Load CustomWord definition
+  // THIS REALLY OUGHT TO BE A JSON FILE INSTEAD OF A BESPOKE NAMED PAIR TEXT FILE
   if (settings.MVBasic.customWordPath !== "") {
     var contents = fs.readFileSync(settings.MVBasic.customWordPath, "utf8");
     settings.MVBasic.customWords = "(";
