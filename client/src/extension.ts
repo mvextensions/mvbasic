@@ -118,7 +118,7 @@ export function activate(context: vscode.ExtensionContext) {
 	if (RestSelAttr === 0)
 		RestSelAttr = RestFSAttr.ATTR_FOLDER | RestFSAttr.ATTR_FILE | RestFSAttr.ATTR_SYMLINK | RestFSAttr.ATTR_DATAONLY;
 
-	let timeout: NodeJS.Timer | null = null;
+	let timeout: NodeJS.Timeout | null = null;
 	var customWordDict = new Map();
 
 	if (customWordPath != "") {
