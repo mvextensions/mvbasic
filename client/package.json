@@ -2,7 +2,7 @@
   "name": "mvbasic",
   "displayName": "MV Basic",
   "description": "MV Basic",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "publisher": "mvextensions",
   "license": "MIT",
   "icon": "../images/mvbasic-logo.png",
@@ -29,7 +29,7 @@
     "vscode": "^1.44.0"
   },
   "dependencies": {
-    "axios": "^0.24.0",
+    "axios": "^1.6.0",
     "minimatch": "^3.0.5",
     "vscode-languageclient": "^7.0.0"
   },

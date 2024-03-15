@@ -115,7 +115,7 @@ export class RestFS implements IRestFS {
         this.RestClient = axios.create({
             baseURL: this.RestPath,
             withCredentials: false,
-            validateStatus: function(status: number) {
+            validateStatus: function (status: number) {
                 return (status >= 200 && status <= 599); // let client handle typical status codes
             }
         })
@@ -335,7 +335,7 @@ export class RestFS implements IRestFS {
 
                 const result = this._response_object(response.data);
 
-                let attr: RestFSAttr = 0;
+                let attr: RestFSAttr;
                 let program: string;
                 if (this.ApiVersion > 0) {
                     // RESTFS API version 1 returns object {id: string, type: "array", attr: number, data: []}
@@ -641,7 +641,7 @@ export class RestFS implements IRestFS {
         await this.init_auth;
         await this.RestClient
             .post(path.posix.join("/create", this.RestAccount, uri.path) + "?dir=true",
-                { },
+                {},
                 { headers: this._request_headers() as any })
             .then((response: any) => {
                 if (response.status !== 200) {
@@ -1093,7 +1093,7 @@ export class RestFS implements IRestFS {
 
     private _emitter = new vscode.EventEmitter<vscode.FileChangeEvent[]>();
     private _bufferedEvents: vscode.FileChangeEvent[] = [];
-    private _fireSoonHandle?: NodeJS.Timer;
+    private _fireSoonHandle?: NodeJS.Timeout;
 
     readonly onDidChangeFile: vscode.Event<vscode.FileChangeEvent[]> = this._emitter.event;
 

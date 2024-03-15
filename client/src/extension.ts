@@ -118,7 +118,7 @@ export function activate(context: vscode.ExtensionContext) {
 	if (RestSelAttr === 0)
 		RestSelAttr = RestFSAttr.ATTR_FOLDER | RestFSAttr.ATTR_FILE | RestFSAttr.ATTR_SYMLINK | RestFSAttr.ATTR_DATAONLY;
 
-	let timeout: NodeJS.Timer | null = null;
+	let timeout: NodeJS.Timeout | null = null;
 	var customWordDict = new Map();
 
 	if (customWordPath != "") {
@@ -284,10 +284,10 @@ export function activate(context: vscode.ExtensionContext) {
 				let rBlockTransaction = new RegExp("^(begin transaction|begin work)", "i")
 				let rBlockEndTransaction = new RegExp("^(end transaction|end work)", "i")
 				let rElseEnd = new RegExp("^end else\\s+?.+?", "i")
-				let rLabel = new RegExp("^([\\w\\.]+:(?!=)|[0-9\\.]+)");
+				let rLabel = new RegExp("^([\\w\\.\\$]+:(?!=)|[0-9\\.]+)");
 				let rComment = new RegExp("^\\s*(\\*|!|REM\\s+?).*", "i")
 				let tComment = new RegExp(";\\s*(\\*|!|REM\\s+?).*", "i");
-				let lComment = new RegExp("^\\s*([\\w\\.]+:(?!=)|[0-9\\.]+)(\\s*(\\*|!|REM\\s+?).*)", "i") // a label with comments after
+				let lComment = new RegExp("^\\s*([\\w\\.\\$]+:(?!=)|[0-9\\.]+)(\\s*(\\*|!|REM\\s+?).*)", "i") // a label with comments after
 				let qStrings = new RegExp("'.*?'|\".*?\"|\\\\.*?\\\\", "g");
 				let rParenthesis = new RegExp("\\(.*\\)", "g");
 				if (indent === undefined) { indent = 3 }

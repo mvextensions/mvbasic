@@ -103,3 +103,8 @@
 ### 2.1.5
 
 - See 2.1.4, but with updated badges in the README
+
+### 2.1.6
+
+- QM language improvements
+- Package updates
