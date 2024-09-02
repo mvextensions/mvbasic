@@ -1,371 +1,379 @@
 {
-  "name": "mvbasic",
-  "displayName": "MV Basic",
-  "description": "MV Basic",
-  "version": "2.1.6",
-  "publisher": "mvextensions",
-  "license": "MIT",
-  "icon": "images/mvbasic-logo.png",
-  "preview": false,
-  "capabilities": {
-    "untrustedWorkspaces": {
-      "supported": true
-    }
-  },
-  "keywords": [
-    "MultiValue",
-    "Pick",
-    "PickBASIC",
-    "D3",
-    "jBASE",
-    "MVON#",
-    "MV# BASIC",
-    "MV#",
-    "MVsharp",
-    "OpenQM",
-    "UniData",
-    "UniVerse"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mvextensions/mvbasic"
-  },
-  "engines": {
-    "vscode": "^1.44.0"
-  },
-  "categories": [
-    "Programming Languages",
-    "Linters",
-    "Snippets"
-  ],
-  "homepage": "https://github.com/mvextensions",
-  "files": [
-    "C:/Program files (x86)/ONGroup/MVON#/MVON#.d.ts"
-  ],
-  "contributes": {
-    "snippets": [
-      {
-        "language": "mvbasic",
-        "path": "./Syntaxes/snippets.json"
-      }
-    ],
-    "languages": [
-      {
-        "id": "mvbasic",
-        "aliases": [
-          "MultiValue Basic",
-          "PickBASIC",
-          "Pick"
-        ],
-        "extensions": [
-          ".bas",
-          ".b",
-          ".",
-          ""
-        ],
-        "configuration": "./client/language-configuration.json"
-      }
-    ],
-    "menus": {
-      "editor/context": [
-        {
-          "when": "resourceLangId == mvbasic",
-          "command": "extension.compileProgram"
-        },
-        {
-          "when": "resourceLangId == mvbasic",
-          "command": "extension.compileDebug"
-        },
-        {
-          "when": "resourceLangId == mvbasic",
-          "command": "extension.catalogProgram"
+    "name": "mvbasic",
+    "displayName": "MV Basic",
+    "description": "MV Basic",
+    "version": "2.1.6",
+    "publisher": "mvextensions",
+    "license": "MIT",
+    "icon": "images/mvbasic-logo.png",
+    "preview": false,
+    "capabilities": {
+        "untrustedWorkspaces": {
+            "supported": true
         }
-      ]
     },
-    "commands": [
-      {
-        "command": "extension.compileProgram",
-        "title": "MVBasic: Compile Basic Program"
-      },
-      {
-        "command": "extension.initialiseRestFS",
-        "title": "MVBasic: Connect to MultiValue REST FS"
-      },
-      {
-        "command": "extension.compileDebug",
-        "title": "MVBasic: Compile Basic Program with Debug"
-      },
-      {
-        "command": "extension.catalogProgram",
-        "title": "MVBasic: Catalog Basic Program"
-      },
-      {
-        "command": "extension.mvonAdmin",
-        "title": "MVBasic: MVON# Administrator"
-      }
+    "keywords": [
+        "MultiValue",
+        "Pick",
+        "PickBASIC",
+        "D3",
+        "jBASE",
+        "MVON#",
+        "MV# BASIC",
+        "MV#",
+        "MVsharp",
+        "OpenQM",
+        "UniData",
+        "UniVerse"
     ],
-    "grammars": [
-      {
-        "language": "mvbasic",
-        "scopeName": "source.mvbasic",
-        "path": "./Syntaxes/mvon.tmLanguage.json"
-      }
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mvextensions/mvbasic"
+    },
+    "engines": {
+        "vscode": "^1.44.0"
+    },
+    "categories": [
+        "Programming Languages",
+        "Linters",
+        "Snippets"
     ],
-    "configuration": {
-      "type": "object",
-      "title": "MultiValue Basic configuration",
-      "properties": {
-        "MVBasic.gatewayDebug": {
-          "scope": "resource",
-          "type": "boolean",
-          "default": false,
-          "description": "When set to true the MvonGateway will write a log 'gateway.log' to C:\\Temp."
+    "homepage": "https://github.com/mvextensions",
+    "files": [
+        "C:/Program files (x86)/ONGroup/MVON#/MVON#.d.ts"
+    ],
+    "contributes": {
+        "snippets": [
+            {
+                "language": "mvbasic",
+                "path": "./Syntaxes/snippets.json"
+            }
+        ],
+        "languages": [
+            {
+                "id": "mvbasic",
+                "aliases": [
+                    "MultiValue Basic",
+                    "PickBASIC",
+                    "Pick"
+                ],
+                "extensions": [
+                    ".bas",
+                    ".b",
+                    ".",
+                    ""
+                ],
+                "configuration": "./client/language-configuration.json"
+            }
+        ],
+        "menus": {
+            "editor/context": [
+                {
+                    "when": "resourceLangId == mvbasic",
+                    "command": "extension.compileProgram"
+                },
+                {
+                    "when": "resourceLangId == mvbasic",
+                    "command": "extension.compileDebug"
+                },
+                {
+                    "when": "resourceLangId == mvbasic",
+                    "command": "extension.catalogProgram"
+                }
+            ]
         },
-        "MVBasic.margin": {
-          "scope": "resource",
-          "type": "number",
-          "default": 5,
-          "description": "The number of characters to use as a margin when formatting."
-        },
-        "MVBasic.customWords": {
-          "scope": "resource",
-          "type": "string",
-          "default": "()",
-          "description": "List of custom words to highlight in a specific color. e.g. (HELLO|WORLD)"
-        },
-        "MVBasic.customWordColor": {
-          "scope": "resource",
-          "type": "string",
-          "default": "yellow",
-          "description": "The color to use when highlighting the custom words."
-        },
-        "MVBasic.customWordPath": {
-          "scope": "resource",
-          "type": "string",
-          "description": "Path to a file that contains key value pairs for custom words"
-        },
-        "MVBasic.customFunctionPath": {
-          "scope": "resource",
-          "type": "string",
-          "description": "Path to a file that contains key value pairs for custom functions"
-        },
-        "MVBasic.indent": {
-          "scope": "resource",
-          "type": "number",
-          "default": 3,
-          "description": "The number of characters to use when indenting code blocks."
-        },
-        "MVBasic.indentComment": {
-          "scope": "resource",
-          "type": "string",
-          "default": "ignore",
-          "description": "Indentation of comment lines.  Set to: left, margin, code, or ignore."
-        },
-        "MVBasic.maxNumberOfProblems": {
-          "scope": "resource",
-          "type": "number",
-          "default": 100,
-          "description": "Controls the maximum number of problems produced by the server."
-        },
-        "MVBasic.useCamelCase": {
-          "scope": "resource",
-          "type": "boolean",
-          "default": true,
-          "description": "Use Camelcase for Intellisense keywords."
-        },
-        "MVBasic.formattingEnabled": {
-          "scope": "resource",
-          "type": "boolean",
-          "default": true,
-          "description": "Set to true to enable automatic code formatting on filesave."
-        },
-        "MVBasic.userVariablesEnabled": {
-          "scope": "resource",
-          "type": "boolean",
-          "default": false,
-          "description": "Set to true to enable adding user variables to Intellisense."
-        },
-        "MVBasic.RemoteHost": {
-          "scope": "resource",
-          "type": "string",
-          "default": "",
-          "description": "The host name of the server."
-        },
-        "MVBasic.UserName": {
-          "scope": "resource",
-          "type": "string",
-          "default": "",
-          "description": "The user name to use to login to the server."
-        },
-        "MVBasic.encoding": {
-          "scope": "resource",
-          "type": "string",
-          "default": "iso8859-1",
-          "description": "The encoding type to use when connecting to the server."
-        },
-        "MVBasic.ignoreGotoScope": {
-          "scope": "resource",
-          "type": "boolean",
-          "default": false,
-          "description": "The linter will not highlight goto that jump into the middle of loops."
-        },
-        "MVBasic.Password": {
-          "scope": "resource",
-          "type": "string",
-          "default": "",
-          "description": "The password to use to login to the server."
-        },
-        "MVBasic.AccountPassword": {
-          "scope": "resource",
-          "type": "string",
-          "default": "",
-          "description": "The password to use to use for D3/mvBase Logto."
-        },
-        "MVBasic.HomePath": {
-          "scope": "resource",
-          "type": "string",
-          "default": "c:\\u2\\ud81",
-          "description": "The home path for Unidata on server. This is only required for Unidata."
-        },
-        "MVBasic.Account": {
-          "scope": "resource",
-          "type": "string",
-          "default": "",
-          "description": "The Account Name or path on the Server."
-        },
-        "MVBasic.AccountPath": {
-          "scope": "resource",
-          "type": "string",
-          "default": "",
-          "description": "The path the Unidata Account. This is only used for Unidata."
-        },
-        "MVBasic.ServerName": {
-          "scope": "resource",
-          "type": "string",
-          "default": "",
-          "description": "The name of the AccuTerm FTSERVER session which handles the MVRest connection."
-        },
-        "MVBasic.RemoteDebug": {
-          "scope": "resource",
-          "type": "boolean",
-          "default": "false",
-          "description": "Set to true when connecting to a Remote MVON# Host."
-        },
-        "MVBasic.EditFiles": {
-          "scope": "resource",
-          "type": "array",
-          "default": [],
-          "description": "Files that should be opened in the editor."
-        },
-        "MVBasic.GatewayType": {
-          "scope": "resource",
-          "type": "string",
-          "default": "",
-          "description": "The type of host the gateway is connecting to. QM, D3, Universe, Unidata,jBASE or mvBase."
-        },
-        "MVBasic.UseGateway": {
-          "scope": "resource",
-          "type": "boolean",
-          "default": false,
-          "description": "Connect to the MV Gateway."
-        },
-        "MVBasic.UseRestFS": {
-          "scope": "resource",
-          "type": "boolean",
-          "default": false,
-          "description": "Use the RestFS file system for accessing the MultiValue server."
-        },
-        "MVBasic.RestPath": {
-          "scope": "resource",
-          "type": "string",
-          "default": "http://localhost:9005/mvonrest",
-          "description": "The URL when connecting via the RestFS file system."
-        },
-        "MVBasic.RestFS.AutoConnect": {
-          "scope": "resource",
-          "type": "boolean",
-          "default": false,
-          "description": "Automatically connect to the RestFS server without requiring a Connect command."
-        },
-        "MVBasic.RestFS.CaseSensitive": {
-          "scope": "resource",
-          "type": "boolean",
-          "default": true,
-          "description": "The RestFS file system is case sensitive."
-        },
-        "MVBasic.RestFS.MaxItems": {
-          "scope": "resource",
-          "type": "number",
-          "default": 500,
-          "description": "The maximum number of items the RestFS file system can return when reading a directory."
-        },
-        "MVBasic.RestFS.SelAttr": {
-          "scope": "resource",
-          "type": "number",
-          "default": 0,
-          "description": "A bitmask of RestFSAttr which limits the items are returned when reading a directory. Default is: folder, file, symlink and data-only."
-        },
-        "MVBasic.RestFS.RestAPI": {
-          "scope": "resource",
-          "type": "number",
-          "default": 0,
-          "description": "The RestFS API version to use. 0 for original MVON# REST gateway, 1 for new gateway, mvConnect, AccuTerm connector."
-        },
-        "MVBasic.trace.server": {
-          "scope": "window",
-          "type": "string",
-          "enum": [
-            "off",
-            "messages",
-            "verbose"
-          ],
-          "default": "off",
-          "description": "Traces the communication between VSCode and the language server."
-        },
-        "MVBasic.languageType": {
-          "scope": "resource",
-          "type": "string",
-          "default": "MVON",
-          "enum": [
-            "MVON",
-            "jBASE",
-            "UniVerse",
-            "OpenQM"
-          ],
-          "description": "The flavor of PICK you are programming against, i.e. MVON, D3, jBASE."
+        "commands": [
+            {
+                "command": "extension.compileProgram",
+                "title": "MVBasic: Compile Basic Program"
+            },
+            {
+                "command": "extension.initialiseRestFS",
+                "title": "MVBasic: Connect to MultiValue REST FS"
+            },
+            {
+                "command": "extension.compileDebug",
+                "title": "MVBasic: Compile Basic Program with Debug"
+            },
+            {
+                "command": "extension.catalogProgram",
+                "title": "MVBasic: Catalog Basic Program"
+            },
+            {
+                "command": "extension.mvonAdmin",
+                "title": "MVBasic: MVON# Administrator"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "mvbasic",
+                "scopeName": "source.mvbasic",
+                "path": "./Syntaxes/mvon.tmLanguage.json"
+            }
+        ],
+        "configuration": {
+            "type": "object",
+            "title": "MultiValue Basic configuration",
+            "properties": {
+                "MVBasic.gatewayDebug": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "When set to true the MvonGateway will write a log 'gateway.log' to C:\\Temp."
+                },
+                "MVBasic.margin": {
+                    "scope": "resource",
+                    "type": "number",
+                    "default": 5,
+                    "description": "The number of characters to use as a margin when formatting."
+                },
+                "MVBasic.customWords": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "()",
+                    "description": "List of custom words to highlight in a specific color. e.g. (HELLO|WORLD)"
+                },
+                "MVBasic.customWordColor": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "yellow",
+                    "description": "The color to use when highlighting the custom words."
+                },
+                "MVBasic.customWordPath": {
+                    "scope": "resource",
+                    "type": "string",
+                    "description": "Path to a file that contains key value pairs for custom words"
+                },
+                "MVBasic.customFunctionPath": {
+                    "scope": "resource",
+                    "type": "string",
+                    "description": "Path to a file that contains key value pairs for custom functions"
+                },
+                "MVBasic.indent": {
+                    "scope": "resource",
+                    "type": "number",
+                    "default": 3,
+                    "description": "The number of characters to use when indenting code blocks."
+                },
+                "MVBasic.indentComment": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "ignore",
+                    "description": "Indentation of comment lines.  Set to: left, margin, code, or ignore."
+                },
+                "MVBasic.maxNumberOfProblems": {
+                    "scope": "resource",
+                    "type": "number",
+                    "default": 100,
+                    "description": "Controls the maximum number of problems produced by the server."
+                },
+                "MVBasic.useCamelCase": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Use Camelcase for Intellisense keywords."
+                },
+                "MVBasic.formattingEnabled": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Set to true to enable automatic code formatting on filesave."
+                },
+                "MVBasic.formatStructure": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Set to true to enable cleaner code block structures for code folding."
+                },
+                "MVBasic.userVariablesEnabled": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Set to true to enable adding user variables to Intellisense."
+                },
+                "MVBasic.RemoteHost": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "",
+                    "description": "The host name of the server."
+                },
+                "MVBasic.UserName": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "",
+                    "description": "The user name to use to login to the server."
+                },
+                "MVBasic.encoding": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "iso8859-1",
+                    "description": "The encoding type to use when connecting to the server."
+                },
+                "MVBasic.ignoreGotoScope": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "The linter will not highlight goto that jump into the middle of loops."
+                },
+                "MVBasic.Password": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "",
+                    "description": "The password to use to login to the server."
+                },
+                "MVBasic.AccountPassword": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "",
+                    "description": "The password to use to use for D3/mvBase Logto."
+                },
+                "MVBasic.HomePath": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "c:\\u2\\ud81",
+                    "description": "The home path for Unidata on server. This is only required for Unidata."
+                },
+                "MVBasic.Account": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "",
+                    "description": "The Account Name or path on the Server."
+                },
+                "MVBasic.AccountPath": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "",
+                    "description": "The path the Unidata Account. This is only used for Unidata."
+                },
+                "MVBasic.ServerName": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "",
+                    "description": "The name of the AccuTerm FTSERVER session which handles the MVRest connection."
+                },
+                "MVBasic.RemoteDebug": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": "false",
+                    "description": "Set to true when connecting to a Remote MVON# Host."
+                },
+                "MVBasic.EditFiles": {
+                    "scope": "resource",
+                    "type": "array",
+                    "default": [],
+                    "description": "Files that should be opened in the editor."
+                },
+                "MVBasic.GatewayType": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "",
+                    "description": "The type of host the gateway is connecting to. QM, D3, Universe, Unidata,jBASE or mvBase."
+                },
+                "MVBasic.UseGateway": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Connect to the MV Gateway."
+                },
+                "MVBasic.UseRestFS": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Use the RestFS file system for accessing the MultiValue server."
+                },
+                "MVBasic.RestPath": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "http://localhost:9005/mvonrest",
+                    "description": "The URL when connecting via the RestFS file system."
+                },
+                "MVBasic.RestFS.AutoConnect": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Automatically connect to the RestFS server without requiring a Connect command."
+                },
+                "MVBasic.RestFS.CaseSensitive": {
+                    "scope": "resource",
+                    "type": "boolean",
+                    "default": true,
+                    "description": "The RestFS file system is case sensitive."
+                },
+                "MVBasic.RestFS.MaxItems": {
+                    "scope": "resource",
+                    "type": "number",
+                    "default": 500,
+                    "description": "The maximum number of items the RestFS file system can return when reading a directory."
+                },
+                "MVBasic.RestFS.SelAttr": {
+                    "scope": "resource",
+                    "type": "number",
+                    "default": 0,
+                    "description": "A bitmask of RestFSAttr which limits the items are returned when reading a directory. Default is: folder, file, symlink and data-only."
+                },
+                "MVBasic.RestFS.RestAPI": {
+                    "scope": "resource",
+                    "type": "number",
+                    "default": 0,
+                    "description": "The RestFS API version to use. 0 for original MVON# REST gateway, 1 for new gateway, mvConnect, AccuTerm connector."
+                },
+                "MVBasic.trace.server": {
+                    "scope": "window",
+                    "type": "string",
+                    "enum": [
+                        "off",
+                        "messages",
+                        "verbose"
+                    ],
+                    "default": "off",
+                    "description": "Traces the communication between VSCode and the language server."
+                },
+                "MVBasic.languageType": {
+                    "scope": "resource",
+                    "type": "string",
+                    "default": "MVON",
+                    "enum": [
+                        "MVON",
+                        "jBASE",
+                        "UniVerse",
+                        "OpenQM"
+                    ],
+                    "description": "The flavor of PICK you are programming against, i.e. MVON, D3, jBASE."
+                }
+            }
         }
-      }
+    },
+    "activationEvents": [
+        "*",
+        "onLanguage:mvbasic",
+        "onCommand:extension.compileProgram",
+        "onCommand:extension.catalogProgram",
+        "onCommand:extension.CompileDebug",
+        "onFileSystem:RestFS",
+        "onCommand:extension.initialiseRestFS"
+    ],
+    "main": "./client/out/extension",
+    "scripts": {
+        "vscode:prepublish": "cd client && webpack --mode production && cd ../server && webpack --mode production",
+        "webpack": "cd client && webpack --mode development && cd ../server && webpack --mode development",
+        "webpack-dev": "cd client && webpack --mode development --watch && cd ../server && webpack --mode development --watch",
+        "compile": "tsc -b",
+        "watch": "tsc -b -w",
+        "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
+        "test": "bash ./scripts/e2e.sh"
+    },
+    "devDependencies": {
+        "@types/mocha": "^8.0.3",
+        "@types/node": "^14.14.16",
+        "@typescript-eslint/parser": "^2.3.0",
+        "eslint": "^6.4.0",
+        "mocha": "^10.2.0",
+        "ts-loader": "^8.0.12",
+        "typescript": "^4.0.2",
+        "webpack": "^5.11.0",
+        "webpack-cli": "^4.2.0"
+    },
+    "dependencies": {
+        "mvbasic": "file:"
     }
-  },
-  "activationEvents": [
-    "*",
-    "onLanguage:mvbasic",
-    "onCommand:extension.compileProgram",
-    "onCommand:extension.catalogProgram",
-    "onCommand:extension.CompileDebug",
-    "onFileSystem:RestFS",
-    "onCommand:extension.initialiseRestFS"
-  ],
-  "main": "./client/out/extension",
-  "scripts": {
-    "vscode:prepublish": "cd client && webpack --mode production && cd ../server && webpack --mode production",
-    "webpack": "cd client && webpack --mode development && cd ../server && webpack --mode development",
-    "webpack-dev": "cd client && webpack --mode development --watch && cd ../server && webpack --mode development --watch",
-    "compile": "tsc -b",
-    "watch": "tsc -b -w",
-    "postinstall": "cd client && npm install && cd ../server && npm install && cd ..",
-    "test": "bash ./scripts/e2e.sh"
-  },
-  "devDependencies": {
-    "@types/mocha": "^8.0.3",
-    "@types/node": "^14.14.16",
-    "@typescript-eslint/parser": "^2.3.0",
-    "eslint": "^6.4.0",
-    "mocha": "^10.2.0",
-    "ts-loader": "^8.0.12",
-    "typescript": "^4.0.2",
-    "webpack": "^5.11.0",
-    "webpack-cli": "^4.2.0"
-  },
-  "dependencies": {}
 }
