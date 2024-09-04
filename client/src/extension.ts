@@ -285,7 +285,7 @@ export function activate(context: vscode.ExtensionContext) {
 				let rBlockEndCase = new RegExp("^end case$", "i")
 				let rBlockTransaction = new RegExp("^(begin transaction|begin work)", "i")
 				let rBlockEndTransaction = new RegExp("^(end transaction|end work)", "i")
-				let rElseEnd = new RegExp("^end else\\s+?.+?", "i")
+				let rElseEnd = new RegExp("^end\\s(else|then)\\s+?.+?", "i")
 				let rFormatSructure = new RegExp("^\\s*(function|program|return|stop|sub|subroutine)\\b.*$", "i");
 				let rLabel = new RegExp("^([\\w\\.\\$]+:(?!=)|[0-9\\.]+)");
 				let rComment = new RegExp("^\\s*(\\*|!|REM\\s+?).*", "i")

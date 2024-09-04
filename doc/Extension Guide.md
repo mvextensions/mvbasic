@@ -701,6 +701,7 @@ The following settings are available to customize your VS Code MV Basic Develope
 | MVBasic.useCamelCase      | Use CamelCase for Intellisense keywords.                               |
 | MVBasic.ignoreGotoScope   | The linter will not highlight goto that jump into the middle of loops. |
 | MVBasic.formattingEnabled | Set to true to enable automatic code formatting on filesave.           |
+| MVBasic.formatStructure   | Set to true align program for code folding on format.                  |
 
 ## 8. Recommended reading/extensions
 

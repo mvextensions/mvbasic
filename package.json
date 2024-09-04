@@ -331,7 +331,7 @@
                 "MVBasic.languageType": {
                     "scope": "resource",
                     "type": "string",
-                    "default": "MVON",
+                    "default": "UniVerse",
                     "enum": [
                         "MVON",
                         "jBASE",
