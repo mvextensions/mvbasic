@@ -49,7 +49,7 @@ All other trademarks and service marks are property of their respective holders.
     - [7.4 jBASE](#74-jbase)
     - [7.5 D3](#75-d3)
     - [7.6 mvBase](#76-mvbase)
-    - [7.7 MVON#](#77-mvon)
+    - [7.7 MVON](#77-mvon)
     - [7.8 Associating Programs with the MVextension](#78-associating-programs-with-the-mvextension)
     - [7.9 Additional MV Basic Developer Settings](#79-additional-mv-basic-developer-settings)
   - [8. Recommended reading/extensions](#8-recommended-readingextensions)
@@ -623,7 +623,7 @@ MSVP must be configured for the above account and the user must have MSVP access
 
 MSVP must be configured for the above account and the user must have MSVP access. A record in the `MD` called `VSCodeFILES` can be used as a list of available files, alternatively all files are displayed.
 
-### 7.7 MVON&#35;
+### 7.7 MVON
 
 ```json
 {
