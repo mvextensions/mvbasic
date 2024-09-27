@@ -108,3 +108,8 @@
 
 - QM language improvements
 - Package updates
+
+### 2.1.7
+
+- Added `Format Structure` setting to assist with code folding
+- Package updates
