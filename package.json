@@ -39,9 +39,6 @@
         "Snippets"
     ],
     "homepage": "https://github.com/mvextensions",
-    "files": [
-        "C:/Program files (x86)/ONGroup/MVON#/MVON#.d.ts"
-    ],
     "contributes": {
         "snippets": [
             {
