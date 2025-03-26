@@ -352,7 +352,7 @@
     "main": "./client/out/extension",
     "scripts": {
         "vscode:prepublish": "cd client && webpack --mode production && cd ../server && webpack --mode production",
-        "webpack": "cd client && webpack --mode development && cd ../server && webpack --mode development",
+        "webpack": "cd client && webpack --mode production && cd ../server && webpack --mode production",
         "webpack-dev": "cd client && webpack --mode development --watch && cd ../server && webpack --mode development --watch",
         "compile": "tsc -b",
         "watch": "tsc -b -w",
