@@ -29,6 +29,7 @@ var margin: number;
 var indent: number;
 var indentComment: string;
 var formattingEnabled: boolean;
+var formatStructure: boolean;
 var editFiles: any;
 var customWordColor: any;
 var customWordlist: string;
@@ -88,6 +89,7 @@ export function activate(context: vscode.ExtensionContext) {
 		indent = vscode.workspace.getConfiguration("MVBasic").get("indent");
 		indentComment = vscode.workspace.getConfiguration("MVBasic").get("indentComment");
 		formattingEnabled = vscode.workspace.getConfiguration("MVBasic").get("formattingEnabled");
+		formatStructure = vscode.workspace.getConfiguration("MVBasic").get("formatStructure");
 		editFiles = vscode.workspace.getConfiguration("MVBasic").get("EditFiles");
 		customWordColor = vscode.workspace.getConfiguration("MVBasic").get("customWordColor");
 		customWordlist = vscode.workspace.getConfiguration("MVBasic").get("customWords");
@@ -283,7 +285,8 @@ export function activate(context: vscode.ExtensionContext) {
 				let rBlockEndCase = new RegExp("^end case$", "i")
 				let rBlockTransaction = new RegExp("^(begin transaction|begin work)", "i")
 				let rBlockEndTransaction = new RegExp("^(end transaction|end work)", "i")
-				let rElseEnd = new RegExp("^end else\\s+?.+?", "i")
+				let rElseEnd = new RegExp("^end\\s(else|then)\\s+?.+?", "i")
+				let rFormatSructure = new RegExp("^\\s*(function|program|return|stop|sub|subroutine)\\b.*$", "i");
 				let rLabel = new RegExp("^([\\w\\.\\$]+:(?!=)|[0-9\\.]+)");
 				let rComment = new RegExp("^\\s*(\\*|!|REM\\s+?).*", "i")
 				let tComment = new RegExp(";\\s*(\\*|!|REM\\s+?).*", "i");
@@ -417,6 +420,11 @@ export function activate(context: vscode.ExtensionContext) {
 							}
 						}
 					}
+
+               // structural elements - hard left
+               if (formatStructure && rFormatSructure.test(lineText)) {
+                  indentation = 0;
+               }
 
 					if (new RegExp("(^case\\s)", "i").test(lineText)) {
 						indentation -= indent
